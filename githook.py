@@ -8,7 +8,7 @@ import os
 from hashlib import sha1
 
 app = Blueprint('githook', __name__)
-paths = {'refs/heads/master': '/var/crypto-portal/'
+paths = {'refs/heads/master': '/var/crypto-portal/',
          'refs/heads/devel': '/var/crypto-devel/'}
 
 @app.route("/githook", methods=['POST'])
