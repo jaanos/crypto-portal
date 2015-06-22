@@ -10,4 +10,4 @@ app.register_blueprint(steganography_app, url_prefix = '/steganography')
 
 @app.route("/")
 def main():
-    return "Under construction!"
+    return "The site is currently under construction!"
