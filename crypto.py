@@ -9,5 +9,6 @@ app.register_blueprint(githook_app)
 app.register_blueprint(steganography_app, url_prefix = '/steganography')
 
 @app.route("/")
+@app.route("/index")
 def main():
     return render_template("start.html")
