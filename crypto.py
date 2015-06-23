@@ -11,11 +11,3 @@ app.register_blueprint(steganography_app, url_prefix = '/steganography')
 @app.route("/")
 def main():
     return "The site is currently under construction!"
-
-@app.route('/static/<path:filename>')
-def static(filename):
-    return static_file(filename, root='static')
-
-@app.route('/favicon.ico')
-def favicon():
-    return static_file('favicon.ico', root='static')
