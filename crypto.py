@@ -1,5 +1,4 @@
 from flask import *
-import auth
 from githook import app as githook_app
 from substitution import app as substitution_app
 from steganography import app as steganography_app
