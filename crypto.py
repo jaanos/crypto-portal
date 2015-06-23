@@ -1,5 +1,5 @@
 from flask import * 
-
+from common import *
 import auth
 from githook import app as githook_app
 from steganography import app as steganography_app
@@ -10,4 +10,4 @@ app.register_blueprint(steganography_app, url_prefix = '/steganography')
 
 @app.route("/")
 def main():
-    return "The site is currently under construction!"
+    return crypto_template("start.html")

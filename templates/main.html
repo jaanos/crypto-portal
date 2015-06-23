@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	    <title>Kriptogram</title>
+	    <link rel="shortcut icon" href="favicon.ico"/>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+	    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	    <link rel="stylesheet" type="text/css" href="style.css" />
+	</head>
+	<body>
+		<div class="wrapper col-lg-12 col-md-12 col-sm-12">
+					<div class="container logo">
+					   <div class="navbar-inner">
+					     <div class="container">
+					        <a class="brand" href="index.html"> <img src="./logo1.png" class="img-responsive img-rounded" width="100%"></a>
+					     </div>
+					   </div>
+					</div>
+		</div>
+		<div class="container">
+		   <div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12">
+				<nav class="navbar navbar-default" id="menu">
+				  <div class="container-fluid">
+				    <div class="navbar-header">
+				      <a class="navbar-brand" href="index.html">Kriptogram</a>
+				    </div>
+				    <div>
+				      <ul class="nav navbar-nav">
+				        <li class="active"><a href="./index.html">Domov</a></li>
+				        <ul class="nav navbar-nav navbar-right">
+							<li class="dropdown">
+							  <a href="igra/index.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Igra<span class="caret"></span></a>
+							  <ul class="dropdown-menu" role="menu">
+							    <li><a>Težavnosti</a></li>
+							    <li class="divider"></li>
+							    <li><a href="igra/lahko/index.html">Lahko</a></li>
+							    <li><a href="igra/srednje/index.html">Srednje</a></li>
+							    <li><a href="igra/težko/index.html">Težko</a></li>
+							  </ul>
+							</li>
+						</ul>
+				      </ul>
+				    </div>
+				  
+				  <form class="navbar-form navbar-right" role="search">
+					  <div class="form-group">
+					    <input type="text" class="form-control" placeholder="Search">
+					  </div>
+					  <button type="submit" class="btn btn-default">Išči</button>
+					</form>
+				</nav>
+				</div>
+			</div>
+        </div>
+		
+		{{content}}
+
+     	</div>
+	</body>
+</html>
