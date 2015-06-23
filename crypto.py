@@ -10,4 +10,4 @@ app.register_blueprint(steganography_app, url_prefix = '/steganography')
 
 @app.route("/")
 def main():
-    return crypto_template("start.html")
+    return render_template("start.html")

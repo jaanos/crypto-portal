@@ -1,12 +1,6 @@
-<!doctype html>
-<!-- Adapted from https://jqueryui.com/slider/#colorpicker -->
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Izbira barve</title>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+{% extends "main.html" %}
+{% block body %}
+  
   <style>
   #sliders {
     float: left;
@@ -91,24 +85,35 @@
   });
   </script>
 </head>
-<body class="ui-widget-content" style="border:0;">
- 
-<p class="ui-state-default ui-corner-all ui-helper-clearfix" style="padding:4px;">
-  <span class="ui-icon ui-icon-pencil" style="float:left; margin:-2px 5px 0 0;"></span>
-  Izbira barve
-</p>
 
-<div id="sliders"> 
-<div id="red"></div>
-<input type="number" name="red" id="inred" value="0">
-<div id="green"></div>
-<input type="number" name="green" id="ingreen" value="0">
-<div id="blue"></div>
-<input type="number" name="blue" id="inblue" value="0">
+<div class="row">
+   <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading" id="glava">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <b><span class="pozdrav1">Izbira barve</span></b>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="container-fluid">
+                    <div class="row-fluid">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div id="sliders">
+                                <div id="red"></div>
+                                <input type="number" name="red" id="inred" value="0">
+                                <div id="green"></div>
+                                <input type="number" name="green" id="ingreen" value="0">
+                                <div id="blue"></div>
+                                <input type="number" name="blue" id="inblue" value="0">
+                            </div>
+                            <div id="swatch" class="ui-widget-content ui-corner-all"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
- 
-<div id="swatch" class="ui-widget-content ui-corner-all"></div>
- 
- 
-</body>
-</html>
+{% endblock %}

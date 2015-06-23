@@ -8,14 +8,17 @@
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 	    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
 	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-	    <link rel="stylesheet" type="text/css" href="style.css" />
+	    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}" />
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	</head>
 	<body>
 		<div class="wrapper col-lg-12 col-md-12 col-sm-12">
 					<div class="container logo">
 					   <div class="navbar-inner">
 					     <div class="container">
-					        <a class="brand" href="."> <img src="static/logo1.png" class="img-responsive img-rounded" width="100%"></a>
+					        <a class="brand" href="{{url_for('/')}}"> <img src="{{url_for('static', filename='logo1.png')}}" class="img-responsive img-rounded" width="100%"></a>
 					     </div>
 					   </div>
 					</div>
@@ -26,20 +29,20 @@
 				<nav class="navbar navbar-default" id="menu">
 				  <div class="container-fluid">
 				    <div class="navbar-header">
-				      <a class="navbar-brand" href=".">Kriptogram</a>
+				      <a class="navbar-brand" href="{{url_for('/')}}">Kriptogram</a>
 				    </div>
 				    <div>
 				      <ul class="nav navbar-nav">
-				        <li class="active"><a href=".">Domov</a></li>
+				        <li class="active"><a href="{{url_for('/')}}">Domov</a></li>
 				        <ul class="nav navbar-nav navbar-right">
 							<li class="dropdown">
-							  <a href="substitution" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Igra<span class="caret"></span></a>
+							  <a href="{{url_for('substitution')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Igra<span class="caret"></span></a>
 							  <ul class="dropdown-menu" role="menu">
 							    <li><a>Težavnosti</a></li>
 							    <li class="divider"></li>
-							    <li><a href="substitution?dif=easy">Lahko</a></li>
-							    <li><a href="substitution?dif=medium">Srednje</a></li>
-							    <li><a href="substitution?dif=hard">Težko</a></li>
+							    <li><a href="{{url_for('substitution/easy')}}">Lahko</a></li>
+							    <li><a href="{{url_for('substitution/medium')}}">Srednje</a></li>
+							    <li><a href="{{url_for('substitution/hard')}}">Težko</a></li>
 							  </ul>
 							</li>
 						</ul>
@@ -57,7 +60,8 @@
 			</div>
         </div>
 		
-		{{content}}
+		{% block body %}
+		{% endblock %}
 
      	</div>
 	</body>
