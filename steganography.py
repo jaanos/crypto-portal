@@ -9,7 +9,7 @@ def index():
 
 @app.route("/colors")
 def colors():
-    return render_template("colors.html", nav = "steganography")
+    return render_template("steganography.colors.html", nav = "steganography")
 
 @app.route("/images")
 def images():
