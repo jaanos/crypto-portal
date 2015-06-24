@@ -82,8 +82,11 @@ function updateEssentialsSecondly(){
 
 // returns the message as an array of words for displaying the message and controlling text wrapping
 function getCryptedMessage(){
+    //$('#messageOutput').val("");
+	$("#messageOutput").html("");
     var crypt = new Array(); // array of strings each representing a word
 	
+    $('#messageOutput').append(input);
     var i = 0; // index of the current character being investigated
     var currentWord = "";
     while (i < input.length){ // loop through every letter in the input
