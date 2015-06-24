@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import *
-import auth
+from auth import gitkey
 import json
 import hmac
 import ast
@@ -20,7 +20,7 @@ def githook():
         return json.dumps({'msg': "wrong event type"})
     payload = json.loads(request.data)
     signature = request.headers.get('X-Hub-Signature').split('=')[1]
-    mac = hmac.new(auth.gitkey, msg=request.data, digestmod=sha1)
+    mac = hmac.new(gitkey, msg=request.data, digestmod=sha1)
     if not compare_digest(mac.hexdigest(), signature):
         abort(403)
     if "ref" in payload and payload["ref"] in paths:
