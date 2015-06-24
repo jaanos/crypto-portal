@@ -1,0 +1,7 @@
+# Rename to auth.py
+# This sample data should be enough to test the site
+db = 'database'
+dbuser = 'username'
+dbpass = 'password'
+
+gitkey = 'github-secret'
