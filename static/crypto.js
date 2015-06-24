@@ -410,7 +410,7 @@ function nextButton(){
     button.setAttribute("value", "Next");
     button.setAttribute("id", "next");
     button.setAttribute("class","btn btn-default btn-bg");
-    button.setAttribute("onclick", "location.reload();");
+    button.setAttribute("onclick", "location.href = next;");
     button.textContent = "Naslednji";
     return button;
 }
