@@ -13,33 +13,6 @@ var cryptedMessage = null; // original message input by user to the message box
 var frequencyTable = null; // table of letter frequencies in the original message
 var ALPHABET = null; // array containing the 25 letters in the english alphabet for resetting
 
-var vvv = '';
-function crypt() {
-    var upr = 'ABCČDEFGHIJKLMNOPRSŠTUVXZŽ';
-    var ch = upr.split('');
-
-    function randOrd(){
-        return (Math.round(Math.random())-0.5); 
-    }
-
-    ch.sort(randOrd);
-    ch[26] = ch[0];
-    var fin = false;
-    while (!fin) {
-        for (var i = 0; i < 26; i++) {
-            if (ch[i] == upr.charAt(i)) {
-                var t = ch[i];
-                ch[i] = ch[i+1];
-                ch[i+1] = t;
-            }   
-        }
-        if (ch[26] == ch[0]) fin = true; 
-        else ch[0] = ch[26];
-    }
-    upr = ch.join(''); 
-    return upr.substring(0,26);
-}
-
 function stripBlanks(fld) {
     var result = "";
     var c = 0;
@@ -50,30 +23,6 @@ function stripBlanks(fld) {
         }
       }
     return result.substr(0,c);
-}
-
-function addQ(q) {
-    if (q === '' || q === undefined) {
-        return false;
-    }
-    var t = q.toUpperCase();
-	t = t.split(", ").join(",");
-	t = t.split(". ").join(".");
-	//var t = q;
-    var ary = crypt();
-    var s = '';
-    //t = t.replace(/\r/g,'');
-    for (var i = t.length - 1; i >= 0; i--) {
-        var a = t.charCodeAt(i);
-        //console.log(a);
-        if (a === code('Č'))  a = code('Q');
-        else if (a === code('Š'))   a = code('X');
-        else if (a === code('Ž'))  a = code('Y');
-        if (a > 64 && a < 91)   s = ary.charAt(a - 65)+s;
-        else    s = t.charAt(i)+s;
-    }
-    vvv = s;
-    return vvv;
 }
 
 /*
@@ -95,13 +44,13 @@ function initialize(st){
     var A = "A".charCodeAt(0);
     for (var i = 0; i < 26; i++){ // fill alphabet array
         var newChar = String.fromCharCode(A + i);
-        if(newChar === 'Q' || newChar === 'W' || newChar === 'X' || newChar === 'Y')    continue;
+        if(!foreign && (newChar === 'Q' || newChar === 'W' || newChar === 'X' || newChar === 'Y'))    continue;
         ALPHABET.push(newChar);
         if(newChar === 'C')  ALPHABET.push('Č');
         if(newChar === 'S')  ALPHABET.push('Š');
         if(newChar === 'Z')  ALPHABET.push('Ž');
     }
-
+    
     freeLetters = ALPHABET.slice(0); // reset the freeLetters array to a copy of the ALPHABET array
     //window.onresize = updateEssentials;
     updateEssentials(); // adds the letter selection, message display, and frequency tables
@@ -131,29 +80,10 @@ function updateEssentialsSecondly(){
     coreLogic.appendChild(newFrequencyDisplay());
 }
 
-// index of text file 
-var num = Math.floor((Math.random() * 10));;
-//	number of all files
-var N = 9;
-// make a synchronous call
-
-
 // returns the message as an array of words for displaying the message and controlling text wrapping
 function getCryptedMessage(){
     var crypt = new Array(); // array of strings each representing a word
-    //var input = addQ("KADAR SLEDITE SVOJI SREČI SE VAM BODO ODPRLA VRATA TAM, KODER STE MISLILI, DA JIH SPLOH NI; IN KODER TUDI NI VRAT ZA NIKOGAR DRUGEGA.");
-    //var input = addQ("Človeka osrečijo njegovi lastni napori, brž ko spozna potrebne prvine za srečo - preproste užitke, določeno mero poguma, nesebičnost, ljubezen do dela in predvsem čisto vest. Zdaj sem prepričana, da sreča niso le prazne sanje.");
-	var input;
-	if(ind === 1){	
-		input = addQ("KADAR SLEDITE SVOJI SREČI SE VAM BODO ODPRLA VRATA TAM, KODER STE MISLILI, DA JIH SPLOH NI; IN KODER TUDI NI VRAT ZA NIKOGAR DRUGEGA.");
-	}    
-    else  //input = addQ(textS[0]); 
-	input = addQ(textS[num]); 
 	
-    //console.log(input);
-	num++;
-	num = num%(N);
-	console.log(num);
     var i = 0; // index of the current character being investigated
     var currentWord = "";
     while (i < input.length){ // loop through every letter in the input
@@ -480,7 +410,7 @@ function nextButton(){
     button.setAttribute("value", "Next");
     button.setAttribute("id", "next");
     button.setAttribute("class","btn btn-default btn-bg");
-    button.setAttribute("onclick", "next();");
+    button.setAttribute("onclick", "location.reload();");
     button.textContent = "Naslednji";
     return button;
 }
@@ -510,7 +440,7 @@ function getElementByAttributeValue(attribute, value)
   }
     return matches;
 }
-var textS = ["William Herschel se je zapisal v zgodovino astronomije kot konstruktor\ndaljnogledov,kot neumoren opazovalec neba,prvi raziskovalec Rimske ceste in drugih galaksij.Kot mladenič je iz rodne Nemčije pobegnil v Anglijo.V začetku je bil godbenik,komponist in učitelj glasbe, kasneje pa je spremenil poklic in postal eden največjih astronomov.Bil je samouk v glasbi in v astronomiji. Gradil je vse večje daljnoglede,ki jih je pošiljal na vse strani.", "Kopernik je s svojim delom močno vplival na vso znanost in spremenil človekov pogled na svet. Živel in ustvarjal je na prehodu iz srednjega veka v novi vek, ko so fevdalno družbo pretresali pomembni dogodki. Znanje astronomije je bilo nujno potrebno pri trgovanju na dolgih morskih poteh. Misel o okrogli Zemlji je postajala splošno znana. Vsemu temu je sledila še  nova predstava o zgradbi vesolja. Do Kopernika so mislili, da je Zemlja nepremična, da leži v središču vesoljstva in da se vse zvezde, planeti, Sonce in Luna gibljejo okoli nje." ,"Rodil se je v revni kmečki družini v zasavskem hribovju. Kot matematika ga najbolj poznamo kot avtorja njegovih logaritmov, s katerimi so računali po svetu v znanosti, šolstvu in vsakdanjem življenju vse do množične uporabe elektronskih računalnikov. Kot profesor matematike na šoli je napisal matematična in fizikalna učbenika. Čeprav je Vega s svojimi logaritmi zaslovel predvsem kot matematik, je bil večji del njegovih razprav in učbenikov posvečenih fiziki. Njegova dela v fiziki zajemajo vsa področja mehanike, predvsem teorijo gravitacije in z njo povezano astronomijo.", "Ideje o dveh gibanjih Zemlje, o vrtenju okoli njene osi in kroženju okoli Sonca, so izrekli že nekateri filozofi starega veka. Te misli so utonile v pozabo. Povzel jih je Kopernik, ki je postavil Sonce v središče našega planetnega sistema, Zemljo pa premaknil v vrsto planetov, ki se gibljejo okoli Sonca. Kopernikov nauk je pomenil prelom s številnimi tradicijami in dotedanjim svetovnim nazorom. Ves srednjeveški svet se je naslanjal na nespremenljivost obstoječega reda. Le drzni ljudje so si upali izreči misel o gibanju Zemlje.", "William Herschel se je zapisal v zgodovino astronomije kot konstruktor daljnogledov, kot neumoren opazovalec neba, prvi raziskovalec Rimske ceste in drugih galaksij. Kot mladenič je iz rodne Nemčije pobegnil v Anglijo. V začetku je bil godbenik, komponist in učitelj glasbe, kasneje pa je spremenil poklic in postal eden največjih astronomov. Bil je samouk v glasbi in v astronomiji. Gradil je vse večje daljnoglede, ki jih je pošiljal na vse strani.", "Kolmogorov se je ukvarjal s širokim poljem matematike. Opredelil je matematične osnove verjetnostne teorije in algoritmične teorije naključnosti ter prispeval ključne prispevke k osnovam statistčne mehanike, stohastičnih procesov, teorije informacije, mehanike tekočin in nelinearne dinamike. Vsa ta področja in njihovi odnosi so osnova za kompleksne sisteme, kot jih danes preučujejo.", "S svojimi daljnogledi je štirikrat skrbno pregledal vse nebo, ki ga je lahko videl iz Anglije. Pri tem je našel nov planet ­ Uran. Glavne raziskave je posvetil zvezdam. S svojimi daljnogledi je lahko prodrl globoko v vesolje. Pri tem je ugotovil, da Osončje ne miruje.", "V vsakdanjem življenju imenujemo paradoks nekaj, kar je sicer resnično, pa vendar v nasprotju z našimi predstavami in izkušnjami. Sklepanje iz navidezno pravilnih dejstev, ki nas privedejo do nesmiselnega rezultata, ravno tako imenujemo paradoks.", "Kako znan je bil ta priimek v svetu, pripoveduje naslednji dogodek. Ko je moral nekoč Herschel na meji pokazati potni list, je carinik začuden vzkliknil: \"Herschel, to vendar ni priimek, to je zvezda!\"" ];
+
 /*
  * isLetter - determines whether a letter is between A and Z 
  * Note that every letter passed as an argument will be changed to uppercase

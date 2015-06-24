@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from flask import *
 from githook import app as githook_app
 from substitution import app as substitution_app

@@ -2,6 +2,8 @@
 {% block body %}
 <script type="text/javascript" src = "{{url_for('static', filename='crypto.js')}}"></script>
 <script type="text/javascript">
+    input = "{{input}}"
+    foreign = {% if foreign %} true {% else %} false {% endif %}
     window.onload = function(){initialize({{level}});};
 </script>
 
