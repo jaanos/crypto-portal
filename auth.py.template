@@ -2,21 +2,9 @@
 # This sample data should be enough to test the parts of the site
 # which do not require a database connection
 
-import MySQLdb
-
-class Database:
-    dbase = 'database'
-    dbuser = 'username'
-    dbpass = 'password'
-    dbhost = 'localhost'
-    db = None
-
-    def dbcon(self):
-        if self.db == None or not self.db.open:
-            self.db = MySQLdb.connect(host=self.dbhost, user=self.dbuser,
-                                        passwd=self.dbpass, db=self.dbase)
-        return self.db
-
-database = Database()
+dbase = 'database'
+dbuser = 'username'
+dbpass = 'password'
+dbhost = 'localhost'
 
 gitkey = 'github-secret'
