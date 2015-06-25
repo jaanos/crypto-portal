@@ -1,16 +1,22 @@
 # Rename to auth.py
-# This sample data should be enough to test the site
+# This sample data should be enough to test the parts of the site
+# which do not require a database connection
 
 import MySQLdb
 
-dbase = 'database'
-dbuser = 'username'
-dbpass = 'password'
-db = None
+class Database:
+    dbase = 'database'
+    dbuser = 'username'
+    dbpass = 'password'
+    dbhost = 'localhost'
+    db = None
 
-def dbcon():
-    if db = None or not db.open:
-        db = MySQLdb.connect(host="127.0.0.1", user=dbuser, passwd=dbpass, db=dbase)
-    return db
+    def dbcon(self):
+        if self.db == None or not self.db.open:
+            self.db = MySQLdb.connect(host=self.dbhost, user=self.dbuser,
+                                        passwd=self.dbpass, db=self.dbase)
+        return self.db
+
+database = Database()
 
 gitkey = 'github-secret'
