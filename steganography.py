@@ -2,6 +2,7 @@
 from flask import *
 from database import database
 from PIL import Image
+from StringIO import StringIO
 
 app = Blueprint('steganography', __name__)
 
@@ -20,20 +21,22 @@ def images(idx=1):
     cur = db.cursor()
     cur.close()
     return render_template("steganography.images.html")
-    
-def img2data(img):
-    pa = img.pixel_access()
-    return ''.join([''.join([''.join([chr(pa[i, j][k])
-                                        for k in range(img.bands)])
-                                for j in range(img.size[1])])
-                    for i in range(img.size[0])])
 
-def data2img(data, width, height, bands, mode):
-    img = Image.new(mode, (width, height))
-    pa = img.getdata().pixel_access()
-    k = 0
-    for i in range(width):
-        for j in range(height):
-            pa[i, j] = tuple(ord(x) for x in data[k:k+bands])
-            k += bands
-    return img
+@app.route("/show/<int:idx>")
+def show(idx):
+    db = database.dbcon()
+    cur = db.cursor()
+    cur.execute("SELECT width, height, mode, data FROM slika WHERE id = %s", idx)
+    r = cur.fetchone()
+    cur.close()
+    if r == None:
+        abort(404)
+    width, height, mode, data = r
+    img = Image.frombytes(mode, (width, height), data)
+    out = StringIO()
+    img.save(out, format="PNG")
+    contents = out.getvalue()
+    out.close()
+    response = make_response(contents)
+    response.headers['Content-Type'] = 'image/png'
+    return response
