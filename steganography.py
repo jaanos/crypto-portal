@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import *
-from auth import database
+from database import database
 from PIL import Image
 
 app = Blueprint('steganography', __name__)
