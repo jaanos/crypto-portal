@@ -3,6 +3,7 @@ from flask import *
 from database import database
 from PIL import Image
 from StringIO import StringIO
+import os
 import re
 import json
 import random
@@ -20,6 +21,8 @@ def colors():
 @app.route("/images")
 @app.route("/images/<int:idx>", methods=['GET', 'POST'])
 def images(idx=None):
+    if 'sessid' not in session:
+        session['sessid'] = os.urandom(16)
     db = database.dbcon()
     cur = db.cursor()
     if request.method == 'POST':
@@ -48,24 +51,25 @@ def images(idx=None):
                 outimg.save(out, format="PNG")
                 png = out.getvalue()
                 out.close()
-                cur.execute("INSERT INTO slika (name, data) VALUES (%s, %s)", (newname, png))
+                cur.execute("INSERT INTO slika (name, data, session) VALUES (%s, %s, %s)",
+                            (newname, png, session['sessid']))
                 db.commit()
                 return redirect(url_for(".images", idx = cur.lastrowid))
             except:
                 text = text[:-1]
                 error = True
-                errstr = "Datoteka že obstaja!"
+                errstr = u"Datoteka že obstaja!"
         else:
             text = text[:-1]
             error = True
-            errstr = "Ime datoteke ni navedeno!"
+            errstr = u"Ime datoteke ni navedeno!"
     else:
         text = ""
         newname = ""
         offset = 0
         error = False
         errstr = ""
-    cur.execute("SELECT id, name, DATE_FORMAT(time, '%e.%c.%Y %H:%i') AS time FROM slika ORDER BY time DESC")
+    cur.execute("SELECT id, name, DATE_FORMAT(time, '%e.%c.%Y %H:%i') AS time, session FROM slika ORDER BY time DESC")
     imgs = cur.fetchall()
     if idx == None and len(imgs) > 0:
         idx = min(x[0] for x in imgs)
@@ -90,7 +94,7 @@ def images(idx=None):
     return render_template("steganography.images.html", idx=idx, name=name,
                     data=''.join("%d" % (ord(x)&1) for x in data), imgs=imgs,
                     text=text, newname=newname, offset=offset,
-                    error=error, errstr=errstr)
+                    error=error, errstr=errstr, session=session['sessid'])
 
 @app.route("/show/<int:idx>")
 def show(idx):

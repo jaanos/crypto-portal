@@ -79,8 +79,11 @@
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             Slike na voljo: <br /><br />
                             <table class="table table-hover">
-                                {% for id, name, time in imgs %}
+                                {% for id, name, time, sessid in imgs %}
                                 <tr>
+                                    <td>
+                                        {% if sessid == session %} X {% endif %}
+                                    </td>
                                     <td>
                                         <a href="{{url_for('.images', idx=id)}}">{{name}}</a>
                                     </td>
