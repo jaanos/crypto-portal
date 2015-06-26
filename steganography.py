@@ -10,6 +10,10 @@ import random
 
 app = Blueprint('steganography', __name__)
 
+def initSession():
+    if 'sessid' not in session:
+        session['sessid'] = os.urandom(16)
+
 @app.route("/")
 def index():
     return "TODO"
@@ -21,8 +25,7 @@ def colors():
 @app.route("/images")
 @app.route("/images/<int:idx>", methods=['GET', 'POST'])
 def images(idx=None):
-    if 'sessid' not in session:
-        session['sessid'] = os.urandom(16)
+    initSession()
     db = database.dbcon()
     cur = db.cursor()
     if request.method == 'POST':
@@ -108,3 +111,18 @@ def show(idx):
     response = make_response(r[0])
     response.headers['Content-Type'] = 'image/png'
     return response
+
+@app.route("/delete/<int:idx>/<int:ret>", methods=['POST'])
+def delete(idx, ret):
+    initSession()
+    db = database.dbcon()
+    cur = db.cursor()
+    cur.execute("DELETE FROM slika WHERE id = %s AND session = %s",
+                (idx, session['sessid']))
+    r = cur.fetchone()
+    c = cur.rowcount
+    cur.close()
+    if c == 0:
+        abort(403)
+    db.commit()
+    return redirect(url_for(".images", idx=ret))
