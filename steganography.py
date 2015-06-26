@@ -23,7 +23,7 @@ def images(idx=None):
     db = database.dbcon()
     cur = db.cursor()
     if request.method == 'POST':
-        text = request.form["text"] + '\0'
+        text = request.form["text"].encode("utf-8") + '\0'
         newname = request.form["newname"]
         try:
             offset = int(request.form["offset"])

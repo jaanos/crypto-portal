@@ -18,7 +18,7 @@
             if (ord == 0) break;
             out += String.fromCharCode(ord);
         }
-        $("#text").append(out)
+        $("#text").append($('<div/>').text(decodeURIComponent(escape(out))).html());
     }
 
     function checkEmpty() {
