@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from flask import *
 from auth import sesskey
 from githook import app as githook_app
