@@ -3,6 +3,7 @@ from flask import *
 from database import database
 from PIL import Image
 from StringIO import StringIO
+import re
 import json
 import random
 
@@ -28,35 +29,42 @@ def images(idx=None):
             offset = int(request.form["offset"])
         except:
             offset = 0
-        cur.execute("SELECT data FROM slika WHERE id = %s", idx)
-        r = cur.fetchone()
-        inimg = Image.open(StringIO(r[0]))
-        data = inimg.tobytes()
-        if offset < 0 or offset > len(data) - 7:
-            offset = 0
-        last = min(len(text), (len(data) - (offset%8))/8)
-        stego = [x for x in data]
-        for i in range(last):
-            o = ord(text[i])
-            for j in range(8):
-                stego[offset+8*i+j] = chr((ord(data[offset+8*i+j]) & 0xFE) | ((o >> (7-j)) & 1))
-        try:
-            outimg = Image.frombytes(inimg.mode, inimg.size, ''.join(stego))
-            out = StringIO()
-            outimg.save(out, format="PNG")
-            png = out.getvalue()
-            out.close()
-            cur.execute("INSERT INTO slika (name, data) VALUES (%s, %s)", (newname, png))
-            db.commit()
-            return redirect(url_for(".images", idx = cur.lastrowid))
-        except:
+        if len(newname) > 0:
+            cur.execute("SELECT data FROM slika WHERE id = %s", idx)
+            r = cur.fetchone()
+            inimg = Image.open(StringIO(r[0]))
+            data = inimg.tobytes()
+            if offset < 0 or offset > len(data) - 7:
+                offset = 0
+            last = min(len(text), (len(data) - (offset%8))/8)
+            stego = [x for x in data]
+            for i in range(last):
+                o = ord(text[i])
+                for j in range(8):
+                    stego[offset+8*i+j] = chr((ord(data[offset+8*i+j]) & 0xFE) | ((o >> (7-j)) & 1))
+            try:
+                outimg = Image.frombytes(inimg.mode, inimg.size, ''.join(stego))
+                out = StringIO()
+                outimg.save(out, format="PNG")
+                png = out.getvalue()
+                out.close()
+                cur.execute("INSERT INTO slika (name, data) VALUES (%s, %s)", (newname, png))
+                db.commit()
+                return redirect(url_for(".images", idx = cur.lastrowid))
+            except:
+                text = text[:-1]
+                error = True
+                errstr = "Datoteka že obstaja!"
+        else:
             text = text[:-1]
             error = True
+            errstr = "Ime datoteke ni navedeno!"
     else:
         text = ""
         newname = ""
         offset = 0
         error = False
+        errstr = ""
     cur.execute("SELECT id, name, DATE_FORMAT(time, '%e.%c.%Y %H:%i') AS time FROM slika ORDER BY time DESC")
     imgs = cur.fetchall()
     if idx == None and len(imgs) > 0:
@@ -74,10 +82,15 @@ def images(idx=None):
         img = Image.open(StringIO(png))
         data = img.tobytes()
         if newname == "":
-            newname = name + str(random.randrange(1000))
+            m = re.match(r'^(.*[^0-9])[0-9]*$', name)
+            if m == None:
+                newname = "slika" + str(random.randrange(1000))
+            else:
+                newname = m.group(1) + str(random.randrange(1000))
     return render_template("steganography.images.html", idx=idx, name=name,
                     data=''.join("%d" % (ord(x)&1) for x in data), imgs=imgs,
-                    text=text, newname=newname, offset=offset, error=error)
+                    text=text, newname=newname, offset=offset,
+                    error=error, errstr=errstr)
 
 @app.route("/show/<int:idx>")
 def show(idx):
