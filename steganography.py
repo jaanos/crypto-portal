@@ -10,9 +10,18 @@ import random
 
 app = Blueprint('steganography', __name__)
 
+if not hasattr(Image, 'frombytes'):
+    Image.frombytes = Image.fromstring
+
 def initSession():
     if 'sessid' not in session:
         session['sessid'] = os.urandom(16)
+
+def tobytes(img):
+    if hasattr(img, 'tobytes'):
+        return img.tobytes()
+    else:
+        return img.tostring()
 
 @app.route("/")
 def index():
@@ -39,7 +48,7 @@ def images(idx=None):
             cur.execute("SELECT data FROM slika WHERE id = %s", idx)
             r = cur.fetchone()
             inimg = Image.open(StringIO(r[0]))
-            data = inimg.tobytes()
+            data = tobytes(inimg)
             if offset < 0 or offset > len(data) - 7:
                 offset = 0
             last = min(len(text), (len(data) - (offset%8))/8)
@@ -87,7 +96,7 @@ def images(idx=None):
     else:
         name, png = r
         img = Image.open(StringIO(png))
-        data = img.tobytes()
+        data = tobytes(img)
         if newname == "":
             m = re.match(r'^(.*[^0-9])[0-9]*$', name)
             if m == None:
