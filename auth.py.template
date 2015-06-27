@@ -9,3 +9,4 @@ dbhost = 'localhost'
 
 gitkey = 'github-secret'
 sesskey = 'session-secret'
+debug = True
