@@ -309,11 +309,16 @@ function newDraggableFreeLetter(letter){
 // returns a div element to display a letter and its frequency in the original crypted message
 function newFrequency(letter, frequency){
     var display = document.createElement("div");
-    display.setAttribute("class", "letterFrequency");
     display.setAttribute("original", letter);
     display.setAttribute("onmouseenter", "highlightLetter(this);");
     display.setAttribute("onmouseleave", "unhighlightLetter(this);");
-    display.textContent = letter + " = " + frequency;
+    if (dictionary[letter] == null) {
+        display.setAttribute("class", "letterFrequency");
+        display.textContent = letter + " = " + frequency;
+    } else {
+        display.setAttribute("class", "letterFrequencySolved");
+        display.textContent = dictionary[letter] + " = " + frequency;
+    }
     return display;
 }
 
@@ -321,7 +326,7 @@ function highlightLetter(element){
     var toHighlight = getElementByAttributeValue("original", element.getAttribute("original"));
     for (var i = 0; i < toHighlight.length; i++){
         currElement = toHighlight[i];
-        if (currElement.getAttribute("class") == "letterFrequency") {
+        if (currElement.getAttribute("class") == "letterFrequency" || currElement.getAttribute("class") == "letterFrequencySolved") {
             continue;
         }
         currElement.setAttribute("class", "highlightedLetter");
@@ -337,7 +342,7 @@ function unhighlightLetter(element){
     var toUnHighlight = getElementByAttributeValue("original", element.getAttribute("original"));
     for (var i = 0; i < toUnHighlight.length; i++){
         currElement = toUnHighlight[i];
-        if (currElement.getAttribute("class") == "letterFrequency") {
+        if (currElement.getAttribute("class") == "letterFrequency" || currElement.getAttribute("class") == "letterFrequencySolved") {
             continue;
         }
         currElement.setAttribute("class", "decryptedCharacter");
