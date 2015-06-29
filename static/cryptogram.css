@@ -21,6 +21,7 @@
     text-align: left;
     border: 3px solid #2f76a7;
     border-radius: 10px;
+	padding-bottom: 5px;
 }
 
 /* Table to display the frequency of each letter in the table under the message display */
