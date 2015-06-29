@@ -80,6 +80,19 @@ function updateEssentialsSecondly(){
     coreLogic.appendChild(newFrequencyDisplay());
 }
 
+function bySortedValue(obj) {
+    var tuples = [];
+    var out = Array();
+
+    for (var key in obj) tuples.push([key, obj[key]]);
+
+    tuples.sort(function(a, b) { return a[1] < b[1] ? -1 : a[1] > b[1] ? 1 : 0 });
+
+    var length = tuples.length;
+    while (length--) out[tuples[length][0]] = tuples[length][1];
+    return out;
+}
+
 // returns the message as an array of words for displaying the message and controlling text wrapping
 function getCryptedMessage(){
     //$('#messageOutput').val("");
@@ -113,6 +126,7 @@ function getCryptedMessage(){
         }
         i++;
     }
+    frequencyTable = bySortedValue(frequencyTable);
     return crypt;
 }
 
@@ -182,11 +196,11 @@ function newEditableLetterDisplay(letter){
     top.setAttribute("value", letter);
     top.appendChild(newEditableMessageLetter(letter));
     letterDisplay.appendChild(top);
-    letterDisplay.appendChild(newLine());
-    var bottom = document.createElement("div");
-    bottom.setAttribute("class", "letterHolder");
-    bottom.appendChild(cryptedCharacter(letter));
-    letterDisplay.appendChild(bottom);
+    //~ letterDisplay.appendChild(newLine());
+    //~ var bottom = document.createElement("div");
+    //~ bottom.setAttribute("class", "letterHolder");
+    //~ bottom.appendChild(cryptedCharacter(letter));
+    //~ letterDisplay.appendChild(bottom);
     return letterDisplay;
 }
 
@@ -198,7 +212,7 @@ function newUneditableCharacterDisplay(letter){
     top.setAttribute("class", "letterHolder");
     top.appendChild(newUneditableMessageCharacter(letter));
     letterDisplay.appendChild(top);
-    letterDisplay.appendChild(newLine());
+    //~ letterDisplay.appendChild(newLine());
     /*var bottom = document.createElement("div");
     bottom.setAttribute("class", "letterHolder");
     bottom.appendChild(cryptedCharacter(letter));
@@ -217,19 +231,20 @@ function newUneditableMessageCharacter(character){ // div element to be in the t
 
 // returns a draggable and editable letter to be added for A-Z characters in the messageDisplay letter table's top cell
 function newEditableMessageLetter(letter){
-    var letterDisplay = document.createElement("div");
+    var letterDisplay = document.createElement("input");
     letterDisplay.setAttribute("original", letter); // original attribute holds the letter in the original crypted message
     letterDisplay.setAttribute("class", "decryptedCharacter");
     letterDisplay.setAttribute("draggable", true);
     letterDisplay.setAttribute("ondragstart", "letterDragged(event);");
     letterDisplay.setAttribute("onmouseenter", "highlightLetter(this);");
+    letterDisplay.setAttribute("placeholder", letter);
     if (letter in dictionary){
         letterDisplay.setAttribute("value", dictionary[letter]);
-        letterDisplay.textContent = dictionary[letter];
+        //letterDisplay.textContent = dictionary[letter];
     }
     else{
         letterDisplay.setAttribute("value", "");
-        letterDisplay.textContent = "";
+        //letterDisplay.textContent = "";
     }
     return letterDisplay;
 }
