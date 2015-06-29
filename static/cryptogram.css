@@ -99,7 +99,6 @@
 .uneditableCharacter{ 
     text-align: center;
     font-family:"Times New Roman",Times,serif;
-	font-weight: bold;
     width: 5px;
     height: 20px;
     line-height: 20px;
@@ -112,6 +111,7 @@
 .highlightedLetter{ 
     text-align: center;
     font-family:"Times New Roman",Times,serif;
+	font-weight: bold;
     width: 28px;
     height: 35px;
     line-height: 30px;
