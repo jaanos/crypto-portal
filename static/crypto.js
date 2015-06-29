@@ -362,12 +362,26 @@ function substitute(original, substitution){
     }
     if (isLetter(substitution)){
         deleteFreeLetter(substitution);
-        dictionary[original] = substitution;
+        dictionary[original] = substitution.toLowerCase();
         reverseDict[substitution] = original;
     }
     else{ // if any other character is typed, delete the dictionary entry
         delete dictionary[original]; 
     }
+
+    var decrypt = "";
+    var c;
+    for (var i = 0; i < input.length; i++) {
+        c = input.charAt(i);
+        if (dictionary[c] != null) {
+            decrypt += dictionary[c];
+        } else {
+            decrypt += c;
+        }
+    }
+    $("#messageOutput").html("");
+    $('#messageOutput').append(decrypt);
+
     updateEssentialsSecondly();
 }
 
