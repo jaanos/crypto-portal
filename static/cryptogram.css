@@ -36,7 +36,7 @@
 /* Element to hold both the original letter and its substitution above it */
 .letterHolder{
     width: 20px;
-    height: 14px;
+    /*height: 14px;*/
 }
 
 /* div elements containing the entire letter object with both original and substitution*/
@@ -92,7 +92,7 @@
     width: 28px;
     height: 35px;
     line-height: 30px;
-    font-size: 16px;
+    font-size: 15px;
     color: #2f76a7;
     border-radius: 8px;
     background-color: #dac5a4;
