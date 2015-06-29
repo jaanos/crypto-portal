@@ -57,5 +57,6 @@ docs/_build/
 target/
 
 # custom
+*~
 .htaccess
 auth.py
