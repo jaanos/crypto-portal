@@ -81,10 +81,10 @@ def images(idx=None):
         offset = 0
         error = False
         errstr = ""
-    cur.execute("SELECT id, name, DATE_FORMAT(time, '%e.%c.%Y %H:%i') AS time, session FROM slika ORDER BY time DESC")
+    cur.execute("SELECT id, name, DATE_FORMAT(time, '%e.%c.%Y %H:%i') AS ftime, session FROM slika ORDER BY time DESC")
     imgs = cur.fetchall()
     if idx == None and len(imgs) > 0:
-        idx = min(x[0] for x in imgs)
+        idx = imgs[-1][0]
     if idx == None:
         r = None
     else:
@@ -92,7 +92,7 @@ def images(idx=None):
         r = cur.fetchone()
     cur.close()
     if r == None:
-        idx, name, data = None, None, ""
+        name, data = None, ""
     else:
         name, png = r
         img = Image.open(StringIO(png))
