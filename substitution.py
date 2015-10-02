@@ -9,6 +9,9 @@ app = Blueprint('substitution', __name__)
 
 abc = u"ABCČDEFGHIJKLMNOPQRSŠTUVWXYZŽ"
 
+foreign = {'sl': set(['Q', 'W', 'X', 'Y']),
+           'en': set([u'Č', u'Š', u'Ž'])}
+
 def indices(level):
     db = database.dbcon()
     cur = db.cursor()
@@ -25,10 +28,10 @@ def indices(level):
 def getText(id):
     db = database.dbcon()
     cur = db.cursor()
-    cur.execute("SELECT text FROM substitution WHERE id = %s", [id])
+    cur.execute("SELECT text, language FROM substitution WHERE id = %s", [id])
     txt = cur.fetchone()
     cur.close()
-    return txt[0].decode("UTF-8")
+    return (txt[0].decode("UTF-8"), txt[1])
 
 def crypt(text):
     xyz = [x for x in abc]
@@ -55,7 +58,7 @@ def play(difficulty, idx=-1):
         return render_template("substitution.ready.html", num=len(texts))
     if idx < 0 or idx >= len(texts):
         idx = random.randrange(len(texts))
-    text = getText(texts[idx])
+    text, lang = getText(texts[idx])
     if level == 2:
         text = re.sub(r'\s', '', text)
     if level == 3:
@@ -63,7 +66,7 @@ def play(difficulty, idx=-1):
     else:
         cipher = crypt(text)
     return render_template("substitution.play.html",
-        nav = "substitution", next = (idx+1) % len(texts),
+        nav = "substitution", next = (idx+1) % len(texts), lang = lang,
         difficulty = difficulty, level = level, input = json.dumps(cipher),
-        foreign = len(set(['Q', 'W', 'X', 'Y']).intersection(text.upper())) > 0)
+        foreign = len(foreign[lang].intersection(text.upper())) > 0)
     
