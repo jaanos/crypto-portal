@@ -9,11 +9,18 @@ app = Blueprint('substitution', __name__)
 
 abc = u"ABCČDEFGHIJKLMNOPQRSŠTUVWXYZŽ"
 
-def indices(level):
+foreign = {'sl': set(['Q', 'W', 'X', 'Y']),
+           'en': set([u'Č', u'Š', u'Ž'])}
+
+def indices(level, language=None):
     db = database.dbcon()
     cur = db.cursor()
-    cur.execute("SELECT id FROM substitution WHERE level = %s ORDER BY id",
-                [0 if level == 2 else level])
+    if language == None:
+        cur.execute("SELECT id FROM substitution WHERE level = %s ORDER BY id",
+                    [0 if level == 2 else level])
+    else:
+        cur.execute("SELECT id FROM substitution WHERE level = %s AND language = %s ORDER BY id",
+                    [0 if level == 2 else level, language])
     ids = [x[0] for x in cur.fetchall()]
     cur.close()
     if level == 2:
@@ -25,10 +32,10 @@ def indices(level):
 def getText(id):
     db = database.dbcon()
     cur = db.cursor()
-    cur.execute("SELECT text FROM substitution WHERE id = %s", [id])
+    cur.execute("SELECT text, language FROM substitution WHERE id = %s", [id])
     txt = cur.fetchone()
     cur.close()
-    return txt[0].decode("UTF-8")
+    return (txt[0].decode("UTF-8"), txt[1])
 
 def crypt(text):
     xyz = [x for x in abc]
@@ -41,7 +48,9 @@ def index():
 
 @app.route("/<difficulty>")
 @app.route("/<difficulty>/<int:idx>")
-def play(difficulty, idx=-1):
+@app.route("/<difficulty>/<language>/<int:idx>")
+@app.route("/<difficulty>/<language>")
+def play(difficulty, idx=-1, language=None):
     if (difficulty == "ready"):
         level = 3
     elif (difficulty == "hard"):
@@ -50,12 +59,12 @@ def play(difficulty, idx=-1):
         level = 1
     else:
         level = 0
-    texts = indices(level)
+    texts = indices(level, language)
     if idx < 0 and level == 3:
         return render_template("substitution.ready.html", num=len(texts))
     if idx < 0 or idx >= len(texts):
         idx = random.randrange(len(texts))
-    text = getText(texts[idx])
+    text, lang = getText(texts[idx])
     if level == 2:
         text = re.sub(r'\s', '', text)
     if level == 3:
@@ -63,7 +72,7 @@ def play(difficulty, idx=-1):
     else:
         cipher = crypt(text)
     return render_template("substitution.play.html",
-        nav = "substitution", next = (idx+1) % len(texts),
+        nav = "substitution", next = (idx+1) % len(texts), lang = lang,
         difficulty = difficulty, level = level, input = json.dumps(cipher),
-        foreign = len(set(['Q', 'W', 'X', 'Y']).intersection(text.upper())) > 0)
+        foreign = len(foreign[lang].intersection(text.upper())) > 0)
     
