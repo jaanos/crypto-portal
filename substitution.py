@@ -12,11 +12,15 @@ abc = u"ABCČDEFGHIJKLMNOPQRSŠTUVWXYZŽ"
 foreign = {'sl': set(['Q', 'W', 'X', 'Y']),
            'en': set([u'Č', u'Š', u'Ž'])}
 
-def indices(level):
+def indices(level, language=None):
     db = database.dbcon()
     cur = db.cursor()
-    cur.execute("SELECT id FROM substitution WHERE level = %s ORDER BY id",
-                [0 if level == 2 else level])
+    if language == None:
+        cur.execute("SELECT id FROM substitution WHERE level = %s ORDER BY id",
+                    [0 if level == 2 else level])
+    else:
+        cur.execute("SELECT id FROM substitution WHERE level = %s AND language = %s ORDER BY id",
+                    [0 if level == 2 else level, language])
     ids = [x[0] for x in cur.fetchall()]
     cur.close()
     if level == 2:
@@ -44,7 +48,9 @@ def index():
 
 @app.route("/<difficulty>")
 @app.route("/<difficulty>/<int:idx>")
-def play(difficulty, idx=-1):
+@app.route("/<difficulty>/<language>/<int:idx>")
+@app.route("/<difficulty>/<language>")
+def play(difficulty, idx=-1, language=None):
     if (difficulty == "ready"):
         level = 3
     elif (difficulty == "hard"):
@@ -53,7 +59,7 @@ def play(difficulty, idx=-1):
         level = 1
     else:
         level = 0
-    texts = indices(level)
+    texts = indices(level, language)
     if idx < 0 and level == 3:
         return render_template("substitution.ready.html", num=len(texts))
     if idx < 0 or idx >= len(texts):
