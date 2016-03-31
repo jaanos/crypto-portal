@@ -36,7 +36,7 @@
 				        <li class="{% if nav == "start" %}active{% endif %}"><a href="{{url_for('index')}}">Domov</a></li>
 				        <ul class="nav navbar-nav">
 							<li class="dropdown {% if nav == "substitution" %}active{% endif %}">
-							  <a href="{{url_for('substitution.index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Premešalka<span class="caret"></span></a>
+							  <a href="{{url_for('substitution.index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Zamenjalka<span class="caret"></span></a>
 							  <ul class="dropdown-menu" role="menu">
 							    <li><a>Težavnosti</a></li>
 							    <li class="divider"></li>
@@ -45,7 +45,7 @@
 							    <li><a href="{{url_for('substitution.play', difficulty='hard')}}">Težko</a></li>
                                 <li class="divider"></li>
 							    <li><a href="{{url_for('substitution.play', difficulty='caesar')}}">Cezarjeva šifra</a></li>
-							    <li><a href="{{url_for('substitution.play', difficulty='ready')}}">Pripravljene premešalke</a></li>
+							    <li><a href="{{url_for('substitution.play', difficulty='ready')}}">Pripravljene zamenjalke</a></li>
 							  </ul>
 							</li>
 						</ul>
