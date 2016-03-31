@@ -39,19 +39,27 @@ function initialize(st){
     reverseDict = new Array();
     frequencyTable = new Array();
     ALPHABET = new Array(); // constant alphabet array 
+    freeLetters = new Array();
     addResetButton();
 	addNextButton();
     var A = "A".charCodeAt(0);
     for (var i = 0; i < 26; i++){ // fill alphabet array
         var newChar = String.fromCharCode(A + i);
-        if(!foreign && (newChar === 'Q' || newChar === 'W' || newChar === 'X' || newChar === 'Y'))    continue;
+        if(lang == "sl" && !foreign && (newChar === 'Q' || newChar === 'W' || newChar === 'X' || newChar === 'Y'))    continue;
         ALPHABET.push(newChar);
-        if(newChar === 'C')  ALPHABET.push('Č');
-        if(newChar === 'S')  ALPHABET.push('Š');
-        if(newChar === 'Z')  ALPHABET.push('Ž');
+        freeLetters[newChar] = true;
+        if (lang == "sl" || foreign) {
+            if(newChar === 'C')  ALPHABET.push('Č');
+            if(newChar === 'S')  ALPHABET.push('Š');
+            if(newChar === 'Z')  ALPHABET.push('Ž');
+        }
+    }
+    if (lang == "sl" || foreign) {
+        freeLetters['Č'] = true;
+        freeLetters['Š'] = true;
+        freeLetters['Ž'] = true;
     }
     
-    freeLetters = ALPHABET.slice(0); // reset the freeLetters array to a copy of the ALPHABET array
     //window.onresize = updateEssentials;
     updateEssentials(); // adds the letter selection, message display, and frequency tables
 }
@@ -78,6 +86,19 @@ function updateEssentialsSecondly(){
     coreLogic.appendChild(newMessageDisplay());
     coreLogic.appendChild(newLine());
     coreLogic.appendChild(newFrequencyDisplay());
+}
+
+function bySortedValue(obj) {
+    var tuples = [];
+    var out = Array();
+
+    for (var key in obj) tuples.push([key, obj[key]]);
+
+    tuples.sort(function(a, b) { return a[1] < b[1] ? -1 : a[1] > b[1] ? 1 : 0 });
+
+    var length = tuples.length;
+    while (length--) out[tuples[length][0]] = tuples[length][1];
+    return out;
 }
 
 // returns the message as an array of words for displaying the message and controlling text wrapping
@@ -113,6 +134,7 @@ function getCryptedMessage(){
         }
         i++;
     }
+    frequencyTable = bySortedValue(frequencyTable);
     return crypt;
 }
 
@@ -120,8 +142,10 @@ function getCryptedMessage(){
 function newFreeLetterDisplay(){
     var freeLetterDisplay = document.createElement("div");
     freeLetterDisplay.setAttribute("id", "freeLetterDisplay");
-    for(var i = 0; i < freeLetters.length; i++){
-        freeLetterDisplay.appendChild(newDraggableFreeLetter(freeLetters[i]));
+    for(var i = 0; i < ALPHABET.length; i++){
+        if (freeLetters[ALPHABET[i]]) {
+            freeLetterDisplay.appendChild(newDraggableFreeLetter(ALPHABET[i]));
+        }
     }
     return freeLetterDisplay;
 }
@@ -182,11 +206,11 @@ function newEditableLetterDisplay(letter){
     top.setAttribute("value", letter);
     top.appendChild(newEditableMessageLetter(letter));
     letterDisplay.appendChild(top);
-    letterDisplay.appendChild(newLine());
-    var bottom = document.createElement("div");
-    bottom.setAttribute("class", "letterHolder");
-    bottom.appendChild(cryptedCharacter(letter));
-    letterDisplay.appendChild(bottom);
+    //~ letterDisplay.appendChild(newLine());
+    //~ var bottom = document.createElement("div");
+    //~ bottom.setAttribute("class", "letterHolder");
+    //~ bottom.appendChild(cryptedCharacter(letter));
+    //~ letterDisplay.appendChild(bottom);
     return letterDisplay;
 }
 
@@ -198,7 +222,7 @@ function newUneditableCharacterDisplay(letter){
     top.setAttribute("class", "letterHolder");
     top.appendChild(newUneditableMessageCharacter(letter));
     letterDisplay.appendChild(top);
-    letterDisplay.appendChild(newLine());
+    //~ letterDisplay.appendChild(newLine());
     /*var bottom = document.createElement("div");
     bottom.setAttribute("class", "letterHolder");
     bottom.appendChild(cryptedCharacter(letter));
@@ -217,19 +241,20 @@ function newUneditableMessageCharacter(character){ // div element to be in the t
 
 // returns a draggable and editable letter to be added for A-Z characters in the messageDisplay letter table's top cell
 function newEditableMessageLetter(letter){
-    var letterDisplay = document.createElement("div");
+    var letterDisplay = document.createElement("input");
     letterDisplay.setAttribute("original", letter); // original attribute holds the letter in the original crypted message
     letterDisplay.setAttribute("class", "decryptedCharacter");
     letterDisplay.setAttribute("draggable", true);
     letterDisplay.setAttribute("ondragstart", "letterDragged(event);");
     letterDisplay.setAttribute("onmouseenter", "highlightLetter(this);");
+    letterDisplay.setAttribute("placeholder", letter);
     if (letter in dictionary){
         letterDisplay.setAttribute("value", dictionary[letter]);
-        letterDisplay.textContent = dictionary[letter];
+        //letterDisplay.textContent = dictionary[letter];
     }
     else{
         letterDisplay.setAttribute("value", "");
-        letterDisplay.textContent = "";
+        //letterDisplay.textContent = "";
     }
     return letterDisplay;
 }
@@ -254,9 +279,8 @@ function letterDraggedOutOfMessage(ev){
     event.preventDefault();
     var substitution = event.dataTransfer.getData("Text"); // value of the letter being dragged
     var original = reverseDict[substitution];
-    if (freeLetters.indexOf(substitution) < 0 && isLetter(substitution)){ // only add the letter to the table if it is not already there
-        freeLetters.push(substitution);
-        freeLetters.sort();
+    if (isLetter(substitution) && !freeLetters[substitution.toUpperCase()]){ // only add the letter to the table if it is not already there
+        freeLetters[substitution.toUpperCase()] = true;
     }
     delete dictionary[original];
     delete reverseDict[substitution];
@@ -278,8 +302,8 @@ function letterDragged(event){ // tell the recipient of this letter what letter 
 // returns a draggable div element to be inserted into the freeLettersDisplay
 function newDraggableFreeLetter(letter){
     var letterDisplay = document.createElement("div");
-    letterDisplay.textContent = letter;
-    letterDisplay.setAttribute("value", letter);
+    letterDisplay.textContent = letter.toLowerCase();
+    letterDisplay.setAttribute("value", letter.toLowerCase());
     letterDisplay.setAttribute("class", "decryptedCharacter");
     letterDisplay.setAttribute("draggable", true);
     letterDisplay.setAttribute("ondragstart", "letterDragged(event);");
@@ -289,8 +313,16 @@ function newDraggableFreeLetter(letter){
 // returns a div element to display a letter and its frequency in the original crypted message
 function newFrequency(letter, frequency){
     var display = document.createElement("div");
-    display.setAttribute("class", "letterFrequency");
-    display.textContent = letter + " = " + frequency;
+    display.setAttribute("original", letter);
+    display.setAttribute("onmouseenter", "highlightLetter(this);");
+    display.setAttribute("onmouseleave", "unhighlightLetter(this);");
+    if (dictionary[letter] == null) {
+        display.setAttribute("class", "letterFrequency");
+        display.textContent = letter + " = " + frequency;
+    } else {
+        display.setAttribute("class", "letterFrequencySolved");
+        display.textContent = dictionary[letter] + " = " + frequency;
+    }
     return display;
 }
 
@@ -298,6 +330,9 @@ function highlightLetter(element){
     var toHighlight = getElementByAttributeValue("original", element.getAttribute("original"));
     for (var i = 0; i < toHighlight.length; i++){
         currElement = toHighlight[i];
+        if (currElement.getAttribute("class") == "letterFrequency" || currElement.getAttribute("class") == "letterFrequencySolved") {
+            continue;
+        }
         currElement.setAttribute("class", "highlightedLetter");
         currElement.setAttribute("id", "highlighted"); // tell the program which letter is highlighted
         currElement.setAttribute("onmouseleave", "unhighlightLetter(this);");
@@ -311,6 +346,9 @@ function unhighlightLetter(element){
     var toUnHighlight = getElementByAttributeValue("original", element.getAttribute("original"));
     for (var i = 0; i < toUnHighlight.length; i++){
         currElement = toUnHighlight[i];
+        if (currElement.getAttribute("class") == "letterFrequency" || currElement.getAttribute("class") == "letterFrequencySolved") {
+            continue;
+        }
         currElement.setAttribute("class", "decryptedCharacter");
         currElement.removeAttribute("id"); // tell the program which letter is highlighted
     }
@@ -320,9 +358,9 @@ function unhighlightLetter(element){
 function keyPressedWhileHighlighted(evt) { 
   evt = evt || window.event; 
   var charCode = evt.charCode || evt.keyCode;
-  var substitution = String.fromCharCode(charCode).toUpperCase(); 
+  var substitution = String.fromCharCode(charCode).toLowerCase();
   var lettersToChange = document.getElementsByClassName("highlightedLetter");
-  var original = lettersToChange[0].getAttribute("original").toUpperCase(); // only need the original from one of the elements 
+  var original = lettersToChange[0].getAttribute("original"); // only need the original from one of the elements 
   substitute(original, substitution);
 };
 
@@ -332,9 +370,8 @@ function substitute(original, substitution){
     var currentOriginal = reverseDict[substitution];
     delete dictionary[currentOriginal]; // the substituted value now stands for something different if at all
     delete reverseDict[currentSub]; // always removing the current substitution no matter what
-    if (currentSub != null && freeLetters.indexOf(currentSub) < 0){ // only return the letter to the free letters table if it is not  already there
-        freeLetters.push(currentSub);
-        freeLetters.sort();
+    if (currentSub != null && !freeLetters[currentSub.toUpperCase()]){ // only return the letter to the free letters table if it is not  already there
+        freeLetters[currentSub.toUpperCase()] = true;
     }
     if (isLetter(substitution)){
         deleteFreeLetter(substitution);
@@ -344,12 +381,28 @@ function substitute(original, substitution){
     else{ // if any other character is typed, delete the dictionary entry
         delete dictionary[original]; 
     }
+
+    var decrypt = "";
+    var c;
+    for (var i = 0; i < input.length; i++) {
+        c = input.charAt(i);
+        if (dictionary[c] != null) {
+            decrypt += dictionary[c];
+        } else {
+            decrypt += c;
+        }
+    }
+    $("#messageOutput").html("");
+    $('#messageOutput').append(decrypt);
+
     updateEssentialsSecondly();
 }
 
 // resets all relevent data in the webpage
 function reset(){
-    freeLetters = ALPHABET.slice(0);
+    for (var i = 0; i < ALPHABET.length; i++) {
+        freeLetters[ALPHABET[i]] = true;
+    }
     dictionary = new Array();
     reverseDict = new Array();
     updateEssentialsSecondly();
@@ -374,10 +427,8 @@ function appendFrequency(letter){
 
 // deletes a letter from the freeLetters array when it is substituted
 function deleteFreeLetter(letter){
-    var subInd = freeLetters.indexOf(letter);
-    if (subInd >= 0){ // only delete an element that exists
-        freeLetters.splice(subInd, 1); // remove the element from the free letters array
-    }
+    letter = letter.toUpperCase();
+    freeLetters[letter] = false;
 }
 
 // adds the reset button to the buttons panel
@@ -449,6 +500,7 @@ function getElementByAttributeValue(attribute, value)
  * Note that every letter passed as an argument will be changed to uppercase
  */
 function isLetter(letter){
+    letter = letter.toUpperCase();
     return (letter.charCodeAt(0) < 91 && letter.charCodeAt(0) >= 65 || letter === 'Č' || letter === 'Š' || letter === 'Ž');
 }
 
