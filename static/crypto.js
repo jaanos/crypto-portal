@@ -45,16 +45,20 @@ function initialize(st){
     var A = "A".charCodeAt(0);
     for (var i = 0; i < 26; i++){ // fill alphabet array
         var newChar = String.fromCharCode(A + i);
-        if(!foreign && (newChar === 'Q' || newChar === 'W' || newChar === 'X' || newChar === 'Y'))    continue;
+        if(lang == "sl" && !foreign && (newChar === 'Q' || newChar === 'W' || newChar === 'X' || newChar === 'Y'))    continue;
         ALPHABET.push(newChar);
         freeLetters[newChar] = true;
-        if(newChar === 'C')  ALPHABET.push('Č');
-        if(newChar === 'S')  ALPHABET.push('Š');
-        if(newChar === 'Z')  ALPHABET.push('Ž');
+        if (lang == "sl" || foreign) {
+            if(newChar === 'C')  ALPHABET.push('Č');
+            if(newChar === 'S')  ALPHABET.push('Š');
+            if(newChar === 'Z')  ALPHABET.push('Ž');
+        }
     }
-    freeLetters['Č'] = true;
-    freeLetters['Š'] = true;
-    freeLetters['Ž'] = true;
+    if (lang == "sl" || foreign) {
+        freeLetters['Č'] = true;
+        freeLetters['Š'] = true;
+        freeLetters['Ž'] = true;
+    }
     
     //window.onresize = updateEssentials;
     updateEssentials(); // adds the letter selection, message display, and frequency tables
