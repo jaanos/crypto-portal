@@ -73,7 +73,7 @@ def play(difficulty, idx=-1, language=None):
     if idx < 0 or idx >= len(texts):
         idx = random.randrange(len(texts))
     text, lang = getText(texts[idx])
-    if level == 2:
+    if level in [-1, 2]:
         text = re.sub(r'\s', '', text)
     if level == 3:
         cipher = text
