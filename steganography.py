@@ -2,11 +2,15 @@
 from flask import *
 from database import database
 from PIL import Image
-from StringIO import StringIO
 import os
 import re
 import json
 import random
+
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 app = Blueprint('steganography', __name__)
 
