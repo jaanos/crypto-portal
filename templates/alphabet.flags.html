@@ -2,7 +2,9 @@
 {% block body %}
 <script type="text/javascript" src = "{{url_for('static', filename='alphabet.js')}}"></script>
 <script type="text/javascript">
-    window.onload = function(){initialize_alphabet("{{mode}}", "{{level}}");};
+    var letter = "{{letter}}", mode = "{{mode}}", level = "{{level}}",
+    choices = "{{choices}}";
+    window.onload = function(){initialize_alphabet(mode, level);};
 </script>
 
 <div class="row">
@@ -22,9 +24,25 @@
             <div class="panel-body">
                 <div class="container-fluid">
                     <div class="row-fluid">
-                        
                         <div class="col-lg-12 col-md-12 col-sm-12" id = "coreLogic">
-                                            
+                            {% if mode == "read" %}
+                                {% if level == "easy" %}
+                                    <img src="{{url_for('static', filename='images/flags/'+letter+'.png')}}" />
+                                    <div id="choices">
+                                    {% for c in choices %}
+                                        <button>{% print c %}</button>
+                                    {% endfor %}
+                                    </div>
+                                {% elif level == "hard" %}
+                                    Branje, težko
+                                {% endif %}
+                            {% elif mode == "write" %}
+                                {% if level == "easy" %}
+                                    Pisanje, lahko
+                                {% elif level == "hard" %}
+                                    Pisanje, težko
+                                {% endif %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
