@@ -1,0 +1,36 @@
+{% extends "main.html" %}
+{% block body %}
+<script type="text/javascript" src = "{{url_for('static', filename='alphabet.js')}}"></script>
+<script type="text/javascript">
+    window.onload = function(){initialize_alphabet("{{mode}}", "{{level}}");};
+</script>
+
+<div class="row">
+   <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-default" >
+            <div class="panel-heading" id="glava">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <b><span class="pozdrav1">Zastavice</span></b>
+                    </div>
+                    <div id ="buttons">
+                            <button value = "Begin" class="btn btn-default btn-bg" id="begin">Začni</button>
+                    </div>
+                </div>
+            </div>
+            <a class="btn btn-default btn-bg" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode='read', level='easy')}}">Lahko</a>
+            <div class="panel-body">
+                <div class="container-fluid">
+                    <div class="row-fluid">
+                        
+                        <div class="col-lg-12 col-md-12 col-sm-12" id = "coreLogic">
+                                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
