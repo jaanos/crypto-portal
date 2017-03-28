@@ -29,3 +29,25 @@ function read_hard() {
 function write_hard() {
     console.log("write, hard");
 }
+
+$( document ).ready(function() {
+    $("#choices .btn").click(function() {
+       //console.log(this.innerHTML);
+       var image_link = $("#picture-letter img").attr("src").split("/");
+       console.log(image_link);
+       var image_name = image_link[image_link.length - 1];
+       console.log(image_name);
+       var letter = image_name.split(".")[0];
+       console.log(letter);
+       if ((this.innerHTML).toUpperCase() === letter.toUpperCase()) {
+           console.log("OK");
+           $(this).removeClass("btn-info");
+           $(this).addClass("btn-success");
+       } else {
+           console.log("ERR");
+           $(this).removeClass("btn-info");
+           $(this).addClass("btn-danger");
+       }
+    });
+});
+
