@@ -38,5 +38,5 @@ def display_excercise(selected_alphabet = "flags", mode = "read", level = "easy"
             nav = "alphabet", mode = mode, level = level, letter = letter,
             choices = return_choices(letter))
     else:
-        return "Te abecede pa (še) ne poznam!"
+        return "Te abecede pa (se) ne poznam!"
 

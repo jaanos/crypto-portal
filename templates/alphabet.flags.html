@@ -17,46 +17,91 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class ="pull-right" id ="buttons">
-                                <button value = "Read" class="btn btn-default btn-bg">Branje</button>
-                                <button value = "Write" class="btn btn-default btn-bg">Pisanje</button>
+                                <a value = "Read" class="btn btn-default btn-bg {% if mode == "read" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode='read', level='easy')}}">Branje</a>
+                                <a value = "Write" class="btn btn-default btn-bg {% if mode == "write" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode='write', level='easy')}}">Pisanje</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="well text-center margin">
-                        <a class="btn btn-default btn-bg" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode='read', level='easy')}}">Lahko</a>
-                        <a class="btn btn-default btn-bg" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode='read', level='medium')}}">Srednje</a>
-                        <a class="btn btn-default btn-bg" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode='read', level='hard')}}">Težko</a>
+                    <div class="well text-center prog-bar-well">
+                        <a class="btn btn-default btn-bg {% if level == "easy" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode=mode, level='easy')}}">Lahko</a>
+                        <a class="btn btn-default btn-bg {% if level == "medium" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode=mode, level='medium')}}">Srednje</a>
+                        <a class="btn btn-default btn-bg {% if level == "hard" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode=mode, level='hard')}}">Težko</a>
                     </div>
                 </div>
             </div>
             <div class="panel-body">
                 <div class="container-fluid">
                     <div class="row-fluid">
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center" id = "coreLogic">
-                            {% if mode == "read" %}
-                                {% if level == "easy" %}
-                                    <div id="picture-letter" class="well">
-                                        <img src="{{url_for('static', filename='images/flags/'+letter+'.png')}}" />
-                                    </div>
-                                    <div id="choices">
-                                    {% for c in choices %}
-                                        <button type="button" class="btn btn-info btn-circle btn-lg ">{% print c.upper() %}</button>
-                                    {% endfor %}
-                                    </div>
-                                {% elif level == "hard" %}
-                                    Branje, težko
-                                {% endif %}
-                            {% elif mode == "write" %}
-                                {% if level == "easy" %}
-                                    Pisanje, lahko
-                                {% elif level == "hard" %}
-                                    Pisanje, težko
-                                {% endif %}
+                        
+                        {% if mode == "read" %}
+                            {% if level == "easy" %}
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center" id = "coreLogic">
+                                <div id="picture-letter" class="well">
+                                    <img src="{{url_for('static', filename='images/flags/'+letter+'.png')}}" />
+                                </div>
+                                <div id="choices">
+                                    <a href=""><img id="prew-arrow" src="{{url_for('static', filename='prew_arrow.png')}}"/></a>
+                                {% for c in choices %}
+                                    <button type="button" class="btn btn-info btn-letter">{% print c.upper() %}</button>
+                                {% endfor %}
+                                   <a id="next-arrow"><img src="{{url_for('static', filename='next_arrow.png')}}"/></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 text-center">
+                                <b>
+                                    <span>Število pravilnih odgovorov</span>
+                                </b>
+                                <div id="points"><span id="poits-display">0</span></div>
+                            </div>
+                            {% elif level == "medium" %}
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center" id = "coreLogic">
+                                <div id="picture-letter" class="well">
+                                    <img src="{{url_for('static', filename='images/flags/'+letter+'.png')}}" />
+                                </div>
+                                <div>_______</div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 text-center">
+                                <b>
+                                    <span>Število pravilnih odgovorov</span>
+                                </b>
+                                <div id="points"><span id="poits-display">0</span></div>
+                            </div>
+                            {% elif level == "hard" %}
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center" id = "coreLogic">
+                                Branje, težko
+                                <div class="well"> prikazovanje slik</div>
+                                <div>Vnos gesla</div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 text-center">
+                                <b>
+                                    <span>Število pravilnih odgovorov</span>
+                                </b>
+                                <div id="points"><span id="poits-display">0</span></div>
+                            </div>
                             {% endif %}
-                        </div>
+                        {% elif mode == "write" %}
+                            {% if level == "easy" %}
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center" id = "coreLogic">
+                                    Branje, lahko
+                                    <div>Črka</div>
+                                    <div class="well">prikazovanje slik</div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 text-center">
+                                    <b>
+                                        <span>Število pravilnih odgovorov</span>
+                                    </b>
+                                    <div id="points"><span id="poits-display">0</span></div>
+                                </div>
+                            {% elif level == "medium" %}
+                                Pisanje, srednje
+                            {% elif level == "hard" %}
+                                Pisanje, težko
+                            {% endif %}
+                        {% endif %}
+                       
                     </div>
                 </div>
             </div>

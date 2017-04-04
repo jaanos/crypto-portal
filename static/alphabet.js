@@ -1,3 +1,5 @@
+// VARIABLES
+var points = 0;
 function initialize_alphabet(mode, level) {
     if (mode == "read") {
         if (level == "easy") {
@@ -16,6 +18,7 @@ function initialize_alphabet(mode, level) {
 
 function read_easy() {
     console.log("read, easy");
+    
 }
 
 function write_easy() {
@@ -41,8 +44,13 @@ $( document ).ready(function() {
        console.log(letter);
        if ((this.innerHTML).toUpperCase() === letter.toUpperCase()) {
            console.log("OK");
+           points+=1;
+           console.log(points);
            $(this).removeClass("btn-info");
            $(this).addClass("btn-success");
+           $("#next-arrow *").css('filter', 'brightness(100%)')
+           $("#next-arrow").attr("href", "");
+           $("#points #poits-display").innerHTML=points;
        } else {
            console.log("ERR");
            $(this).removeClass("btn-info");
@@ -50,4 +58,3 @@ $( document ).ready(function() {
        }
     });
 });
-
