@@ -10,7 +10,7 @@ abc = u"abcdefghijklmnopqrstuvwxyz"
 words = ["ananas", "banana", "cesta", "dom", "eskim", "figa"]
 def select_word(list_words):
     return list_words[randint(0, len(list_words)-1)]
-    
+
 def select_letter(letters):
     return abc[randint(0, len(abc) - 1)]
     
@@ -36,7 +36,8 @@ def display_excercise(selected_alphabet = "flags", mode = "read", level = "easy"
         letter = select_letter(abc)
         return render_template("alphabet.flags.html", 
             nav = "alphabet", mode = mode, level = level, letter = letter,
-            choices = return_choices(letter))
+            choices = return_choices(letter), word=select_word(words),
+            alphabet = abc, words = words)
     else:
         return "Te abecede pa (se) ne poznam!"
 

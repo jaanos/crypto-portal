@@ -5,7 +5,6 @@
   border-radius: 7px;
   font-size: 18px;
   line-height: 1.428571429;
-  padding: 6px 0;
   margin: 5px;
 }
 
@@ -21,24 +20,19 @@
   margin-left: 30px;
   margin-right: 30px;
 }
-#next-arrow *{
+
+#next-arrow img, #prew-arrow img {
 	width: 40px;
   height: 40px;
-  margin-left: 10px;
+  /*max-width: calc((100% - 200px) / 2);*/
   margin-top: 5px;
   margin-bottom: 5px;
-  margin-right: 5px;
   filter: brightness(50%);
 }
-#prew-arrow{
-	width: 40px;
-  height: 40px;
-  margin-left: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-right: 10px;
-}
 
+#next-arrow[href=next] img, #prew-arrow[href=next] img {
+  filter: brightness(100%);
+}
 
 #points
 {
@@ -54,5 +48,31 @@
   line-height: 100px;
   color:white;
   font-size:25px;
-  
+}
+
+#letterInput{
+  width: 50px;
+	height: 50px;
+	text-align:center;
+	border-style: none none solid none;
+	font-size: 30px;
+	outline-width: 0;
+	border-color: #000000 #000000 #000000 #000000;
+	border-width: 4px;
+}
+.imageSelection{
+  max-width:100%;
+  max-height:100%;
+}
+.wellMarginTop{
+  margin-top: 30px;
+}
+
+#picture-letter:hover {
+  cursor: pointer;
+}
+
+#letterToGuess span {
+  font-weight: 900;
+  font-size: 150px;
 }
