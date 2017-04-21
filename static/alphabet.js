@@ -167,7 +167,7 @@ function selectNewLetter(alphabet,mode) {
         }
     }
     shuffle(choices);
-    $(".level-read-"+mode+" #picture-letter img").attr("src", "/static/images/flags/" + letter + ".png");
+    $(".level-read-"+mode+" #picture-letter img").attr("src", flagsDir + letter + ".png");
     
     //Clears inputs and options
     if(mode === "easy"){
