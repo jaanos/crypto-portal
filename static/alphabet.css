@@ -30,7 +30,7 @@
   filter: brightness(50%);
 }
 
-#next-arrow[href=next] img, #prew-arrow[href=next] img {
+#next-arrow[href=next] img, #prew-arrow[href=prew] img {
   filter: brightness(100%);
 }
 

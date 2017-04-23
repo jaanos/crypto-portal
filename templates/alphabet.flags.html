@@ -43,13 +43,13 @@
                                 <div id="picture-letter" class="well">
                                     <img src="{{url_for('static', filename='images/flags/'+letter+'.png')}}" />
                                 </div>
+                                <a id="prew-arrow"><img src="{{url_for('static', filename='prew_arrow.png')}}"/></a>
                                 <div id="choices">
-                                    <a id="prew-arrow"><img src="{{url_for('static', filename='prew_arrow.png')}}"/></a>
                                 {% for c in choices %}
                                     <button type="button" class="btn btn-info btn-letter">{% print c.upper() %}</button>
                                 {% endfor %}
-                                   <a id="next-arrow"><img src="{{url_for('static', filename='next_arrow.png')}}"/></a>
                                 </div>
+                                <a id="next-arrow"><img src="{{url_for('static', filename='next_arrow.png')}}"/></a>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 text-center">
                                 <b>

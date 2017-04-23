@@ -1,6 +1,8 @@
 // VARIABLES
 var cookie_name = "kriptogram_alphabet_points";
 var expDays = 1;
+var ansHist = [];
+var histPtr = 0;
 
 function initialize_alphabet(mode, level) {
     if (mode == "read") {
@@ -70,6 +72,7 @@ $( document ).ready(function() {
             
             if(vnos.toUpperCase() === letter.toUpperCase()){
                 console.log("pravilno");
+                document.getElementById('letterInput').disabled = true;
                 $("#letterInput").css('border-color', '#000000 #000000 rgb(36, 143, 36) #000000');
                 //$("#next-arrow *").css('filter', 'brightness(100%)');
                 $("#next-arrow").attr("href", "next");
@@ -109,31 +112,73 @@ $( document ).ready(function() {
         }
     });
     
+    /*
+    *   ARROW LISTENERS
+    */
+    
     // Listens for click on "next arrow" (read-easy)
     $(".level-read-easy #next-arrow").click(function(e) {
         e.preventDefault();
         if ($("#next-arrow").attr("href") === "next") {
-            selectNewLetter(window.alphabet,"easy");
+            if(histPtr >= ansHist.length)
+            {
+                addHistoryEasy();
+                selectNewLetter(window.alphabet,"easy");
+                histPtr++;
+            }
+            else if(histPtr+1 >= ansHist.length){
+                selectNewLetter(window.alphabet,"easy");
+                histPtr++;
+            }
+            else{
+                histPtr++;
+                restoreHistoryEasy();
+            }
         }
         
     });
     
-    // Listens for click on "prev arrow" (read-easy)
+    // Listens for click on "prew arrow" (read-easy)
     $(".level-read-easy #prew-arrow").click(function(e) {
         e.preventDefault();
+        if ($("#prew-arrow").attr("href") === "prew") {
+            histPtr--;
+            restoreHistoryEasy();
+        }
     });
     
     // Listens for click on "next arrow" (read-medium)
     $(".level-read-medium #next-arrow").click(function(e) {
         e.preventDefault();
         if ($("#next-arrow").attr("href") === "next") {
-            selectNewLetter(window.alphabet,"medium");
+            if(histPtr >= ansHist.length)
+            {
+                addHistoryMedium();
+                selectNewLetter(window.alphabet,"medium");
+                histPtr++;
+            }
+            else if(histPtr+1 >= ansHist.length){
+                selectNewLetter(window.alphabet,"medium");
+                histPtr++;
+            }
+            else{
+                histPtr++;
+                document.getElementById('letterInput').disabled = true;
+                $("#letterInput").css('border-color', '#000000 #000000 rgb(36, 143, 36) #000000');
+                restoreHistoryMedium();
+            }
         }
     });
     
     // Listens for click on "prev arrow" (read-medium)
     $(".level-read-medium #prew-arrow").click(function(e) {
         e.preventDefault();
+        if ($("#prew-arrow").attr("href") === "prew") {
+            histPtr--;
+            document.getElementById('letterInput').disabled = true;
+            $("#letterInput").css('border-color', '#000000 #000000 rgb(36, 143, 36) #000000');
+            restoreHistoryMedium();
+        }
     });
     
     // Listens for click on "next arrow" (read-hard)
@@ -152,7 +197,6 @@ $( document ).ready(function() {
 
 // Selects new letter, displays the picture and choices
 function selectNewLetter(alphabet,mode) {
-    console.log(alphabet);
     var letter = alphabet[Math.floor(Math.random() * alphabet.length)];
     var choices=[];
     choices[0] = letter;
@@ -179,23 +223,25 @@ function selectNewLetter(alphabet,mode) {
             if(buttonClass !== ""){
                  button.className = "btn btn-info btn-letter";
                  button.innerHTML = choices[j].toUpperCase();
+                 button.disabled=false;
                  j++;
             }
         }
         /*$("#prew-arrow *").css('filter', 'brightness(100%)');
         $("#next-arrow *").css('filter', 'brightness(50%)');*/
         $("#next-arrow").removeAttr("href");
-        $("#prew-arrow").attr("href", "next");
+        $("#prew-arrow").attr("href", "prew");
     }
         
     
     else if( mode === "medium"){
         document.getElementById('letterInput').value="";
+        document.getElementById('letterInput').disabled = false;
         $("#letterInput").css('border-color', '#000000 #000000 #000000 #000000');
         /*$("#prew-arrow *").css('filter', 'brightness(100%)');
         $("#next-arrow *").css('filter', 'brightness(50%)');*/
         $("#next-arrow").removeAttr("href");
-        $("#prew-arrow").attr("href", "next");
+        $("#prew-arrow").attr("href", "prew");
     }
 }
 
@@ -209,8 +255,77 @@ function selectNewWord(words) {
     }
 }
 
+/*
+*   HISTORY
+*/
 
+//Function adds current answer to history - READ_EASY
+function addHistoryEasy(){
+    var state="";
+    var buttons = document.getElementById('choices'),button;
+    for(var i = 0; i < buttons.children.length; i++){
+        button = buttons.children[i];
+        var buttonClass = button.className;
+        var buttonLetter = button.innerHTML;
+        if(state!="")state+=",";
+        if(buttonClass.includes("btn-info")){
+           state+=buttonLetter+"I"
+        }
+        else if(buttonClass.includes("btn-danger")){
+            state+=buttonLetter+"D"
+        }
+        else if(buttonClass.includes("btn-success")){
+            state+=buttonLetter+"S"
+        }
+    }
+    ansHist.push(state);
+}
 
+// Function adds prev. answer from history - READ_EASY
+function restoreHistoryEasy(){
+    var ans = ansHist[histPtr].split(",");
+    var buttons = document.getElementById('choices'),button;
+    var j = 0;
+    for(var i = 0; i < buttons.children.length; i++){
+        button = buttons.children[i];
+        var letter = (ans[j].split(""))[0];
+        var colour = (ans[j].split(""))[1];
+        if(colour == 'I'){
+            button.className = "btn btn-info btn-letter";
+        }
+        else if(colour == 'D'){
+            button.className = "btn btn-letter btn-danger";
+        }
+        else if(colour == 'S'){
+            button.className = "btn btn-letter btn-success";
+            $(".level-read-easy #picture-letter img").attr("src", flagsDir + letter.toLowerCase() + ".png");
+        }
+        button.innerHTML = letter;
+        button.disabled=true;
+        j++;
+    }
+    if(histPtr === 0){
+        $(".level-read-easy #prew-arrow").removeAttr("href");
+    }
+    $(".level-read-easy #next-arrow").attr("href", "next");
+}
+
+//Function adds current answer to history - READ_MEDIUM
+function addHistoryMedium(){
+    var input = (document.getElementById('letterInput')).value;
+    ansHist.push(input);
+}
+
+// Function adds prev. answer from history - READ_MEDIUM
+function restoreHistoryMedium(){
+    var output = ansHist[histPtr];
+    (document.getElementById('letterInput')).value = output;
+    $(".level-read-medium #picture-letter img").attr("src", flagsDir + output.toLowerCase() + ".png");
+    if(histPtr === 0){
+    $(".level-read-medium #prew-arrow").removeAttr("href");
+    }
+    $(".level-read-medium #next-arrow").attr("href", "next");
+}
 
 /* COOKIES - stores number of points */
 
