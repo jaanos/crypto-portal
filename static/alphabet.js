@@ -1,6 +1,6 @@
 // VARIABLES
 var cookie_name = "kriptogram_alphabet_points";
-var expDays = 1;
+var expDays = 365;
 var ansHist = [];
 var histPtr = 0;
 
@@ -30,7 +30,18 @@ function write_easy() {
 }
 
 function read_hard() {
-    console.log("read, hard");
+    // Clean up
+    $(".level-read-hard .panel-body .well").html("");
+    $("#input-string-hard").html("");
+    $("#next-arrow").removeAttr("href");
+    
+    var word = selectNewWord(window.words);
+    var letters = word.split("");
+    for (i = 0; i < letters.length; i++) {
+        var letter = letters[i];
+        $(".level-read-hard .panel-body .well").append("<img src='" + flagsDir + "/" + letter + ".png'>");
+        $("#input-string-hard").append('<input id = "letterInput" type="text" maxlength="1">');
+    }
 }
 
 function write_hard() {
@@ -43,14 +54,11 @@ $( document ).ready(function() {
     $("#choices .btn").click(function() {
        var letter = getLetterFromURL($("#picture-letter img").attr("src"));
        if ((this.innerHTML).toUpperCase() === letter.toUpperCase()) {
-           //console.log("OK");
            $(this).removeClass("btn-info");
            $(this).addClass("btn-success");
-           //$("#next-arrow *").css('filter', 'brightness(100%)') // <-----------------------------------UREJANJE SVETLOSTI PUSCICE
-           $("#next-arrow").attr("href", "next");// <-----------------------------------DODAJANJE HREFA
+           $("#next-arrow").attr("href", "next");
            addPoints(1);
        } else {
-           //console.log("ERR");
            $(this).removeClass("btn-info");
            $(this).addClass("btn-danger");
            removePoints(1);
@@ -73,14 +81,17 @@ $( document ).ready(function() {
             if(vnos.toUpperCase() === letter.toUpperCase()){
                 console.log("pravilno");
                 document.getElementById('letterInput').disabled = true;
-                $("#letterInput").css('border-color', '#000000 #000000 rgb(36, 143, 36) #000000');
-                //$("#next-arrow *").css('filter', 'brightness(100%)');
+                //$("#letterInput").css('border-color', '#000000 #000000 rgb(36, 143, 36) #000000');
+                $("#letterInput").addClass("correctInput");
+                $("#letterInput").removeClass("wrongInput");
                 $("#next-arrow").attr("href", "next");
                 addPoints(1);
             }
             else{
                 console.log("napacno");
-                $("#letterInput").css('border-color', '#000000 #000000 rgb(128, 0, 0) #000000');
+                //$("#letterInput").css('border-color', '#000000 #000000 rgb(128, 0, 0) #000000');
+                $("#letterInput").addClass("wrongInput");
+                $("#letterInput").removeClass("correctInput");
                 removePoints(1);
             }
                 
@@ -88,12 +99,43 @@ $( document ).ready(function() {
     });
     
     //preveri vnos gesla ko je pritisnjen enter - branje hard
-    /*
-        $("#input-string-hard").keypress(function(e) {
+    $("#input-string-hard").keypress(function(e) {
         //Enter pressed?
-        if(e.which == 10 || e.which == 13) {}
-        });
-    */
+        if(e.which == 10 || e.which == 13) {
+            var index = 0;
+            var numWrongOrUnanswered = 0;
+            var numWrong = 0; var numCorrect = 0;
+            $("#input-string-hard #letterInput").each(function(index) {
+                var input = $(this).val();
+                var letter = getLetterFromURL($(".level-read-hard img:eq(" + index + ")").attr("src"));
+                if (input.toUpperCase() === letter.toUpperCase()) {
+                    // Correct input
+                    $(this).addClass("correctInput");
+                    $(this).removeClass("wrongInput");
+                    numCorrect++;
+                } else {
+                    if (input !== "") {
+                        // Wrong input
+                        $(this).addClass("wrongInput");
+                        numWrong++;
+                    } else {
+                        // Empty input
+                        $(this).removeClass("wrongInput");
+                    }
+                    $(this).removeClass("correctInput");
+                    numWrongOrUnanswered++;
+                }
+                index++;
+            });
+            if (numWrongOrUnanswered == 0) {
+                $("#next-arrow").attr("href", "next");
+                addPoints(numCorrect);
+                console.log("Dodajam " + numCorrect);
+            } else {
+                removePoints(numWrong);
+            }
+        }
+    });
     
     $(".imageSelectionWrap #picture-letter").click(function() {
         var url = $(this).find(".imageSelection").attr("src");
@@ -151,6 +193,7 @@ $( document ).ready(function() {
     $(".level-read-medium #next-arrow").click(function(e) {
         e.preventDefault();
         if ($("#next-arrow").attr("href") === "next") {
+            $("#letterInput").removeClass("correctInput");
             if(histPtr >= ansHist.length)
             {
                 addHistoryMedium();
@@ -164,7 +207,8 @@ $( document ).ready(function() {
             else{
                 histPtr++;
                 document.getElementById('letterInput').disabled = true;
-                $("#letterInput").css('border-color', '#000000 #000000 rgb(36, 143, 36) #000000');
+                //$("#letterInput").css('border-color', '#000000 #000000 rgb(36, 143, 36) #000000');
+                $("#letterInput").addClass("correctInput");
                 restoreHistoryMedium();
             }
         }
@@ -176,7 +220,8 @@ $( document ).ready(function() {
         if ($("#prew-arrow").attr("href") === "prew") {
             histPtr--;
             document.getElementById('letterInput').disabled = true;
-            $("#letterInput").css('border-color', '#000000 #000000 rgb(36, 143, 36) #000000');
+            //$("#letterInput").css('border-color', '#000000 #000000 rgb(36, 143, 36) #000000');
+            $("#letterInput").addClass("correctInput");
             restoreHistoryMedium();
         }
     });
@@ -184,9 +229,7 @@ $( document ).ready(function() {
     // Listens for click on "next arrow" (read-hard)
     $(".level-read-hard #next-arrow").click(function(e) {
         e.preventDefault();
-        if ($("#next-arrow").attr("href") === "next") {
-            selectNewWord(window.words);
-        }
+        read_hard();
     });
     
     // Listens for click on "prev arrow" (read-hard)
@@ -227,8 +270,6 @@ function selectNewLetter(alphabet,mode) {
                  j++;
             }
         }
-        /*$("#prew-arrow *").css('filter', 'brightness(100%)');
-        $("#next-arrow *").css('filter', 'brightness(50%)');*/
         $("#next-arrow").removeAttr("href");
         $("#prew-arrow").attr("href", "prew");
     }
@@ -237,9 +278,9 @@ function selectNewLetter(alphabet,mode) {
     else if( mode === "medium"){
         document.getElementById('letterInput').value="";
         document.getElementById('letterInput').disabled = false;
-        $("#letterInput").css('border-color', '#000000 #000000 #000000 #000000');
-        /*$("#prew-arrow *").css('filter', 'brightness(100%)');
-        $("#next-arrow *").css('filter', 'brightness(50%)');*/
+        //$("#letterInput").css('border-color', '#000000 #000000 #000000 #000000');
+        $("#letterInput").removeClass("correctInput");
+        $("#letterInput").removeClass("wrongInput");
         $("#next-arrow").removeAttr("href");
         $("#prew-arrow").attr("href", "prew");
     }
@@ -247,12 +288,13 @@ function selectNewLetter(alphabet,mode) {
 
 
 function selectNewWord(words) {
-    console.log(words);
+    words = words.split(", ");
     var word = words[Math.floor(Math.random() * words.length)];
-    word=word.split("");
-    for(var i = 0; i < word.length; i++){
-        //dodaj crto
-    }
+    var re = new RegExp("&#39;", 'g');
+    word = word.replace(re, "");
+    word = word.replace("[","");
+    word = word.replace("]","");
+    return word;
 }
 
 /*

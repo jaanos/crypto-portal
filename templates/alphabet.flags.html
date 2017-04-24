@@ -77,16 +77,10 @@
                             {% elif level == "hard" %}
                             <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center" id = "coreLogic">
                                 Branje, težko
-                                <div class="well"> prikazi sekvenco za: {% print word %}</div>
-                                    <a id="prew-arrow"><img src="{{url_for('static', filename='prew_arrow.png')}}"/></a>
-                                    <div id="input-string-hard">
-                                        {% for w in word %}
-                                        <input id = "letterInput" type="text" maxlength="1">
-                                        {% endfor %}
-                                    </div>
-                                    <a id="next-arrow"><img src="{{url_for('static', filename='next_arrow.png')}}"/></a>
-                                <div>
-                                </div>
+                                <div class="well"></div>
+                                <a id="prew-arrow"><img src="{{url_for('static', filename='prew_arrow.png')}}"/></a>
+                                <div id="input-string-hard"></div>
+                                <a id="next-arrow"><img src="{{url_for('static', filename='next_arrow.png')}}"/></a>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 text-center">
                                 <b>
