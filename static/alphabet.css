@@ -68,6 +68,14 @@
 #letterInput.wrongInput {
   border-bottom-color: rgb(128, 0, 0);
 }
+#picture-letter.correctInput {
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+#picture-letter.wrongInput {
+  background-color: #c9302c;
+  border-color: #ac2925;
+}
 
 .imageSelection{
   max-width:100%;

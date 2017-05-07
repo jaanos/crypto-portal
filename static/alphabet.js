@@ -34,12 +34,13 @@ function read_hard() {
     $(".level-read-hard .panel-body .well").html("");
     $("#input-string-hard").html("");
     $("#next-arrow").removeAttr("href");
+    $("#start-animation").removeAttr("disabled");
     
     var word = selectNewWord(window.words);
     var letters = word.split("");
     for (i = 0; i < letters.length; i++) {
         var letter = letters[i];
-        $(".level-read-hard .panel-body .well").append("<img src='" + flagsDir + "/" + letter + ".png'>");
+        $(".level-read-hard .panel-body .well").append("<img src='" + flagsDir + letter + ".png' class='hidden'>");
         $("#input-string-hard").append('<input id = "letterInput" type="text" maxlength="1">');
     }
 }
@@ -57,6 +58,8 @@ $( document ).ready(function() {
            $(this).removeClass("btn-info");
            $(this).addClass("btn-success");
            $("#next-arrow").attr("href", "next");
+           buttonsDisable();
+           addHistoryEasy();
            addPoints(1);
        } else {
            $(this).removeClass("btn-info");
@@ -80,11 +83,13 @@ $( document ).ready(function() {
             
             if(vnos.toUpperCase() === letter.toUpperCase()){
                 console.log("pravilno");
-                document.getElementById('letterInput').disabled = true;
+                //document.getElementById('letterInput').disabled = true;
                 //$("#letterInput").css('border-color', '#000000 #000000 rgb(36, 143, 36) #000000');
                 $("#letterInput").addClass("correctInput");
                 $("#letterInput").removeClass("wrongInput");
                 $("#next-arrow").attr("href", "next");
+                 document.getElementById('letterInput').disabled = true;
+                 addHistoryMedium();
                 addPoints(1);
             }
             else{
@@ -143,15 +148,24 @@ $( document ).ready(function() {
         var letter = $(".level-write-easy #letterToGuess span").text();
         console.log(letter);
         if (letterSelected.toUpperCase() === letter.toUpperCase()) {
-            $(this).css("background-color", "#5cb85c");
-            $(this).css("border-color", "#4cae4c");
+            //$(this).css("background-color", "#5cb85c");
+            //$(this).css("border-color", "#4cae4c");
+            $(this).addClass("correctInput");
+            $(this).removeClass("wrongInput");
             $("#next-arrow").attr("href", "next");
             addPoints(1);
         } else {
-            $(this).css("background-color", "#c9302c");
-            $(this).css("border-color", "#ac2925");
+            //$(this).css("background-color", "#c9302c");
+            //$(this).css("border-color", "#ac2925");
+            $(this).removeClass("correctInput");
+            $(this).addClass(("wrongInput"));
             removePoints(1);
         }
+    });
+    
+    $("#start-animation").click(function() {
+        $(this).attr("disabled", "disabled");
+        displaySequenceOfImages(".level-read-hard .well img", 0);
     });
     
     /*
@@ -162,14 +176,9 @@ $( document ).ready(function() {
     $(".level-read-easy #next-arrow").click(function(e) {
         e.preventDefault();
         if ($("#next-arrow").attr("href") === "next") {
-            if(histPtr >= ansHist.length)
+            if(histPtr >= ansHist.length || histPtr+1 >= ansHist.length)
             {
-                addHistoryEasy();
-                selectNewLetter(window.alphabet,"easy");
-                histPtr++;
-            }
-            else if(histPtr+1 >= ansHist.length){
-                selectNewLetter(window.alphabet,"easy");
+                selectAndDisplayNewLetter(window.alphabet,"easy");
                 histPtr++;
             }
             else{
@@ -194,20 +203,13 @@ $( document ).ready(function() {
         e.preventDefault();
         if ($("#next-arrow").attr("href") === "next") {
             $("#letterInput").removeClass("correctInput");
-            if(histPtr >= ansHist.length)
+            if(histPtr >= ansHist.length || histPtr+1 >= ansHist.length)
             {
-                addHistoryMedium();
-                selectNewLetter(window.alphabet,"medium");
-                histPtr++;
-            }
-            else if(histPtr+1 >= ansHist.length){
-                selectNewLetter(window.alphabet,"medium");
+                selectAndDisplayNewLetter(window.alphabet,"medium");
                 histPtr++;
             }
             else{
                 histPtr++;
-                document.getElementById('letterInput').disabled = true;
-                //$("#letterInput").css('border-color', '#000000 #000000 rgb(36, 143, 36) #000000');
                 $("#letterInput").addClass("correctInput");
                 restoreHistoryMedium();
             }
@@ -219,7 +221,7 @@ $( document ).ready(function() {
         e.preventDefault();
         if ($("#prew-arrow").attr("href") === "prew") {
             histPtr--;
-            document.getElementById('letterInput').disabled = true;
+            //document.getElementById('letterInput').disabled = true;
             //$("#letterInput").css('border-color', '#000000 #000000 rgb(36, 143, 36) #000000');
             $("#letterInput").addClass("correctInput");
             restoreHistoryMedium();
@@ -236,11 +238,62 @@ $( document ).ready(function() {
     $(".level-read-hard #prew-arrow").click(function(e) {
         e.preventDefault();
     });
+    
+    // Listens for click on "next arrow" (write-easy)
+    $(".level-write-easy #next-arrow").click(function(e) {
+        e.preventDefault();
+        if ($("#next-arrow").attr("href") === "next") {
+            selectAndDisplayNewImage(alphabet, "easy");
+        }
+    });
+    
+    // Listens for click on "prew arrow" (write-easy)
+    $(".level-write-easy #prew-arrow").click(function(e) {
+        e.preventDefault();
+        if ($("#prew-arrow").attr("href") === "prew") {
+            // ...
+        }
+    });
 });
 
 // Selects new letter, displays the picture and choices
-function selectNewLetter(alphabet,mode) {
-    var letter = alphabet[Math.floor(Math.random() * alphabet.length)];
+function selectAndDisplayNewLetter(alphabet, mode) {
+    var letter = selectNewLetter(alphabet);
+    var choices = selectChoices(alphabet, letter);
+    
+    $(".level-read-"+mode+" #picture-letter img").attr("src", flagsDir + letter + ".png");
+    
+    //Clears inputs and options
+    if(mode === "easy") {
+        clearSelectedOptions("choices", choices);
+    } else if( mode === "medium") {
+        clearInput("letterInput");
+    }
+}
+
+function selectAndDisplayNewImage(alphabet, mode) {
+    var letter = selectNewLetter(alphabet);
+    var choices = selectChoices(alphabet, letter);
+    
+    $("#letterToGuess span").text(letter.toUpperCase());
+    clearSelectedImages("#coreLogic #picture-letter", choices);
+}
+
+function selectNewLetter(alphabet) {
+    return alphabet[Math.floor(Math.random() * alphabet.length)];
+}
+
+function selectNewWord(words) {
+    words = words.split(", ");
+    var word = words[Math.floor(Math.random() * words.length)];
+    var re = new RegExp("&#39;", 'g');
+    word = word.replace(re, "");
+    word = word.replace("[","");
+    word = word.replace("]","");
+    return word;
+}
+
+function selectChoices(alphabet, letter) {
     var choices=[];
     choices[0] = letter;
     for(var i = 1; i < 4; i++){
@@ -254,47 +307,45 @@ function selectNewLetter(alphabet,mode) {
         }
     }
     shuffle(choices);
-    $(".level-read-"+mode+" #picture-letter img").attr("src", flagsDir + letter + ".png");
-    
-    //Clears inputs and options
-    if(mode === "easy"){
-        var buttons = document.getElementById('choices'),button;
-        var j = 0;
-        for(i = 0; i < buttons.children.length; i++){
-            button = buttons.children[i];
-            var buttonClass = button.className;
-            if(buttonClass !== ""){
-                 button.className = "btn btn-info btn-letter";
-                 button.innerHTML = choices[j].toUpperCase();
-                 button.disabled=false;
-                 j++;
-            }
-        }
-        $("#next-arrow").removeAttr("href");
-        $("#prew-arrow").attr("href", "prew");
-    }
-        
-    
-    else if( mode === "medium"){
-        document.getElementById('letterInput').value="";
-        document.getElementById('letterInput').disabled = false;
-        //$("#letterInput").css('border-color', '#000000 #000000 #000000 #000000');
-        $("#letterInput").removeClass("correctInput");
-        $("#letterInput").removeClass("wrongInput");
-        $("#next-arrow").removeAttr("href");
-        $("#prew-arrow").attr("href", "prew");
-    }
+    return choices;
 }
 
+function clearSelectedOptions(elementID, choices) {
+    var buttons = document.getElementById(elementID),button;
+    var j = 0;
+    for(i = 0; i < buttons.children.length; i++){
+        button = buttons.children[i];
+        var buttonClass = button.className;
+        if(buttonClass !== ""){
+             button.className = "btn btn-info btn-letter";
+             button.innerHTML = choices[j].toUpperCase();
+             button.disabled=false;
+             j++;
+        }
+    }
+    $("#next-arrow").removeAttr("href");
+    $("#prew-arrow").attr("href", "prew");
+}
 
-function selectNewWord(words) {
-    words = words.split(", ");
-    var word = words[Math.floor(Math.random() * words.length)];
-    var re = new RegExp("&#39;", 'g');
-    word = word.replace(re, "");
-    word = word.replace("[","");
-    word = word.replace("]","");
-    return word;
+function clearSelectedImages(elementID, choices) {
+    var i = 0;
+    $(elementID).each(function() {
+        $(this).find("img").attr("src", flagsDir + choices[i].toLowerCase() + ".png");
+        $(this).removeClass("wrongInput");
+        $(this).removeClass("correctInput");
+        i++;
+    });
+    $("#next-arrow").removeAttr("href");
+    $("#prew-arrow").attr("href", "prew");
+}
+
+function clearInput(elementID) {
+    document.getElementById(elementID).value="";
+    document.getElementById(elementID).disabled = false;
+    $(elementID).removeClass("correctInput");
+    $(elementID).removeClass("wrongInput");
+    $("#next-arrow").removeAttr("href");
+    $("#prew-arrow").attr("href", "prew");
 }
 
 /*
@@ -303,6 +354,7 @@ function selectNewWord(words) {
 
 //Function adds current answer to history - READ_EASY
 function addHistoryEasy(){
+    if(histPtr >= ansHist.length){
     var state="";
     var buttons = document.getElementById('choices'),button;
     for(var i = 0; i < buttons.children.length; i++){
@@ -321,6 +373,8 @@ function addHistoryEasy(){
         }
     }
     ansHist.push(state);
+    }
+    //histPtr++;
 }
 
 // Function adds prev. answer from history - READ_EASY
@@ -354,14 +408,17 @@ function restoreHistoryEasy(){
 
 //Function adds current answer to history - READ_MEDIUM
 function addHistoryMedium(){
-    var input = (document.getElementById('letterInput')).value;
-    ansHist.push(input);
+    if(histPtr >= ansHist.length){
+        var input = (document.getElementById('letterInput')).value;
+        ansHist.push(input);
+    }
 }
 
 // Function adds prev. answer from history - READ_MEDIUM
 function restoreHistoryMedium(){
     var output = ansHist[histPtr];
     (document.getElementById('letterInput')).value = output;
+    document.getElementById('letterInput').disabled = true;
     $(".level-read-medium #picture-letter img").attr("src", flagsDir + output.toLowerCase() + ".png");
     if(histPtr === 0){
     $(".level-read-medium #prew-arrow").removeAttr("href");
@@ -423,13 +480,39 @@ function removePoints(pointsRemoved) {
 }
 
 /*
-*  Support functions
-*/
+ *  Display sequence of images
+ */
+
+function displaySequenceOfImages(elements, index) {
+    if (index <= $(elements).length) {
+        if (index > 0) {
+            $(elements + ":eq(" + (index - 1) + ")").addClass("hidden");
+        }
+        $(elements + ":eq(" + index + ")").removeClass("hidden");
+        setTimeout(function() {
+            displaySequenceOfImages(elements, (index + 1))
+        }, 1000);
+    }
+}
+
+
+/*
+ *  Support functions
+ */
 
 function shuffle(a) {
     for (let i = a.length; i; i--) {
         let j = Math.floor(Math.random() * i);
         [a[i - 1], a[j]] = [a[j], a[i - 1]];
+    }
+}
+
+// Disables all "choices" - buttons 
+function buttonsDisable(){
+    var buttons = document.getElementById('choices'),button;
+    for(var i = 0; i < buttons.children.length; i++){
+        button = buttons.children[i];
+        button.disabled=true;
     }
 }
 
