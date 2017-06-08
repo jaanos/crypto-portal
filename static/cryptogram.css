@@ -166,3 +166,20 @@
     margin: 5px;
     padding: 3px;
 }
+
+/* do not group these rules */
+*::-webkit-input-placeholder {
+    color: #BDBDBD;
+}
+*:-moz-placeholder {
+    /* FF 4-18 */
+    color: #BDBDBD;
+}
+*::-moz-placeholder {
+    /* FF 19+ */
+    color: #BDBDBD;
+}
+*:-ms-input-placeholder {
+    /* IE 10+ */
+    color: #BDBDBD;
+}
