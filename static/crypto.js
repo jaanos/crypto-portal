@@ -12,6 +12,7 @@ var freeLetters = null; // letters remaining and available for substitution
 var cryptedMessage = null; // original message input by user to the message box
 var frequencyTable = null; // table of letter frequencies in the original message
 var ALPHABET = null; // array containing the 25 letters in the english alphabet for resetting
+var currentStats = null;
 
 function stripBlanks(fld) {
     var result = "";
@@ -62,9 +63,252 @@ function initialize(st){
     
     //window.onresize = updateEssentials;
     updateEssentials(); // adds the letter selection, message display, and frequency tables
+    loadChart();
 }
 
+/**
+ * Loads the initial charts. First chart contains frequencies of the letters in
+ * the encrypted text and the second contains frequencies of letters in either
+ * sl/eng alphabets.
+ */
+function loadChart() {
 
+    var stats_sl = { 'A':10.5, 'B':2.0, 'C':0.7, 'Č':1.5, 'D':3.4, 'E': 10.7,
+        'F':0.1, 'G':1.6, 'H':1.1, 'I': 9.0, 'J':4.7, 'K':3.7, 'L':5.3, 'M':3.3,
+        'N': 6.3, 'O':9.1, 'P':3.4, 'R':5.0 , 'S':5.1, 'Š':1.0, 'T':4.3, 'U':1.9,
+        'V':3.8, 'Z':2.1, 'Ž':0.7};
+
+    var stats_en = { 'A': 8.2, 'B': 1.5, 'C': 2.8, 'D': 4.2, 'E': 12.7,
+        'F': 2.2, 'G': 2.0, 'H': 6.1, 'I': 7.0, 'J': 0.2, 'K': 0.8, 'L': 4.0,
+        'M': 2.4, 'N': 6.7, 'O': 7.5, 'P': 1.9, 'Q': 0.1, 'R': 6.0, 'S': 6.3,
+        'T': 9.1, 'U': 2.8, 'V': 1.0, 'W': 2.4, 'X': 0.2, 'Y': 2.0 ,'Z': 0.1};
+    currentStats = foreign ? stats_en: stats_sl;
+
+    addSortButton('info-btn-1', "chart1");
+    addSortButton('info-btn-2', "chart2");
+    var data_1 = getFrequencyChartData(frequencyTable, 1);
+    var data_2 = getStaticChartData(currentStats, 1);
+    drawChart('chart1', data_1);
+    drawChart('chart2', data_2);
+    setChartInfo('chart1', data_1[1]);
+    setChartInfo('chart2', data_2[1]);
+}
+
+/**
+ * Returns the data for the second graph containing the sl/eng frequencies of
+ * letters in the alphabet.
+ * @param {dictionary} stats - Contains mapping of letters to frequencies
+ * @param {number} sort - Tells the type of sorting to use - numbers/letters
+ * @return {Array}  Returns an array containing series and ticks
+ */
+function getStaticChartData(stats, sort) {
+
+    var items = Object.keys(stats).map(function(key) {
+        return [key, stats[key]];
+    });
+
+    if (sort === 1) {
+        items.sort(function (first, second) {
+            return second[1] - first[1];
+        });
+    } else {
+        items.sort(function (first, second) {
+            return first[0].toString().localeCompare(second[0]);
+        });
+    }
+
+    var series = [];
+    var ticks = [];
+
+    for(var j = 0; j < items.length; j++) {
+        series.push(items[j][1]);
+        ticks.push(items[j][0]);
+    }
+
+    return [series, ticks];
+}
+
+/**
+ * Returns the data for the second graph containing the sl/eng frequencies of
+ * letters in the alphabet.
+ * @param {dictionary} stats - Contains mapping of letters to frequencies
+ * @param {number} sort - Tells the type of sorting to use - numbers/letters
+ * @return {Array}  Returns an array containing series and ticks
+ */
+function getFrequencyChartData(stats, sort) {
+
+    var keys = Object.keys(stats);
+
+    var items = Object.keys(stats).map(function(key) {
+        return [key, stats[key]];
+    });
+
+    var total_keys = 0;
+    for (var i = 0; i < keys.length; i++) {
+        total_keys += stats[keys[i]];
+    }
+
+    if (sort === 1) {
+        items.sort(function(first, second) {
+            return second[1] - first[1];
+        });
+    } else {
+        items.sort(function (first, second) {
+            return first[0].toString().localeCompare(second[0]);
+        });
+    }
+
+    var series = [];
+    var ticks = [];
+
+    for(var j = 0; j < items.length; j++) {
+        series.push((items[j][1] / total_keys)*100);
+        ticks.push(items[j][0]);
+    }
+
+    return [series, ticks]
+}
+
+/**
+ * Method sets the information display for each graph, depending of the chart
+ * passed as the argument.
+ * @param {string} chart - Id of chart
+ * @param {Array} ticks - Data on x axis for dispaly
+ */
+function setChartInfo(chart, ticks) {
+
+    if (chart === 'chart1') {
+        $('#chart1').bind('jqplotDataHighlight',
+            function (ev, seriesIndex, pointIndex, data) {
+                $('#info-msg-1').html('Pojavitev črke:  <strong>' + ticks[pointIndex] + '</strong> v besedilu - ' + data[1].toFixed(1) + '%');
+            }
+        );
+
+    } else  {
+        $('#chart2').bind('jqplotDataHighlight',
+            function (ev, seriesIndex, pointIndex, data) {
+                $('#info-msg-2').html('Frekvenca črke:  <strong>' + ticks[pointIndex]  + '</strong> v slovenskem jeziku - ' + data[1].toFixed(1) + '%');
+            });
+    }
+
+}
+
+/**
+ * Returns the data for the second graph containing the sl/eng frequencies of
+ * letters in the alphabet.
+ * @param {string} chart_id - Id of chart to be drawn
+ * @param {Array} data - Array containing series and ticks for display
+ */
+function drawChart(chart_id, data) {
+
+    var series = data[0];
+    var ticks = data[1];
+
+    $(document).ready(function () {
+
+        $.jqplot.config.enablePlugins = true;
+        var plot = $.jqplot(chart_id, [series], {
+            height: 100,
+            seriesColors:['#337ab7'],
+            seriesDefaults: {
+                renderer: $.jqplot.BarRenderer,
+                pointLabels: { show: true, formatString: '%.1f' }
+            },
+            axes: {
+                xaxis: {
+                    renderer: $.jqplot.CategoryAxisRenderer,
+                    ticks: ticks
+                },
+                yaxis:{
+                    labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+                }
+            },
+            grid: {
+                backgroundColor: "#FFFFFF",
+                gridLineColor: "#FFFFFF",
+                gridLineWidth: 0,
+                shadow: false,
+                drawBorder: true,
+                borderColor: '#337ab7'
+            }
+        });
+
+        $(window).resize(function() {
+            plot.replot( { resetAxes: true } );
+        });
+        plot.replot();
+    });
+
+}
+
+/**
+ * Method adds a sort button next to the chart info display above the chart.
+ * @param {string} info_btn_id - Id of the button to be added
+ */
+function addSortButton(info_btn_id, chart_id) {
+    var info = document.getElementById(info_btn_id);
+    var button;
+
+    if (info_btn_id === 'info-btn-1') {
+        button = createSortButton("chartSortButton1", chart_id,
+            "sortChart(this.id);"
+        );
+    }
+    else {
+        button = createSortButton("chartSortButton2", chart_id,
+            "sortChart(this.id);"
+        );
+    }
+    info.appendChild(button);
+}
+
+/**
+ * Method creates the chart sort button.
+ * @param {String} button_id - Id that the button will get
+ * @param {String} chart_id - Id that the button will get
+ * @param {String} function_name - Function that will be called when the button
+ * is clicked
+ * @returns {Object} Returns the newly created button
+ */
+function createSortButton(button_id, chart_id, function_name) {
+        var button = document.createElement("button");
+        button.setAttribute("value", "sortChart1");
+        button.setAttribute("id", button_id);
+        button.setAttribute("data-chart-id", chart_id);
+        button.setAttribute("class","btn btn-default btn-sm");
+        button.setAttribute("onclick", function_name);
+        button.textContent = "Sortiraj po abecedi";
+        return button;
+}
+
+/**
+ * Method sorts the data depending of the value of the clicked button.
+ * Afer the data is sorted it is re-displayed.
+ * @param {String} button_id - Id that the button
+ */
+function sortChart(button_id) {
+
+    var btn = document.getElementById(button_id);
+    var chart_id = btn.getAttribute("data-chart-id");
+    var data;
+    if (chart_id === "chart1") {
+        data = getFrequencyChartData(frequencyTable, btn.value === 'sortChart1' ? 2: 1);
+    }
+    else {
+        data = getStaticChartData(currentStats, btn.value === 'sortChart1' ? 2: 1);
+    }
+
+    if (btn.value === 'sortChart1' ) {
+        btn.setAttribute('value', 'sortChart2');
+        btn.textContent = "Sortiraj po frekvenci";
+    }
+    else {
+        btn.setAttribute('value', 'sortChart1');
+        btn.textContent = "Sortiraj po abecedi";
+    }
+
+    drawChart(chart_id, data);
+}
 
 function updateEssentials(){
     frequencyTable = new Array(); // frequencyTable will be handled by the getMessageDisplay method
