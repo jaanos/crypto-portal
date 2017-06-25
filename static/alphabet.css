@@ -93,3 +93,17 @@
   font-weight: 900;
   font-size: 150px;
 }
+
+#semaphoreCanvas {
+  border:1px solid #000000;
+}
+
+#picture-letter.image_option.not_active {
+  opacity: 0.65;
+  cursor: default;
+}
+
+#left-back img, #left-forw img, #right-back img, #right-forw img{
+  max-width:30%;
+  max-height:30%;
+}
