@@ -17,12 +17,16 @@ function initialize_alphabet(mode, level) {
     if (mode == "read") {
         if (level == "easy") {
             read_easy();
+        } else if (level == "medium") {
+            read_medium();
         } else if (level == "hard") {
             read_hard();
         }
     } else if (mode == "write") {
         if (level == "easy") {
             write_easy();
+        } else if (level == "medium") {
+            write_medium();
         } else if (level == "hard") {
             write_hard();
         }
@@ -31,11 +35,20 @@ function initialize_alphabet(mode, level) {
 
 function read_easy() {
     console.log("read, easy");
-    
 }
 
 function write_easy() {
     console.log("write, easy");
+}
+
+function read_medium() {
+    setTimeout(function() {
+        $("#letterInput").focus();
+    }, 500);
+}
+
+function write_medium() {
+    
 }
 
 function read_hard() {
@@ -47,10 +60,13 @@ function read_hard() {
     
     var word = selectNewWord(window.words);
     var letters = word.split("");
+    var idNumber = 1;
     for (i = 0; i < letters.length; i++) {
         var letter = letters[i];
         $(".level-read-hard .panel-body .well").append("<img src='" + flagsDir + letter + ".png' class='hidden'>");
-        $("#input-string-hard").append('<input id = "letterInput" type="text" maxlength="1">');
+        $("#input-string-hard").append('<input id="num' + idNumber + '" class = "letterInputClass" type="text" maxlength="1" onkeyup="focusNext(event, \'#num' + (idNumber+1) + '.letterInputClass\')">');
+        //$("#input-string-hard").append('<input id="num' + idNumber + '" class = "letterInputClass" type="text" maxlength="1">');
+        idNumber++;
     }
 }
 
@@ -123,7 +139,7 @@ $( document ).ready(function() {
             var index = 0;
             var numWrongOrUnanswered = 0;
             var numWrong = 0; var numCorrect = 0;
-            $("#input-string-hard #letterInput").each(function(index) {
+            $("#input-string-hard .letterInputClass").each(function(index) {
                 var input = $(this).val();
                 var letter = getLetterFromURL($(".level-read-hard img:eq(" + index + ")").attr("src"));
                 if (input.toUpperCase() === letter.toUpperCase()) {
@@ -183,6 +199,7 @@ $( document ).ready(function() {
     
     $("#start-animation").click(function() {
         $(this).attr("disabled", "disabled");
+        $("#input-string-hard #num1").focus();
         displaySequenceOfImages(".level-read-hard .well img", 0);
     });
     
@@ -249,7 +266,9 @@ $( document ).ready(function() {
     // Listens for click on "next arrow" (read-hard)
     $(".level-read-hard #next-arrow").click(function(e) {
         e.preventDefault();
-        read_hard();
+        if ($("#next-arrow").attr("href") === "next") {
+            read_hard();
+        }
     });
     
     // Listens for click on "prev arrow" (read-hard)
@@ -319,7 +338,6 @@ $( document ).ready(function() {
             console.log("RIGHT-FORW (PREVERJENO)");
         }
     });
-    
 });
 
 // Selects new letter, displays the picture and choices
@@ -412,6 +430,14 @@ function clearInput(elementID) {
     $(elementID).removeClass("wrongInput");
     $("#next-arrow").removeAttr("href");
     $("#prew-arrow").attr("href", "prew");
+}
+
+function focusNext(event, elementToFocus) {
+    var char = event.which || event.keyCode;
+    console.log(char);
+    if (isLetter(String.fromCharCode(char))) {
+        $(elementToFocus).focus().select();
+    }
 }
 
 /*
@@ -644,6 +670,7 @@ function displaySequenceOfImages(elements, index) {
             $(elements + ":eq(" + (index - 1) + ")").addClass("hidden");
         }
         $(elements + ":eq(" + index + ")").removeClass("hidden");
+
         setTimeout(function() {
             displaySequenceOfImages(elements, (index + 1))
         }, 1000);
@@ -697,6 +724,10 @@ function getLetterFromURL(url) {
 function sleep(delay) {
     var start = new Date().getTime();
     while (new Date().getTime() < start + delay);
+}
+
+function isLetter(c) {
+    return c.toLowerCase() != c.toUpperCase();
 }
 
 
