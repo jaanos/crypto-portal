@@ -3,14 +3,14 @@ var cookie_name = "kriptogram_alphabet_points";
 var expDays = 365;
 var ansHist = [];
 var histPtr = 0;
-var curHandPos = [4,4];
+var curHandPos = [0,0];
 // x = [right, left]
 var positions = {
-        'a':[1,0],'b':[2,0],'c':[3,0],'d':[0,4],'e':[0,5],'f':[0,6],
-        'g':[0,7],'h':[2,1],'i':[1,3],'j':[4,6],'k':[1,4],'l':[1,5],
-        'm':[1,6],'n':[1,7],'o':[2,3],'p':[2,4],'q':[2,5],'r':[2,6],
-        's':[2,7],'t':[3,4],'u':[3,5],'v':[4,7],'w':[6,5],'x':[7,5],
-        'y':[3,6],'z':[7,6],' ':[0,0],'init':[4,4]
+        'a':[135,180],'b':[90,180],'c':[45,180],'d':[0,180],'e':[180,45],'f':[180,90],
+        'g':[180,135],'h':[90,225],'i':[45,225],'j':[0,90],'k':[135,0],'l':[135,45],
+        'm':[135,90],'n':[135,135],'o':[90,315],'p':[90,0],'q':[90,45],'r':[90,90],
+        's':[90,135],'t':[45,0],'u':[45,45],'v':[0,135],'w':[315,90],'x':[315,135],
+        'y':[45,90],'z':[225,90],' ':[180,180],'init':[0,0]
     };
 
 function initialize_alphabet(mode, level) {
@@ -48,7 +48,8 @@ function read_medium() {
 }
 
 function write_medium() {
-    
+    setCanvas();
+    semaforSetMedium(positions['init']);
 }
 
 function read_hard() {
@@ -73,7 +74,7 @@ function read_hard() {
 var zaseden = false;
 
 function write_hard() {
-    console.log("write, hard");
+    setCanvas();
     semafor(positions['init']);
 }
 
@@ -300,43 +301,73 @@ $( document ).ready(function() {
             restoreHistoryWriteEasy();
         }
     });
+   
+    /*
+    *        WRITE CONTROLS (MEDIUM)
+    */
     
-    // WRITE-HARD CONTROLS
+    // Listens for click on "left-back" (write-hard)
+    $(".level-write-medium #left-back").click(function(e) {
+        if($(".level-write-medium #left-back").attr("style") !== "filter: opacity(30%);")leftFlagBack();
+        else console.log("NE BOM SEL NOTR");
+    });
+    
+    // Listens for click on "left-forw" (write-hard)
+    $(".level-write-medium #left-forw").click(function(e) {
+        if($(".level-write-medium #left-forw").attr("style") !== "filter: opacity(30%);")leftFlagForw();
+        else console.log("NE BOM SEL NOTR");
+    });
+    
+    // Listens for click on "right-back" (write-hard)
+    $(".level-write-medium #right-back").click(function(e) {
+        if($(".level-write-medium #right-back").attr("style") !== "filter: opacity(30%);")rightFlagBack();
+        else console.log("NE BOM SEL NOTR");
+    });
+    
+    // Listens for click on "right-forw" (write-hard)
+    $(".level-write-medium #right-forw").click(function(e) {
+        if($(".level-write-medium #right-forw").attr("style") !== "filter: opacity(30%);")rightFlagForw();
+    });
+    
+    // Listens for click on "check" (write-hard)
+    $(".level-write-medium #check").click(function(e) {
+        var poz = checkFlagPoz();
+        var letter = $(".level-write-medium #letterToGuess span").text();
+        if(letter.toLowerCase() === poz) markCheckMedium(1);
+        else markCheckMedium(0);
+    });
+    
+    
+    /*
+    *        WRITE CONTROLS (HARD)
+    */
+    
     // Listens for click on "left-back" (write-hard)
     $(".level-write-hard #left-back").click(function(e) {
-        console.log("LEFT-BACK (NEPREVERJENO)");
-        semafor([curHandPos[0],curHandPos[1]-1]);
-        if ($("#left-back").attr("href") === "left_back") {
-            console.log("LEFT-BACK (PREVERJENO)");
-        }
+        if($(".level-write-hard #left-back").attr("style") !== "filter: opacity(30%);")leftFlagBack();
     });
     
     // Listens for click on "left-forw" (write-hard)
     $(".level-write-hard #left-forw").click(function(e) {
-        console.log("LEFT-FORW (NEPREVERJENO)");
-        semafor([curHandPos[0],curHandPos[1]+1]);
-        semafor();
-        if ($("#left-forw").attr("href") === "left_forw") {
-            console.log("LEFT-FORWK (PREVERJENO)");
-        }
+        if($(".level-write-hard #left-forw").attr("style") !== "filter: opacity(30%);")leftFlagForw();
     });
     
     // Listens for click on "right-back" (write-hard)
     $(".level-write-hard #right-back").click(function(e) {
-        console.log("RIGHT-BACK (NEPREVERJENO)");
-        semafor([curHandPos[0]+1,curHandPos[1]]);
-        if ($("#right-back").attr("href") === "rigth_back") {
-            console.log("RIGHT-BACK (PREVERJENO)");
-        }
+        if($(".level-write-hard #right-back").attr("style") !== "filter: opacity(30%);")rightFlagBack();
     });
     
     // Listens for click on "right-forw" (write-hard)
     $(".level-write-hard #right-forw").click(function(e) {
-        console.log("RIGHT-PREW (NEPREVERJENO)");
-        semafor([curHandPos[0]-1,curHandPos[1]]);
-        if ($("#right-forw").attr("href") === "right-forw") {
-            console.log("RIGHT-FORW (PREVERJENO)");
-        }
+        if($(".level-write-hard #right-forw").attr("style") !== "filter: opacity(30%);")rightFlagForw();
+    });
+    
+    // Listens for click on "check" (write-hard)
+    $(".level-write-hard #check").click(function(e) {
+        var poz = checkFlagPoz();
+        var letter = $(".level-write-hard #letterToGuess span").text();
+        if(letter.toLowerCase() === poz) markCheckHard(1);
+        else markCheckHard(0);
     });
 });
 
@@ -732,58 +763,165 @@ function isLetter(c) {
 
 
 /*
-*   TMP
+*   FLAG ANIMATION (WRITE)
 */
 
-// Zacasna funkcija - test premikanja rok
+// Function for init. of semaphor
 function semafor(letter){
-    console.log("V semaforju sem dobil: "+letter);
-    console.log("trenutna pozicija rok: "+curHandPos);
     var canvas = document.getElementById("semaphoreCanvas");
     var context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
-    var crka = letter;
     drawBody();
-    //drawLeftFlag(Math.abs(curHandPos[0]-4)*45);
-    //drawRightFlag(Math.abs(curHandPos[1]-4)*45);
-    animate(letter);
+    drawLeftFlag(letter[0]);
+    drawRightFlag(letter[1]);
     curHandPos = letter;
-    console.log("preden oddidem je nastavim curHandPos: "+curHandPos);
 }
 
-// Function for flag aimation
-function animate(letter){
-    zaseden = true;
+// Function sets one flag corectly and disables another one
+function semaforSetMedium(){
+    var choice = Math.round(Math.random());
+    var letter = $(".level-write-medium #letterToGuess span").text().toLowerCase();
     var canvas = document.getElementById("semaphoreCanvas");
     var context = canvas.getContext("2d");
-    var angR =  Math.abs(curHandPos[0]-4)*45; //start angle for right flag 
-    var angL = Math.abs(curHandPos[1]-4)*45;; //start angle for left flag
-    var fps = 50 / 25; //number of frames per sec
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    drawBody();
+    console.log("crka = "+letter);
+    if(choice == 1){
+        //RIGHT
+        drawLeftFlag(positions[letter][1]);
+        drawRightFlag(0);
+        disableLeftMedium();
+        curHandPos = [0,positions[letter][1]];
+    }
+    else{
+        //LEFT
+        drawRightFlag(positions[letter][0]);
+        drawLeftFlag(0);
+        disableRightMedium();
+        curHandPos = [positions[letter][0],0];
+    }
+}
+
+// Function for left flag forw
+function leftFlagForw(){
+    console.log("in forw");
+    var canvas = document.getElementById("semaphoreCanvas");
+    var context = canvas.getContext("2d");
+    var angR =  curHandPos[0]; //start angle for right flag 
+    var angL = curHandPos[1]; //start angle for left flag
+    var fps = 180 / 25; //number of frames per sec
     var cache = this; //cache the local copy of image element for future reference
  
-    var angRend = Math.abs(letter[0]-4)*45;
-    var angLend = Math.abs(letter[1]-4)*45;
-    var myVar = setInterval(function () {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        if(angR < angRend){
-            angR+=3;
-        }
+    var angRend = angR;
+    var angLend = angL+45;
+    var myVar = setInterval(function (){
         if(angL < angLend){
             angL+=3;
-        }  
+        } 
+        context.clearRect(0, 0, canvas.width, canvas.height);
         drawBody();
         drawRightFlag(angR);
         drawLeftFlag(angL);
-        if(angR >= angRend && angL >= angLend){
+        if(angL >= angLend){
             clearInterval(myVar);
             zaseden = false;
-            console.log("DAL SEM ZASEDEN NA FALSE")
+            refreshState([angR,angL]);
             return;
         }
     }, fps);
+    curHandPos = ([curHandPos[0],curHandPos[1]+45]);
 }
 
-// Funkcije za risanje zastavic in telesa
+// Function for left flag back
+function leftFlagBack(){
+    var canvas = document.getElementById("semaphoreCanvas");
+    var context = canvas.getContext("2d");
+    var angR =  curHandPos[0]; //start angle for right flag 
+    var angL = curHandPos[1]; //start angle for left flag
+    var fps = 180 / 25; //number of frames per sec
+    var cache = this; //cache the local copy of image element for future reference
+ 
+    var angRend = angR;
+    var angLend = angL-45;
+    var myVar = setInterval(function () {
+        if(angL > angLend){
+            angL-=3;
+        }  
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        drawBody();
+        drawRightFlag(angR);
+        drawLeftFlag(angL);
+        if(angL <= angLend){
+            clearInterval(myVar);
+            zaseden = false;
+            refreshState([angR,angL]);
+            return;
+        }
+    }, fps);
+    curHandPos = ([curHandPos[0],curHandPos[1]-45]);
+}
+
+// Function for right forw
+function rightFlagForw(){
+    var canvas = document.getElementById("semaphoreCanvas");
+    var context = canvas.getContext("2d");
+    var angR =  curHandPos[0]; //start angle for right flag 
+    var angL = curHandPos[1]; //start angle for left flag
+    var fps = 180 / 25; //number of frames per sec
+    var cache = this; //cache the local copy of image element for future reference
+ 
+    var angRend = angR+45;
+    var angLend = angL;
+    console.log("Obmocja: "+angR+" - "+angRend+" in "+angL+" - "+angLend);
+    var myVar = setInterval(function () {
+        if(angR < angRend){
+            angR+=3;
+        }  
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        drawBody();
+        drawRightFlag(angR);
+        drawLeftFlag(angL);
+        if(angR >= angRend){
+            clearInterval(myVar);
+            zaseden = false;
+            refreshState([angR,angL]);
+            return;
+        }
+    }, fps);
+    curHandPos = ([curHandPos[0]+45,curHandPos[1]]);
+}
+
+// Function for right back
+function rightFlagBack(){
+    var canvas = document.getElementById("semaphoreCanvas");
+    var context = canvas.getContext("2d");
+    var angR =  curHandPos[0]; //start angle for right flag 
+    var angL = curHandPos[1]; //start angle for left flag
+    var fps = 180 / 25; //number of frames per sec
+    var cache = this; //cache the local copy of image element for future reference
+ 
+    var angRend = angR-45;
+    var angLend = angL;
+    console.log("Obmocja: "+angR+" - "+angRend+" in "+angL+" - "+angLend);
+    var myVar = setInterval(function () {
+        if(angR > angRend){
+            angR-=3;
+        }  
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        drawBody();
+        drawRightFlag(angR);
+        drawLeftFlag(angL);
+        if(angR <= angRend){
+            clearInterval(myVar);
+            zaseden = false;
+            refreshState([angR,angL]);
+            return;
+        }
+    }, fps);
+    curHandPos = ([curHandPos[0]-45,curHandPos[1]]);
+}
+
+// Function draws left flag
 function drawLeftFlag(ang){
     // INIT
     var canvas = document.getElementById("semaphoreCanvas");
@@ -792,14 +930,14 @@ function drawLeftFlag(ang){
     var centerY = canvas.height / 2;
     
     // Prop. of body
-    var imgBodyWidth = canvas.width*1/4; 
+    var imgBodyWidth = canvas.height*1/4; 
     var imgBodyHeight = canvas.height*3/5;
     
     var leftFlag = new Image();
     leftFlag.src = "/static/left_flag.png";
     
     //Image prop.
-    var imgWidth = canvas.width*1/5; 
+    var imgWidth = canvas.height*1/5; 
     var imgHeight = canvas.height*1/2;
     
     var imgPozX = centerX + (imgBodyWidth/2);
@@ -816,6 +954,7 @@ function drawLeftFlag(ang){
     };
 }
 
+// Function draws right flag
 function drawRightFlag(ang){
      // INIT
     var canvas = document.getElementById("semaphoreCanvas");
@@ -824,14 +963,14 @@ function drawRightFlag(ang){
     var centerY = canvas.height / 2;
     
     // Prop. of body
-    var imgBodyWidth = canvas.width*1/4; 
+    var imgBodyWidth = canvas.height*1/4; 
     var imgBodyHeight = canvas.height*3/5;
     
     var rightFlag = new Image();
     rightFlag.src = "/static/right_flag.png";
     
     //Image prop.
-    var imgWidth = canvas.width*1/5; 
+    var imgWidth = canvas.height*1/5; 
     var imgHeight = canvas.height*1/2;
     
     var imgPozX = centerX - (imgWidth) - (imgBodyWidth/2) ;
@@ -848,14 +987,15 @@ function drawRightFlag(ang){
     };
 }
 
+// Function draws body
 function drawBody(){
-     // INIT
+    // INIT
     var canvas = document.getElementById("semaphoreCanvas");
     var context = canvas.getContext("2d");
     var centerX = canvas.width / 2;
     var centerY = canvas.height / 2;
     
-    var imgBodyWidth = canvas.width*1/4; 
+    var imgBodyWidth = canvas.height*1/4; 
     var imgBodyHeight = canvas.height*3/5;
     
     //Body base
@@ -868,4 +1008,88 @@ function drawBody(){
         
         context.drawImage(body_base,imgPozX,imgPozY,imgBodyWidth,imgBodyHeight);
     };
+}
+
+// Function for checking curent position;
+function checkFlagPoz(){
+    var rightIs = (curHandPos[0] % 360);
+    var leftIs = (curHandPos[1] % 360);
+    if(rightIs < 0)rightIs+=360;
+    if(leftIs < 0)leftIs+=360;
+    console.log("trenutna pozicija = "+rightIs+" "+leftIs);
+    for(var i in positions){
+        if(positions[i][0] == rightIs && positions[i][1] == leftIs){
+            console.log("IMAM: " + i);
+            return i;
+        }    
+    }
+    return -1;
+}
+
+// Funkciaj prepreci errorje pri risanju - osvezi koncno pozicijo
+function refreshState(kot){
+    var canvas = document.getElementById("semaphoreCanvas");
+    var context = canvas.getContext("2d");
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    drawBody();
+    drawRightFlag(kot[0]);
+    drawLeftFlag(kot[1]);
+}
+
+// Function sets size of a canvas
+function setCanvas(){
+    var canvas = document.getElementById("semaphoreCanvas");
+    canvas.style.width ='100%';
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = canvas.width*2/3;
+}
+
+// Function marks ckeck image appropriately
+function markCheckHard(status){
+    var tmp = $(".level-write-hard #check img").attr("src");
+    if(status == 1){
+        $(".level-write-hard #check img").attr("src","/static/check_correct.png");
+        disableRightHard();
+        disableLeftHard();
+    }
+    else{
+        $(".level-write-hard #check img").attr("src", "/static/check_err.png");
+    }
+}
+
+// Function marks ckeck image appropriately
+function markCheckMedium(status){
+    var tmp = $(".level-write-medium #check img").attr("src");
+    if(status == 1){
+        $(".level-write-medium #check img").attr("src","/static/check_correct.png");
+        disableRightMedium();
+        disableLeftMedium();
+    }
+    else{
+        $(".level-write-medium #check img").attr("src", "/static/check_err.png");
+    }
+}
+
+// Function for disabeling control buttons - RIGHT (Medium)
+function disableRightMedium(){
+   $(".level-write-medium #right-back").attr("style", "filter: opacity(30%);");
+   $(".level-write-medium #right-forw").attr("style", "filter: opacity(30%);");
+}
+
+// Function for disabeling control buttons - LEFT (Medium)
+function disableLeftMedium(){
+   $(".level-write-medium #left-back").attr("style", "filter: opacity(30%);");
+   $(".level-write-medium #left-forw").attr("style", "filter: opacity(30%);");
+}
+
+// Function for disabeling control buttons - RIGHT (Hard)
+function disableRightHard(){
+   $(".level-write-hard #right-back").attr("style", "filter: opacity(30%);");
+   $(".level-write-hard #right-forw").attr("style", "filter: opacity(30%);");
+}
+
+// Function for disabeling control buttons - LEFT (Hard)
+function disableLeftHard(){
+   $(".level-write-hard #left-back").attr("style", "filter: opacity(30%);");
+   $(".level-write-hard #left-forw").attr("style", "filter: opacity(30%);");
 }

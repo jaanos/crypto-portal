@@ -95,7 +95,7 @@
 }
 
 #semaphoreCanvas {
-  border:1px solid #000000;
+  border:2px solid #000000;
 }
 
 #picture-letter.image_option.not_active {
@@ -107,3 +107,10 @@
   max-width:30%;
   max-height:30%;
 }
+
+
+#check img{
+  max-width:70%;
+  max-height:70%;
+}
+
