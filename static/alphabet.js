@@ -338,6 +338,8 @@ $( document ).ready(function() {
     });
     
     
+    
+    
     /*
     *        WRITE CONTROLS (HARD)
     */
@@ -364,11 +366,66 @@ $( document ).ready(function() {
     
     // Listens for click on "check" (write-hard)
     $(".level-write-hard #check").click(function(e) {
-        var poz = checkFlagPoz();
-        var letter = $(".level-write-hard #letterToGuess span").text();
-        if(letter.toLowerCase() === poz) markCheckHard(1);
-        else markCheckHard(0);
+        e.preventDefault();
+        console.log("DOLZINA: "+ansHist.length+" in pointer "+histPtr);
+        console.log("IZPIS ZGODOVINE: "+ansHist);
+        if($("#check").attr("href") !== "uncheck"){
+            if(checkIfCorrHard()){
+                markCheckHard(1);
+                $(".level-write-hard #next-arrow").attr("href", "next");
+                if(histPtr == 0){
+                    pushHistoryWriteHard();
+                }
+                histPtr++;
+            }
+            else markCheckHard(0);
+        }
     });
+    
+    // Listens for click on "prew arrow" (write-hard)
+    $(".level-write-hard #prew-arrow").click(function(e) {
+        e.preventDefault();
+        if ($("#prew-arrow").attr("href") === "prew") {
+            console.log("DOLZINA: "+ansHist.length+" in pointer "+histPtr);
+            console.log("ZGODOVINA NAZAJ");
+            disableRightHard();
+            disableLeftHard();
+            histPtr--;
+            getAndDisplayHistoryHard();
+            $(".level-write-hard #next-arrow").attr("href", "next");
+            if(histPtr == 0){
+                $("#prew-arrow").removeAttr("href");
+            }
+        }
+    });
+    
+    // Listens for click on "next arrow" (write-hard)
+    $(".level-write-hard #next-arrow").click(function(e) {
+        e.preventDefault();
+        if ($("#next-arrow").attr("href") === "next") {
+            //Zelimo novo izbiro (ker smo odgovorili pravilno)
+            if(histPtr == ansHist.length-1){    // Je izbran, ni odgovorjen
+                // prikazemo tistega ki je na zadnjem mestu
+                enableRightHard();
+                enableLeftHard();
+                DisplayNewLetterWriteHard(ansHist[histPtr-1]);
+            }
+            else if(histPtr == ansHist.length){ // je izbran in odgovorjen
+                enableRightHard();
+                enableLeftHard();
+                selectAndDisplayNewLetterWriteHard(window.alphabet,"easy");
+                $(".level-write-hard #next-arrow").removeAttr("href");
+                pushHistoryWriteHard();
+            }
+            else{
+                histPtr++;
+                getAndDisplayHistoryHard();
+            }
+            $(".level-write-hard #prew-arrow").attr("href", "prew");
+            if(histPtr == ansHist.length-1)$(".level-write-hard #next-arrow").removeAttr("href");
+        }
+    });
+    
 });
 
 // Selects new letter, displays the picture and choices
@@ -768,12 +825,9 @@ function isLetter(c) {
 
 // Function for init. of semaphor
 function semafor(letter){
-    var canvas = document.getElementById("semaphoreCanvas");
-    var context = canvas.getContext("2d");
-    context.clearRect(0, 0, canvas.width, canvas.height);
     drawBody();
-    drawLeftFlag(letter[0]);
-    drawRightFlag(letter[1]);
+    drawLeftFlag(letter[1]);
+    drawRightFlag(letter[0]);
     curHandPos = letter;
 }
 
@@ -805,11 +859,11 @@ function semaforSetMedium(){
 // Function for left flag forw
 function leftFlagForw(){
     console.log("in forw");
-    var canvas = document.getElementById("semaphoreCanvas");
+    var canvas = document.getElementById("semaphoreCanvasLeftFlag");
     var context = canvas.getContext("2d");
     var angR =  curHandPos[0]; //start angle for right flag 
     var angL = curHandPos[1]; //start angle for left flag
-    var fps = 180 / 25; //number of frames per sec
+    var fps = 280 / 25; //number of frames per sec
     var cache = this; //cache the local copy of image element for future reference
  
     var angRend = angR;
@@ -818,14 +872,10 @@ function leftFlagForw(){
         if(angL < angLend){
             angL+=3;
         } 
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        drawBody();
-        drawRightFlag(angR);
         drawLeftFlag(angL);
         if(angL >= angLend){
             clearInterval(myVar);
             zaseden = false;
-            refreshState([angR,angL]);
             return;
         }
     }, fps);
@@ -834,11 +884,11 @@ function leftFlagForw(){
 
 // Function for left flag back
 function leftFlagBack(){
-    var canvas = document.getElementById("semaphoreCanvas");
+    var canvas = document.getElementById("semaphoreCanvasLeftFlag");
     var context = canvas.getContext("2d");
     var angR =  curHandPos[0]; //start angle for right flag 
     var angL = curHandPos[1]; //start angle for left flag
-    var fps = 180 / 25; //number of frames per sec
+    var fps = 280 / 25; //number of frames per sec
     var cache = this; //cache the local copy of image element for future reference
  
     var angRend = angR;
@@ -847,14 +897,10 @@ function leftFlagBack(){
         if(angL > angLend){
             angL-=3;
         }  
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        drawBody();
-        drawRightFlag(angR);
         drawLeftFlag(angL);
         if(angL <= angLend){
             clearInterval(myVar);
             zaseden = false;
-            refreshState([angR,angL]);
             return;
         }
     }, fps);
@@ -863,28 +909,23 @@ function leftFlagBack(){
 
 // Function for right forw
 function rightFlagForw(){
-    var canvas = document.getElementById("semaphoreCanvas");
+    var canvas = document.getElementById("semaphoreCanvasRightFlag");
     var context = canvas.getContext("2d");
     var angR =  curHandPos[0]; //start angle for right flag 
     var angL = curHandPos[1]; //start angle for left flag
-    var fps = 180 / 25; //number of frames per sec
+    var fps = 280 / 25; //number of frames per sec
     var cache = this; //cache the local copy of image element for future reference
  
     var angRend = angR+45;
     var angLend = angL;
-    console.log("Obmocja: "+angR+" - "+angRend+" in "+angL+" - "+angLend);
     var myVar = setInterval(function () {
         if(angR < angRend){
             angR+=3;
         }  
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        drawBody();
         drawRightFlag(angR);
-        drawLeftFlag(angL);
         if(angR >= angRend){
             clearInterval(myVar);
             zaseden = false;
-            refreshState([angR,angL]);
             return;
         }
     }, fps);
@@ -893,28 +934,23 @@ function rightFlagForw(){
 
 // Function for right back
 function rightFlagBack(){
-    var canvas = document.getElementById("semaphoreCanvas");
+    var canvas = document.getElementById("semaphoreCanvasRightFlag");
     var context = canvas.getContext("2d");
     var angR =  curHandPos[0]; //start angle for right flag 
     var angL = curHandPos[1]; //start angle for left flag
-    var fps = 180 / 25; //number of frames per sec
+    var fps = 280 / 25; //number of frames per sec
     var cache = this; //cache the local copy of image element for future reference
  
     var angRend = angR-45;
     var angLend = angL;
-    console.log("Obmocja: "+angR+" - "+angRend+" in "+angL+" - "+angLend);
     var myVar = setInterval(function () {
         if(angR > angRend){
             angR-=3;
         }  
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        drawBody();
         drawRightFlag(angR);
-        drawLeftFlag(angL);
         if(angR <= angRend){
             clearInterval(myVar);
             zaseden = false;
-            refreshState([angR,angL]);
             return;
         }
     }, fps);
@@ -924,8 +960,9 @@ function rightFlagBack(){
 // Function draws left flag
 function drawLeftFlag(ang){
     // INIT
-    var canvas = document.getElementById("semaphoreCanvas");
+    var canvas = document.getElementById("semaphoreCanvasLeftFlag");
     var context = canvas.getContext("2d");
+    context.clearRect(0, 0, canvas.width, canvas.height);
     var centerX = canvas.width / 2;
     var centerY = canvas.height / 2;
     
@@ -957,8 +994,9 @@ function drawLeftFlag(ang){
 // Function draws right flag
 function drawRightFlag(ang){
      // INIT
-    var canvas = document.getElementById("semaphoreCanvas");
+    var canvas = document.getElementById("semaphoreCanvasRightFlag");
     var context = canvas.getContext("2d");
+    context.clearRect(0, 0, canvas.width, canvas.height);
     var centerX = canvas.width / 2;
     var centerY = canvas.height / 2;
     
@@ -990,8 +1028,9 @@ function drawRightFlag(ang){
 // Function draws body
 function drawBody(){
     // INIT
-    var canvas = document.getElementById("semaphoreCanvas");
+    var canvas = document.getElementById("semaphoreCanvasBody");
     var context = canvas.getContext("2d");
+    context.clearRect(0, 0, canvas.width, canvas.height);
     var centerX = canvas.width / 2;
     var centerY = canvas.height / 2;
     
@@ -1026,25 +1065,42 @@ function checkFlagPoz(){
     return -1;
 }
 
-// Funkciaj prepreci errorje pri risanju - osvezi koncno pozicijo
-function refreshState(kot){
-    var canvas = document.getElementById("semaphoreCanvas");
-    var context = canvas.getContext("2d");
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    drawBody();
-    drawRightFlag(kot[0]);
-    drawLeftFlag(kot[1]);
+// Boolean Function for checking correct position (HARD)
+function checkIfCorrHard(){
+    var letter = $(".level-write-hard #letterToGuess span").text().toLowerCase();
+    var rightIs = (curHandPos[0] % 360), leftIs = (curHandPos[1] % 360);
+    if(rightIs < 0)rightIs+=360;
+    if(leftIs < 0)leftIs+=360;
+    if(rightIs == positions[letter][0] && leftIs == positions[letter][1])return true;
+    else return false;
 }
 
 // Function sets size of a canvas
 function setCanvas(){
-    var canvas = document.getElementById("semaphoreCanvas");
+    var varHeight=0, varWidth = 0;
+    
+    var canvas = document.getElementById("semaphoreCanvasBody");
     canvas.style.width ='100%';
     canvas.width  = canvas.offsetWidth;
     canvas.height = canvas.width*2/3;
+    varHeight = canvas.height;
+    varWidth = canvas.width;
+    
+    canvas = document.getElementById("semaphoreCanvasLeftFlag");
+    canvas.style.width ='100%';
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = canvas.width*2/3;
+    
+    canvas = document.getElementById("semaphoreCanvasRightFlag");
+    canvas.style.width ='100%';
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = canvas.width*2/3;
+    
+    var div = document.getElementById("canvasContainer");
+    div.setAttribute("style","height: "+(varHeight+10)+"px;width: "+varWidth+"px");
 }
 
-// Function marks ckeck image appropriately
+// Function marks ckeck image appropriately (1-corect // 0-err // 2-normal)
 function markCheckHard(status){
     var tmp = $(".level-write-hard #check img").attr("src");
     if(status == 1){
@@ -1052,8 +1108,11 @@ function markCheckHard(status){
         disableRightHard();
         disableLeftHard();
     }
-    else{
+    else if(status == 0){
         $(".level-write-hard #check img").attr("src", "/static/check_err.png");
+    }
+    else{
+        $(".level-write-hard #check img").attr("src", "/static/check.png");
     }
 }
 
@@ -1065,8 +1124,11 @@ function markCheckMedium(status){
         disableRightMedium();
         disableLeftMedium();
     }
-    else{
+    else if(status == 0){
         $(".level-write-medium #check img").attr("src", "/static/check_err.png");
+    }
+    else{
+        $(".level-write-hard #check img").attr("src", "/static/check.png");
     }
 }
 
@@ -1093,3 +1155,76 @@ function disableLeftHard(){
    $(".level-write-hard #left-back").attr("style", "filter: opacity(30%);");
    $(".level-write-hard #left-forw").attr("style", "filter: opacity(30%);");
 }
+
+// Function for enabeling control buttons - RIGHT (Medium)
+function enableRightMedium(){
+   $(".level-write-medium #right-back").attr("style", "filter: opacity(100%);");
+   $(".level-write-medium #right-forw").attr("style", "filter: opacity(100%);");
+}
+
+// Function for enabeling control buttons - LEFT (Medium)
+function enableLeftMedium(){
+   $(".level-write-medium #left-back").attr("style", "filter: opacity(100%);");
+   $(".level-write-medium #left-forw").attr("style", "filter: opacity(100%);");
+}
+
+// Function for enabeling control buttons - RIGHT (Hard)
+function enableRightHard(){
+   $(".level-write-hard #right-back").attr("style", "filter: opacity(100%);");
+   $(".level-write-hard #right-forw").attr("style", "filter: opacity(100%);");
+}
+
+// Function for enabeling control buttons - LEFT (Hard)
+function enableLeftHard(){
+   $(".level-write-hard #left-back").attr("style", "filter: opacity(100%);");
+   $(".level-write-hard #left-forw").attr("style", "filter: opacity(100%);");
+}
+
+// Function for disabeling check mark (Hard)
+function disableCheck(){
+   $(".level-write-hard #check").attr("href", "uncheck");
+}
+
+// Function for enabeling check mark (Hard)
+function enableCheck(){
+   $(".level-write-hard #check").removeAttr("href");
+}
+
+//Function for geting and displaying history
+function getAndDisplayHistoryHard(){
+    var letter = ansHist[histPtr];
+    displHistWrite(letter);
+    disableCheck();
+    markCheckHard(1);
+}
+// Function for displaying history with animation
+function displHistWrite(letter){
+    console.log("prikazal bom: "+letter);
+    $("#letterToGuess span").text(letter.toUpperCase());
+    semafor(positions[letter]);
+}
+
+// Function for adding to history
+function pushHistoryWriteHard(){
+    var letter = $(".level-write-hard #letterToGuess span").text().toLowerCase();
+    ansHist.push(letter);
+}
+
+// Function for selecting and displaying new option
+function selectAndDisplayNewLetterWriteHard(alphabet){
+    var letter = selectNewLetter(alphabet);
+    DisplayNewLetterWriteHard(letter);
+}
+
+// Function for displaying letter to write
+function DisplayNewLetterWriteHard(letter){
+    $("#letterToGuess span").text(letter.toUpperCase());
+    semafor(positions['init']);
+    enableRightHard();
+    enableLeftHard();
+    markCheckHard(2);
+    enableCheck();
+}
+
+
+
