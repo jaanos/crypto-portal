@@ -306,38 +306,90 @@ $( document ).ready(function() {
     *        WRITE CONTROLS (MEDIUM)
     */
     
-    // Listens for click on "left-back" (write-hard)
+    // Listens for click on "left-back" (write-medium)
     $(".level-write-medium #left-back").click(function(e) {
         if($(".level-write-medium #left-back").attr("style") !== "filter: opacity(30%);")leftFlagBack();
-        else console.log("NE BOM SEL NOTR");
     });
     
-    // Listens for click on "left-forw" (write-hard)
+    // Listens for click on "left-forw" (write-medium)
     $(".level-write-medium #left-forw").click(function(e) {
         if($(".level-write-medium #left-forw").attr("style") !== "filter: opacity(30%);")leftFlagForw();
-        else console.log("NE BOM SEL NOTR");
     });
     
-    // Listens for click on "right-back" (write-hard)
+    // Listens for click on "right-back" (write-medium)
     $(".level-write-medium #right-back").click(function(e) {
         if($(".level-write-medium #right-back").attr("style") !== "filter: opacity(30%);")rightFlagBack();
-        else console.log("NE BOM SEL NOTR");
     });
     
-    // Listens for click on "right-forw" (write-hard)
+    // Listens for click on "right-forw" (write-medium)
     $(".level-write-medium #right-forw").click(function(e) {
         if($(".level-write-medium #right-forw").attr("style") !== "filter: opacity(30%);")rightFlagForw();
     });
     
-    // Listens for click on "check" (write-hard)
+    // Listens for click on "check" (write-medium)
     $(".level-write-medium #check").click(function(e) {
-        var poz = checkFlagPoz();
-        var letter = $(".level-write-medium #letterToGuess span").text();
-        if(letter.toLowerCase() === poz) markCheckMedium(1);
-        else markCheckMedium(0);
+        e.preventDefault();
+        if($("#check").attr("href") !== "uncheck"){
+            if(checkIfCorrMedium()){
+                markCheckMedium(1);
+                $(".level-write-medium #next-arrow").attr("href", "next");
+                if(histPtr == 0){
+                    pushHistoryWriteMedium(1); //potisne v zgodovino na trenutni ptr in oznaci da je odgovorjen
+                }
+                else{
+                    setHistoryWriteMedium(1);
+                }
+            }
+            else markCheckMedium(0);
+        }
     });
     
+    // Listens for click on "prew arrow" (write-hard)
+    $(".level-write-medium #prew-arrow").click(function(e) {
+        e.preventDefault();
+        if ($("#prew-arrow").attr("href") === "prew") {
+            disableRightMedium();
+            disableLeftMedium();
+            histPtr--;
+            getAndDisplayHistoryMedium(); // Prikazi zgodvino na tem ptrju
+            $(".level-write-medium #next-arrow").attr("href", "next");
+            if(histPtr == 0){
+                $("#prew-arrow").removeAttr("href");
+            }
+        }
+    });
     
+    // Listens for click on "next arrow" (write-medium)
+    $(".level-write-medium #next-arrow").click(function(e) {
+        e.preventDefault();
+        if ($("#next-arrow").attr("href") === "next") {
+            histPtr++;
+            //Odloci se glede na stanje zgodovine
+            if(histPtr == ansHist.length){ // Dodaj novo crko
+                enableRightMedium(); // samo izbrana
+                enableLeftMedium(); // samo izbrana
+                selectAndDisplayNewLetterWriteMedium(window.alphabet,"easy");
+                $(".level-write-medium #next-arrow").removeAttr("href");
+                if(histPtr != 0){
+                    pushHistoryWriteMedium(0); // dodamo v zgovovino in oznacimo da se ni bilo odgovorjeno
+                }
+            }
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0){    // Dodeljena crka se ni bila odgovorjena
+                enableRightMedium();
+                enableLeftMedium();
+                DisplayNewLetterWriteMedium(ansHist[histPtr][0]);
+            }
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 1){   // Dodeljena crka je zadnja in je bla odgovorjena (omogoci nadaljevanje) 
+                $(".level-write-medium #next-arrow").attr("href", "next");
+                getAndDisplayHistoryMedium();
+            }
+            else{
+                getAndDisplayHistoryMedium();
+            }
+            $(".level-write-medium #prew-arrow").attr("href", "prew");
+            if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0)$(".level-write-medium #next-arrow").removeAttr("href");
+        }
+    });
     
     
     /*
@@ -367,16 +419,16 @@ $( document ).ready(function() {
     // Listens for click on "check" (write-hard)
     $(".level-write-hard #check").click(function(e) {
         e.preventDefault();
-        console.log("DOLZINA: "+ansHist.length+" in pointer "+histPtr);
-        console.log("IZPIS ZGODOVINE: "+ansHist);
         if($("#check").attr("href") !== "uncheck"){
             if(checkIfCorrHard()){
                 markCheckHard(1);
                 $(".level-write-hard #next-arrow").attr("href", "next");
                 if(histPtr == 0){
-                    pushHistoryWriteHard();
+                    pushHistoryWriteHard(1); //potisne v zgodovino na trenutni ptr in oznaci da je odgovorjen
                 }
-                histPtr++;
+                else{
+                    setHistoryWriteHard(1);
+                }
             }
             else markCheckHard(0);
         }
@@ -386,12 +438,10 @@ $( document ).ready(function() {
     $(".level-write-hard #prew-arrow").click(function(e) {
         e.preventDefault();
         if ($("#prew-arrow").attr("href") === "prew") {
-            console.log("DOLZINA: "+ansHist.length+" in pointer "+histPtr);
-            console.log("ZGODOVINA NAZAJ");
             disableRightHard();
             disableLeftHard();
             histPtr--;
-            getAndDisplayHistoryHard();
+            getAndDisplayHistoryHard(); // Prikazi zgodvino na tem ptrju
             $(".level-write-hard #next-arrow").attr("href", "next");
             if(histPtr == 0){
                 $("#prew-arrow").removeAttr("href");
@@ -403,26 +453,31 @@ $( document ).ready(function() {
     $(".level-write-hard #next-arrow").click(function(e) {
         e.preventDefault();
         if ($("#next-arrow").attr("href") === "next") {
-            //Zelimo novo izbiro (ker smo odgovorili pravilno)
-            if(histPtr == ansHist.length-1){    // Je izbran, ni odgovorjen
-                // prikazemo tistega ki je na zadnjem mestu
-                enableRightHard();
-                enableLeftHard();
-                DisplayNewLetterWriteHard(ansHist[histPtr-1]);
-            }
-            else if(histPtr == ansHist.length){ // je izbran in odgovorjen
+            histPtr++;
+            //Odloci se glede na stanje zgodovine
+            if(histPtr == ansHist.length){ // Dodaj novo crko
                 enableRightHard();
                 enableLeftHard();
                 selectAndDisplayNewLetterWriteHard(window.alphabet,"easy");
                 $(".level-write-hard #next-arrow").removeAttr("href");
-                pushHistoryWriteHard();
+                if(histPtr != 0){
+                    pushHistoryWriteHard(0); // dodamo v zgovovino in oznacimo da se ni bilo odgovorjeno
+                }
+            }
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0){    // Dodeljena crka se ni bila odgovorjena
+                enableRightHard();
+                enableLeftHard();
+                DisplayNewLetterWriteHard(ansHist[histPtr][0]);
+            }
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 1){   // Dodeljena crka je zadnja in je bla odgovorjena (omogoci nadaljevanje) 
+                $(".level-write-hard #next-arrow").attr("href", "next");
+                getAndDisplayHistoryHard();
             }
             else{
-                histPtr++;
                 getAndDisplayHistoryHard();
             }
             $(".level-write-hard #prew-arrow").attr("href", "prew");
-            if(histPtr == ansHist.length-1)$(".level-write-hard #next-arrow").removeAttr("href");
+            if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0)$(".level-write-hard #next-arrow").removeAttr("href");
         }
     });
     
@@ -835,9 +890,6 @@ function semafor(letter){
 function semaforSetMedium(){
     var choice = Math.round(Math.random());
     var letter = $(".level-write-medium #letterToGuess span").text().toLowerCase();
-    var canvas = document.getElementById("semaphoreCanvas");
-    var context = canvas.getContext("2d");
-    context.clearRect(0, 0, canvas.width, canvas.height);
     drawBody();
     console.log("crka = "+letter);
     if(choice == 1){
@@ -1065,9 +1117,19 @@ function checkFlagPoz(){
     return -1;
 }
 
-// Boolean Function for checking correct position (HARD)
+// Boolean Function for checking correct position (Hard)
 function checkIfCorrHard(){
     var letter = $(".level-write-hard #letterToGuess span").text().toLowerCase();
+    var rightIs = (curHandPos[0] % 360), leftIs = (curHandPos[1] % 360);
+    if(rightIs < 0)rightIs+=360;
+    if(leftIs < 0)leftIs+=360;
+    if(rightIs == positions[letter][0] && leftIs == positions[letter][1])return true;
+    else return false;
+}
+
+// Boolean Function for checking correct position (Medium)
+function checkIfCorrMedium(){
+    var letter = $(".level-write-medium #letterToGuess span").text().toLowerCase();
     var rightIs = (curHandPos[0] % 360), leftIs = (curHandPos[1] % 360);
     if(rightIs < 0)rightIs+=360;
     if(leftIs < 0)leftIs+=360;
@@ -1181,49 +1243,99 @@ function enableLeftHard(){
 }
 
 // Function for disabeling check mark (Hard)
-function disableCheck(){
+function disableCheckHard(){
    $(".level-write-hard #check").attr("href", "uncheck");
 }
 
 // Function for enabeling check mark (Hard)
-function enableCheck(){
+function enableCheckHard(){
    $(".level-write-hard #check").removeAttr("href");
 }
 
-//Function for geting and displaying history
+// Function for disabeling check mark (Medium)
+function disableCheckMedium(){
+   $(".level-write-medium #check").attr("href", "uncheck");
+}
+
+// Function for enabeling check mark (Medium)
+function enableCheckMedium(){
+   $(".level-write-medium #check").removeAttr("href");
+}
+
+//Function for geting and displaying history (Hard)
 function getAndDisplayHistoryHard(){
-    var letter = ansHist[histPtr];
+    var letter = ansHist[histPtr][0];
     displHistWrite(letter);
-    disableCheck();
+    disableCheckHard();
     markCheckHard(1);
 }
+
+//Function for geting and displaying history (Medium)
+function getAndDisplayHistoryMedium(){
+    var letter = ansHist[histPtr][0];
+    displHistWrite(letter);
+    disableCheckMedium();
+    markCheckMedium(1);
+}
+
 // Function for displaying history with animation
 function displHistWrite(letter){
-    console.log("prikazal bom: "+letter);
     $("#letterToGuess span").text(letter.toUpperCase());
     semafor(positions[letter]);
 }
 
-// Function for adding to history
-function pushHistoryWriteHard(){
+// Function for adding to history (Write-hard)
+function pushHistoryWriteHard(state){
     var letter = $(".level-write-hard #letterToGuess span").text().toLowerCase();
-    ansHist.push(letter);
+    ansHist.push([letter,state]);
 }
 
-// Function for selecting and displaying new option
+// Function for seting input in history (Write-hard)
+function setHistoryWriteHard(state){
+    var letter = $(".level-write-hard #letterToGuess span").text().toLowerCase();
+    ansHist[histPtr]=([letter,state]);
+}
+
+// Function for adding to history (Write-medium)
+function pushHistoryWriteMedium(state){
+    var letter = $(".level-write-medium #letterToGuess span").text().toLowerCase();
+    ansHist.push([letter,state]);
+}
+
+// Function for seting input in history (Write-medium)
+function setHistoryWriteMedium(state){
+    var letter = $(".level-write-medium #letterToGuess span").text().toLowerCase();
+    ansHist[histPtr]=([letter,state]);
+}
+
+// Function for selecting and displaying new option (Hard)
 function selectAndDisplayNewLetterWriteHard(alphabet){
     var letter = selectNewLetter(alphabet);
     DisplayNewLetterWriteHard(letter);
 }
 
-// Function for displaying letter to write
+// Function for displaying letter to write (Hard)
 function DisplayNewLetterWriteHard(letter){
     $("#letterToGuess span").text(letter.toUpperCase());
     semafor(positions['init']);
     enableRightHard();
     enableLeftHard();
     markCheckHard(2);
-    enableCheck();
+    enableCheckHard();
+}
+
+// Function for selecting and displaying new option (Medium)
+function selectAndDisplayNewLetterWriteMedium(alphabet){
+    var letter = selectNewLetter(alphabet);
+    DisplayNewLetterWriteMedium(letter);
+}
+
+// Function for displaying letter to write (Medium)
+function DisplayNewLetterWriteMedium(letter){
+    $("#letterToGuess span").text(letter.toUpperCase());
+    semaforSetMedium(positions['init']);
+    markCheckMedium(2);
+    enableCheckMedium();
 }
 
 
