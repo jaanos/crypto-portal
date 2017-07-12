@@ -993,7 +993,7 @@ function drawLeftFlag(ang){
     var imgBodyHeight = canvas.height*3/5;
     
     var leftFlag = new Image();
-    leftFlag.src = "/static/left_flag.png";
+    leftFlag.src = staticDir + "left_flag.png";
     
     //Image prop.
     var imgWidth = canvas.height*1/5; 
@@ -1027,7 +1027,7 @@ function drawRightFlag(ang){
     var imgBodyHeight = canvas.height*3/5;
     
     var rightFlag = new Image();
-    rightFlag.src = "/static/right_flag.png";
+    rightFlag.src = staticDir + "right_flag.png";
     
     //Image prop.
     var imgWidth = canvas.height*1/5; 
@@ -1061,7 +1061,7 @@ function drawBody(){
     
     //Body base
     var body_base = new Image();
-    body_base.src = "/static/basic_figure.png";
+    body_base.src = staticDir + "basic_figure.png";
     body_base.onload = function() {
         //Image prop.
         var imgPozX = centerX - (imgBodyWidth/2);
@@ -1134,16 +1134,16 @@ function setCanvas(){
 function markCheckControlWrite(status){
     var tmp = $("#check img").attr("src");
     if(status == 1){
-        $("#check img").attr("src","/static/check_correct.png");
+        $("#check img").attr("src",staticDir + "check_correct.png");
         disableRightControlWrite();
         disableLeftControlWrite();
     }
     else if(status == 0){
-        $("#check img").attr("src", "/static/check_err.png");
+        $("#check img").attr("src", staticDir + "check_err.png");
         $("#check img").attr("href", "enabled");
     }
     else{
-        $("#check img").attr("src", "/static/check.png");
+        $("#check img").attr("src", staticDir + "check.png");
         $("#check img").attr("href", "enabled");
     }
 }
