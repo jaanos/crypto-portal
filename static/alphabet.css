@@ -106,8 +106,12 @@
 #left-back img, #left-forw img, #right-back img, #right-forw img{
   max-width:30%;
   max-height:30%;
+  filter: opacity(30%);
 }
 
+#left-back[href=enabled] img, #left-forw[href=enabled] img, #right-back[href=enabled] img, #right-forw[href=enabled] img{
+  filter: opacity(100%);
+}
 
 #check img{
   max-width:70%;
