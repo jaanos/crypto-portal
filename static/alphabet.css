@@ -50,7 +50,7 @@
   font-size:25px;
 }
 
-#letterInput{
+#letterInput, .letterInputClass{
   width: 50px;
 	height: 50px;
 	text-align:center;
@@ -62,10 +62,10 @@
 	margin: 5px;
 }
 
-#letterInput.correctInput {
+#letterInput.correctInput, .letterInputClass.correctInput {
   border-bottom-color: rgb(36, 143, 36);
 }
-#letterInput.wrongInput {
+#letterInput.wrongInput, .letterInputClass.wrongInput {
   border-bottom-color: rgb(128, 0, 0);
 }
 #picture-letter.correctInput {
@@ -93,3 +93,28 @@
   font-weight: 900;
   font-size: 150px;
 }
+
+#semaphoreCanvasLeftFlag, #semaphoreCanvasRightFlag {
+  border:2px solid #000000;
+}
+
+#picture-letter.image_option.not_active {
+  opacity: 0.65;
+  cursor: default;
+}
+
+#left-back img, #left-forw img, #right-back img, #right-forw img{
+  max-width:30%;
+  max-height:30%;
+  filter: opacity(30%);
+}
+
+#left-back[href=enabled] img, #left-forw[href=enabled] img, #right-back[href=enabled] img, #right-forw[href=enabled] img{
+  filter: opacity(100%);
+}
+
+#check img{
+  max-width:70%;
+  max-height:70%;
+}
+
