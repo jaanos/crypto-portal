@@ -1,5 +1,5 @@
 {% extends "main.html" %}
-{% block body %}+
+{% block body %}
 <script type="text/javascript" src = "{{url_for('static', filename='jquery.jqplot.min.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='jquery.jqplot.min.css')}}"/>
 <script type="text/javascript" language="javascript" src="../static/plugins/jqplot.categoryAxisRenderer.js"></script>
@@ -17,7 +17,7 @@
     window.onload = function(){initialize({{level}});};
 </script>
 
-<div class="row">
+<div id="parent" class="row">
    <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="panel panel-default" >
             <div class="panel-heading" id="glava">
@@ -26,7 +26,7 @@
                         <b><span class="pozdrav1">Kriptogram</span></b>
                     </div>
                     <div id ="buttons">
-                            <button value = "Begin" class="btn btn-default btn-bg" id="begin">Začni</button>
+                        <button value = "Begin" class="btn btn-default btn-bg" id="begin">Začni</button>
                     </div>
                 </div>
             </div>
@@ -51,13 +51,18 @@
                                 <div id="info-btn-2" style="display: inline-block;"></div>
                             </div>
                             <div id="chart2" style="height:200px" ></div>
-                            <table id="statistic-table"></table>
+                            <div id="slider" style="width: calc(100% - 65px); display: table; margin: auto; margin-left: 40px">
+                                <div id="custom-handle" class="ui-slider-handle"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div id="fixed-div">
+    </div>
+
 </div>
 
 <div class="row">

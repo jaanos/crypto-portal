@@ -12,7 +12,8 @@ var freeLetters = null; // letters remaining and available for substitution
 var cryptedMessage = null; // original message input by user to the message box
 var frequencyTable = null; // table of letter frequencies in the original message
 var ALPHABET = null; // array containing the 25 letters in the english alphabet for resetting
-var currentStats = null;
+var chartData = null;
+var timer = null;
 
 function stripBlanks(fld) {
     var result = "";
@@ -82,91 +83,113 @@ function loadChart() {
         'F': 2.2, 'G': 2.0, 'H': 6.1, 'I': 7.0, 'J': 0.2, 'K': 0.8, 'L': 4.0,
         'M': 2.4, 'N': 6.7, 'O': 7.5, 'P': 1.9, 'Q': 0.1, 'R': 6.0, 'S': 6.3,
         'T': 9.1, 'U': 2.8, 'V': 1.0, 'W': 2.4, 'X': 0.2, 'Y': 2.0 ,'Z': 0.1};
-    currentStats = foreign ? stats_en: stats_sl;
 
+    loadChartDataVariable();
+    chartData.currentStats = foreign ? stats_en: stats_sl;
+    chartData.plot1_data= getChartData(frequencyTable, 'frequency');
+    chartData.plot2_data = getChartData(chartData.currentStats, 'static');
     addSortButton('info-btn-1', "chart1");
     addSortButton('info-btn-2', "chart2");
-    var data_1 = getFrequencyChartData(frequencyTable, 1);
-    var data_2 = getStaticChartData(currentStats, 1);
-    drawChart('chart1', data_1);
-    drawChart('chart2', data_2);
-    setChartInfo('chart1', data_1[1]);
-    setChartInfo('chart2', data_2[1]);
+    drawChart('chart1', chartData.plot1_data);
+    drawChart('chart2', sortChartData(chartData.plot2_data[0], chartData.plot2_data[1], 1));
+    setChartInfo('chart1', chartData.plot1_data[1]);
+    setChartInfo('chart2', chartData.plot2_data[1]);
+    loadSlider();
+}
+
+/**
+ * Method loads the global variable used for the chart functionality
+ */
+function loadChartDataVariable() {
+    chartData = (function() {
+        var currentStats = null;
+        var plot1 = null;
+        var plot2 = null;
+        var plot1_data = null;
+        var plot2_data = null;
+        return {
+            plot1: null,
+            plot2: null,
+            plot1_data: null,
+            plot2_data: null,
+            currentStats: null
+        };
+    })();
+}
+
+/**
+ * Method loads the global variable used for the timer functionality
+ */
+function loadTimerDataVariable() {
+    timer = (function() {
+        var second = null;
+        var minute = null;
+        var hour = null;
+        return {
+            second: null,
+            minute: null,
+            hour: null
+        };
+    })();
 }
 
 /**
  * Returns the data for the second graph containing the sl/eng frequencies of
  * letters in the alphabet.
  * @param {dictionary} stats - Contains mapping of letters to frequencies
- * @param {number} sort - Tells the type of sorting to use - numbers/letters
+ * @param {string} type - Tells the type of chart data
  * @return {Array}  Returns an array containing series and ticks
  */
-function getStaticChartData(stats, sort) {
-
-    var items = Object.keys(stats).map(function(key) {
-        return [key, stats[key]];
-    });
-
-    if (sort === 1) {
-        items.sort(function (first, second) {
-            return second[1] - first[1];
-        });
-    } else {
-        items.sort(function (first, second) {
-            return first[0].toString().localeCompare(second[0]);
-        });
-    }
-
-    var series = [];
-    var ticks = [];
-
-    for(var j = 0; j < items.length; j++) {
-        series.push(items[j][1]);
-        ticks.push(items[j][0]);
-    }
-
-    return [series, ticks];
-}
-
-/**
- * Returns the data for the second graph containing the sl/eng frequencies of
- * letters in the alphabet.
- * @param {dictionary} stats - Contains mapping of letters to frequencies
- * @param {number} sort - Tells the type of sorting to use - numbers/letters
- * @return {Array}  Returns an array containing series and ticks
- */
-function getFrequencyChartData(stats, sort) {
+function getChartData(stats, type) {
 
     var keys = Object.keys(stats);
 
-    var items = Object.keys(stats).map(function(key) {
-        return [key, stats[key]];
-    });
-
+    var series = [];
     var total_keys = 0;
     for (var i = 0; i < keys.length; i++) {
         total_keys += stats[keys[i]];
+        series.push(stats[keys[i]]);
     }
 
-    if (sort === 1) {
-        items.sort(function(first, second) {
+    if (type === 'frequency') {
+        series = series.map(function(s) {
+            return (s/total_keys)*100;
+        });
+    }
+
+    return [series, keys];
+}
+
+/**
+ * Method sorts the chart data either by letters or frequencies
+ * @param {Array} series - Array of frequencies
+ * @param {Array} keys - Array of letters
+ * @param {number} sort - Defines the type of the sort
+ */
+function sortChartData(series, keys, sort) {
+
+    var tuples = [];
+    for (var i = 0; i < keys.length; i++) {
+        tuples.push([keys[i], series[i]]);
+    }
+
+    if (sort == 1) {
+        tuples.sort(function(first, second) {
             return second[1] - first[1];
         });
     } else {
-        items.sort(function (first, second) {
+        tuples.sort(function (first, second) {
             return first[0].toString().localeCompare(second[0]);
         });
     }
 
-    var series = [];
-    var ticks = [];
-
-    for(var j = 0; j < items.length; j++) {
-        series.push((items[j][1] / total_keys)*100);
-        ticks.push(items[j][0]);
+    var s = [];
+    var k = [];
+    for (var j = 0; j < tuples.length; j++) {
+        k.push(tuples[j][0]);
+        s.push(tuples[j][1]);
     }
-
-    return [series, ticks]
+    return [s, k]
 }
 
 /**
@@ -194,6 +217,42 @@ function setChartInfo(chart, ticks) {
 }
 
 /**
+ * Settings for the chart.
+ * @param {Array} ticks - Array containing the occurring letters in the text.
+ */
+function chartOptions(ticks) {
+    return {
+        height: 100,
+        seriesColors: ['#337ab7'],
+        seriesDefaults: {
+            renderer: $.jqplot.BarRenderer,
+            pointLabels: {show: true, formatString: '%.1f'},
+            dragable: {
+                color: '#fffdf6',
+                constrainTo: 'y'
+            }
+        },
+        axes: {
+            xaxis: {
+                renderer: $.jqplot.CategoryAxisRenderer,
+                ticks: ticks
+            },
+            yaxis: {
+                labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+            }
+        },
+        grid: {
+            backgroundColor: "#FFFFFF",
+            gridLineColor: "#FFFFFF",
+            gridLineWidth: 0,
+            shadow: false,
+            drawBorder: true,
+            borderColor: '#337ab7'
+        }
+    };
+}
+
+/**
  * Returns the data for the second graph containing the sl/eng frequencies of
  * letters in the alphabet.
  * @param {string} chart_id - Id of chart to be drawn
@@ -207,38 +266,44 @@ function drawChart(chart_id, data) {
     $(document).ready(function () {
 
         $.jqplot.config.enablePlugins = true;
-        var plot = $.jqplot(chart_id, [series], {
-            height: 100,
-            seriesColors:['#337ab7'],
-            seriesDefaults: {
-                renderer: $.jqplot.BarRenderer,
-                pointLabels: { show: true, formatString: '%.1f' }
-            },
-            axes: {
-                xaxis: {
-                    renderer: $.jqplot.CategoryAxisRenderer,
-                    ticks: ticks
-                },
-                yaxis:{
-                    labelRenderer: $.jqplot.CanvasAxisLabelRenderer
-                }
-            },
-            grid: {
-                backgroundColor: "#FFFFFF",
-                gridLineColor: "#FFFFFF",
-                gridLineWidth: 0,
-                shadow: false,
-                drawBorder: true,
-                borderColor: '#337ab7'
-            }
-        });
+        var plot = $.jqplot(chart_id, [series], chartOptions(ticks));
 
         $(window).resize(function() {
             plot.replot( { resetAxes: true } );
         });
-        plot.replot();
-    });
 
+        if (chart_id === 'chart1') {
+            chartData.plot1_data = data;
+            chartData.plot1 = plot;
+        }
+        else {
+            chartData.plot2_data = data;
+            chartData.plot2 = plot
+        }
+    });
+}
+
+/**
+ * Method updates the chart with new data. (destroy is used because it is
+ * faster than replot)
+ * @param {String} chart_id - Id of the chart to be updated
+ * @param {Array} data - New data to be filled in the chart.
+ */
+function updateChart(chart_id, data) {
+
+    var series = data[0];
+    var ticks = data[1];
+
+    if (chart_id == 'chart1') {
+        chartData.plot1.destroy();
+        chartData.plot1 = $.jqplot('chart1', [series], chartOptions(ticks))
+        chartData.plot1_data = data
+    }
+    else {
+        chartData.plot2.destroy();
+        chartData.plot2 = $.jqplot('chart2', [series], chartOptions(ticks))
+        chartData.plot2_data = data
+    }
 }
 
 /**
@@ -272,7 +337,7 @@ function addSortButton(info_btn_id, chart_id) {
  */
 function createSortButton(button_id, chart_id, function_name) {
         var button = document.createElement("button");
-        button.setAttribute("value", "sortChart1");
+        button.setAttribute("value", "0");
         button.setAttribute("id", button_id);
         button.setAttribute("data-chart-id", chart_id);
         button.setAttribute("class","btn btn-default btn-sm");
@@ -287,27 +352,183 @@ function createSortButton(button_id, chart_id, function_name) {
  * @param {String} button_id - Id that the button
  */
 function sortChart(button_id) {
-
     var btn = document.getElementById(button_id);
     var chart_id = btn.getAttribute("data-chart-id");
     var data;
     if (chart_id === "chart1") {
-        data = getFrequencyChartData(frequencyTable, btn.value === 'sortChart1' ? 2: 1);
+        data = sortChartData(chartData.plot1_data[0], chartData.plot1_data[1], btn.value);
     }
     else {
-        data = getStaticChartData(currentStats, btn.value === 'sortChart1' ? 2: 1);
+        data = sortChartData(chartData.plot2_data[0], chartData.plot2_data[1], btn.value);
     }
 
-    if (btn.value === 'sortChart1' ) {
-        btn.setAttribute('value', 'sortChart2');
+    if (btn.value === '0' ) {
+        btn.setAttribute('value', '1');
         btn.textContent = "Sortiraj po frekvenci";
     }
     else {
-        btn.setAttribute('value', 'sortChart1');
+        btn.setAttribute('value', '0');
         btn.textContent = "Sortiraj po abecedi";
     }
 
-    drawChart(chart_id, data);
+    updateChart(chart_id, data);
+}
+
+/**
+ * Method loads the slider handle. Depending on the position of the handle
+ * the chart is shifted left or right.
+ */
+function loadSlider() {
+    $(document).ready(function () {
+        var handle = $("#custom-handle");
+        var max = Object.keys(chartData.currentStats).length;
+        $("#slider").slider({
+            min: 0,
+            max: max,
+            value: 0,
+            create: function() {
+                handle.text( $( this ).slider( "value" ));
+            },
+            slide: function( event, ui ) {
+                var data = chartData.plot2_data;
+                var ticks = data[1].slice(0);
+                var series = data[0].slice(0);
+                var shifted = handle.text() - ui.value;
+                if (shifted > 0) {
+                    var removed = ticks.splice(0,shifted);
+                    ticks = ticks.concat(removed);
+                    series = series.concat(series.splice(0,shifted));
+                }
+                else {
+                    var remove = ticks.splice((ticks.length)-Math.abs(shifted),Math.abs(shifted));
+                    ticks =  remove.concat(ticks);
+                    remove = series.splice((series.length)-Math.abs(shifted), Math.abs(shifted));
+                    series =  remove.concat(series);
+                }
+                handle.text( ui.value );
+                updateChart('chart2', [series, ticks]);
+            }
+        });
+    });
+}
+
+/**
+ * Fixates the fixed-div to the top right of the page. It serves as a parent
+ * div for the timer.
+ */
+$('#parent').scroll(function() {
+    $('#fixed-div').css('top', $(this).scrollTop());
+});
+
+/**
+ * Method starts the timer when the first letter is dragged or typed.
+ * The time_second div is added once the timer starts. time_minute div is added
+ * once the seconds reach 59 and the time_hours div is added once the minutes
+ * reach 59. The divs are updated every second.
+ */
+function startTimer() {
+
+    if (!timer) {
+        loadTimerDataVariable();
+        timer.second = true;
+        addTimerDiv("pie_second", "time_second", null);
+    }
+    var span_second = $('#time_second');
+    var span_minute = null;
+    var span_hour = null;
+    var max_time = 60;
+    var count_second = parseInt(span_second.text());
+    var count_minute = null;
+    var count_hour = null;
+    timerCounter = setInterval(function () {
+        if (count_second >= 59) {
+            if (!timer.minute) {
+                addTimerDiv("pie_minute", "time_minute", "pie_second");
+                span_minute = $('#time_minute');
+                count_minute = parseInt(span_minute.text());
+                timer.minute = true
+            }
+            count_second = 0;
+            count_minute++;
+            span_minute.html(("0" + count_minute).slice(-2));
+        }
+        if (count_minute >= 59) {
+            if (!timer.hour) {
+                addTimerDiv("pie_hour", "time_hour", "pie_minute");
+                span_hour = $('#time_hour');
+                count_hour = parseInt(span_hour.text());
+                timer.hour = true
+            }
+            count_minute = 0;
+            count_hour++;
+            span_hour.html(("0" + count_hour).slice(-2));
+        }
+        count_second ++;
+        span_second.html(("0" + count_second).slice(-2));
+        updatePieInterval(count_second, max_time, '#pie_second');
+        updatePieInterval(count_minute, max_time, '#pie_minute');
+        updatePieInterval(count_hour, max_time, '#pie_hour');
+    }, 1000);
+}
+
+/**
+ * Method updates the timer div element.
+ * @param {number} percent - Current interval number
+ * @param {number} time - Max interval number
+ * @param {String} pie - Id of the div to update the pie
+ */
+function updatePieInterval(percent, time, pie) {
+    var deg;
+    if (percent < (time / 2)) {
+        deg = 90 + (360 * percent / time);
+        $(pie).css('background-image',
+            'linear-gradient(' + deg + 'deg, transparent 50%, white 50%),linear-gradient(90deg, white 50%, transparent 50%)'
+        );
+    } else if (percent >= (time / 2)) {
+        deg = -90 + (360 * percent / time);
+        $(pie).css('background-image',
+            'linear-gradient(' + deg + 'deg, transparent 50%, #2e8698 50%),linear-gradient(90deg, white 50%, transparent 50%)'
+        );
+    }
+}
+
+/**
+ * Method inserts the timer div inside a fixed div element. Depending on the
+ * passed parameters we can create a seconds/minutes/hours timer.
+ * @param {String} time_id - Id of the span that hold the interval number
+ * @param {String} interval - Interval that we are adding
+ * @param {String} append_before - Id of the timer div to insert before
+ */
+function addTimerDiv(time_id, interval, append_before){
+    var fixed_div = document.getElementById("fixed-div");
+
+    var pie_div = document.createElement("div");
+    pie_div.setAttribute("id", time_id);
+    pie_div.setAttribute("class", "pie");
+
+    var span = createTimerDiv(interval);
+    pie_div.appendChild(span[0]);
+    pie_div.appendChild(span[1]);
+
+    fixed_div.insertBefore(pie_div, document.getElementById(append_before));
+}
+
+/**
+ * Method creates a div that holds a two spans, one displays the number of the
+ * interval (minutes/seconds/hours) as a number and the other displays a visual
+ * representation of the interval.
+ * @param {String} time_id - Id of the span that hold the interval number
+ */
+function createTimerDiv(time_id) {
+    var span_block = document.createElement("span");
+    span_block.setAttribute("class", "block");
+
+    var span_time = document.createElement("span");
+    span_time.setAttribute("class","time");
+    span_time.setAttribute("id", time_id);
+    span_time.innerHTML = "00";
+
+    return [span_block, span_time]
 }
 
 function updateEssentials(){
@@ -534,6 +755,7 @@ function letterDraggedOutOfMessage(ev){
 // substitute accordinly when a freeLetter is dragged into a letter slot in the message display
 function letterDraggedIntoMessage(event){
     event.preventDefault();
+    startTimer();
     var substitution = event.dataTransfer.getData("Text"); // value of the letter being dragged
     var original = event.currentTarget.getAttribute("value"); // cell that the letter is being dragged towards
     substitute(original, substitution);
@@ -599,7 +821,8 @@ function unhighlightLetter(element){
 }
 
 // function to be called when a key is pressed while a letter is highlighted
-function keyPressedWhileHighlighted(evt) { 
+function keyPressedWhileHighlighted(evt) {
+  startTimer();
   evt = evt || window.event; 
   var charCode = evt.charCode || evt.keyCode;
   var substitution = String.fromCharCode(charCode).toLowerCase();

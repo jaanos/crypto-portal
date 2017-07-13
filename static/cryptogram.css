@@ -183,3 +183,44 @@
     /* IE 10+ */
     color: #BDBDBD;
 }
+
+#fixed-div {
+    position:fixed;
+    top:20px;
+    right: 20px;
+}
+
+.pie{
+    width: 60px;
+    height: 60px;
+    display: block;
+    position: relative;
+    border-radius: 50%;
+    background-color: #2e8698;
+    border: 2px solid #2e8698;
+    margin: 5px auto;
+}
+.block{
+    position:absolute;
+    background:#fff;
+    width:40px;
+    height: 40px;
+    display:block;
+    border-radius:50%;
+    top:8px;
+    left:8px;
+}
+
+.time{
+  font-size:2em;
+  position:absolute;
+  top:18%;
+  left:23%;
+  opacity: 0.6;/*color:lighten(#000,60%);*/
+}
+.degree{
+  /*90 + ( 360 * .1 )*/
+      background-image:
+        linear-gradient(90deg, transparent 50%, white 50%),
+        linear-gradient(90deg, white 50%, transparent 50%);
+}
