@@ -4,6 +4,7 @@ var expDays = 365;
 var ansHist = [];
 var histPtr = 0;
 var curHandPos = [0,0];
+var pointsForClueReadMedium = 30;
 var pointsForClueReadHard = 50;
 // x = [right, left]
 var positions = {
@@ -43,6 +44,7 @@ function write_easy() {
 }
 
 function read_medium() {
+    $("#read_medium_solution").removeAttr("disabled");
     setTimeout(function() {
         $("#letterInput").focus();
     }, 500);
@@ -144,6 +146,21 @@ $( document ).ready(function() {
         }
     });
     
+    // BRANJE MEDIUM - resitev
+    $("#read_medium_solution").click(function(){
+        $(this).attr("disabled", "disabled");
+        if (getPoints() >= pointsForClueReadMedium) {
+            var url = $("#picture-letter img").attr("src");
+            var letterSelected = getLetterFromURL(url);
+            $("#letterInput").val(letterSelected);
+            $("#next-arrow").attr("href", "next");
+            $("#letterInput").addClass("correctInput");
+            $("#letterInput").removeClass("wrongInput");
+            addHistoryMedium();
+            removePoints(pointsForClueReadMedium);
+        }
+    });
+    
     //preveri vnos gesla ko je pritisnjen enter - branje hard
     $("#input-string-hard").keypress(function(e) {
         //Enter pressed?
@@ -203,23 +220,6 @@ $( document ).ready(function() {
     
     // BRANJE HARD - sprozi animacijo
     $("#start-animation").click(function() {
-        /*var canStart = true;
-        if ($(this).hasClass("used") && getPoints() < pointsForClueReadHard) {
-            // Uporabnik je ze sprozil animacijo in nima dovolj tock, da bi jo se enkrat
-            canStart = false;
-        }
-
-        //$(this).attr("disabled", "disabled");
-        if (canStart) {
-            if ($(this).hasClass("used")) {
-                removePoints(pointsForClueReadHard);
-            }
-            $(this).attr("disabled", "disabled");
-            focusFirstFree("#input-string-hard #num1");
-            displaySequenceOfImages(".level-read-hard .well img", 0);
-            $(this).addClass("used");
-            $("#start-animation").text("Začni znova!");
-        }*/
         if ($(this).hasClass("used")) {
             removePoints(pointsForClueReadHard);
         }
@@ -293,6 +293,7 @@ $( document ).ready(function() {
             {
                 selectAndDisplayNewLetter(window.alphabet,"medium");
                 histPtr++;
+                $("#letterInput").focus();
             }
             else{
                 histPtr++;
@@ -579,6 +580,7 @@ $( document ).ready(function() {
 function selectAndDisplayNewLetter(alphabet, mode) {
     var letter = selectNewLetter(alphabet);
     var choices = selectChoices(alphabet, letter);
+    $("#read_medium_solution").removeAttr("disabled");
     
     $(".level-read-"+mode+" #picture-letter img").attr("src", flagsDir + letter + ".png");
     
@@ -770,6 +772,7 @@ function restoreHistoryMedium(){
         $(".level-read-medium #prew-arrow").attr("href", "prew");
     }
     $(".level-read-medium #next-arrow").attr("href", "next");
+    $("#read_medium_solution").attr("disabled", "disabled");
 }
 
 //Function adds current answer to history - WRITE_EASY
