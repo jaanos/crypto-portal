@@ -107,15 +107,17 @@ $( document ).ready(function() {
     $("#letterInput").keypress(function(e) {
         //Enter pressed?
         if(e.which == 10 || e.which == 13) {
-            if ($("#picture-letter").hasClass("tested")) {
+            var vnos = (document.getElementById('letterInput')).value;
+            
+            if ($("#picture-letter").hasClass("tested") || vnos === "") {
                 // Enter je bil pritisnjen brez spremembe crke.
+                // Ali: polje je prazno
                 return;
             } else {
                 // Oznaci, da je bil pritisnjen enter - dokler uporabnik ne spremeni crke, mu ponovni pritiski na enter ne odstevajo tock.
                 $("#picture-letter").addClass("tested");
             }
             
-            var vnos = (document.getElementById('letterInput')).value;
             console.log("crka: "+vnos);
             //preveri ce se vpisana crka ujema z resitvijo
             var image_link = $("#picture-letter img").attr("src").split("/");
@@ -134,12 +136,12 @@ $( document ).ready(function() {
                 addPoints(1);
                 $("#picture-letter").removeClass("tested");
                 $("#next-arrow").focus();
-            }
-            else{
+            } else {
                 console.log("napacno");
                 $("#letterInput").addClass("wrongInput");
                 $("#letterInput").removeClass("correctInput");
                 removePoints(1);
+                $("#letterInput").focus().select();
             }
                 
         } else {
@@ -159,6 +161,9 @@ $( document ).ready(function() {
             $("#letterInput").removeClass("wrongInput");
             addHistoryMedium();
             removePoints(pointsForClueReadMedium);
+            $("#next-arrow").focus();
+        } else {
+            $("#letterInput").focus();
         }
     });
     
