@@ -102,6 +102,14 @@ $( document ).ready(function() {
     $("#letterInput").keypress(function(e) {
         //Enter pressed?
         if(e.which == 10 || e.which == 13) {
+            if ($("#picture-letter").hasClass("tested")) {
+                // Enter je bil pritisnjen brez spremembe crke.
+                return;
+            } else {
+                // Oznaci, da je bil pritisnjen enter - dokler uporabnik ne spremeni crke, mu ponovni pritiski na enter ne odstevajo tock.
+                $("#picture-letter").addClass("tested");
+            }
+            
             var vnos = (document.getElementById('letterInput')).value;
             console.log("crka: "+vnos);
             //preveri ce se vpisana crka ujema z resitvijo
@@ -121,6 +129,7 @@ $( document ).ready(function() {
                 document.getElementById('letterInput').disabled = true;
                 addHistoryMedium();
                 addPoints(1);
+                $("#picture-letter").removeClass("tested");
             }
             else{
                 console.log("napacno");
@@ -130,6 +139,8 @@ $( document ).ready(function() {
                 removePoints(1);
             }
                 
+        } else {
+            $("#picture-letter").removeClass("tested");
         }
     });
     
@@ -488,15 +499,36 @@ $( document ).ready(function() {
             }
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 1){   // Chosen letter is answered
                 $(".level-write-hard #next-arrow").attr("href", "next");
-                getAndDisplayHistoryHard();
+                getAndDisplayHistoryWrite();
             }
             else{   // Chosen letter is answered
-                getAndDisplayHistoryHard();
+                getAndDisplayHistoryWrite();
             }
             $(".level-write-hard #prew-arrow").attr("href", "prew");
             if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0)$(".level-write-hard #next-arrow").removeAttr("href");
         }
     });
+    
+    
+    var arrowOne = document.querySelector("#imageCointainerRightFlag img");
+    var arrowTwo = document.querySelector("#imageCointainerLeftFlag img");
+    var arrowRectsOne = arrowOne.getBoundingClientRect();
+    var arrowRectsTwo = arrowTwo.getBoundingClientRect();
+    
+    var arrowXOne = arrowRectsOne.left + arrowRectsOne.width / 2;
+    var arrowYOne = arrowRectsOne.top + arrowRectsOne.height / 2;
+    
+    var arrowXTwo = arrowRectsTwo.left + arrowRectsTwo.width / 2;
+    var arrowYTwo = arrowRectsTwo.top + arrowRectsTwo.height / 2;
+    
+    addEventListener("mousemove", function(event) {
+        var vrednostOne = Math.atan2(event.clientY - arrowYOne, event.clientX - arrowXOne);
+        var vrednostTwo = Math.atan2(event.clientY - arrowYTwo, event.clientX - arrowXTwo);
+        console.log("vrednosti: "+vrednostOne+" in "+vrednostTwo);
+        arrowOne.style.transform = "rotate(" + (vrednostOne+1.6) + "rad)";
+        arrowTwo.style.transform = "rotate(" + (vrednostTwo+1.6) + "rad)";
+    });
+    
     
 });
 
@@ -697,15 +729,6 @@ function addHistoryWriteEasy(){
         var buttonLetter = getLetterFromURL((((buttons.children[i]).getElementsByTagName('div')[0]).getElementsByTagName('img')[0].src));
         console.log("CRKA: " + buttonLetter);
         if(state!="")state+=",";
-        /*if(buttonClass == 'well'){
-             state+=buttonLetter+"I"
-        }
-        else if(buttonClass == 'well wrongInput'){
-             state+=buttonLetter+"D"
-        }
-        else if(buttonClass == 'well correctInput'){
-             state+=buttonLetter+"S"
-        }*/
         if ($(buttons.children[i]).find(".image_option").hasClass("wrongInput")) {
             state+=buttonLetter+"D"
         } else if ($(buttons.children[i]).find(".image_option").hasClass("correctInput")) {
@@ -726,9 +749,6 @@ function restoreHistoryWriteEasy(){
     var ans = ansHist[histPtr].split(",");
     var buttons = document.getElementById('choices');
     imageButtonsDisable($("#choices"));
-    //console.log(buttons.children[0],buttons.children[1]);
-    //console.log((buttons.children[0]).getElementsByTagName('div')[0]);//<---- NJEMU SPREMENI CLASS ZA BARVO
-    //console.log(((buttons.children[0]).getElementsByTagName('div')[0]).getElementsByTagName('a'));//<---- NJEMU SPREMENI LINK
     var j = 0;
     for(var i = 0; i < buttons.children.length; i++){
         var letter = (ans[j].split(""))[0];
@@ -736,30 +756,20 @@ function restoreHistoryWriteEasy(){
         // id-ju picture-letter doda class
         if(colour == 'I'){
             console.log("I");
-            //buttons.children[i].getElementsByTagName('div')[0].className = "well image_option";
-            //buttons.children[i].getElementsByTagName('div')[0].getElementsByTagName('img')[0].src=flagsDir + letter.toLowerCase() + ".png";
             $(buttons.children[i]).find(".image_option").removeClass("wrongInput").removeClass("correctInput");
             $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
         }
         else if(colour == 'D'){
             console.log("D");
-            //(buttons.children[i]).getElementsByTagName('div')[0].className = "well image_option wrongInput";
-            //buttons.children[i].getElementsByTagName('div')[0].getElementsByTagName('img')[0].src=flagsDir + letter.toLowerCase() + ".png";
             $(buttons.children[i]).find(".image_option").addClass("wrongInput").removeClass("correctInput");
             $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
         }
         else if(colour == 'S'){
             console.log("S");
-            //(buttons.children[i]).getElementsByTagName('div')[0].className = "well image_option correctInput";
-            //doda sliko
-            //buttons.children[i].getElementsByTagName('div')[0].getElementsByTagName('img')[0].src=flagsDir + letter.toLowerCase() + ".png";
-            //doda crko
             $(buttons.children[i]).find(".image_option").addClass("correctInput").removeClass("wrongInput");
             $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
             $("#letterToGuess span").text(letter.toUpperCase());
         }
-        //((buttons.children[i]).getElementsByTagName('div')[0]).getElementsByTagName('img')[0].src = flagsDir + letter.toLowerCase() + ".png";
-        //button.disabled=true; TO-DO : disable
         j++;
     }
     console.log("POINTER: " + histPtr);
@@ -886,14 +896,15 @@ function leftFlagForw(){
     var context = canvas.getContext("2d");
     var angR =  curHandPos[0]; //start angle for right flag 
     var angL = curHandPos[1]; //start angle for left flag
-    var fps = 280 / 25; //number of frames per sec
+    var fps = 180 / 25; //number of frames per sec
     var cache = this; //cache the local copy of image element for future reference
  
     var angRend = angR;
     var angLend = angL+45;
+    
     var myVar = setInterval(function (){
         if(angL < angLend){
-            angL+=3;
+            angL+=1;
         } 
         drawLeftFlag(angL);
         if(angL >= angLend){
@@ -911,14 +922,14 @@ function leftFlagBack(){
     var context = canvas.getContext("2d");
     var angR =  curHandPos[0]; //start angle for right flag 
     var angL = curHandPos[1]; //start angle for left flag
-    var fps = 280 / 25; //number of frames per sec
+    var fps = 180 / 25; //number of frames per sec
     var cache = this; //cache the local copy of image element for future reference
  
     var angRend = angR;
     var angLend = angL-45;
     var myVar = setInterval(function () {
         if(angL > angLend){
-            angL-=3;
+            angL-=1;
         }  
         drawLeftFlag(angL);
         if(angL <= angLend){
@@ -936,14 +947,14 @@ function rightFlagForw(){
     var context = canvas.getContext("2d");
     var angR =  curHandPos[0]; //start angle for right flag 
     var angL = curHandPos[1]; //start angle for left flag
-    var fps = 280 / 25; //number of frames per sec
+    var fps = 180 / 25; //number of frames per sec
     var cache = this; //cache the local copy of image element for future reference
  
     var angRend = angR+45;
     var angLend = angL;
     var myVar = setInterval(function () {
         if(angR < angRend){
-            angR+=3;
+            angR+=1;
         }  
         drawRightFlag(angR);
         if(angR >= angRend){
@@ -961,14 +972,14 @@ function rightFlagBack(){
     var context = canvas.getContext("2d");
     var angR =  curHandPos[0]; //start angle for right flag 
     var angL = curHandPos[1]; //start angle for left flag
-    var fps = 280 / 25; //number of frames per sec
+    var fps = 180 / 25; //number of frames per sec
     var cache = this; //cache the local copy of image element for future reference
  
     var angRend = angR-45;
     var angLend = angL;
     var myVar = setInterval(function () {
         if(angR > angRend){
-            angR-=3;
+            angR-=1;
         }  
         drawRightFlag(angR);
         if(angR <= angRend){
@@ -1312,3 +1323,9 @@ function sleep(delay) {
 function isLetter(c) {
     return c.toLowerCase() != c.toUpperCase();
 }
+
+
+
+
+
+
