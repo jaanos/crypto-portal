@@ -2,6 +2,7 @@
 {% block body %}
 <script type="text/javascript" src = "{{url_for('static', filename='alphabet.js')}}"></script>
 <script type="text/javascript">
+    var staticDir = "{{url_for('static', filename='')}}";
     var flagsDir = "{{url_for('static', filename='images/flags/')}}";
     var letter = "{{letter}}", mode = "{{mode}}", level = "{{level}}",
     choices = "{{choices}}", alphabet = "{{alphabet}}", words = "{{words}}";
