@@ -133,6 +133,7 @@ $( document ).ready(function() {
                 addHistoryMedium();
                 addPoints(1);
                 $("#picture-letter").removeClass("tested");
+                $("#next-arrow").focus();
             }
             else{
                 console.log("napacno");
@@ -200,6 +201,7 @@ $( document ).ready(function() {
             });
             if (numWrongOrUnanswered == 0) {
                 $("#next-arrow").attr("href", "next");
+                $("#next-arrow").focus();
             } else {
                 // Postavi cursor na prvo napacno crko
                 var el = $("#num1");

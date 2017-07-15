@@ -34,6 +34,10 @@
   filter: brightness(100%);
 }
 
+#next-arrow:focus, #prew-arrow:focus {
+  outline: none;
+}
+
 #points
 {
   width: 100px;
