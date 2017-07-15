@@ -121,8 +121,6 @@ $( document ).ready(function() {
             
             if(vnos.toUpperCase() === letter.toUpperCase()){
                 console.log("pravilno");
-                //document.getElementById('letterInput').disabled = true;
-                //$("#letterInput").css('border-color', '#000000 #000000 rgb(36, 143, 36) #000000');
                 $("#letterInput").addClass("correctInput");
                 $("#letterInput").removeClass("wrongInput");
                 $("#next-arrow").attr("href", "next");
@@ -133,7 +131,6 @@ $( document ).ready(function() {
             }
             else{
                 console.log("napacno");
-                //$("#letterInput").css('border-color', '#000000 #000000 rgb(128, 0, 0) #000000');
                 $("#letterInput").addClass("wrongInput");
                 $("#letterInput").removeClass("correctInput");
                 removePoints(1);
@@ -156,17 +153,25 @@ $( document ).ready(function() {
                 var letter = getLetterFromURL($(".level-read-hard img:eq(" + index + ")").attr("src"));
                 if (input.toUpperCase() === letter.toUpperCase()) {
                     // Correct input
-                    $(this).addClass("correctInput");
-                    $(this).removeClass("wrongInput");
-                    numCorrect++;
+                    if ($(this).attr("disabled") != "disabled") {
+                        $(this).addClass("correctInput");
+                        $(this).removeClass("wrongInput");
+                        $(this).removeClass("tested");
+                        $(this).attr("disabled", "disabled");
+                        numCorrect++;
+                    }
                 } else {
                     if (input !== "") {
                         // Wrong input
-                        $(this).addClass("wrongInput");
-                        numWrong++;
+                        if (! $(this).hasClass("tested")) {
+                            $(this).addClass("wrongInput");
+                            $(this).addClass("tested");
+                            numWrong++;
+                        }
                     } else {
                         // Empty input
                         $(this).removeClass("wrongInput");
+                        $(this).removeClass("tested");
                     }
                     $(this).removeClass("correctInput");
                     numWrongOrUnanswered++;
@@ -175,11 +180,21 @@ $( document ).ready(function() {
             });
             if (numWrongOrUnanswered == 0) {
                 $("#next-arrow").attr("href", "next");
-                addPoints(numCorrect);
-                console.log("Dodajam " + numCorrect);
             } else {
-                removePoints(numWrong);
+                // Postavi cursor na prvo napacno crko
+                var el = $("#num1");
+                while (el.attr("disabled") == "disabled") {
+                    el = el.next();
+                }
+                el.focus().select();
             }
+            console.log("Dodajam " + numCorrect + "; Odvzemam " + numWrong);
+            addPoints(numCorrect);
+            removePoints(numWrong);
+        } else {
+            $("#input-string-hard .letterInputClass").each(function(index) {
+                $(this).removeClass("tested");
+            });
         }
     });
     
@@ -191,8 +206,6 @@ $( document ).ready(function() {
         var letter = $(".level-write-easy #letterToGuess span").text();
         console.log(letter);
         if (letterSelected.toUpperCase() === letter.toUpperCase()) {
-            //$(this).css("background-color", "#5cb85c");
-            //$(this).css("border-color", "#4cae4c");
             $(this).addClass("correctInput");
             $(this).removeClass("wrongInput");
             $("#next-arrow").attr("href", "next");
@@ -200,8 +213,6 @@ $( document ).ready(function() {
             imageButtonsDisable($(this).parent().parent());
             addHistoryWriteEasy();
         } else {
-            //$(this).css("background-color", "#c9302c");
-            //$(this).css("border-color", "#ac2925");
             $(this).removeClass("correctInput");
             $(this).addClass(("wrongInput"));
             removePoints(1);
@@ -630,8 +641,13 @@ function clearInput(elementID) {
 
 function focusNext(event, elementToFocus) {
     var char = event.which || event.keyCode;
-    console.log(char);
     if (isLetter(String.fromCharCode(char))) {
+        var numOfLetters = $(".letterInputClass").length;
+        while (numOfLetters >= 0 && $(elementToFocus).attr("disabled") == "disabled") {
+            // Najdi prvo polje, ki ni disabled
+            elementToFocus = $(elementToFocus).next(".letterInputClass");
+            numOfLetters--;
+        }
         $(elementToFocus).focus().select();
     }
 }
@@ -1286,9 +1302,11 @@ function shuffle(a) {
 /* Disables all "choices" - buttons */
 function buttonsDisable(){
     var buttons = document.getElementById('choices'),button;
-    for(var i = 0; i < buttons.children.length; i++){
-        button = buttons.children[i];
-        button.disabled=true;
+    if (buttons) {
+        for(var i = 0; i < buttons.children.length; i++){
+            button = buttons.children[i];
+            button.disabled=true;
+        }
     }
 }
 
