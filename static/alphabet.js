@@ -4,6 +4,7 @@ var expDays = 365;
 var ansHist = [];
 var histPtr = 0;
 var curHandPos = [0,0];
+var pointsForClueReadHard = 50;
 // x = [right, left]
 var positions = {
         'a':[135,180],'b':[90,180],'c':[45,180],'d':[0,180],'e':[180,45],'f':[180,90],
@@ -58,6 +59,8 @@ function read_hard() {
     $("#input-string-hard").html("");
     $("#next-arrow").removeAttr("href");
     $("#start-animation").removeAttr("disabled");
+    $("#start-animation").removeClass("used");
+    $("#start-animation").text("Začni!");
     
     var word = selectNewWord(window.words);
     var letters = word.split("");
@@ -198,6 +201,35 @@ $( document ).ready(function() {
         }
     });
     
+    // BRANJE HARD - sprozi animacijo
+    $("#start-animation").click(function() {
+        /*var canStart = true;
+        if ($(this).hasClass("used") && getPoints() < pointsForClueReadHard) {
+            // Uporabnik je ze sprozil animacijo in nima dovolj tock, da bi jo se enkrat
+            canStart = false;
+        }
+
+        //$(this).attr("disabled", "disabled");
+        if (canStart) {
+            if ($(this).hasClass("used")) {
+                removePoints(pointsForClueReadHard);
+            }
+            $(this).attr("disabled", "disabled");
+            focusFirstFree("#input-string-hard #num1");
+            displaySequenceOfImages(".level-read-hard .well img", 0);
+            $(this).addClass("used");
+            $("#start-animation").text("Začni znova!");
+        }*/
+        if ($(this).hasClass("used")) {
+            removePoints(pointsForClueReadHard);
+        }
+        $(this).attr("disabled", "disabled");
+        focusFirstFree("#input-string-hard #num1");
+        displaySequenceOfImages(".level-read-hard .well img", 0);
+        $(this).addClass("used");
+        $("#start-animation").text("Začni znova!");
+    });
+    
     // PISANJE - EASY preverjanje pravilnosti
     $(".imageSelectionWrap #picture-letter").click(function() {
         if ($(this).hasClass("not_active")) return;
@@ -220,11 +252,7 @@ $( document ).ready(function() {
         }
     });
     
-    $("#start-animation").click(function() {
-        $(this).attr("disabled", "disabled");
-        $("#input-string-hard #num1").focus();
-        displaySequenceOfImages(".level-read-hard .well img", 0);
-    });
+    
     
     /*
     *   ARROW LISTENERS
@@ -652,6 +680,16 @@ function focusNext(event, elementToFocus) {
     }
 }
 
+function focusFirstFree(elementToFocus) {
+    var numOfLetters = $(".letterInputClass").length;
+    while (numOfLetters >= 0 && $(elementToFocus).attr("disabled") == "disabled") {
+        // Najdi prvo polje, ki ni disabled
+        elementToFocus = $(elementToFocus).next(".letterInputClass");
+        numOfLetters--;
+    }
+    $(elementToFocus).focus().select();
+}
+
 /*
 *   HISTORY
 */
@@ -850,11 +888,21 @@ function removePoints(pointsRemoved) {
     setCookie(cookie_name, pointsNow, expDays);
 }
 
+function getPoints() {
+    return Number($("#points #poits-display").text());
+}
+
 /*
  *  Display sequence of images
  */
 
 function displaySequenceOfImages(elements, index) {
+    if (index == $(elements).length) {
+        if (getPoints() >= pointsForClueReadHard) {
+            console.log("lahko se enkrat sprozis");
+            $("#start-animation").removeAttr("disabled");
+        }
+    }
     if (index <= $(elements).length) {
         if (index > 0) {
             $(elements + ":eq(" + (index - 1) + ")").addClass("hidden");
