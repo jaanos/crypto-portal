@@ -6,6 +6,10 @@ var histPtr = 0;
 var curHandPos = [0,0];
 var pointsForClueReadMedium = 30;
 var pointsForClueReadHard = 50;
+var learnt = [];
+var not_learnt = [];
+var firstTry;
+var numberOfLettersDisplayed = 0;
 // x = [right, left]
 var positions = {
         'a':[135,180],'b':[90,180],'c':[45,180],'d':[0,180],'e':[180,45],'f':[180,90],
@@ -16,6 +20,7 @@ var positions = {
     };
 
 function initialize_alphabet(mode, level) {
+    refresh();
     if (mode == "read") {
         if (level == "easy") {
             read_easy();
@@ -86,6 +91,7 @@ function write_hard() {
 $( document ).ready(function() {
     checkCookie(cookie_name);
     
+    // BRANJE-ENOSTAVNO
     $("#choices .btn").click(function() {
        var letter = getLetterFromURL($("#picture-letter img").attr("src"));
        if ((this.innerHTML).toUpperCase() === letter.toUpperCase()) {
@@ -95,11 +101,13 @@ $( document ).ready(function() {
            buttonsDisable();
            addHistoryEasy();
            addPoints(1);
+           moveToLearntIfFirstTry(letter);
        } else {
            $(this).removeClass("btn-info");
            $(this).addClass("btn-danger");
            $(this).attr("disabled", "disabled");
            removePoints(1);
+           moveToNotLearnt(letter);
        }
     });
     
@@ -136,12 +144,14 @@ $( document ).ready(function() {
                 addPoints(1);
                 $("#picture-letter").removeClass("tested");
                 $("#next-arrow").focus();
+                moveToLearntIfFirstTry(letter);
             } else {
                 console.log("napacno");
                 $("#letterInput").addClass("wrongInput");
                 $("#letterInput").removeClass("correctInput");
                 removePoints(1);
                 $("#letterInput").focus().select();
+                moveToNotLearnt(letter);
             }
                 
         } else {
@@ -149,7 +159,7 @@ $( document ).ready(function() {
         }
     });
     
-    // BRANJE MEDIUM - resitev
+    // BRANJE MEDIUM - prikaz resitve
     $("#read_medium_solution").click(function(){
         $(this).attr("disabled", "disabled");
         if (getPoints() >= pointsForClueReadMedium) {
@@ -251,11 +261,13 @@ $( document ).ready(function() {
             addPoints(1);
             imageButtonsDisable($(this).parent().parent());
             addHistoryWriteEasy();
+            moveToLearntIfFirstTry(letter);
         } else {
             $(this).removeClass("correctInput");
             $(this).addClass(("wrongInput"));
             removePoints(1);
             imageOneButtonDisable(this);
+            moveToNotLearnt(letter);
         }
     });
     
@@ -272,6 +284,7 @@ $( document ).ready(function() {
             if(histPtr >= ansHist.length || histPtr+1 >= ansHist.length)
             {
                 selectAndDisplayNewLetter(window.alphabet,"easy");
+                refresh();
                 histPtr++;
             }
             else{
@@ -299,6 +312,7 @@ $( document ).ready(function() {
             if(histPtr >= ansHist.length || histPtr+1 >= ansHist.length)
             {
                 selectAndDisplayNewLetter(window.alphabet,"medium");
+                refresh();
                 histPtr++;
                 $("#letterInput").focus();
             }
@@ -327,6 +341,7 @@ $( document ).ready(function() {
         e.preventDefault();
         if ($("#next-arrow").attr("href") === "next") {
             read_hard();
+            refresh();
         }
     });
     
@@ -341,6 +356,7 @@ $( document ).ready(function() {
         if ($("#next-arrow").attr("href") === "next") {
             if(histPtr >= ansHist.length || histPtr+1 >= ansHist.length){
                 selectAndDisplayNewImage(alphabet, "easy");
+                refresh();
                 imageButtonsEnable($(this).parent().parent());
                 histPtr++;
             }
@@ -608,7 +624,12 @@ function selectAndDisplayNewImage(alphabet, mode) {
 }
 
 function selectNewLetter(alphabet) {
-    return alphabet[Math.floor(Math.random() * alphabet.length)];
+    numberOfLettersDisplayed++;
+    if (numberOfLettersDisplayed % 3 == 0 && not_learnt.length > 0) {
+        return not_learnt[Math.floor(Math.random() * not_learnt.length)].toLowerCase();
+    } else {
+        return alphabet[Math.floor(Math.random() * alphabet.length)];
+    }
 }
 
 function selectNewWord(words) {
@@ -698,6 +719,57 @@ function focusFirstFree(elementToFocus) {
     }
     $(elementToFocus).focus().select();
 }
+
+function moveToLearnt(element) {
+    element = element.toUpperCase();
+    
+    // Add to learnt
+    var indexLearnt = learnt.indexOf(element);
+    if (indexLearnt < 0) {
+        learnt.push(element);
+    }
+    
+    // Remove from not_learnt
+    var indexNotLearnt = not_learnt.indexOf(element);
+    if (indexNotLearnt >= 0) {
+        not_learnt.splice(indexNotLearnt, 1);
+    }
+    
+    console.log("Learnt: " + learnt);
+    console.log("Not learnt: " + not_learnt);
+}
+
+function moveToNotLearnt(element) {
+    element = element.toUpperCase();
+    firstTry = false;
+    
+    // Add to not_learnt
+    var indexNotLearnt = not_learnt.indexOf(element);
+    if (indexNotLearnt < 0) {
+        not_learnt.push(element);
+    }
+    
+    // Remove from learnt
+    var indexLearnt = learnt.indexOf(element);
+    if (indexLearnt >= 0) {
+        learnt.splice(indexLearnt, 1);
+    }
+
+    console.log("Learnt: " + learnt);
+    console.log("Not learnt: " + not_learnt);
+}
+
+function moveToLearntIfFirstTry(element){
+    if (firstTry == true) {
+        moveToLearnt(element);
+    }
+}
+
+function refresh() {
+    // Called every time when new letter/word is displayed
+    firstTry = true;
+}
+
 
 /*
 *   HISTORY

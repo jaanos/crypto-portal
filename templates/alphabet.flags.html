@@ -29,8 +29,24 @@
                 <div class="panel-body">
                     <div class="container-fluid">
                         <div class="row-fluid">
-                            <h1>Uvod</h1>
-                            <p>Predstavitev zastavic, seznam vseh slik in pripadajočih črk.</p>
+                            <div class="">
+                                <h1>Uvod</h1>
+                                <p>Dobrodošli na strani za učenje komuniciranja s pomočjo zastavic.</p>
+                                <p>Spodaj si lahko ogledate seznam vseh črk, ki se jih lahko naučite s pomočjo te aplikacije.</p>
+                            </div>
+                            <div class="show-all-flags">
+                                {% for letter in alphabet %}
+                                    <div class="single-flag-wrap col-sm-4 mt-0">
+                                        <span>{% print letter %}</span>
+                                        <img src="{{url_for('static', filename='images/flags/'+letter+'.png')}}" />
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="">
+                                <p>Pripravljeni, da začnete?</p>
+                                <a value = "Read" class="btn btn-default btn-bg {% if mode == "read" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode='read', level='easy')}}">Branje</a>
+                                <a value = "Write" class="btn btn-default btn-bg {% if mode == "write" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode='write', level='easy')}}">Pisanje</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -240,13 +256,13 @@
                         </div>
                     </div>
                 </div>
+                <!-- Prenos vseh slik k odjemalcu, da aplikacija deluje tudi v offline nacinu -->
+                <div class="hidden all-flags">
+                    {% for letter in alphabet %}
+                        <img src="{{url_for('static', filename='images/flags/'+letter+'.png')}}" />
+                    {% endfor %}
+                </div>
             {% endif %}
-            <!-- Prenos vseh slik k odjemalcu, da aplikacija deluje tudi v offline nacinu -->
-            <div class="hidden all-flags">
-                {% for letter in alphabet %}
-                    <img src="{{url_for('static', filename='images/flags/'+letter+'.png')}}" />
-                {% endfor %}
-            </div>
         </div>
     </div>
 </div>
