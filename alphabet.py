@@ -7,7 +7,14 @@ app = Blueprint('alphabet', __name__)
 
 abc = u"abcdefghijklmnopqrstuvwxyz"
 
-words = ["ananas", "banana", "cesta", "dom", "eskim", "figa"]
+#words = ["ananas", "banana", "cesta", "dom", "eskim", "figa"]
+
+# get words from file static/words.txt
+file = open("static/words.txt","r") 
+words = file.read().splitlines()
+file.close()
+
+
 def select_word(list_words):
     return list_words[randint(0, len(list_words)-1)]
 
