@@ -14,17 +14,17 @@
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	</head>
 	<body>
-		<div class="wrapper col-lg-12 col-md-12 col-sm-12">
-					<div class="container logo">
-					   <div class="navbar-inner">
-					     <div class="container">
-					        <a class="brand" href="{{url_for('index')}}"> <img src="{{url_for('static', filename='logo1.png')}}" class="img-responsive img-rounded" width="100%"></a>
-					     </div>
-					   </div>
-					</div>
+		<div class="wrapper col-lg-12 col-md-12 col-sm-12 main">
+            <div class="container logo">
+               <div class="navbar-inner">
+                 <div class="container">
+                    <a class="brand" href="{{url_for('index')}}"> <img src="{{url_for('static', filename='logo1.png')}}" class="img-responsive img-rounded" width="100%"></a>
+                 </div>
+               </div>
+            </div>
 		</div>
 		<div class="container">
-		   <div class="row">
+		   <div class="row main">
 			<div class="col-lg-12 col-md-12 col-sm-12">
 				<nav class="navbar navbar-default" id="menu">
 				  <div class="container-fluid">
@@ -32,41 +32,43 @@
 				      <a class="navbar-brand" href="{{url_for('index')}}">Kriptogram</a>
 				    </div>
 				    <div>
-				      <ul class="nav navbar-nav">
-				        <li class="{% if nav == "start" %}active{% endif %}"><a href="{{url_for('index')}}">Domov</a></li>
-				        <ul class="nav navbar-nav">
-							<li class="dropdown {% if nav == "substitution" %}active{% endif %}">
-							  <a href="{{url_for('substitution.index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Zamenjalka<span class="caret"></span></a>
-							  <ul class="dropdown-menu" role="menu">
-							    <li><a>Težavnosti</a></li>
-							    <li class="divider"></li>
-							    <li><a href="{{url_for('substitution.play', difficulty='easy')}}">Lahko</a></li>
-							    <li><a href="{{url_for('substitution.play', difficulty='medium')}}">Srednje</a></li>
-							    <li><a href="{{url_for('substitution.play', difficulty='hard')}}">Težko</a></li>
-                                <li class="divider"></li>
-							    <li><a href="{{url_for('substitution.play', difficulty='caesar')}}">Cezarjeva šifra</a></li>
-							    <li><a href="{{url_for('substitution.play', difficulty='ready')}}">Pripravljene zamenjalke</a></li>
-							  </ul>
-							</li>
-						</ul>
+                      <ul class="nav navbar-nav">
+                        <li class="{% if nav == "start" %}active{% endif %}"><a href="{{url_for('index')}}">Domov</a></li>
                         <ul class="nav navbar-nav">
-							<li class="dropdown {% if nav == "steganography" %}active{% endif %}">
-							  <a href="{{url_for('steganography.index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Steganografija<span class="caret"></span></a>
-							  <ul class="dropdown-menu" role="menu">
-							    <li><a href="{{url_for('steganography.colors')}}">Mešanje barv</a></li>
-							    <li><a href="{{url_for('steganography.images')}}">Skrivanje sporočila v sliko</a></li>
-							  </ul>
-							</li>
-						</ul>
-				      </ul>
+                            <li class="dropdown {% if nav == "substitution" %}active{% endif %}">
+                              <a href="{{url_for('substitution.index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Zamenjalka<span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+                                <li><a>Težavnosti</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{url_for('substitution.play', difficulty='easy')}}">Lahko</a></li>
+                                <li><a href="{{url_for('substitution.play', difficulty='medium')}}">Srednje</a></li>
+                                <li><a href="{{url_for('substitution.play', difficulty='hard')}}">Težko</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{url_for('substitution.play', difficulty='caesar')}}">Cezarjeva šifra</a></li>
+                                <li><a href="{{url_for('substitution.play', difficulty='ready')}}">Pripravljene zamenjalke</a></li>
+                                <li><a href="{{url_for('leaderboard_get')}}">Lestvica</a></li>
+                              </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown {% if nav == "steganography" %}active{% endif %}">
+                              <a href="{{url_for('steganography.index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Steganografija<span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{url_for('steganography.colors')}}">Mešanje barv</a></li>
+                                <li><a href="{{url_for('steganography.images')}}">Skrivanje sporočila v sliko</a></li>
+                              </ul>
+                            </li>
+                        </ul>
+                      </ul>
 				    </div>
+                  </div>
 				</nav>
-				</div>
 			</div>
+           </div>
 		
             {% block body %}
             {% endblock %}
 
-     	</div>
+        </div>
 	</body>
 </html>

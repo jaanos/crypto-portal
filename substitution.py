@@ -4,6 +4,7 @@ from database import database
 import random
 import json
 import re
+import hashlib
 
 app = Blueprint('substitution', __name__)
 
@@ -79,8 +80,12 @@ def play(difficulty, idx=-1, language=None):
         cipher = text
     else:
         cipher = crypt(text, level)
-    return render_template("substitution.play.html",
-        nav = "substitution", next = (idx+1) % len(texts), lang = lang,
-        difficulty = difficulty, level = level, input = json.dumps(cipher),
-        foreign = len(foreign[lang].intersection(text.upper())) > 0)
-    
+
+    text_hash = hashlib.md5(text.upper().encode('utf-8')).hexdigest()
+    return render_template(
+        "substitution.play.html", nav="substitution",
+        next=(idx+1) % len(texts), lang=lang, difficulty=difficulty,
+        level=level, input=json.dumps(cipher), text_hash=text_hash,
+        foreign=len(foreign[lang].intersection(text.upper())) > 0
+    )
+

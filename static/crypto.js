@@ -43,6 +43,7 @@ function initialize(st){
     ALPHABET = new Array(); // constant alphabet array 
     freeLetters = new Array();
     addResetButton();
+    addHeaderLogo();
 	addNextButton();
     var A = "A".charCodeAt(0);
     for (var i = 0; i < 26; i++){ // fill alphabet array
@@ -63,8 +64,19 @@ function initialize(st){
     }
     
     //window.onresize = updateEssentials;
+    hideNavBar();
     updateEssentials(); // adds the letter selection, message display, and frequency tables
     loadChart();
+}
+
+/**
+ * Method hides the navigation menu.
+ */
+function hideNavBar() {
+    var navBar = document.getElementsByClassName('main');
+    for (var i = 0; i < navBar.length; i++) {
+        navBar[i].style.display="none";
+    }
 }
 
 /**
@@ -125,10 +137,18 @@ function loadTimerDataVariable() {
         var second = null;
         var minute = null;
         var hour = null;
+        var count_second = null;
+        var count_minute = null;
+        var count_hour = null;
+        var timerId = null;
         return {
             second: null,
             minute: null,
-            hour: null
+            hour: null,
+            count_second: 0,
+            count_minute: 0,
+            count_hour: 0,
+            timerId : null
         };
     })();
 }
@@ -223,12 +243,12 @@ function setChartInfo(chart, ticks) {
 function chartOptions(ticks) {
     return {
         height: 100,
-        seriesColors: ['#337ab7'],
+        seriesColors: ['#2e8698'],
         seriesDefaults: {
             renderer: $.jqplot.BarRenderer,
             pointLabels: {show: true, formatString: '%.1f'},
             dragable: {
-                color: '#fffdf6',
+                color: '#2e8698',
                 constrainTo: 'y'
             }
         },
@@ -247,7 +267,7 @@ function chartOptions(ticks) {
             gridLineWidth: 0,
             shadow: false,
             drawBorder: true,
-            borderColor: '#337ab7'
+            borderColor: '#2e8698'
         }
     };
 }
@@ -432,43 +452,44 @@ function startTimer() {
         loadTimerDataVariable();
         timer.second = true;
         addTimerDiv("pie_second", "time_second", null);
+
+        var span_second = $('#time_second');
+        var span_minute = null;
+        var span_hour = null;
+        var max_time = 60;
+        timer.count_second = parseInt(span_second.text());
+        timer.count_minute = 0;
+        timer.count_hour = 0;
+        timer.timerId = setInterval(function () {
+            if (timer.count_second >= 59) {
+                if (!timer.minute) {
+                    addTimerDiv("pie_minute", "time_minute", "pie_second");
+                    span_minute = $('#time_minute');
+                    timer.count_minute = parseInt(span_minute.text());
+                    timer.minute = true
+                }
+                timer.count_second = 0;
+                timer.count_minute++;
+                span_minute.html(("0" + timer.count_minute).slice(-2));
+            }
+            if (timer.count_minute >= 59) {
+                if (!timer.hour) {
+                    addTimerDiv("pie_hour", "time_hour", "pie_minute");
+                    span_hour = $('#time_hour');
+                    timer.count_hour = parseInt(span_hour.text());
+                    timer.hour = true
+                }
+                timer.count_minute = 0;
+                timer.count_hour++;
+                span_hour.html(("0" + timer.count_hour).slice(-2));
+            }
+            timer.count_second++;
+            span_second.html(("0" + timer.count_second).slice(-2));
+            updatePieInterval(timer.count_second, max_time, '#pie_second');
+            updatePieInterval(timer.count_minute, max_time, '#pie_minute');
+            updatePieInterval(timer.count_hour, max_time, '#pie_hour');
+        }, 1000);
     }
-    var span_second = $('#time_second');
-    var span_minute = null;
-    var span_hour = null;
-    var max_time = 60;
-    var count_second = parseInt(span_second.text());
-    var count_minute = null;
-    var count_hour = null;
-    timerCounter = setInterval(function () {
-        if (count_second >= 59) {
-            if (!timer.minute) {
-                addTimerDiv("pie_minute", "time_minute", "pie_second");
-                span_minute = $('#time_minute');
-                count_minute = parseInt(span_minute.text());
-                timer.minute = true
-            }
-            count_second = 0;
-            count_minute++;
-            span_minute.html(("0" + count_minute).slice(-2));
-        }
-        if (count_minute >= 59) {
-            if (!timer.hour) {
-                addTimerDiv("pie_hour", "time_hour", "pie_minute");
-                span_hour = $('#time_hour');
-                count_hour = parseInt(span_hour.text());
-                timer.hour = true
-            }
-            count_minute = 0;
-            count_hour++;
-            span_hour.html(("0" + count_hour).slice(-2));
-        }
-        count_second ++;
-        span_second.html(("0" + count_second).slice(-2));
-        updatePieInterval(count_second, max_time, '#pie_second');
-        updatePieInterval(count_minute, max_time, '#pie_minute');
-        updatePieInterval(count_hour, max_time, '#pie_hour');
-    }, 1000);
 }
 
 /**
@@ -531,6 +552,46 @@ function createTimerDiv(time_id) {
     return [span_block, span_time]
 }
 
+/**
+ * Method checks if hash of the solved encrypted message matches the original
+ * text hash. If they match, the timer is stopped and a popup is display to
+ * enter the participants name.
+ */
+function checkHash() {
+    if (md5($("#messageOutput").val().toUpperCase()) == original_hash) {
+        clearInterval(timer.timerId);
+        displayFinishPopup();
+    }
+}
+
+/**
+ * Method displays the popup when the puzzle if solved. The participant can
+ * enter his/hers name to be added to the leaderboard.
+ */
+function displayFinishPopup() {
+    var txt;
+    var total_minutes = (timer.count_hour * 60 + timer.count_minute).toFixed(2);
+    var person = prompt("Čestitke uspelo vam je rešiti uganko v " + total_minutes + " min " + timer.count_second + "sec" , "oseba1");
+    if (person == null || person == "") {
+        txt = null;
+    } else {
+        $(function() {
+        $.ajax({
+            url: '/leaderboard_insert',
+            data: {'name':person, 'difficulty':difficulty, 'time_solved': (timer.count_hour * 3600 + timer.count_minute * 60 + timer.count_second)},
+            type: 'POST',
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+    }
+    console.log(txt);
+}
+
 function updateEssentials(){
     frequencyTable = new Array(); // frequencyTable will be handled by the getMessageDisplay method
     cryptedMessage = getCryptedMessage(); // get the latest version of the input crypted message stored in an array of words
@@ -566,13 +627,31 @@ function bySortedValue(obj) {
     return out;
 }
 
+/**
+ * Method wraps characters with a span tag.
+ * @param input String of letters
+ * @return {Array} Array of letters
+ */
+function getCryptedMessageParagraph(input) {
+    var array = input.split('');
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] in reverseDict) {
+            array[i] = "<span class='messageOutputSolved'>" + array[i] +  "</span>"
+        }
+        else {
+            array[i] = "<span class=''>" + array[i] +  "</span>"
+        }
+    }
+    return array;
+}
+
 // returns the message as an array of words for displaying the message and controlling text wrapping
 function getCryptedMessage(){
     //$('#messageOutput').val("");
-	$("#messageOutput").html("");
+	var messageOutput = $("#messageOutput").html("");
     var crypt = new Array(); // array of strings each representing a word
 	
-    $('#messageOutput').append(input);
+    messageOutput.append(getCryptedMessageParagraph(input));
     var i = 0; // index of the current character being investigated
     var currentWord = "";
     while (i < input.length){ // loop through every letter in the input
@@ -708,16 +787,17 @@ function newUneditableMessageCharacter(character){ // div element to be in the t
 function newEditableMessageLetter(letter){
     var letterDisplay = document.createElement("input");
     letterDisplay.setAttribute("original", letter); // original attribute holds the letter in the original crypted message
-    letterDisplay.setAttribute("class", "decryptedCharacter");
     letterDisplay.setAttribute("draggable", true);
     letterDisplay.setAttribute("ondragstart", "letterDragged(event);");
     letterDisplay.setAttribute("onmouseenter", "highlightLetter(this);");
     letterDisplay.setAttribute("placeholder", letter);
     if (letter in dictionary){
+        letterDisplay.setAttribute("class", "decryptedCharacter draggedIn");
         letterDisplay.setAttribute("value", dictionary[letter]);
         //letterDisplay.textContent = dictionary[letter];
     }
     else{
+        letterDisplay.setAttribute("class", "decryptedCharacter");
         letterDisplay.setAttribute("value", "");
         //letterDisplay.textContent = "";
     }
@@ -759,6 +839,7 @@ function letterDraggedIntoMessage(event){
     var substitution = event.dataTransfer.getData("Text"); // value of the letter being dragged
     var original = event.currentTarget.getAttribute("value"); // cell that the letter is being dragged towards
     substitute(original, substitution);
+    checkHash();
 }
 
 function letterDragged(event){ // tell the recipient of this letter what letter is coming
@@ -768,9 +849,9 @@ function letterDragged(event){ // tell the recipient of this letter what letter 
 // returns a draggable div element to be inserted into the freeLettersDisplay
 function newDraggableFreeLetter(letter){
     var letterDisplay = document.createElement("div");
-    letterDisplay.textContent = letter.toLowerCase();
-    letterDisplay.setAttribute("value", letter.toLowerCase());
-    letterDisplay.setAttribute("class", "decryptedCharacter");
+    letterDisplay.textContent = letter;
+    letterDisplay.setAttribute("value", letter);
+    letterDisplay.setAttribute("class", "freeLetter");
     letterDisplay.setAttribute("draggable", true);
     letterDisplay.setAttribute("ondragstart", "letterDragged(event);");
     return letterDisplay;
@@ -799,7 +880,13 @@ function highlightLetter(element){
         if (currElement.getAttribute("class") == "letterFrequency" || currElement.getAttribute("class") == "letterFrequencySolved") {
             continue;
         }
-        currElement.setAttribute("class", "highlightedLetter");
+        if (currElement.classList.contains("draggedIn")) {
+            currElement.setAttribute("class", "highlightedLetter draggedInHover");
+        }
+        else {
+            currElement.setAttribute("class", "highlightedLetter");
+        }
+
         currElement.setAttribute("id", "highlighted"); // tell the program which letter is highlighted
         currElement.setAttribute("onmouseleave", "unhighlightLetter(this);");
     }
@@ -815,7 +902,12 @@ function unhighlightLetter(element){
         if (currElement.getAttribute("class") == "letterFrequency" || currElement.getAttribute("class") == "letterFrequencySolved") {
             continue;
         }
-        currElement.setAttribute("class", "decryptedCharacter");
+        if (currElement.classList.contains("draggedInHover")) {
+           currElement.setAttribute("class", "decryptedCharacter draggedIn");
+        }
+        else {
+            currElement.setAttribute("class", "decryptedCharacter");
+        }
         currElement.removeAttribute("id"); // tell the program which letter is highlighted
     }
 }
@@ -825,10 +917,11 @@ function keyPressedWhileHighlighted(evt) {
   startTimer();
   evt = evt || window.event; 
   var charCode = evt.charCode || evt.keyCode;
-  var substitution = String.fromCharCode(charCode).toLowerCase();
+  var substitution = String.fromCharCode(charCode).toUpperCase();
   var lettersToChange = document.getElementsByClassName("highlightedLetter");
   var original = lettersToChange[0].getAttribute("original"); // only need the original from one of the elements 
   substitute(original, substitution);
+  checkHash();
 };
 
 // carries out a suggested substitution
@@ -860,7 +953,7 @@ function substitute(original, substitution){
         }
     }
     $("#messageOutput").html("");
-    $('#messageOutput').append(decrypt);
+    $('#messageOutput').append(getCryptedMessageParagraph(decrypt));
 
     updateEssentialsSecondly();
 }
@@ -900,7 +993,7 @@ function deleteFreeLetter(letter){
 
 // adds the reset button to the buttons panel
 function addResetButton(){
-    var buttons = document.getElementById("buttons");
+    var buttons = document.getElementById("center");
     if (buttons.getElementsByTagName("button").length <= 1){
         buttons.appendChild(resetButton());
     }
@@ -908,32 +1001,43 @@ function addResetButton(){
 
 // adds the next button to the buttons panel for new cryptogram
 function addNextButton(){
-    var buttons = document.getElementById("buttons");
+    var buttons = document.getElementById("center");
     if (buttons.getElementsByTagName("button").length <= 1){
         buttons.appendChild(nextButton());
     }
 }
 
+function addHeaderLogo() {
+    var logo = document.getElementById(("center"));
+    logo.appendChild(headerLogo());
+}
+
 // returns a reset button to be appended to the buttons panel
 function resetButton(){
-    var button = document.createElement("button");
+    var button = document.createElement("label");
     button.setAttribute("value", "Reset");
-    button.setAttribute("id", "begin");
-    button.setAttribute("class","btn btn-default btn-bg");
+    button.setAttribute("id", "reset");
+    button.setAttribute("class","btn nav-btn glyphicon glyphicon-repeat");
     button.setAttribute("onclick", "reset();");
-    button.textContent = "Začni znova";
     return button;
 }
 
 // returns a next button to be appended to the buttons panel
 function nextButton(){
-    var button = document.createElement("button");
+    var button = document.createElement("label");
     button.setAttribute("value", "Next");
     button.setAttribute("id", "next");
-    button.setAttribute("class","btn btn-default btn-bg");
+    button.setAttribute("class","btn nav-btn glyphicon glyphicon-arrow-right");
     button.setAttribute("onclick", "location.href = next;");
-    button.textContent = "Naslednji";
     return button;
+}
+
+function headerLogo() {
+    var image = document.createElement("img");
+    image.setAttribute("src", "/static/slikca.png");
+    image.setAttribute("id", "logo");
+    image.setAttribute("onclick", "location.href = '/'");
+    return image;
 }
 
 // returns an element with a br tag
