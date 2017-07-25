@@ -5,6 +5,7 @@ from auth import sesskey, debug
 from githook import app as githook_app
 from substitution import app as substitution_app
 from steganography import app as steganography_app
+import os # DODANO ZA POTREBE CLOUD9
 
 app = Flask(__name__)
 app.debug = debug
@@ -22,4 +23,4 @@ def favicon():
     return redirect('static/favicon.ico')
 
 if __name__ == '__main__':
-    app.run(host= '0.0.0.0', debug=True)
+    app.run(debug=True,host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080))) # DODANO ZA POTREBE CLOUD9
