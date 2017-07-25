@@ -15,17 +15,17 @@
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     </head>
     <body>
-        <div class="wrapper col-lg-12 col-md-12 col-sm-12">
-                    <div class="container logo">
-                       <div class="navbar-inner">
-                         <div class="container">
-                            <a class="brand" href="{{url_for('index')}}"> <img src="{{url_for('static', filename='logo1.png')}}" class="img-responsive img-rounded" width="100%"></a>
-                         </div>
-                       </div>
-                    </div>
+        <div class="wrapper col-lg-12 col-md-12 col-sm-12 main">
+            <div class="container logo">
+               <div class="navbar-inner">
+                 <div class="container">
+                    <a class="brand" href="{{url_for('index')}}"> <img src="{{url_for('static', filename='logo1.png')}}" class="img-responsive img-rounded" width="100%"></a>
+                 </div>
+               </div>
+            </div>
         </div>
         <div class="container">
-           <div class="row">
+           <div class="row main">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <nav class="navbar navbar-default" id="menu">
                   <div class="container-fluid">
@@ -47,6 +47,7 @@
                                 <li class="divider"></li>
                                 <li><a href="{{url_for('substitution.play', difficulty='caesar')}}">Cezarjeva šifra</a></li>
                                 <li><a href="{{url_for('substitution.play', difficulty='ready')}}">Pripravljene zamenjalke</a></li>
+                                <li><a href="{{url_for('substitution.leaderboard')}}">Lestvica</a></li>
                               </ul>
                             </li>
                         </ul>
@@ -76,6 +77,6 @@
             {% block body %}
             {% endblock %}
 
-         </div>
+        </div>
     </body>
 </html>

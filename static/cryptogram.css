@@ -7,20 +7,26 @@
 /* Box where user have crypted message */
 #messageOutput{
     border-radius: 5px;
-    border: 2px solid #2f76a7;
+    padding: 5px;
+    border: 2px solid #39434b;
     font-size: 18px;
-	color: #2f76a7;
+	color: #9d9d9d;
 	width: 100%;
+}
+
+.messageOutputSolved {
+    color:#39434b;
+    font-weight: bold;
 }
 
 /* Main element displaying both the original message and its updated substituted equivalent */
 #messageDisplay{
     width: 100%;
-    background-color: #F6E3CE;
+    background-color: #eeeeee;
     text-align: left;
-    border: 3px solid #2f76a7;
+    border: 3px solid #2e8698;
     border-radius: 10px;
-	padding-bottom: 5px;
+	padding: 10px;
 }
 
 /* Table to display the frequency of each letter in the table under the message display */
@@ -46,13 +52,14 @@
     padding-left: 10px;
 	padding-right: 10px;
     padding-top: 6px;
+    margin-right: 3px;
 }
 
 /* div element for the crypted letters in the message display */
 .cryptedCharacter{
     text-align: center;
     color: black;
-    font-family:"Times New Roman",Times,serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 15px;
     width: 29px;
     height: 15px;
@@ -61,43 +68,83 @@
 /* div elements for the free letters that can be dragged about the message and free letters table */
 .decryptedCharacter{ 
     text-align: center;
-    font-family:"Times New Roman",Times,serif;
+    font-family: 'Roboto', sans-serif;
 	font-weight: bold;
     width: 29px;
     height: 35px;
     line-height: 30px;
     font-size: 20px;
-    margin: 0px;
-    color: white;
+    margin-right: 3px;
+    color: #eeeeee;
     border-radius: 5px;
-    background-color: #2f76a7;
-    border: 2px solid white;
+    background-color: #2e8698;
+    border: 2px solid #2e8698;
     display: inline-block;
+}
+
+.decryptedCharacter:hover {
+    border-color: #f9a333;
+    color: #f9a333;
+    background-color: #eeeeee;
+}
+
+/* div elements for the free letters that can be dragged about the message and free letters table */
+.freeLetter{
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+	font-weight: bold;
+    width: 29px;
+    height: 35px;
+    line-height: 30px;
+    font-size: 20px;
+    margin-right: 3px;
+    color: #2e8698;
+    border-radius: 5px;,
+    background-color: #eeeeee;
+    border: 2px solid #2e8698;
+    display: inline-block;
+}
+
+.decryptedCharacter:hover {
+    border-color: #f9a333;
+    color: #f9a333;
+    background-color: #eeeeee;
+}
+
+.draggedIn {
+    color: #39434b;
+    background-color: #eeeeee;
 }
 
 ::-webkit-input-placeholder {
    font-weight: normal;
-   font-size: 12px;
+   font-size: 20px;
+   color: #eeeeee;
+   font-family: 'Roboto', sans-serif;
 }
 
 :-moz-placeholder { /* Firefox 18- */
    font-weight: normal;
-   font-size: 12px;
+   font-size: 20px;
+   font-family: 'Roboto', sans-serif;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
    font-weight: normal;
-   font-size: 12px;
+   font-size: 20px;
+   font-family: 'Roboto', sans-serif;
 }
 
 :-ms-input-placeholder {
    font-weight: normal;
-   font-size: 12px;
+   font-size: 20px;
+   background-color: #2e8698;
+   font-family: 'Roboto', sans-serif;
 }
 
 .uneditableCharacter{ 
     text-align: center;
-    font-family:"Times New Roman",Times,serif;
+    font-family: 'Roboto', sans-serif;
     width: 5px;
     height: 20px;
     line-height: 20px;
@@ -109,28 +156,29 @@
 /* div element for the letter in the message that is currently selected by the mouse */
 .highlightedLetter{ 
     text-align: center;
-    font-family:"Times New Roman",Times,serif;
+    font-family: 'Roboto', sans-serif;
 	font-weight: bold;
     width: 28px;
     height: 35px;
     line-height: 30px;
     font-size: 20px;
-    color: #2f76a7;
+    color: #2e8698;
     border-radius: 8px;
-    background-color: #dac5a4;
-    border: 2px solid #2f76a7;
+    background-color: #eeeeee;
+    border: 2px solid #2e8698;
     display: inline-block;
 }
 
 /* Individual cell in the frequencyDisplay to display a letter and its frequency in the message */
 .letterFrequency{
     display: inline-block;
-    background-color: #2f76a7;
-    border-radius: 10px;
-    color: white;
+    background-color: #39434b;
+    border: 2px solid #f9a333;
+    border-radius: 6px;
+    color: #eeeeee;
     width: 70px;
     text-align: center;
-    height: 25px;
+    height: 27px;
     line-height: 15px;
     font-size: 100%;
     margin: 5px;
@@ -139,17 +187,17 @@
 
 .letterFrequencySolved{
     display: inline-block;
-    background-color: white;
-    border: 2px solid #2f76a7;
-    border-radius: 10px;
-    color: #2f76a7;
+    background-color: #eeeeee;
+    border: 2px solid #2e8698;
+    border-radius: 6px;
+    color: #39434b;
     width: 70px;
     text-align: center;
-    height: 25px;
+    height: 27px;
     line-height: 15px;
     font-size: 100%;
     margin: 5px;
-    padding: 3px;
+    padding: 5px;
 }
 
 .letterFrequencyHighlighted{
@@ -167,21 +215,19 @@
     padding: 3px;
 }
 
-/* do not group these rules */
-*::-webkit-input-placeholder {
-    color: #BDBDBD;
+.info-chart {
+    display: inline-block;
 }
-*:-moz-placeholder {
-    /* FF 4-18 */
-    color: #BDBDBD;
+
+.chart {
+    height:200px;
 }
-*::-moz-placeholder {
-    /* FF 19+ */
-    color: #BDBDBD;
-}
-*:-ms-input-placeholder {
-    /* IE 10+ */
-    color: #BDBDBD;
+
+#slider {
+    width: calc(100% - 65px);
+    display: table;
+    margin: auto;
+    margin-left: 40px;
 }
 
 #fixed-div {
@@ -218,9 +264,63 @@
   left:23%;
   opacity: 0.6;/*color:lighten(#000,60%);*/
 }
+
 .degree{
   /*90 + ( 360 * .1 )*/
       background-image:
         linear-gradient(90deg, transparent 50%, white 50%),
         linear-gradient(90deg, white 50%, transparent 50%);
+}
+
+#chartSortButton1 {
+    margin: 10px;
+    border-radius: 10px;
+}
+
+#chartSortButton2 {
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.draggedIn {
+    border-color: #39434b;
+    color: #39434b;
+}
+
+.draggedInHover {
+    background-color: #eeeeee;
+    color: #2e8698;
+}
+
+#begin{
+	float: right;
+	margin-right: 2%;
+	padding-right: 5%;
+	padding-left: 5%;
+}
+
+.nav-btn {
+    background-color: #39434b;
+    color: #f9a333;
+}
+
+.nav-btn:hover {
+    color: #eeeeee;
+}
+
+#logo {
+    height: 150px;
+    cursor: hand;
+}
+
+#panel-header {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 150px;
+    position: relative;
+}
+
+#center {
+    display: table;
+    margin: 0 auto;
 }
