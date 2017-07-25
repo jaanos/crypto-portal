@@ -103,7 +103,7 @@ def leaderboard_insert():
     cur = db.cursor()
     query = 'INSERT INTO crypto_leaderboard (name, difficulty, time_solved) VALUES (%s, %s, %s)'
     cur.execute(query, (name, difficulty, time_solved))
-    cur.execute('COMMIT')
+    db.commit()
     cur.close()
     return json.dumps({'status': 'OK'})
 
