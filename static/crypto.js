@@ -577,7 +577,7 @@ function displayFinishPopup() {
     } else {
         $(function() {
         $.ajax({
-            url: '/leaderboard_insert',
+            url: insertURL,
             data: {'name':person, 'difficulty':difficulty, 'time_solved': (timer.count_hour * 3600 + timer.count_minute * 60 + timer.count_second)},
             type: 'POST',
             success: function(response) {
