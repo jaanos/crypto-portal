@@ -34,6 +34,10 @@
   filter: brightness(100%);
 }
 
+#next-arrow:focus, #prew-arrow:focus {
+  outline: none;
+}
+
 #points
 {
   width: 100px;
@@ -85,7 +89,7 @@
   margin-top: 30px;
 }
 
-#picture-letter:hover {
+.level-write-easy #picture-letter:hover {
   cursor: pointer;
 }
 
@@ -118,3 +122,59 @@
   max-height:70%;
 }
 
+/*
+#imageCointainerRightFlag img,#imageCointainerBasicFigure img{
+	transform: inherit;
+	transition: all 2s;
+	width: 20%;
+	position: absolute;
+	float:left;
+	transform-origin: bottom right;
+}
+*/
+
+#imageCointainer{
+  /*
+  transform: inherit;
+	transition: all 2s;
+	width: 20%;
+	position: absolute;
+	float:left;
+	transform-origin: bottom left;
+	display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  */
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+/*
+#imageCointainerRightFlag img, #imageCointainerBasicFigure img{
+  width: 20%;
+  /*transform-origin: bottom right;
+}
+*/
+#imageCointainerLeftFlag img{
+  width: 20%;
+  transform-origin: bottom left;
+}
+
+#imageCointainerRightFlag img{
+  width: 20%;
+  transform-origin: bottom right;
+}
+
+/*
+#imageCointainerLeftFlag img:hover {
+	transform: rotate(360deg);
+}
+*/
+/*
+#imageCointainerRigthFlag img:hover{
+  transform: rotate(-360deg);
+}
+*/

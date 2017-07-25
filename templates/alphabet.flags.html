@@ -60,6 +60,7 @@
                             </div>
                             {% elif level == "medium" %}
                             <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center" id = "coreLogic">
+                                <a id="read_medium_solution" class="btn btn-default btn-bg">Rešitev</a>
                                 <div id="picture-letter" class="well">
                                     <img src="{{url_for('static', filename='images/flags/'+letter+'.png')}}" />
                                 </div>
@@ -179,12 +180,22 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 text-center">
-                                    <div id="canvasContainer">
+                                    <!-- <div id="canvasContainer">
                                         <canvas id="semaphoreCanvasBody" style= "position: absolute;left: 0; top: 0; z-index: 0;"></canvas>
                                         <canvas id="semaphoreCanvasLeftFlag" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
                                         <canvas id="semaphoreCanvasRightFlag" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+                                    </div> -->
+                                    <div id="imageCointainer" style="height: 500px; width: 200px">
+                                        <div id="imageCointainerRightFlag">
+                                            <img src="{{url_for('static', filename='right_flag.png')}}">
+                                        </div>
+                                        <div id="imageCointainerBasicFigure">
+                                            <img src="{{url_for('static', filename='basic_figure.png')}}">
+                                        </div>
+                                        <div id="imageCointainerLeftFlag">
+                                             <img src="{{url_for('static', filename='left_flag.png')}}">
+                                        </div>
                                     </div>
-                                </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 text-center">
                                     <div class = "col-md-2 text-center">
                                         <a id="prew-arrow"><img src="{{url_for('static', filename='prew_arrow.png')}}"/></a>
