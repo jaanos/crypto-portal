@@ -1,50 +1,82 @@
 {% extends "main.html" %}
 {% block body %}
-<script type="text/javascript" src = "{{url_for('static', filename='crypto.js')}}"></script>
-<script type="text/javascript">
-    input = {{input|safe}};
-    lang = "{{lang}}";
-    foreign = {% if foreign %} true {% else %} false {% endif %};
-    next = "{{url_for('.play', difficulty = difficulty, idx = next)}}";
-    window.onload = function(){initialize({{level}});};
-</script>
-
-<div class="row">
-   <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="panel panel-default" >
-            <div class="panel-heading" id="glava">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <b><span class="pozdrav1">Kriptogram</span></b>
-                    </div>
-                    <div id ="buttons">
-                            <button value = "Begin" class="btn btn-default btn-bg" id="begin">Začni</button>
-                    </div>
-                </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery.jqplot.min.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='jquery.jqplot.min.css') }}"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script type="text/javascript" language="javascript" src={{ url_for('static', filename="plugins/jqplot.categoryAxisRenderer.js") }}></script>
+    <script type="text/javascript" language="javascript" src={{ url_for('static', filename="plugins/jqplot.barRenderer.js") }}></script>
+    <script type="text/javascript" language="javascript" src={{ url_for('static', filename="plugins/jqplot.canvasTextRenderer.js") }}></script>
+    <script type="text/javascript" language="javascript" src={{ url_for('static', filename="plugins/jqplot.canvasAxisLabelRenderer.js") }}></script>
+    <script type="text/javascript" language="javascript" src={{ url_for('static', filename="plugins/jqplot.canvasAxisTickRenderer.js") }}></script>
+    <script type="text/javascript" language="javascript" src={{ url_for('static', filename="plugins/jqplot.pointLabels.js") }}></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='crypto.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='md5.js') }}"></script>
+    <script type="text/javascript">
+        input = {{input|safe}};
+        lang = "{{lang}}";
+        original_hash = "{{text_hash}}";
+        difficulty = "{{difficulty}}";
+        foreign = {% if foreign %} true {% else %} false {% endif %};
+        next = "{{url_for('.play', difficulty = difficulty, idx = next)}}";
+        insertURL = "{{url_for('.leaderboard_insert')}}";
+        window.onload = function () {
+            initialize({{level}});
+        };
+    </script>
+    <div id="parent" class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div id="panel-header">
+                <div id="center"></div>
             </div>
             <div class="panel-body">
+                <div id="buttons">
+                    <button value="Begin" class="btn btn-default btn-bg"
+                            id="begin">Začni
+                    </button>
+                </div>
                 <div class="container-fluid">
                     <div class="row-fluid">
-                        
-                        <div class="col-lg-12 col-md-12 col-sm-12" id = "coreLogic">
-                                            
+                        <div class="col-lg-12 col-md-12 col-sm-12"
+                             id="coreLogic">
                         </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12" id = "Text">
+                        <div class="col-lg-12 col-md-12 col-sm-12" id="Text">
                             <br>
-                            <textarea rows ="5" id  = "messageOutput" readonly></textarea>
+                            <p id="messageOutput"></p>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12"
+                             id="chartDiv">
+                            <div id="info1" class="info-chart">
+                                <div id="info-btn-1" class="info-chart"></div>
+                                <div id="info-msg-1" class="info-chart"></div>
+                            </div>
+                            <div id="chart1" class="chart"></div>
+
+                            <div id="info2" class="info-chart">
+                                <div id="info-btn-2" class="info-chart"></div>
+                                <div id="info-msg-2" class="info-chart"></div>
+                            </div>
+                            <div id="chart2" class="chart"></div>
+                            <div id="slider">
+                                <div id="custom-handle"
+                                     class="ui-slider-handle"></div>
+                            </div>
+                            <br>
+                            {% include ('substitution.stats.%s.html' % lang) %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <div id="fixed-div">
 
-<div class="row">
-   <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="panel panel-default">
-            {% include ('substitution.stats.%s.html' % lang) %}
-        </div>
     </div>
- </div>
+
+{#<div class="row">#}
+{#   <div class="col-lg-12 col-md-12 col-sm-12">#}
+{#        <div class="panel panel-default">#}
+{#            {% include ('substitution.stats.%s.html' % lang) %}#}
+{#        </div>#}
+{#    </div>#}
+{# </div>#}
 {% endblock %}

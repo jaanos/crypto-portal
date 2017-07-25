@@ -4,24 +4,13 @@ body {
      /* background: url(background.jpg);
 	background-attachment: fixed;
 	background-size: 100%;*/
-	background-color: #F6E3CE;
+	background-color: white;
 }
 #p1{
 	font-size: 18px;
 	font-family: 'Open Sans';
 }
-#begin{
-	float: right;
-	margin-right: 2%;
-	padding-right: 5%;
-	padding-left: 5%;
-}
-#next{
-	float: right;
-	margin-right: 2%;
-	padding-right: 5%;
-	padding-left: 5%;
-}
+
 .wrapper{
 	float:left;
 	clear:left;
@@ -29,8 +18,8 @@ body {
 	table-layout: fixed;
 }
 img.img-responsive{
-	display: :table-cell;
-	max-width: : 100%;
+	display: table-cell;
+	max-width: 100%;
 }
 .pozdrav{
 	color: #FFFFFF;
@@ -76,7 +65,6 @@ img.img-responsive{
 .navbar-default .navbar-nav > li > a:focus {
     color: #FFFFFF;
     background-color: #2f76a7;
-    border-color: none;
 }
 .table-nonfluid {
 	width: auto !important;
