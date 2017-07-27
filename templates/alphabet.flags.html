@@ -160,37 +160,15 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 text-center">
-                                        <div id="canvasContainer">
-                                            <canvas id="semaphoreCanvasBody" style= "position: absolute;left: 0; top: 0; z-index: 0;"></canvas>
-                                            <canvas id="semaphoreCanvasLeftFlag" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
-                                            <canvas id="semaphoreCanvasRightFlag" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+                                        <div id="imageCointainer">
+                                            <img id="imageRightFlag" src="{{url_for('static', filename='right_flag.png')}}">
+                                            <img id="imageBasicFigure" src="{{url_for('static', filename='basic_figure.png')}}">
+                                            <img id="imageLeftFlag" src="{{url_for('static', filename='left_flag.png')}}">
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 text-center">
-                                        <div class = "col-md-2 text-center">
-                                            <a id="prew-arrow"><img src="{{url_for('static', filename='prew_arrow.png')}}"/></a>
-                                        </div>
-                                        <div class = "col-md-3 text-center">
-                                            <div class="row">
-                                                <span>DESNA</span>
-                                            </div>
-                                            <div class="row">
-                                                <a id="right-back"><img src="{{url_for('static', filename='control_back.png')}}"/></a>
-                                                <a id="right-forw"><img src="{{url_for('static', filename='control_forw.png')}}"/></a>
-                                            </div>
-                                        </div>
-                                        <div class = "col-md-3 text-center">
-                                            <div class="row">
-                                                <span>LEVA</span>
-                                            </div>
-                                            <div class="row">
-                                                <a id="left-back"><img src="{{url_for('static', filename='control_back.png')}}"/></a>
-                                                <a id="left-forw"><img src="{{url_for('static', filename='control_forw.png')}}"/></a>
-                                            </div>
-                                        </div>
-                                        <div class = "col-md-3 text-center">
-                                            <a id="check" href="enabled"><img src="{{url_for('static', filename='check.png')}}"/></a>
-                                        </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 text-center controlContainer">
+                                        <a id="prew-arrow"><img src="{{url_for('static', filename='prew_arrow.png')}}"/></a>
+                                        <a id="check" href="enabled"><img src="{{url_for('static', filename='check.png')}}"/></a>
                                         <a id="next-arrow"><img src="{{url_for('static', filename='next_arrow.png')}}"/></a>
                                     </div>
                                 {% elif level == "hard" %}
@@ -206,48 +184,15 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 text-center">
-                                        <!-- <div id="canvasContainer">
-                                            <canvas id="semaphoreCanvasBody" style= "position: absolute;left: 0; top: 0; z-index: 0;"></canvas>
-                                            <canvas id="semaphoreCanvasLeftFlag" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
-                                            <canvas id="semaphoreCanvasRightFlag" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
-                                        </div> -->
-                                        <div id="imageCointainer" style="height: 500px; width: 200px">
-                                            <div id="imageCointainerRightFlag">
-                                                <img src="{{url_for('static', filename='right_flag.png')}}">
-                                            </div>
-                                            <div id="imageCointainerBasicFigure">
-                                                <img src="{{url_for('static', filename='basic_figure.png')}}">
-                                            </div>
-                                            <div id="imageCointainerLeftFlag">
-                                                 <img src="{{url_for('static', filename='left_flag.png')}}">
-                                            </div>
+                                        <div id="imageCointainer">
+                                            <img id="imageRightFlag" src="{{url_for('static', filename='right_flag.png')}}">
+                                            <img id="imageBasicFigure" src="{{url_for('static', filename='basic_figure.png')}}">
+                                            <img id="imageLeftFlag" src="{{url_for('static', filename='left_flag.png')}}">
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 text-center">
-                                        <div class = "col-md-2 text-center">
-                                            <a id="prew-arrow"><img src="{{url_for('static', filename='prew_arrow.png')}}"/></a>
-                                        </div>
-                                        <div class = "col-md-3 text-center">
-                                            <div class="row">
-                                                <span>DESNA</span>
-                                            </div>
-                                            <div class="row">
-                                                <a id="right-back"><img src="{{url_for('static', filename='control_back.png')}}"/></a>
-                                                <a id="right-forw"><img src="{{url_for('static', filename='control_forw.png')}}"/></a>
-                                            </div>
-                                        </div>
-                                        <div class = "col-md-3 text-center">
-                                            <div class="row">
-                                                <span>LEVA</span>
-                                            </div>
-                                            <div class="row">
-                                                <a id="left-back"><img src="{{url_for('static', filename='control_back.png')}}"/></a>
-                                                <a id="left-forw"><img src="{{url_for('static', filename='control_forw.png')}}"/></a>
-                                            </div>
-                                        </div>
-                                        <div class = "col-md-3 text-center">
-                                            <a id="check" href="enabled"><img src="{{url_for('static', filename='check.png')}}"/></a>
-                                        </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 text-center controlContainer">
+                                        <a id="prew-arrow"><img src="{{url_for('static', filename='prew_arrow.png')}}"/></a>
+                                        <a id="check" href="enabled"><img src="{{url_for('static', filename='check.png')}}"/></a>
                                         <a id="next-arrow"><img src="{{url_for('static', filename='next_arrow.png')}}"/></a>
                                     </div>
                                 {% endif %}
