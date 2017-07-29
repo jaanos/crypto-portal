@@ -148,6 +148,7 @@
 
 #imageRightFlag[href=enabled], #imageLeftFlag[href=enabled]{
   opacity: 1;
+  z-index: 3; /* Ce je ena roka disabled, mora biti druga nad njo */
 }
 #imageRightFlag[href=enabled]:hover, #imageLeftFlag[href=enabled]:hover{
   cursor: pointer;
