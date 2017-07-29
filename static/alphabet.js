@@ -100,19 +100,27 @@ $( document ).ready(function() {
     $("#choices .btn").click(function() {
        var letter = getLetterFromURL($("#picture-letter img").attr("src"));
        if ((this.innerHTML).toUpperCase() === letter.toUpperCase()) {
-           $(this).removeClass("btn-info");
-           $(this).addClass("btn-success");
-           $("#next-arrow").attr("href", "next");
-           buttonsDisable();
-           addHistoryEasy();
-           addPoints(1);
-           moveToLearntIfFirstTry(letter);
+             $(this).removeClass("btn-info");
+            $(this).addClass("btn-success");
+            $("#next-arrow").attr("href", "next");
+            buttonsDisable();
+           
+            if(histPtr == 0 && ansHist > 1 ){
+                addHistoryEasy(0,1);
+            }
+            else{
+                addHistoryEasy(1,1);
+            }
+           
+            addPoints(1);
+            moveToLearntIfFirstTry(letter);
        } else {
-           $(this).removeClass("btn-info");
-           $(this).addClass("btn-danger");
-           $(this).attr("disabled", "disabled");
-           removePoints(1);
-           moveToNotLearnt(letter);
+            $(this).removeClass("btn-info");
+            $(this).addClass("btn-danger");
+            $(this).attr("disabled", "disabled");
+            removePoints(1);
+            moveToNotLearnt(letter);
+            addHistoryEasy(1,0);
        }
     });
     
@@ -120,16 +128,25 @@ $( document ).ready(function() {
     $(".level-read-easy #next-arrow").click(function(e) {
         e.preventDefault();
         if ($("#next-arrow").attr("href") === "next") {
-            if(histPtr >= ansHist.length || histPtr+1 >= ansHist.length)
-            {
+            histPtr++;
+            if(histPtr == ansHist.length){  // New letter
                 selectAndDisplayNewLetter(window.alphabet,"easy");
-                refresh();
-                histPtr++;
+                if(histPtr != 0){
+                    addHistoryEasy(0,0); // push to history and mark as unanswered
+                }
             }
-            else{
-                histPtr++;
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0){   // Chosen letter is not answered
+                displayOldLetter(ansHist[histPtr][2], getChoices(ansHist[histPtr][0]));
+            }
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 1){   // Chosen letter is answered
+                $(".level-read-easy #next-arrow").attr("href", "next");
                 restoreHistoryEasy();
             }
+            else{   // Chosen letter is answered
+                restoreHistoryEasy();
+            }
+            $(".level-read-easy #prew-arrow").attr("href", "prew");
+            if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0)$(".level-read-easy #next-arrow").removeAttr("href"); 
         }
         
     });
@@ -451,7 +468,6 @@ $( document ).ready(function() {
         e.preventDefault();
         if($("#check").attr("href") === "enabled"){
             if(checkIfCorrWrite()){
-                $("#next-arrow").focus();
                 addPoints(1);
                 markCheckControlWrite(1);
                 disableCheckControlWrite();
@@ -526,7 +542,6 @@ $( document ).ready(function() {
                 addPoints(1);
                 markCheckControlWrite(1);
                 disableCheckControlWrite();
-                $("#next-arrow").focus();
                 $(".level-write-hard #next-arrow").attr("href", "next");
                 if(histPtr == 0){
                     pushHistoryWriteHard(1);
@@ -667,14 +682,61 @@ function selectAndDisplayNewLetter(alphabet, mode) {
     var choices = selectChoices(alphabet, letter);
     $("#read_medium_solution").removeAttr("disabled");
     
+    //$(".level-read-"+mode+" #picture-letter img").attr("src", flagsDir + letter + ".png");
+    displayNewLetter(letter,mode,choices);
+}
+
+//Displays given letter
+function displayNewLetter(letter,mode,choices) {
     $(".level-read-"+mode+" #picture-letter img").attr("src", flagsDir + letter + ".png");
-    
+
     //Clears inputs and options
     if(mode === "easy") {
         clearSelectedOptions("choices", choices);
     } else if( mode === "medium") {
         clearInput("letterInput");
     }
+}
+
+//Displas old letter (popravi sliko in izbire)
+function displayOldLetter(corrLetter, choices){
+    var ans = ansHist[histPtr][0].split(",");
+    var buttons = document.getElementById('choices'),button;
+    var j = 0;
+    for(var i = 0; i < buttons.children.length; i++){
+        button = buttons.children[i];
+        var letter = (ans[j].split(""))[0];
+        var colour = (ans[j].split(""))[1];
+        if(colour == 'I'){
+            button.className = "btn btn-info btn-letter";
+        }
+        else if(colour == 'D'){
+            button.className = "btn btn-letter btn-danger";
+        }
+        else if(colour == 'S'){
+            button.className = "btn btn-letter btn-success";
+            $(".level-read-easy #picture-letter img").attr("src", flagsDir + letter.toLowerCase() + ".png");
+        }
+        button.innerHTML = letter;
+        button.disabled=false;
+        j++;
+    }
+    $(".level-read-easy #picture-letter img").attr("src", flagsDir + corrLetter.toLowerCase() + ".png");
+    if(histPtr === 0){
+        $(".level-read-easy #prew-arrow").removeAttr("href");
+    }else{
+        $(".level-read-easy #prew-arrow").attr("href", "prew");
+    }
+    $(".level-read-easy #next-arrow").attr("href", "next");
+}
+//Function for geting leters from history (Read-easy) - returns string
+function getChoices(choices){
+    var string = [];
+    var choices = choices.split(",");
+    for(var i = 0; i < choices.length; i++){
+        string.push(choices[i].charAt(0));
+    }
+    return string;
 }
 
 function selectAndDisplayNewImage(alphabet, mode) {
@@ -837,11 +899,11 @@ function refresh() {
 *   HISTORY
 */
 
-//Function adds current answer to history - READ_EASY
-function addHistoryEasy(){
-    if(histPtr >= ansHist.length){
+//Function adds current answer to history - READ_EASY [push=0/set=1, !ans=0/ans=1]
+function addHistoryEasy(set,ans){
     var state="";
     var buttons = document.getElementById('choices'),button;
+    var corrLetter = getLetterFromURL($("#picture-letter img").attr('src'));
     for(var i = 0; i < buttons.children.length; i++){
         button = buttons.children[i];
         var buttonClass = button.className;
@@ -857,14 +919,13 @@ function addHistoryEasy(){
             state+=buttonLetter+"S"
         }
     }
-    ansHist.push(state);
-    }
-    //histPtr++;
+    if(set == 1) ansHist[histPtr]=[state,ans,corrLetter];
+    else ansHist.push([state,ans,corrLetter]);
 }
 
 // Function adds prev. answer from history - READ_EASY
 function restoreHistoryEasy(){
-    var ans = ansHist[histPtr].split(",");
+    var ans = ansHist[histPtr][0].split(",");
     var buttons = document.getElementById('choices'),button;
     var j = 0;
     for(var i = 0; i < buttons.children.length; i++){
