@@ -2,12 +2,12 @@
 from flask import *
 import random
 from random import randint
-import os
 from database import database
 
 app = Blueprint('alphabet', __name__)
 
 abc = u"abcdefghijklmnopqrstuvwxyz"
+available_alphabets = ["flags"]
 
 # get words from database
 def get_all_words():
@@ -34,7 +34,7 @@ def return_choices(letter):
     return choices
 
 def alphabet_exists(alphabet):
-    return os.path.isdir("static/images/" + alphabet)
+    return alphabet in available_alphabets
 
 @app.route("/")
 @app.route("/<selected_alphabet>/")
