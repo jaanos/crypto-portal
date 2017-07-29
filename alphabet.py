@@ -3,18 +3,19 @@ from flask import *
 import random
 from random import randint
 import os
+from database import database
 
 app = Blueprint('alphabet', __name__)
 
 abc = u"abcdefghijklmnopqrstuvwxyz"
 
-#words = ["ananas", "banana", "cesta", "dom", "eskim", "figa"]
-
-# get words from file static/words.txt
-file = open("static/words.txt","r") 
-words = file.read().splitlines()
-file.close()
-
+# get words from database
+def get_all_words():
+    db = database.dbcon()
+    cur = db.cursor()
+    cur.execute("SELECT Word FROM Words")
+    return [row[0] for row in cur]
+words = get_all_words()
 
 def select_word(list_words):
     return list_words[randint(0, len(list_words)-1)]
