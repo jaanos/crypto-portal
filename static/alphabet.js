@@ -1,4 +1,5 @@
 // VARIABLES
+var alphabet;
 var cookie_name = "kriptogram_alphabet_points";
 var expDays = 365;
 var ansHist = [];
@@ -6,11 +7,9 @@ var histPtr = 0;
 var curHandPos = [0,0]; // [right,left]
 var pointsForClueReadMedium = 30;
 var pointsForClueReadHard = 50;
-var learnt = [];
-var not_learnt = [];
-var firstTry;
-var numberOfLettersDisplayed = 0;
+var userAnswers = [];
 var readHardTimer;
+var prevLetter = "-";
 var positions = {   // x = [right, left]
         'a':[225,180],'b':[270,180],'c':[315,180],'d':[0,180],'e':[180,45],'f':[180,90],
         'g':[180,135],'h':[270,225],'i':[225,315],'j':[0,90],'k':[225,0],'l':[225,45],
@@ -22,6 +21,11 @@ var middlePointRight, middlePointLeft;
 
 function initialize_alphabet(mode, level) {
     refresh();
+    // Get ready to watch user inputs
+    for (var i = 0; i < alphabet.length; i++) {
+        userAnswers[alphabet[i]] = 0;
+    }
+
     if (mode == "read") {
         if (level == "easy") {
             read_easy();
@@ -42,11 +46,11 @@ function initialize_alphabet(mode, level) {
 }
 
 function read_easy() {
-    console.log("read, easy");
+    //console.log("read, easy");
 }
 
 function write_easy() {
-    console.log("write, easy");
+    //console.log("write, easy");
 }
 
 function read_medium() {
@@ -114,7 +118,7 @@ $( document ).ready(function() {
             }
            
             addPoints(1);
-            moveToLearntIfFirstTry(letter);
+            moveToLearnt(letter);
        } else {
             $(this).removeClass("btn-info");
             $(this).addClass("btn-danger");
@@ -199,7 +203,7 @@ $( document ).ready(function() {
                 addPoints(1);
                 $("#picture-letter").removeClass("tested");
                 $("#next-arrow").focus();
-                moveToLearntIfFirstTry(letter);
+                moveToLearnt(letter);
             } else {
                 console.log("napacno");
                 $("#letterInput").addClass("wrongInput");
@@ -427,7 +431,7 @@ $( document ).ready(function() {
             addPoints(1);
             imageButtonsDisable($(this).parent().parent());
             addHistoryWriteEasy();
-            moveToLearntIfFirstTry(letter);
+            moveToLearnt(letter);
         } else {
             $(this).removeClass("correctInput");
             $(this).addClass(("wrongInput"));
@@ -472,6 +476,7 @@ $( document ).ready(function() {
     $(".level-write-medium #check").click(function(e) {
         e.preventDefault();
         if($("#check").attr("href") === "enabled"){
+            var letter = $(".level-write-medium #letterToGuess span").text().toLowerCase();
             if(checkIfCorrWrite()){
                 addPoints(1);
                 markCheckControlWrite(1);
@@ -483,10 +488,12 @@ $( document ).ready(function() {
                 else{
                     setHistoryWriteMedium(1);
                 }
+                moveToLearnt(letter);
             }
             else{
                 removePoints(1);                
                 markCheckControlWrite(0);
+                moveToNotLearnt(letter);
             }
         }
     });
@@ -543,6 +550,7 @@ $( document ).ready(function() {
     $(".level-write-hard #check").click(function(e) {
         e.preventDefault();
         if($("#check").attr("href") === "enabled"){
+            var letter = $(".level-write-hard #letterToGuess span").text().toLowerCase();
             if(checkIfCorrWrite()){
                 addPoints(1);
                 markCheckControlWrite(1);
@@ -554,10 +562,12 @@ $( document ).ready(function() {
                 else{
                     setHistoryWriteHard(1);
                 }
+                moveToLearnt(letter);
             }
             else{
                 removePoints(1); 
                 markCheckControlWrite(0);
+                moveToNotLearnt(letter);
             }
         }
     });
@@ -737,7 +747,7 @@ function displayOldLetter(corrLetter, choices){
 //Function for geting leters from history (Read-easy) - returns string
 function getChoices(choices){
     var string = [];
-    var choices = choices.split(",");
+    choices = choices.split(",");
     for(var i = 0; i < choices.length; i++){
         string.push(choices[i].charAt(0));
     }
@@ -753,12 +763,32 @@ function selectAndDisplayNewImage(alphabet, mode) {
 }
 
 function selectNewLetter(alphabet) {
-    numberOfLettersDisplayed++;
-    if (numberOfLettersDisplayed % 3 == 0 && not_learnt.length > 0) {
-        return not_learnt[Math.floor(Math.random() * not_learnt.length)].toLowerCase();
-    } else {
-        return alphabet[Math.floor(Math.random() * alphabet.length)];
+    for (var i = 0; i < alphabet.length; i++) {
+        console.log(alphabet[i] + ": " + userAnswers[alphabet[i]]);
     }
+    // Poisci najslabse poznano crko (pazi, da ni enaka prejsnji prikazani crki)
+    var worseNumber;
+    if (prevLetter === "a") {
+        worseNumber = userAnswers["b"];
+    } else {
+        worseNumber = userAnswers["a"];
+    }
+    for (var i = 1; i < alphabet.length; i++) {
+        if (userAnswers[alphabet[i]] < worseNumber && alphabet[i] !== prevLetter) {
+            worseNumber = userAnswers[alphabet[i]];
+        }
+    }
+
+    // ustvari novo tabelo, kamor shrani kandidate za prikaz - vse, ki imajo vrednost v tabeli (worseNumber + 1) ali manj
+    var selectFrom = [];
+    for (var i = 0; i < alphabet.length; i++) {
+        if (userAnswers[alphabet[i]] <= worseNumber + 1 && alphabet[i] !== prevLetter) {
+            selectFrom.push(alphabet[i]);
+        }
+    }
+    console.log("selectFrom: " + selectFrom);
+    prevLetter = selectFrom[Math.floor(Math.random() * selectFrom.length)];
+    return prevLetter;
 }
 
 function selectNewWord(words) {
@@ -850,53 +880,18 @@ function focusFirstFree(elementToFocus) {
 }
 
 function moveToLearnt(element) {
-    element = element.toUpperCase();
-    
-    // Add to learnt
-    var indexLearnt = learnt.indexOf(element);
-    if (indexLearnt < 0) {
-        learnt.push(element);
-    }
-    
-    // Remove from not_learnt
-    var indexNotLearnt = not_learnt.indexOf(element);
-    if (indexNotLearnt >= 0) {
-        not_learnt.splice(indexNotLearnt, 1);
-    }
-    
-    console.log("Learnt: " + learnt);
-    console.log("Not learnt: " + not_learnt);
+    element = element.toLowerCase();
+    userAnswers[element]++;
 }
 
 function moveToNotLearnt(element) {
-    element = element.toUpperCase();
-    firstTry = false;
-    
-    // Add to not_learnt
-    var indexNotLearnt = not_learnt.indexOf(element);
-    if (indexNotLearnt < 0) {
-        not_learnt.push(element);
-    }
-    
-    // Remove from learnt
-    var indexLearnt = learnt.indexOf(element);
-    if (indexLearnt >= 0) {
-        learnt.splice(indexLearnt, 1);
-    }
-
-    console.log("Learnt: " + learnt);
-    console.log("Not learnt: " + not_learnt);
-}
-
-function moveToLearntIfFirstTry(element){
-    if (firstTry == true) {
-        moveToLearnt(element);
-    }
+    element = element.toLowerCase();
+    userAnswers[element]--;
 }
 
 function refresh() {
     // Called every time when new letter/word is displayed
-    firstTry = true;
+    // Empty, may be used later
 }
 
 
