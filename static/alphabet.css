@@ -149,7 +149,9 @@
 #imageRightFlag[href=enabled], #imageLeftFlag[href=enabled]{
   opacity: 1;
 }
-
+#imageRightFlag[href=enabled]:hover, #imageLeftFlag[href=enabled]:hover{
+  cursor: pointer;
+}
 .controlContainer{
   margin-top: 10px;
 }
