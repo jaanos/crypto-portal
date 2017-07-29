@@ -1,21 +1,31 @@
 // VARIABLES
+var alphabet;
 var cookie_name = "kriptogram_alphabet_points";
 var expDays = 365;
 var ansHist = [];
 var histPtr = 0;
-var curHandPos = [0,0];
+var curHandPos = [0,0]; // [right,left]
 var pointsForClueReadMedium = 30;
 var pointsForClueReadHard = 50;
-// x = [right, left]
-var positions = {
-        'a':[135,180],'b':[90,180],'c':[45,180],'d':[0,180],'e':[180,45],'f':[180,90],
-        'g':[180,135],'h':[90,225],'i':[45,225],'j':[0,90],'k':[135,0],'l':[135,45],
-        'm':[135,90],'n':[135,135],'o':[90,315],'p':[90,0],'q':[90,45],'r':[90,90],
-        's':[90,135],'t':[45,0],'u':[45,45],'v':[0,135],'w':[315,90],'x':[315,135],
-        'y':[45,90],'z':[225,90],' ':[180,180],'init':[0,0]
+var userAnswers = [];
+var readHardTimer;
+var prevLetter = "-";
+var positions = {   // x = [right, left]
+        'a':[225,180],'b':[270,180],'c':[315,180],'d':[0,180],'e':[180,45],'f':[180,90],
+        'g':[180,135],'h':[270,225],'i':[225,315],'j':[0,90],'k':[225,0],'l':[225,45],
+        'm':[225,90],'n':[225,135],'o':[270,315],'p':[270,0],'q':[270,45],'r':[270,90],
+        's':[270,135],'t':[315,0],'u':[315,45],'v':[0,135],'w':[45,90],'x':[45,135],
+        'y':[315,90],'z':[135,90],' ':[180,180],'init':[0,0]
     };
+var middlePointRight, middlePointLeft;
 
 function initialize_alphabet(mode, level) {
+    refresh();
+    // Get ready to watch user inputs
+    for (var i = 0; i < alphabet.length; i++) {
+        userAnswers[alphabet[i]] = 0;
+    }
+
     if (mode == "read") {
         if (level == "easy") {
             read_easy();
@@ -36,11 +46,11 @@ function initialize_alphabet(mode, level) {
 }
 
 function read_easy() {
-    console.log("read, easy");
+    //console.log("read, easy");
 }
 
 function write_easy() {
-    console.log("write, easy");
+    //console.log("write, easy");
 }
 
 function read_medium() {
@@ -51,8 +61,8 @@ function read_medium() {
 }
 
 function write_medium() {
-    setCanvas();
-    semaforSetMedium(2);
+    setFigure();
+    setFlagsMedium();
 }
 
 function read_hard() {
@@ -76,34 +86,91 @@ function read_hard() {
     }
 }
 
-var zaseden = false;
-
 function write_hard() {
-    setCanvas();
-    semaforSetHard(positions['init']);
+    setFigure();
 }
 
 $( document ).ready(function() {
     checkCookie(cookie_name);
     
+    /* *************************************************************************** */
+    /* ********************************   READ  ********************************** */
+    /* *************************************************************************** */
+     
+    /*
+     *      READ EASY
+     */
+    
+    // Function listens for click on multiple choices
     $("#choices .btn").click(function() {
        var letter = getLetterFromURL($("#picture-letter img").attr("src"));
        if ((this.innerHTML).toUpperCase() === letter.toUpperCase()) {
-           $(this).removeClass("btn-info");
-           $(this).addClass("btn-success");
-           $("#next-arrow").attr("href", "next");
-           buttonsDisable();
-           addHistoryEasy();
-           addPoints(1);
+             $(this).removeClass("btn-info");
+            $(this).addClass("btn-success");
+            $("#next-arrow").attr("href", "next");
+            buttonsDisable();
+           
+            if(histPtr == 0 && ansHist > 1 ){
+                addHistoryEasy(0,1);
+            }
+            else{
+                addHistoryEasy(1,1);
+            }
+           
+            addPoints(1);
+            moveToLearnt(letter);
        } else {
-           $(this).removeClass("btn-info");
-           $(this).addClass("btn-danger");
-           $(this).attr("disabled", "disabled");
-           removePoints(1);
+            $(this).removeClass("btn-info");
+            $(this).addClass("btn-danger");
+            $(this).attr("disabled", "disabled");
+            removePoints(1);
+            moveToNotLearnt(letter);
+            addHistoryEasy(1,0);
        }
     });
     
-    //BRANJE-SREDNJE: ob pritisku na enter preveri vnos
+    // Function listens for click on "next arrow"
+    $(".level-read-easy #next-arrow").click(function(e) {
+        e.preventDefault();
+        if ($("#next-arrow").attr("href") === "next") {
+            histPtr++;
+            if(histPtr == ansHist.length){  // New letter
+                selectAndDisplayNewLetter(window.alphabet,"easy");
+                if(histPtr != 0){
+                    addHistoryEasy(0,0); // push to history and mark as unanswered
+                }
+            }
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0){   // Chosen letter is not answered
+                displayOldLetter(ansHist[histPtr][2], getChoices(ansHist[histPtr][0]));
+            }
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 1){   // Chosen letter is answered
+                $(".level-read-easy #next-arrow").attr("href", "next");
+                restoreHistoryEasy();
+            }
+            else{   // Chosen letter is answered
+                restoreHistoryEasy();
+            }
+            $(".level-read-easy #prew-arrow").attr("href", "prew");
+            if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0)$(".level-read-easy #next-arrow").removeAttr("href"); 
+        }
+        
+    });
+    
+    // Function listens for click on "prew arrow"
+    $(".level-read-easy #prew-arrow").click(function(e) {
+        e.preventDefault();
+        if ($("#prew-arrow").attr("href") === "prew") {
+            histPtr--;
+            restoreHistoryEasy();
+        }
+    });
+    
+    
+    /*
+     *      READ MEDIUM
+     */
+    
+    // READ MEDIUM: ob pritisku na enter preveri vnos
     $("#letterInput").keypress(function(e) {
         //Enter pressed?
         if(e.which == 10 || e.which == 13) {
@@ -136,12 +203,14 @@ $( document ).ready(function() {
                 addPoints(1);
                 $("#picture-letter").removeClass("tested");
                 $("#next-arrow").focus();
+                moveToLearnt(letter);
             } else {
                 console.log("napacno");
                 $("#letterInput").addClass("wrongInput");
                 $("#letterInput").removeClass("correctInput");
                 removePoints(1);
                 $("#letterInput").focus().select();
+                moveToNotLearnt(letter);
             }
                 
         } else {
@@ -149,7 +218,7 @@ $( document ).ready(function() {
         }
     });
     
-    // BRANJE MEDIUM - resitev
+    // BRANJE MEDIUM - prikaz resitve
     $("#read_medium_solution").click(function(){
         $(this).attr("disabled", "disabled");
         if (getPoints() >= pointsForClueReadMedium) {
@@ -167,7 +236,44 @@ $( document ).ready(function() {
         }
     });
     
-    //preveri vnos gesla ko je pritisnjen enter - branje hard
+    // Listens for click on "next arrow" (read-medium)
+    $(".level-read-medium #next-arrow").click(function(e) {
+        e.preventDefault();
+        if ($("#next-arrow").attr("href") === "next") {
+            $("#letterInput").removeClass("correctInput");
+            if(histPtr >= ansHist.length || histPtr+1 >= ansHist.length)
+            {
+                selectAndDisplayNewLetter(window.alphabet,"medium");
+                refresh();
+                histPtr++;
+                $("#letterInput").focus();
+            }
+            else{
+                histPtr++;
+                $("#letterInput").addClass("correctInput");
+                restoreHistoryMedium();
+            }
+        }
+    });
+    
+    // Listens for click on "prev arrow" (read-medium)
+    $(".level-read-medium #prew-arrow").click(function(e) {
+        e.preventDefault();
+        if ($("#prew-arrow").attr("href") === "prew") {
+            histPtr--;
+            //document.getElementById('letterInput').disabled = true;
+            //$("#letterInput").css('border-color', '#000000 #000000 rgb(36, 143, 36) #000000');
+            $("#letterInput").addClass("correctInput");
+            restoreHistoryMedium();
+        }
+    });
+    
+    
+    /*
+     *      READ HARD
+     */
+    
+    //READ HARD (preveri vnos gesla ko je pritisnjen enter - branje hard)
     $("#input-string-hard").keypress(function(e) {
         //Enter pressed?
         if(e.which == 10 || e.which == 13) {
@@ -207,6 +313,12 @@ $( document ).ready(function() {
             if (numWrongOrUnanswered == 0) {
                 $("#next-arrow").attr("href", "next");
                 $("#next-arrow").focus();
+                if(histPtr == 0){
+                    pushHistoryReadHard(1);
+                }
+                else{
+                    setHistoryReadHard(1);
+                }
             } else {
                 // Postavi cursor na prvo napacno crko
                 var el = $("#num1");
@@ -225,7 +337,7 @@ $( document ).ready(function() {
         }
     });
     
-    // BRANJE HARD - sprozi animacijo
+    // READ HARD - sprozi animacijo
     $("#start-animation").click(function() {
         if ($(this).hasClass("used")) {
             removePoints(pointsForClueReadHard);
@@ -237,7 +349,75 @@ $( document ).ready(function() {
         $("#start-animation").text("Začni znova!");
     });
     
-    // PISANJE - EASY preverjanje pravilnosti
+    // Listens for click on "next arrow" (read-hard)
+    $(".level-read-hard #next-arrow").click(function(e) {
+        e.preventDefault();
+        if ($("#next-arrow").attr("href") === "next") {
+            histPtr++;
+            console.log("next-arrow");
+            if(histPtr == ansHist.length){  // New seq
+                console.log("1");
+                read_hard();
+                refresh();
+                $("#start-animation").css("visibility", "visible");
+                console.log("Odstranil bom next arrow (1)");
+                $(".level-read-hard #next-arrow").removeAttr("href");
+                if(histPtr != 0){
+                    pushHistoryReadHard(0); // push to history and mark as unanswered
+                }
+            }
+            
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0){   // Chosen letter is not answered
+                //DisplayNewLetterWriteHard(ansHist[histPtr][0]); ////// <-------------- SPISI FUNKCIJO KI RESTORA PODANI NIZ
+                console.log("2");
+                $("#start-animation").css("visibility", "visible");
+                restoreStringReadHard(ansHist[histPtr][0]);
+            }
+            
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 1){   // Chosen letter is answered
+                console.log("3");
+                $(".level-read-hard #next-arrow").attr("href", "next");
+                restoreHistoryReadHard();
+            }
+            
+            else{   // Chosen letter is answered
+                console.log("4");
+                restoreHistoryReadHard();
+            }
+            
+            $(".level-read-hard #prew-arrow").attr("href", "prew");
+            if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0){
+                console.log("i will remove nex arrow"); 
+                $(".level-read-hard #next-arrow").removeAttr("href");
+            }
+        }
+    });
+    
+    // Listens for click on "prev arrow" (read-hard)
+    $(".level-read-hard #prew-arrow").click(function(e) {
+        e.preventDefault();
+        if ($("#prew-arrow").attr("href") === "prew") {
+            histPtr--;
+            restoreHistoryReadHard();
+            textFieldsDisable(".letterInputClass");
+            $("#start-animation").css("visibility", "hidden");
+            $(".level-read-hard #next-arrow").attr("href", "next");
+            if(histPtr == 0){
+                $("#prew-arrow").removeAttr("href");
+            }
+        }
+    });
+    
+    
+    /* *************************************************************************** */
+    /* *******************************   WRITE  ********************************** */
+    /* *************************************************************************** */
+    
+    /*
+     *      WRITE EASY
+     */
+    
+    // WRITE - EASY preverjanje pravilnosti
     $(".imageSelectionWrap #picture-letter").click(function() {
         if ($(this).hasClass("not_active")) return;
         var url = $(this).find(".imageSelection").attr("src");
@@ -251,88 +431,14 @@ $( document ).ready(function() {
             addPoints(1);
             imageButtonsDisable($(this).parent().parent());
             addHistoryWriteEasy();
+            moveToLearnt(letter);
         } else {
             $(this).removeClass("correctInput");
             $(this).addClass(("wrongInput"));
             removePoints(1);
             imageOneButtonDisable(this);
+            moveToNotLearnt(letter);
         }
-    });
-    
-    
-    
-    /*
-    *   ARROW LISTENERS
-    */
-    
-    // Listens for click on "next arrow" (read-easy)
-    $(".level-read-easy #next-arrow").click(function(e) {
-        e.preventDefault();
-        if ($("#next-arrow").attr("href") === "next") {
-            if(histPtr >= ansHist.length || histPtr+1 >= ansHist.length)
-            {
-                selectAndDisplayNewLetter(window.alphabet,"easy");
-                histPtr++;
-            }
-            else{
-                histPtr++;
-                restoreHistoryEasy();
-            }
-        }
-        
-    });
-    
-    // Listens for click on "prew arrow" (read-easy)
-    $(".level-read-easy #prew-arrow").click(function(e) {
-        e.preventDefault();
-        if ($("#prew-arrow").attr("href") === "prew") {
-            histPtr--;
-            restoreHistoryEasy();
-        }
-    });
-    
-    // Listens for click on "next arrow" (read-medium)
-    $(".level-read-medium #next-arrow").click(function(e) {
-        e.preventDefault();
-        if ($("#next-arrow").attr("href") === "next") {
-            $("#letterInput").removeClass("correctInput");
-            if(histPtr >= ansHist.length || histPtr+1 >= ansHist.length)
-            {
-                selectAndDisplayNewLetter(window.alphabet,"medium");
-                histPtr++;
-                $("#letterInput").focus();
-            }
-            else{
-                histPtr++;
-                $("#letterInput").addClass("correctInput");
-                restoreHistoryMedium();
-            }
-        }
-    });
-    
-    // Listens for click on "prev arrow" (read-medium)
-    $(".level-read-medium #prew-arrow").click(function(e) {
-        e.preventDefault();
-        if ($("#prew-arrow").attr("href") === "prew") {
-            histPtr--;
-            //document.getElementById('letterInput').disabled = true;
-            //$("#letterInput").css('border-color', '#000000 #000000 rgb(36, 143, 36) #000000');
-            $("#letterInput").addClass("correctInput");
-            restoreHistoryMedium();
-        }
-    });
-    
-    // Listens for click on "next arrow" (read-hard)
-    $(".level-read-hard #next-arrow").click(function(e) {
-        e.preventDefault();
-        if ($("#next-arrow").attr("href") === "next") {
-            read_hard();
-        }
-    });
-    
-    // Listens for click on "prev arrow" (read-hard)
-    $(".level-read-hard #prew-arrow").click(function(e) {
-        e.preventDefault();
     });
     
     // Listens for click on "next arrow" (write-easy)
@@ -341,6 +447,7 @@ $( document ).ready(function() {
         if ($("#next-arrow").attr("href") === "next") {
             if(histPtr >= ansHist.length || histPtr+1 >= ansHist.length){
                 selectAndDisplayNewImage(alphabet, "easy");
+                refresh();
                 imageButtonsEnable($(this).parent().parent());
                 histPtr++;
             }
@@ -362,38 +469,15 @@ $( document ).ready(function() {
     
    
     /*
-    *        WRITE CONTROLS (MEDIUM)
-    */
-    
-    // Listens for click on "left-back" (write-medium)
-    $(".level-write-medium #left-back").click(function(e) {
-        e.preventDefault();
-        if($("#left-back").attr("href") === "enabled") leftFlagBack();
-    });
-    
-    // Listens for click on "left-forw" (write-medium)
-    $(".level-write-medium #left-forw").click(function(e) {
-        e.preventDefault();
-        if($("#left-forw").attr("href") === "enabled") leftFlagForw();
-    });
-    
-    // Listens for click on "right-back" (write-medium)
-    $(".level-write-medium #right-back").click(function(e) {
-        e.preventDefault();
-        if($("#right-back").attr("href") === "enabled") rightFlagForw();
-    });
-    
-    // Listens for click on "right-forw" (write-medium)
-    $(".level-write-medium #right-forw").click(function(e) {
-        e.preventDefault();
-        if($("#right-forw").attr("href") === "enabled") rightFlagBack();
-    });
+     *        WRITE MEDIUM
+     */
     
     // Listens for click on "check" (write-medium)
     $(".level-write-medium #check").click(function(e) {
         e.preventDefault();
         if($("#check").attr("href") === "enabled"){
-            if(checkIfCorrMedium()){
+            var letter = $(".level-write-medium #letterToGuess span").text().toLowerCase();
+            if(checkIfCorrWrite()){
                 addPoints(1);
                 markCheckControlWrite(1);
                 disableCheckControlWrite();
@@ -404,10 +488,12 @@ $( document ).ready(function() {
                 else{
                     setHistoryWriteMedium(1);
                 }
+                moveToLearnt(letter);
             }
             else{
                 removePoints(1);                
                 markCheckControlWrite(0);
+                moveToNotLearnt(letter);
             }
         }
     });
@@ -416,8 +502,7 @@ $( document ).ready(function() {
     $(".level-write-medium #prew-arrow").click(function(e) {
         e.preventDefault();
         if ($("#prew-arrow").attr("href") === "prew") {
-            disableRightControlWrite();
-            disableLeftControlWrite();
+            disableFlags("both");
             histPtr--;
             getAndDisplayHistoryWrite();
             $(".level-write-medium #next-arrow").attr("href", "next");
@@ -433,8 +518,7 @@ $( document ).ready(function() {
         if ($("#next-arrow").attr("href") === "next") {
             histPtr++;
             if(histPtr == ansHist.length){  // New letter
-                enableRightControlWrite();
-                enableLeftControlWrite();
+                enableFlags("both");
                 selectAndDisplayNewLetterWriteMedium(window.alphabet,"easy");
                 $(".level-write-medium #next-arrow").removeAttr("href");
                 if(histPtr != 0){
@@ -442,8 +526,7 @@ $( document ).ready(function() {
                 }
             }
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0){   // Chosen letter is not answered
-                enableRightControlWrite();
-                enableLeftControlWrite();
+                enableFlags("both");
                 DisplayNewLetterWriteMedium(ansHist[histPtr][0]);
             }
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 1){   // Chosen letter is answered
@@ -460,38 +543,15 @@ $( document ).ready(function() {
     
     
     /*
-    *        WRITE CONTROLS (HARD)
-    */
-    
-    // Listens for click on "left-back" (write-hard)
-    $(".level-write-hard #left-back").click(function(e) {
-        e.preventDefault();
-        if($("#left-back").attr("href") === "enabled") leftFlagBack();
-    });
-    
-    // Listens for click on "left-forw" (write-hard)
-    $(".level-write-hard #left-forw").click(function(e) {
-        e.preventDefault();
-        if($("#left-forw").attr("href") === "enabled") leftFlagForw();
-    });
-    
-    // Listens for click on "right-back" (write-hard)
-    $(".level-write-hard #right-back").click(function(e) {
-        e.preventDefault();
-        if($("#right-back").attr("href") === "enabled") rightFlagForw();
-    });
-    
-    // Listens for click on "right-forw" (write-hard)
-    $(".level-write-hard #right-forw").click(function(e) {
-        e.preventDefault();
-        if($("#right-back").attr("href") === "enabled") rightFlagBack();
-    });
+     *        WRITE HARD
+     */
     
     // Listens for click on "check" (write-hard)
     $(".level-write-hard #check").click(function(e) {
         e.preventDefault();
         if($("#check").attr("href") === "enabled"){
-            if(checkIfCorrHard()){
+            var letter = $(".level-write-hard #letterToGuess span").text().toLowerCase();
+            if(checkIfCorrWrite()){
                 addPoints(1);
                 markCheckControlWrite(1);
                 disableCheckControlWrite();
@@ -502,10 +562,12 @@ $( document ).ready(function() {
                 else{
                     setHistoryWriteHard(1);
                 }
+                moveToLearnt(letter);
             }
             else{
                 removePoints(1); 
                 markCheckControlWrite(0);
+                moveToNotLearnt(letter);
             }
         }
     });
@@ -514,8 +576,7 @@ $( document ).ready(function() {
     $(".level-write-hard #prew-arrow").click(function(e) {
         e.preventDefault();
         if ($("#prew-arrow").attr("href") === "prew") {
-            disableRightControlWrite();
-            disableLeftControlWrite();
+            disableFlags("both");
             histPtr--;
             getAndDisplayHistoryWrite();
             $(".level-write-hard #next-arrow").attr("href", "next");
@@ -531,8 +592,7 @@ $( document ).ready(function() {
         if ($("#next-arrow").attr("href") === "next") {
             histPtr++;
             if(histPtr == ansHist.length){  // New letter
-                enableRightControlWrite();
-                enableLeftControlWrite();
+                enableFlags("both");
                 selectAndDisplayNewLetterWriteHard(window.alphabet,"easy");
                 $(".level-write-hard #next-arrow").removeAttr("href");
                 if(histPtr != 0){
@@ -540,8 +600,7 @@ $( document ).ready(function() {
                 }
             }
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0){   // Chosen letter is not answered
-                enableRightControlWrite();
-                enableLeftControlWrite();
+                enableFlags("both");
                 DisplayNewLetterWriteHard(ansHist[histPtr][0]);
             }
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 1){   // Chosen letter is answered
@@ -555,33 +614,82 @@ $( document ).ready(function() {
             if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0)$(".level-write-hard #next-arrow").removeAttr("href");
         }
     });
+  
+    /*
+     *     FLAGS (drag-and-rotate) MOVEMENT
+     */
     
+    // RIGHT
+    // Event listener for click-and-drag of right flag
+    document.getElementById("imageRightFlag").addEventListener("mousedown",function(e){
+         e.preventDefault();
+        if($("#imageRightFlag").attr("href") === "enabled"){
+            window.document.addEventListener("mousemove", mouseMoveRight,true);
+            
+            window.document.addEventListener("mouseup",function a(e){
+                e.preventDefault();
+                window.document.removeEventListener("mousemove", mouseMoveRight,true);
+                fixPosition("right");
+                window.document.removeEventListener("mouseup", a,true);
+            },true);
+        }
+    });    
+
     
-    var arrowOne = document.querySelector("#imageCointainerRightFlag img");
-    var arrowTwo = document.querySelector("#imageCointainerLeftFlag img");
-    var arrowRectsOne = arrowOne.getBoundingClientRect();
-    var arrowRectsTwo = arrowTwo.getBoundingClientRect();
+    // Function for tracking mouse movements
+    function mouseMoveRight(e) {
+        //Izracun centra kroznice in pozicije miske
+        var centerMis = [e.clientX, e.clientY];
+        
+        //Izracun kota premika
+        var degree = Math.atan2(centerMis[0] - middlePointRight[0], -(centerMis[1] - (middlePointRight[1] - window.scrollY)))* (180 / Math.PI);
+        
+        //Rotacije za vse brskalike
+        var objFlagRight = $("#imageRightFlag");
+        objFlagRight.css('-moz-transform', 'rotate('+degree+'deg)');
+        objFlagRight.css('-webkit-transform', 'rotate('+degree+'deg)');
+        objFlagRight.css('-o-transform', 'rotate('+degree+'deg)');
+        objFlagRight.css('-ms-transform', 'rotate('+degree+'deg)');
+    }
     
-    var arrowXOne = arrowRectsOne.left + arrowRectsOne.width / 2;
-    var arrowYOne = arrowRectsOne.top + arrowRectsOne.height / 2;
+     
+    // LEFT
+    // Event listener for click-and-drag of right flag
+    document.getElementById("imageLeftFlag").addEventListener("mousedown",function(e){
+        e.preventDefault();
+        if($("#imageLeftFlag").attr("href") === "enabled"){
+            window.document.addEventListener("mousemove", mouseMoveLeft,true);
     
-    var arrowXTwo = arrowRectsTwo.left + arrowRectsTwo.width / 2;
-    var arrowYTwo = arrowRectsTwo.top + arrowRectsTwo.height / 2;
+            window.document.addEventListener("mouseup",function a(e){
+                e.preventDefault();
+                window.document.removeEventListener("mousemove", mouseMoveLeft,true);
+                fixPosition("left");
+                window.document.removeEventListener("mouseup", a,true);
+            },true);
+        }
+    });    
     
-    addEventListener("mousemove", function(event) {
-        var vrednostOne = Math.atan2(event.clientY - arrowYOne, event.clientX - arrowXOne);
-        var vrednostTwo = Math.atan2(event.clientY - arrowYTwo, event.clientX - arrowXTwo);
-        console.log("vrednosti: "+vrednostOne+" in "+vrednostTwo);
-        arrowOne.style.transform = "rotate(" + (vrednostOne+1.6) + "rad)";
-        arrowTwo.style.transform = "rotate(" + (vrednostTwo+1.6) + "rad)";
-    });
-    
-    
+    // Function for tracking mouse movements
+    function mouseMoveLeft(e) {
+        //Izracun centra kroznice in pozicije miske
+        var centerMis = [e.clientX, e.clientY];
+        
+        //Izracun kota premika
+        var radians = Math.atan2(centerMis[0] - middlePointLeft[0], centerMis[1] - (middlePointLeft[1] - window.scrollY));
+        var degree = (radians * (180 / Math.PI)*-1)+180; 
+        
+        //Rotacije za vse brskalike
+        var objFlagLeft = $("#imageLeftFlag");
+        objFlagLeft.css('-moz-transform', 'rotate('+degree+'deg)');
+        objFlagLeft.css('-webkit-transform', 'rotate('+degree+'deg)');
+        objFlagLeft.css('-o-transform', 'rotate('+degree+'deg)');
+        objFlagLeft.css('-ms-transform', 'rotate('+degree+'deg)');
+    }
 });
 
-/*
-*       CODE
-*/
+/* *************************************************************************** */
+/* *******************************   CODE  *********************************** */
+/* *************************************************************************** */
 
 // Selects new letter, displays the picture and choices
 function selectAndDisplayNewLetter(alphabet, mode) {
@@ -589,14 +697,61 @@ function selectAndDisplayNewLetter(alphabet, mode) {
     var choices = selectChoices(alphabet, letter);
     $("#read_medium_solution").removeAttr("disabled");
     
+    //$(".level-read-"+mode+" #picture-letter img").attr("src", flagsDir + letter + ".png");
+    displayNewLetter(letter,mode,choices);
+}
+
+//Displays given letter
+function displayNewLetter(letter,mode,choices) {
     $(".level-read-"+mode+" #picture-letter img").attr("src", flagsDir + letter + ".png");
-    
+
     //Clears inputs and options
     if(mode === "easy") {
         clearSelectedOptions("choices", choices);
     } else if( mode === "medium") {
         clearInput("letterInput");
     }
+}
+
+//Displays old letter (popravi sliko in izbire)
+function displayOldLetter(corrLetter, choices){
+    var ans = ansHist[histPtr][0].split(",");
+    var buttons = document.getElementById('choices'),button;
+    var j = 0;
+    for(var i = 0; i < buttons.children.length; i++){
+        button = buttons.children[i];
+        var letter = (ans[j].split(""))[0];
+        var colour = (ans[j].split(""))[1];
+        if(colour == 'I'){
+            button.className = "btn btn-info btn-letter";
+        }
+        else if(colour == 'D'){
+            button.className = "btn btn-letter btn-danger";
+        }
+        else if(colour == 'S'){
+            button.className = "btn btn-letter btn-success";
+            $(".level-read-easy #picture-letter img").attr("src", flagsDir + letter.toLowerCase() + ".png");
+        }
+        button.innerHTML = letter;
+        button.disabled=false;
+        j++;
+    }
+    $(".level-read-easy #picture-letter img").attr("src", flagsDir + corrLetter.toLowerCase() + ".png");
+    if(histPtr === 0){
+        $(".level-read-easy #prew-arrow").removeAttr("href");
+    }else{
+        $(".level-read-easy #prew-arrow").attr("href", "prew");
+    }
+    $(".level-read-easy #next-arrow").attr("href", "next");
+}
+//Function for geting leters from history (Read-easy) - returns string
+function getChoices(choices){
+    var string = [];
+    choices = choices.split(",");
+    for(var i = 0; i < choices.length; i++){
+        string.push(choices[i].charAt(0));
+    }
+    return string;
 }
 
 function selectAndDisplayNewImage(alphabet, mode) {
@@ -608,7 +763,32 @@ function selectAndDisplayNewImage(alphabet, mode) {
 }
 
 function selectNewLetter(alphabet) {
-    return alphabet[Math.floor(Math.random() * alphabet.length)];
+    for (var i = 0; i < alphabet.length; i++) {
+        console.log(alphabet[i] + ": " + userAnswers[alphabet[i]]);
+    }
+    // Poisci najslabse poznano crko (pazi, da ni enaka prejsnji prikazani crki)
+    var worseNumber;
+    if (prevLetter === "a") {
+        worseNumber = userAnswers["b"];
+    } else {
+        worseNumber = userAnswers["a"];
+    }
+    for (var i = 1; i < alphabet.length; i++) {
+        if (userAnswers[alphabet[i]] < worseNumber && alphabet[i] !== prevLetter) {
+            worseNumber = userAnswers[alphabet[i]];
+        }
+    }
+
+    // ustvari novo tabelo, kamor shrani kandidate za prikaz - vse, ki imajo vrednost v tabeli (worseNumber + 1) ali manj
+    var selectFrom = [];
+    for (var i = 0; i < alphabet.length; i++) {
+        if (userAnswers[alphabet[i]] <= worseNumber + 1 && alphabet[i] !== prevLetter) {
+            selectFrom.push(alphabet[i]);
+        }
+    }
+    console.log("selectFrom: " + selectFrom);
+    prevLetter = selectFrom[Math.floor(Math.random() * selectFrom.length)];
+    return prevLetter;
 }
 
 function selectNewWord(words) {
@@ -699,15 +879,31 @@ function focusFirstFree(elementToFocus) {
     $(elementToFocus).focus().select();
 }
 
+function moveToLearnt(element) {
+    element = element.toLowerCase();
+    userAnswers[element]++;
+}
+
+function moveToNotLearnt(element) {
+    element = element.toLowerCase();
+    userAnswers[element]--;
+}
+
+function refresh() {
+    // Called every time when new letter/word is displayed
+    // Empty, may be used later
+}
+
+
 /*
 *   HISTORY
 */
 
-//Function adds current answer to history - READ_EASY
-function addHistoryEasy(){
-    if(histPtr >= ansHist.length){
+//Function adds current answer to history - READ_EASY [push=0/set=1, !ans=0/ans=1]
+function addHistoryEasy(set,ans){
     var state="";
     var buttons = document.getElementById('choices'),button;
+    var corrLetter = getLetterFromURL($("#picture-letter img").attr('src'));
     for(var i = 0; i < buttons.children.length; i++){
         button = buttons.children[i];
         var buttonClass = button.className;
@@ -723,14 +919,13 @@ function addHistoryEasy(){
             state+=buttonLetter+"S"
         }
     }
-    ansHist.push(state);
-    }
-    //histPtr++;
+    if(set == 1) ansHist[histPtr]=[state,ans,corrLetter];
+    else ansHist.push([state,ans,corrLetter]);
 }
 
 // Function adds prev. answer from history - READ_EASY
 function restoreHistoryEasy(){
-    var ans = ansHist[histPtr].split(",");
+    var ans = ansHist[histPtr][0].split(",");
     var buttons = document.getElementById('choices'),button;
     var j = 0;
     for(var i = 0; i < buttons.children.length; i++){
@@ -805,6 +1000,83 @@ function addHistoryWriteEasy(){
     console.log("IZHOD: " + ansHist);
     }
 }
+
+/*          HISTORY TMP (READ HARD)        */
+//Function adds sequence to hisrory [string, 0=not anws.//1=anws]
+function pushHistoryReadHard(ans){
+    //Najprej pridobi niz iz imen
+    var pictures = $(".level-read-hard .panel-body .well").html().split(".png");
+    var string="";
+    for(var i = 0; i < pictures.length -1; i++){
+        string+=pictures[i].slice(-1);
+    }
+
+    ansHist.push([string,ans]);
+   
+}
+
+//Function sets history  [string, 0=not anws.//1=anws]
+function setHistoryReadHard(ans){
+    var pictures = $(".level-read-hard .panel-body .well").html().split(".png");
+    var string="";
+    for(var i = 0; i < pictures.length -1; i++){
+        string+=pictures[i].slice(-1);
+    }
+    ansHist[histPtr] = [string,ans];
+}
+
+//Function restores and displays history on current histPtr
+function restoreHistoryReadHard(){
+    var string = ansHist[histPtr][0]; //pridobim niz
+    
+    //pocistimo in pripravimo na novo
+    // Clean up
+    $(".level-read-hard .panel-body .well").html("");
+    $("#input-string-hard").html("");
+    $("#start-animation").attr("disabled", "disabled");
+    $("#start-animation").removeClass("used");
+    $("#start-animation").text("Začni!");
+    clearTimeout(readHardTimer);
+    
+
+    var letters = string.split("");
+    var idNumber = 1;
+    for (i = 0; i < letters.length; i++) {
+        var letter = letters[i];
+        $(".level-read-hard .panel-body .well").append("<img src='" + flagsDir + letter + ".png' class='hidden'>");
+        $("#input-string-hard").append('<input id="num' + idNumber + '" class = "letterInputClass correctInput" type="text" maxlength="1" value = "' + letter + '">');
+        idNumber++;
+    }
+    // onemogoci ponoven vnos crk
+    textFieldsDisable(".letterInputClass");
+    $("#start-animation").css("visibility", "hidden");
+    //prikazemo (sekvenco slik + crke)
+    displaySequenceOfImages(".level-read-hard .well img", 0);
+    
+}
+
+// Function restores given word as unanswered
+function restoreStringReadHard(word){
+    // Clean up
+    $(".level-read-hard .panel-body .well").html("");
+    $("#input-string-hard").html("");
+    $("#next-arrow").removeAttr("href");
+    $("#start-animation").removeAttr("disabled");
+    $("#start-animation").removeClass("used");
+    $("#start-animation").text("Začni!");
+    clearTimeout(readHardTimer);
+
+    var letters = word.split("");
+    var idNumber = 1;
+    for (i = 0; i < letters.length; i++) {
+        var letter = letters[i];
+        $(".level-read-hard .panel-body .well").append("<img src='" + flagsDir + letter + ".png' class='hidden'>");
+        $("#input-string-hard").append('<input id="num' + idNumber + '" class = "letterInputClass" type="text" maxlength="1" onkeyup="focusNext(event, \'#num' + (idNumber+1) + '.letterInputClass\')">');
+        idNumber++;
+    }
+    
+}
+/* *************************************** */
 
 // Function adds prev. answer from history - WRITE_EASY
 function restoreHistoryWriteEasy(){
@@ -919,7 +1191,7 @@ function displaySequenceOfImages(elements, index) {
         }
         $(elements + ":eq(" + index + ")").removeClass("hidden");
 
-        setTimeout(function() {
+        readHardTimer = setTimeout(function() {
             displaySequenceOfImages(elements, (index + 1))
         }, 1000);
     }
@@ -927,292 +1199,14 @@ function displaySequenceOfImages(elements, index) {
 
 
 /* *************************************************************************** */
-/* *****************   FLAG ANIMATION (WRITE - medium & hard)  *************** */
+/* *****************   FLAG ROTATION (WRITE - medium & hard)  **************** */
 /* *************************************************************************** */
 
-// Function for init. of semaphor (Hard) 
-function semaforSetHard(letter){
-    drawBody();
-    drawLeftFlag(letter[1]);
-    drawRightFlag(letter[0]);
-    curHandPos = letter;
-    enableRightControlWrite();
-    enableLeftControlWrite();
-}
-
-// Function sets one flag correctly and disables another one [fixedSide = 0 - right, 1 - left, 2 - random] (Medium)
-function semaforSetMedium(fixedSide){
-    var choice = fixedSide;
-    if(choice == 2) choice = Math.round(Math.random());
-    var letter = $(".level-write-medium #letterToGuess span").text().toLowerCase();
-    drawBody();
-    if(choice == 1){
-        //LEFT is disabled
-        drawLeftFlag(positions[letter][1]);
-        drawRightFlag(0);
-        disableLeftControlWrite();
-        enableRightControlWrite();
-        curHandPos = [0,positions[letter][1]];
-    }
-    else{
-        //RIGHT is disabled
-        drawRightFlag(positions[letter][0]);
-        drawLeftFlag(0);
-        disableRightControlWrite();
-        enableLeftControlWrite();
-        curHandPos = [positions[letter][0],0];
-    }
-}
-
-// Function for left flag forw. (General)
-function leftFlagForw(){
-    var canvas = document.getElementById("semaphoreCanvasLeftFlag");
-    var context = canvas.getContext("2d");
-    var angR =  curHandPos[0]; //start angle for right flag 
-    var angL = curHandPos[1]; //start angle for left flag
-    var fps = 180 / 25; //number of frames per sec
-    var cache = this; //cache the local copy of image element for future reference
- 
-    var angRend = angR;
-    var angLend = angL+45;
-    
-    var myVar = setInterval(function (){
-        if(angL < angLend){
-            angL+=1;
-        } 
-        drawLeftFlag(angL);
-        if(angL >= angLend){
-            clearInterval(myVar);
-            zaseden = false;
-            return;
-        }
-    }, fps);
-    curHandPos = ([curHandPos[0],curHandPos[1]+45]);
-}
-
-// Function for left flag back (General)
-function leftFlagBack(){
-    var canvas = document.getElementById("semaphoreCanvasLeftFlag");
-    var context = canvas.getContext("2d");
-    var angR =  curHandPos[0]; //start angle for right flag 
-    var angL = curHandPos[1]; //start angle for left flag
-    var fps = 180 / 25; //number of frames per sec
-    var cache = this; //cache the local copy of image element for future reference
- 
-    var angRend = angR;
-    var angLend = angL-45;
-    var myVar = setInterval(function () {
-        if(angL > angLend){
-            angL-=1;
-        }  
-        drawLeftFlag(angL);
-        if(angL <= angLend){
-            clearInterval(myVar);
-            zaseden = false;
-            return;
-        }
-    }, fps);
-    curHandPos = ([curHandPos[0],curHandPos[1]-45]);
-}
-
-// Function for right forw. (General)
-function rightFlagForw(){
-    var canvas = document.getElementById("semaphoreCanvasRightFlag");
-    var context = canvas.getContext("2d");
-    var angR =  curHandPos[0]; //start angle for right flag 
-    var angL = curHandPos[1]; //start angle for left flag
-    var fps = 180 / 25; //number of frames per sec
-    var cache = this; //cache the local copy of image element for future reference
- 
-    var angRend = angR+45;
-    var angLend = angL;
-    var myVar = setInterval(function () {
-        if(angR < angRend){
-            angR+=1;
-        }  
-        drawRightFlag(angR);
-        if(angR >= angRend){
-            clearInterval(myVar);
-            zaseden = false;
-            return;
-        }
-    }, fps);
-    curHandPos = ([curHandPos[0]+45,curHandPos[1]]);
-}
-
-// Function for right back (General)
-function rightFlagBack(){
-    var canvas = document.getElementById("semaphoreCanvasRightFlag");
-    var context = canvas.getContext("2d");
-    var angR =  curHandPos[0]; //start angle for right flag 
-    var angL = curHandPos[1]; //start angle for left flag
-    var fps = 180 / 25; //number of frames per sec
-    var cache = this; //cache the local copy of image element for future reference
- 
-    var angRend = angR-45;
-    var angLend = angL;
-    var myVar = setInterval(function () {
-        if(angR > angRend){
-            angR-=1;
-        }  
-        drawRightFlag(angR);
-        if(angR <= angRend){
-            clearInterval(myVar);
-            zaseden = false;
-            return;
-        }
-    }, fps);
-    curHandPos = ([curHandPos[0]-45,curHandPos[1]]);
-}
-
-// Function draws left flag for given angle (General)
-function drawLeftFlag(ang){
-    // INIT
-    var canvas = document.getElementById("semaphoreCanvasLeftFlag");
-    var context = canvas.getContext("2d");
-    var centerX = canvas.width / 2;
-    var centerY = canvas.height / 2;
-    
-    // Prop. of body
-    var imgBodyWidth = canvas.height*1/4; 
-    var imgBodyHeight = canvas.height*3/5;
-    
-    var leftFlag = new Image();
-    leftFlag.src = staticDir + "left_flag.png";
-    
-    //Image prop.
-    var imgWidth = canvas.height*1/5; 
-    var imgHeight = canvas.height*1/2;
-    
-    var imgPozX = centerX + (imgBodyWidth/2);
-    var imgPozY = centerY - (imgHeight);
-    
-    //Draw image
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    leftFlag.onload = function() {
-        context.save();
-        context.translate(imgPozX, imgPozY+imgHeight); //Move center point of rotation in flag handle
-        context.rotate(Math.PI / 180 * ang); //increment the angle and rotate the image 
-        context.translate(-(imgPozX), -(imgPozY+imgHeight)); //Move center point of rotation back
-        context.drawImage(leftFlag,imgPozX,imgPozY,imgWidth,imgHeight);
-        context.restore();
-    };
-}
-
-// Function draws right flag for given angle (General)
-function drawRightFlag(ang){
-     // INIT
-    var canvas = document.getElementById("semaphoreCanvasRightFlag");
-    var context = canvas.getContext("2d");
-    var centerX = canvas.width / 2;
-    var centerY = canvas.height / 2;
-    
-    // Prop. of body
-    var imgBodyWidth = canvas.height*1/4; 
-    var imgBodyHeight = canvas.height*3/5;
-    
-    var rightFlag = new Image();
-    rightFlag.src = staticDir + "right_flag.png";
-    
-    //Image prop.
-    var imgWidth = canvas.height*1/5; 
-    var imgHeight = canvas.height*1/2;
-    
-    var imgPozX = centerX - (imgWidth) - (imgBodyWidth/2) ;
-    var imgPozY = centerY - (imgHeight);
-    
-    //Draw image
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    rightFlag.onload = function() {
-        context.save();
-        context.translate(imgPozX+imgWidth, imgPozY+imgHeight); //Move center point of rotation in flag handle
-        context.rotate(-Math.PI / 180 * ang); //increment the angle and rotate the image 
-        context.translate(-(imgPozX+imgWidth), -(imgPozY+imgHeight)); //Move center point of rotation back
-        context.drawImage(rightFlag,imgPozX,imgPozY,imgWidth,imgHeight);
-        context.restore();
-    };
-}
-
-// Function draws body (General)
-function drawBody(){
-    // INIT
-    var canvas = document.getElementById("semaphoreCanvasBody");
-    var context = canvas.getContext("2d");
-    var centerX = canvas.width / 2;
-    var centerY = canvas.height / 2;
-    
-    var imgBodyWidth = canvas.height*1/4; 
-    var imgBodyHeight = canvas.height*3/5;
-    
-    //Body base
-    var body_base = new Image();
-    body_base.src = staticDir + "basic_figure.png";
-    body_base.onload = function() {
-        //Image prop.
-        var imgPozX = centerX - (imgBodyWidth/2);
-        var imgPozY = centerY - (imgBodyHeight/2);
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.drawImage(body_base,imgPozX,imgPozY,imgBodyWidth,imgBodyHeight);
-    };
-}
-
-// Function for checking current position (General)
-function checkFlagPoz(){
-    var rightIs = (curHandPos[0] % 360);
-    var leftIs = (curHandPos[1] % 360);
-    if(rightIs < 0)rightIs+=360;
-    if(leftIs < 0)leftIs+=360;
-    for(var i in positions){
-        if(positions[i][0] == rightIs && positions[i][1] == leftIs){
-            return i;
-        }    
-    }
-    return -1;
-}
-
 // Boolean function for checking correct position (Hard)
-function checkIfCorrHard(){
-    var letter = $(".level-write-hard #letterToGuess span").text().toLowerCase();
-    var rightIs = (curHandPos[0] % 360), leftIs = (curHandPos[1] % 360);
-    if(rightIs < 0)rightIs+=360;
-    if(leftIs < 0)leftIs+=360;
-    if(rightIs == positions[letter][0] && leftIs == positions[letter][1])return true;
+function checkIfCorrWrite(){
+    var letter = $("#letterToGuess span").text().toLowerCase();
+    if(positions[letter][0] == curHandPos[0] && positions[letter][1] == curHandPos[1]) return true;
     else return false;
-}
-
-// Boolean Function for checking correct position (Medium)
-function checkIfCorrMedium(){
-    var letter = $(".level-write-medium #letterToGuess span").text().toLowerCase();
-    var rightIs = (curHandPos[0] % 360), leftIs = (curHandPos[1] % 360);
-    if(rightIs < 0)rightIs+=360;
-    if(leftIs < 0)leftIs+=360;
-    if(rightIs == positions[letter][0] && leftIs == positions[letter][1])return true;
-    else return false;
-}
-
-// Function sets size of a canvas
-function setCanvas(){
-    var varHeight=0, varWidth = 0;
-    
-    var canvas = document.getElementById("semaphoreCanvasBody");
-    canvas.style.width ='100%';
-    canvas.width  = canvas.offsetWidth;
-    canvas.height = canvas.width*2/3;
-    varHeight = canvas.height;
-    varWidth = canvas.width;
-    
-    canvas = document.getElementById("semaphoreCanvasLeftFlag");
-    canvas.style.width ='100%';
-    canvas.width  = canvas.offsetWidth;
-    canvas.height = canvas.width*2/3;
-    
-    canvas = document.getElementById("semaphoreCanvasRightFlag");
-    canvas.style.width ='100%';
-    canvas.width  = canvas.offsetWidth;
-    canvas.height = canvas.width*2/3;
-    
-    var div = document.getElementById("canvasContainer");
-    div.setAttribute("style","height: "+(varHeight+10)+"px;width: "+varWidth+"px");
 }
 
 // Function marks check image appropriately (1-corect // 0-err // 2-normal)
@@ -1220,8 +1214,7 @@ function markCheckControlWrite(status){
     var tmp = $("#check img").attr("src");
     if(status == 1){
         $("#check img").attr("src",staticDir + "check_correct.png");
-        disableRightControlWrite();
-        disableLeftControlWrite();
+        disableFlags("both");
     }
     else if(status == 0){
         $("#check img").attr("src", staticDir + "check_err.png");
@@ -1233,41 +1226,17 @@ function markCheckControlWrite(status){
     }
 }
 
-// Function for disabling control buttons - RIGHT (Write)
-function disableRightControlWrite(){
-    $("#right-back").removeAttr("href");
-    $("#right-forw").removeAttr("href");
-}
-
-// Function for disabling control buttons - LEFT (Write)
-function disableLeftControlWrite(){
-    $("#left-back").removeAttr("href");
-    $("#left-forw").removeAttr("href");
-}
-
-// Function for enabling control buttons - RIGHT (Write)
-function enableRightControlWrite(){
-    $("#right-back").attr("href","enabled");
-    $("#right-forw").attr("href","enabled");
-}
-
-// Function for enabling control buttons - LEFT (Write)
-function enableLeftControlWrite(){
-    $("#left-back").attr("href","enabled");
-    $("#left-forw").attr("href","enabled");
-}
-
-// Function for disabeling check mark (General)
+// Function for disabeling check mark
 function disableCheckControlWrite(){
    $("#check").removeAttr("href");
 }
 
-// Function for enabeling check mark (General)
+// Function for enabeling check mark
 function enableCheckControlWrite(){
    $("#check").attr("href","enabled");
 }
 
-//Function for geting and displaying history (General)
+//Function for geting and displaying history
 function getAndDisplayHistoryWrite(){
     var letter = ansHist[histPtr][0];
     displHistWrite(letter);
@@ -1275,10 +1244,11 @@ function getAndDisplayHistoryWrite(){
     markCheckControlWrite(1);
 }
 
-// Function for displaying history with animation
+// Function for displaying history
 function displHistWrite(letter){
     $("#letterToGuess span").text(letter.toUpperCase());
-    semaforSetHard(positions[letter]);
+    setFlagPosition("right",positions[letter][0]);
+    setFlagPosition("left",positions[letter][1]);
 }
 
 // Function for adding to history [letter, answ (0 - no // 1 - yes)] (Write-hard)
@@ -1296,7 +1266,7 @@ function setHistoryWriteHard(state){
 // Function for adding to history [letter, answ (0 - no // 1 - yes), fixed hand (0 - right // 1 - left // 2 - both)] (Write-medium)
 function pushHistoryWriteMedium(state){
     var letter = $(".level-write-medium #letterToGuess span").text().toLowerCase();
-    if($("#left-back").attr("href") !== "enabled")ansHist.push([letter,state,1]);
+    if($("#imageLeftFlag").attr("href") !== "enabled")ansHist.push([letter,state,1]);
     else ansHist.push([letter,state,0]);
 }
 
@@ -1315,9 +1285,9 @@ function selectAndDisplayNewLetterWriteHard(alphabet){
 // Function for displaying letter to write (Hard)
 function DisplayNewLetterWriteHard(letter){
     $("#letterToGuess span").text(letter.toUpperCase());
-    semaforSetHard(positions['init']);
-    enableRightControlWrite();
-    enableLeftControlWrite();
+    setFlagPosition("right",positions["init"][0]);
+    setFlagPosition("left",positions["init"][1]);
+    enableFlags("both");
     markCheckControlWrite(2);
     enableCheckControlWrite();
 }
@@ -1332,18 +1302,152 @@ function selectAndDisplayNewLetterWriteMedium(alphabet){
 function DisplayNewLetterWriteMedium(letter){
     $("#letterToGuess span").text(letter.toUpperCase());
     if(histPtr == ansHist.length){
-        semaforSetMedium(2);
+        setFlagPosition("right",positions["init"][0]);
+        setFlagPosition("left",positions["init"][1]);
+        setFlagsMedium(2);
     }
     else if(ansHist[histPtr][2] == 0){
-        semaforSetMedium(0);
+        setFlagPosition("left",positions["init"][1]);
+        setFlagsMedium(0);
     }
     else{
-        semaforSetMedium(1);
-    }  
-    console.log("nastavl bom mark na def");
+        setFlagPosition("right",positions["init"][0]);
+        setFlagsMedium(1);
+    }
     markCheckControlWrite(2);
     enableCheckControlWrite();
 }
+
+// Function for fixed position of flag to nearest posible angle
+function  fixPosition(flag){
+    var flagElem, angle;
+    if(flag === "right"){
+        flagElem = $("#imageRightFlag");
+        angle = calculateAngleOfFixedFlag(flagElem);
+        if (angle == 360) angle = 0;
+        curHandPos[0] = angle;
+    }
+    else if(flag === "left"){
+        flagElem = $("#imageLeftFlag");
+        angle = calculateAngleOfFixedFlag(flagElem);
+        if (angle == 360) angle = 0;
+        curHandPos[1] = angle;
+    }
+    flagElem.css('transform', 'rotate('+angle+'deg)');
+}
+
+// Function fo calculating angle of nearest posible position
+function calculateAngleOfFixedFlag(el){
+    var matrixOfTransform = el.css("transform");
+    // Conversion of matrix to angle (deg)
+    var values = matrixOfTransform.substring(7).split(",");
+    var a = values[0], b = values[1];
+    var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+    if(angle < 0)angle += 360;
+
+    var modulo = Math.floor(angle/45); // <- bottom value (0 || 1 || ... || 7) * 45
+    var reminder = angle%45;
+    var fixedAngle = modulo*45;
+    if(reminder > 22.5){
+        fixedAngle += 45;
+    }
+    return fixedAngle;
+}
+
+// Function fo start position (initialization)
+function setFigure(){
+    var containerHeight = 300, containerWidth = 400;
+    // Sets the size of div-container
+    $('#imageCointainer').attr("style","height:"+containerHeight+"px; width:"+containerWidth+"px;");
+    
+    // Sets the base figure size adn position
+    var basicFigureHeight = 2/3* containerHeight; 
+    var basicFigureTop = (containerHeight - basicFigureHeight)/2;
+    $("#imageBasicFigure").attr("style","height:"+basicFigureHeight+"px; top:"+basicFigureTop+"px");
+    
+    // Sets size adn position of right flag
+    var rightFlagHeight = 1/2* containerHeight; 
+    var rightFlagTop = rightFlagHeight*0.18;
+    $("#imageRightFlag").attr("style","height:"+rightFlagHeight+"px; top:-"+rightFlagTop+"px"); 
+    
+    // Sets size adn position of right flag
+    var leftFlagHeight = 1/2* containerHeight; 
+    var leftFlagTop = leftFlagHeight*0.18;
+    $("#imageLeftFlag").attr("style","height:"+leftFlagHeight+"px; top:-"+leftFlagTop+"px"); 
+    
+    // Sets center point of rotation
+    var objFlagRight = $("#imageRightFlag");
+    var centerKrozRight = [(objFlagRight.offset().left+(objFlagRight.width())),(objFlagRight.offset().top+objFlagRight.height())];
+    middlePointRight = centerKrozRight;
+    
+    var objFlagLeft = $("#imageLeftFlag");
+    var centerKrozLeft = [(objFlagLeft.offset().left),(objFlagLeft.offset().top+objFlagLeft.height())];
+    middlePointLeft = centerKrozLeft;
+    
+    // Enables Flags
+    enableFlags("both");
+}
+
+// Function for setting flags (Medium) [fixedSide = 0 - right, 1 - left, 2 - random]
+function setFlagsMedium(fixedSide){
+    if(fixedSide == 2) fixedSide = Math.round(Math.random());
+    var letter = $("#letterToGuess span").text().toLowerCase();
+    if(fixedSide == 1){
+        //LEFT is disabled
+        setFlagPosition("left",positions[letter][1]);
+        disableFlags("left");
+    }
+    else{
+        //RIGHT is disabled
+        setFlagPosition("right",positions[letter][0]);
+        disableFlags("right");
+    }
+}
+
+// Function for seting flag in given position
+function setFlagPosition(flag,deg){
+    if(flag === "right"){
+        $("#imageRightFlag").css("transition-duration","1s");
+        $("#imageRightFlag").css('transform', 'rotate('+deg+'deg)');
+        setTimeout(function() { $("#imageRightFlag").css("transition-duration","0s"); }, 1000); //1,05 sec delay
+        curHandPos[0] = deg;
+    }
+    else if(flag === "left"){
+        $("#imageLeftFlag").css("transition-duration","1s");
+        $("#imageLeftFlag").css('transform', 'rotate('+deg+'deg)');
+        setTimeout(function() { $("#imageLeftFlag").css("transition-duration","0s"); }, 1000); //1,05 sec delay
+        curHandPos[1] = deg;
+    }
+}
+
+// Function for disabling flags movement [right, left, both]
+function disableFlags(flag){
+    if(flag === "right"){
+        $("#imageRightFlag").removeAttr("href");
+    }
+    else if(flag === "left"){
+        $("#imageLeftFlag").removeAttr("href");
+    }
+    else if(flag === "both"){
+        disableFlags("right");
+        disableFlags("left");
+    }
+}
+
+// Function for enabling flags movement [right, left, both]
+function enableFlags(flag){
+    if(flag === "right"){
+        $("#imageRightFlag").attr("href","enabled");
+    }
+    else if(flag === "left"){
+        $("#imageLeftFlag").attr("href","enabled");
+    }
+    else if(flag === "both"){
+        enableFlags("right");
+        enableFlags("left");
+    }
+}
+
 /* *************************************************************************** */
 
 /*
@@ -1380,6 +1484,18 @@ function imageOneButtonDisable(element){
 
 function imageButtonsEnable(parent) {
     $(parent).find(".image_option").removeClass("not_active");
+}
+
+function textFieldsDisable(selector) {
+    $(selector).each(function() {
+       $(this).attr("disabled", "disabled"); 
+    });
+}
+
+function textFieldsEnable(selector) {
+    $(selector).each(function() {
+       $(this).removeAttr("disabled"); 
+    });
 }
 
 /* Returns letter from image link (e. g. returns "k" from "/static/images/flags/k.png") */

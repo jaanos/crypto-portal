@@ -2,12 +2,21 @@
 from flask import *
 import random
 from random import randint
+import os
+from database import database
 
 app = Blueprint('alphabet', __name__)
 
 abc = u"abcdefghijklmnopqrstuvwxyz"
 
-words = ["ananas", "banana", "cesta", "dom", "eskim", "figa"]
+# get words from database
+def get_all_words():
+    db = database.dbcon()
+    cur = db.cursor()
+    cur.execute("SELECT Word FROM Words")
+    return [row[0] for row in cur]
+words = get_all_words()
+
 def select_word(list_words):
     return list_words[randint(0, len(list_words)-1)]
 
@@ -24,17 +33,28 @@ def return_choices(letter):
         random.shuffle(choices)
     return choices
 
-@app.route("/")
-@app.route("/<selected_alphabet>")
-@app.route("/<selected_alphabet>/<mode>")
-def index(selected_alphabet = "flags", mode = "easy", level = "easy"):
-    return redirect("alphabet/flags/read/easy")
+def alphabet_exists(alphabet):
+    return os.path.isdir("static/images/" + alphabet)
 
-@app.route("/<selected_alphabet>/<mode>/<level>")
+@app.route("/")
+@app.route("/<selected_alphabet>/")
+def index(selected_alphabet = "flags", mode = "easy", level = "easy"):
+    # check if folder with images exists
+    if (alphabet_exists(selected_alphabet)):
+        return render_template("alphabet.flags.html", nav = "alphabet", alphabet = abc, intro = "1")
+    else:
+        return "Te abecede pa (se) ne poznam!"
+
+
+@app.route("/<selected_alphabet>/<mode>/")
+def redirect_to_intro(selected_alphabet = "flags", mode = "read"):
+    return redirect("alphabet/" + selected_alphabet)
+
+@app.route("/<selected_alphabet>/<mode>/<level>/")
 def display_excercise(selected_alphabet = "flags", mode = "read", level = "easy"):
-    if (selected_alphabet == "flags"):
+    if (alphabet_exists(selected_alphabet)):
         letter = select_letter(abc)
-        return render_template("alphabet.flags.html", 
+        return render_template("alphabet.flags.html", intro = "0",
             nav = "alphabet", mode = mode, level = level, letter = letter,
             choices = return_choices(letter), word=select_word(words),
             alphabet = abc, words = words)
