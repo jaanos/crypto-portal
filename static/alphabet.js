@@ -10,6 +10,7 @@ var learnt = [];
 var not_learnt = [];
 var firstTry;
 var numberOfLettersDisplayed = 0;
+var readHardTimer;
 var positions = {   // x = [right, left]
         'a':[225,180],'b':[270,180],'c':[315,180],'d':[0,180],'e':[180,45],'f':[180,90],
         'g':[180,135],'h':[270,225],'i':[225,315],'j':[0,90],'k':[225,0],'l':[225,45],
@@ -1037,6 +1038,7 @@ function restoreHistoryReadHard(){
     $("#start-animation").attr("disabled", "disabled");
     $("#start-animation").removeClass("used");
     $("#start-animation").text("Začni!");
+    clearTimeout(readHardTimer);
     
 
     var letters = string.split("");
@@ -1063,6 +1065,7 @@ function restoreStringReadHard(word){
     $("#start-animation").removeAttr("disabled");
     $("#start-animation").removeClass("used");
     $("#start-animation").text("Začni!");
+    clearTimeout(readHardTimer);
 
     var letters = word.split("");
     var idNumber = 1;
@@ -1189,7 +1192,7 @@ function displaySequenceOfImages(elements, index) {
         }
         $(elements + ":eq(" + index + ")").removeClass("hidden");
 
-        setTimeout(function() {
+        readHardTimer = setTimeout(function() {
             displaySequenceOfImages(elements, (index + 1))
         }, 1000);
     }
