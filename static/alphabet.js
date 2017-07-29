@@ -355,6 +355,7 @@ $( document ).ready(function() {
                 console.log("1");
                 read_hard();
                 refresh();
+                $("#start-animation").css("visibility", "visible");
                 console.log("Odstranil bom next arrow (1)");
                 $(".level-read-hard #next-arrow").removeAttr("href");
                 if(histPtr != 0){
@@ -365,6 +366,7 @@ $( document ).ready(function() {
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0){   // Chosen letter is not answered
                 //DisplayNewLetterWriteHard(ansHist[histPtr][0]); ////// <-------------- SPISI FUNKCIJO KI RESTORA PODANI NIZ
                 console.log("2");
+                $("#start-animation").css("visibility", "visible");
                 restoreStringReadHard(ansHist[histPtr][0]);
             }
             
@@ -394,6 +396,7 @@ $( document ).ready(function() {
             histPtr--;
             restoreHistoryReadHard();
             textFieldsDisable(".letterInputClass");
+            $("#start-animation").css("visibility", "hidden");
             $(".level-read-hard #next-arrow").attr("href", "next");
             if(histPtr == 0){
                 $("#prew-arrow").removeAttr("href");
@@ -1051,6 +1054,7 @@ function restoreHistoryReadHard(){
     }
     // onemogoci ponoven vnos crk
     textFieldsDisable(".letterInputClass");
+    $("#start-animation").css("visibility", "hidden");
     //prikazemo (sekvenco slik + crke)
     displaySequenceOfImages(".level-read-hard .well img", 0);
     
