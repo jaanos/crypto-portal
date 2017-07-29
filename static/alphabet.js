@@ -354,7 +354,7 @@ $( document ).ready(function() {
                 console.log("1");
                 read_hard();
                 refresh();
-                console.log("Odstranil bom next aroow (1)");
+                console.log("Odstranil bom next arrow (1)");
                 $(".level-read-hard #next-arrow").removeAttr("href");
                 if(histPtr != 0){
                     pushHistoryReadHard(0); // push to history and mark as unanswered
@@ -392,6 +392,7 @@ $( document ).ready(function() {
         if ($("#prew-arrow").attr("href") === "prew") {
             histPtr--;
             restoreHistoryReadHard();
+            textFieldsDisable(".letterInputClass");
             $(".level-read-hard #next-arrow").attr("href", "next");
             if(histPtr == 0){
                 $("#prew-arrow").removeAttr("href");
@@ -698,7 +699,7 @@ function displayNewLetter(letter,mode,choices) {
     }
 }
 
-//Displas old letter (popravi sliko in izbire)
+//Displays old letter (popravi sliko in izbire)
 function displayOldLetter(corrLetter, choices){
     var ans = ansHist[histPtr][0].split(",");
     var buttons = document.getElementById('choices'),button;
@@ -1036,6 +1037,7 @@ function restoreHistoryReadHard(){
     $("#start-animation").attr("disabled", "disabled");
     $("#start-animation").removeClass("used");
     $("#start-animation").text("Začni!");
+    
 
     var letters = string.split("");
     var idNumber = 1;
@@ -1045,6 +1047,8 @@ function restoreHistoryReadHard(){
         $("#input-string-hard").append('<input id="num' + idNumber + '" class = "letterInputClass correctInput" type="text" maxlength="1" value = "' + letter + '">');
         idNumber++;
     }
+    // onemogoci ponoven vnos crk
+    textFieldsDisable(".letterInputClass");
     //prikazemo (sekvenco slik + crke)
     displaySequenceOfImages(".level-read-hard .well img", 0);
     
@@ -1478,6 +1482,18 @@ function imageOneButtonDisable(element){
 
 function imageButtonsEnable(parent) {
     $(parent).find(".image_option").removeClass("not_active");
+}
+
+function textFieldsDisable(selector) {
+    $(selector).each(function() {
+       $(this).attr("disabled", "disabled"); 
+    });
+}
+
+function textFieldsEnable(selector) {
+    $(selector).each(function() {
+       $(this).removeAttr("disabled"); 
+    });
 }
 
 /* Returns letter from image link (e. g. returns "k" from "/static/images/flags/k.png") */
