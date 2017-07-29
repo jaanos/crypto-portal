@@ -14,10 +14,15 @@
         <div class="panel panel-default level-{% print mode %}-{% print level %}" >
             <div class="panel-heading" id="glava">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
                         <b><span class="pozdrav1">Semafor</span></b>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="text-center">
+                            <a value="Home" class="btn btn-default btn-bg {% if intro == '1' %}active{% endif %}" href="{{url_for('alphabet.index', selected_alphabet='flags')}}">Domov</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
                         <div class ="pull-right" id ="buttons">
                                 <a value = "Read" class="btn btn-default btn-bg {% if mode == "read" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode='read', level='easy')}}">Branje</a>
                                 <a value = "Write" class="btn btn-default btn-bg {% if mode == "write" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode='write', level='easy')}}">Pisanje</a>

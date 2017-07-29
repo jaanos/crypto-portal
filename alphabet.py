@@ -39,7 +39,6 @@ def alphabet_exists(alphabet):
 @app.route("/")
 @app.route("/<selected_alphabet>/")
 def index(selected_alphabet = "flags", mode = "easy", level = "easy"):
-    #print(os.path.isdir("static/images/flags"))
     # check if folder with images exists
     if (alphabet_exists(selected_alphabet)):
         return render_template("alphabet.flags.html", nav = "alphabet", alphabet = abc, intro = "1")
