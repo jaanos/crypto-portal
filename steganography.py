@@ -9,8 +9,19 @@ import random
 
 try:
     from StringIO import StringIO
+    encode = unicode.encode
+    bytes = lambda x: x
+    byte = chr
+    spyt = ord
+    chew = lambda x: x
+    empty = ''
 except ImportError:
-    from io import StringIO
+    from io import BytesIO as StringIO
+    encode = bytes
+    byte = lambda x: bytes([x])
+    spyt = lambda x: x
+    chew = byte
+    empty = bytes()
 
 app = Blueprint('steganography', __name__)
 
@@ -23,7 +34,7 @@ def initSession():
 
 def tobytes(img):
     if hasattr(img, 'tobytes'):
-        return img.tobytes()
+        return bytes(img.tobytes())
     else:
         return img.tostring()
 
@@ -42,27 +53,27 @@ def images(idx=None):
     db = database.dbcon()
     cur = db.cursor()
     if request.method == 'POST':
-        text = request.form["text"].encode("utf-8") + '\0'
+        text = encode(request.form["text"], "utf-8") + byte(0)
         newname = request.form["newname"]
         try:
             offset = int(request.form["offset"])
         except:
             offset = 0
         if len(newname) > 0:
-            cur.execute("SELECT data FROM slika WHERE id = %s", idx)
+            cur.execute("SELECT data FROM slika WHERE id = %s", [idx])
             r = cur.fetchone()
             inimg = Image.open(StringIO(r[0]))
             data = tobytes(inimg)
             if offset < 0 or offset > len(data) - 7:
                 offset = 0
             last = min(len(text), (len(data) - (offset%8))/8)
-            stego = [x for x in data]
+            stego = [chew(x) for x in data]
             for i in range(last):
-                o = ord(text[i])
+                o = spyt(text[i])
                 for j in range(8):
-                    stego[offset+8*i+j] = chr((ord(data[offset+8*i+j]) & 0xFE) | ((o >> (7-j)) & 1))
+                    stego[offset+8*i+j] = byte((spyt(data[offset+8*i+j]) & 0xFE) | ((o >> (7-j)) & 1))
             try:
-                outimg = Image.frombytes(inimg.mode, inimg.size, ''.join(stego))
+                outimg = Image.frombytes(inimg.mode, inimg.size, empty.join(stego))
                 out = StringIO()
                 outimg.save(out, format="PNG")
                 png = out.getvalue()
@@ -92,7 +103,7 @@ def images(idx=None):
     if idx == None:
         r = None
     else:
-        cur.execute("SELECT name, data FROM slika WHERE id = %s", idx)
+        cur.execute("SELECT name, data FROM slika WHERE id = %s", [idx])
         r = cur.fetchone()
     cur.close()
     if r == None:
@@ -108,7 +119,7 @@ def images(idx=None):
             else:
                 newname = m.group(1) + str(random.randrange(1000))
     return render_template("steganography.images.html", idx=idx, name=name,
-                    data=''.join("%d" % (ord(x)&1) for x in data), imgs=imgs,
+                    data=''.join("%d" % (spyt(x)&1) for x in data), imgs=imgs,
                     text=text, newname=newname, offset=offset,
                     error=error, errstr=errstr, session=session['sessid'])
 
@@ -116,7 +127,7 @@ def images(idx=None):
 def show(idx):
     db = database.dbcon()
     cur = db.cursor()
-    cur.execute("SELECT data FROM slika WHERE id = %s", idx)
+    cur.execute("SELECT data FROM slika WHERE id = %s", [idx])
     r = cur.fetchone()
     cur.close()
     if r == None:
