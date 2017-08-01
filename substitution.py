@@ -37,7 +37,7 @@ def getText(id):
     cur.execute("SELECT text, language FROM substitution WHERE id = %s", [id])
     txt = cur.fetchone()
     cur.close()
-    return (txt[0].decode("UTF-8"), txt[1])
+    return txt
 
 def crypt(text, level):
     xyz = [x for x in abc]
