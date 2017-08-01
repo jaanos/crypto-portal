@@ -94,9 +94,9 @@ def play(difficulty, idx=-1, language=None):
 def leaderboard_insert():
     name = request.form['name']
     time = int(request.form['time_solved'])
-    print time
+    print(time)
     time_solved = datetime.utcfromtimestamp(time)
-    print time_solved
+    print(time_solved)
     difficulty = request.form['difficulty']
 
     db = database.dbcon()
