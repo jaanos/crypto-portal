@@ -16,6 +16,9 @@ foreign = {'sl': set(['Q', 'W', 'X', 'Y']),
 
 level_trans = {2: 0, -1: 1}
 
+translation = {'caesar': 'cezar', 'easy': 'lahko', 'medium': 'srednje',
+               'hard': 'težko'}
+
 def indices(level, language=None):
     db = database.dbcon()
     cur = db.cursor()
@@ -90,28 +93,30 @@ def play(difficulty, idx=-1, language=None):
         foreign=len(foreign[lang].intersection(text.upper())) > 0
     )
 
-@app.route("/leaderboard_insert", methods=['POST'])
+@app.route("/leaderboard/insert", methods=['POST'])
 def leaderboard_insert():
-    name = request.form['name']
+    name = request.form['name'].encode('UTF-8')
     time = int(request.form['time_solved'])
-    print(time)
     time_solved = datetime.utcfromtimestamp(time)
-    print(time_solved)
     difficulty = request.form['difficulty']
-
     db = database.dbcon()
     cur = db.cursor()
     query = 'INSERT INTO crypto_leaderboard (name, difficulty, time_solved) VALUES (%s, %s, %s)'
     cur.execute(query, (name, difficulty, time_solved))
-    db.commit()
+    cur.execute('COMMIT')
     cur.close()
     return json.dumps({'status': 'OK'})
 
-@app.route("/leaderboard")
-def leaderboard():
+@app.route("/leaderboard/<difficulty>")
+def leaderboard(difficulty):
     db = database.dbcon()
     cur = db.cursor()
-    query = 'SELECT * FROM crypto_leaderboard'
+    table = 'SELECT * FROM crypto_leaderboard'
+    condition = 'WHERE difficulty = "{}"'.format(difficulty)
+    # sort = 'ORDER BY "{}" ASC'.format('time_solved')
+    query = ' '.join([table, condition])
     cur.execute(query)
-    users = [[x[1], x[2], x[3].strftime('%H:%M:%S')] for x in cur.fetchall()]
+    users = [[x[1].decode('utf-8'), translation[x[2]].decode('utf-8'),
+              x[3].strftime('%H:%M:%S')] for x in cur.fetchall()]
+    users.sort(key=lambda x: datetime.strptime(x[2], '%H:%M:%S'))
     return render_template("substitution.leaderboard.html", users=users)

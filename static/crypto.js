@@ -570,26 +570,33 @@ function checkHash() {
  */
 function displayFinishPopup() {
     var txt;
-    var total_minutes = (timer.count_hour * 60 + timer.count_minute).toFixed(2);
-    var person = prompt("Čestitke uspelo vam je rešiti uganko v " + total_minutes + " min " + timer.count_second + "sec" , "oseba1");
-    if (person == null || person == "") {
-        txt = null;
-    } else {
-        $(function() {
-        $.ajax({
-            url: insertURL,
-            data: {'name':person, 'difficulty':difficulty, 'time_solved': (timer.count_hour * 3600 + timer.count_minute * 60 + timer.count_second)},
-            type: 'POST',
-            success: function(response) {
-                console.log(response);
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
+    var total_minutes = (timer.count_hour * 60 + timer.count_minute);
+    $('#modal-time-minute').html(total_minutes);
+    $('#modal-time-second').html(timer.count_second);
+    var modal = $("#myModal")
+    modal.off("click");
+    modal.modal('show');
+    modal.on('click', '#confirm', function (e) {
+        var player = $('#username').val();
+        if (player == null || player == "" || player.length != 3) {
+            $('#modal-alert').show();
+        } else {
+            $(function() {
+                $.ajax({
+                    url: '/substitution/leaderboard/insert',
+                    data: {
+                        'name': player,
+                        'difficulty': difficulty,
+                        'time_solved': (timer.count_hour * 3600 + timer.count_minute * 60 + timer.count_second)
+                    },
+                    type: 'POST',
+                    success: function (response) {},
+                    error: function (error) {}
+                });
+            });
+            modal.modal('hide');
+        }
     });
-    }
-    console.log(txt);
 }
 
 function updateEssentials(){
@@ -1034,12 +1041,10 @@ function nextButton(){
 
 function headerLogo() {
     var image = document.createElement("img");
-    image.setAttribute("src", staticDir + "slikca.png");
+    image.setAttribute("src", "/static/slikca.png");
     image.setAttribute("id", "logo");
-    var link = document.createElement("a")
-    link.setAttribute("href", baseURL);
-    link.appendChild(image);
-    return link;
+    image.setAttribute("onclick", "location.href = '/'");
+    return image;
 }
 
 // returns an element with a br tag

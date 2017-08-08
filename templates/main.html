@@ -10,11 +10,12 @@
         <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}" />
         <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='cryptogram.css')}}" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    </head>
-    <body>
-        <div class="wrapper col-lg-12 col-md-12 col-sm-12 main">
+        {% block head %}
+        {% endblock %}
+	</head>
+	<body>
+		<div class="wrapper col-lg-12 col-md-12 col-sm-12 main">
             <div class="container logo">
                <div class="navbar-inner">
                  <div class="container">
@@ -46,7 +47,13 @@
                                 <li class="divider"></li>
                                 <li><a href="{{url_for('substitution.play', difficulty='caesar')}}">Cezarjeva šifra</a></li>
                                 <li><a href="{{url_for('substitution.play', difficulty='ready')}}">Pripravljene zamenjalke</a></li>
-                                <li><a href="{{url_for('substitution.leaderboard')}}">Lestvica</a></li>
+                                <li class="divider"></li>
+                                <li><a>Lestvice</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{url_for('substitution.leaderboard', difficulty='easy')}}">Lahko</a></li>
+                                <li><a href="{{url_for('substitution.leaderboard', difficulty='medium')}}">Srednje</a></li>
+                                <li><a href="{{url_for('substitution.leaderboard', difficulty='hard')}}">Težko</a></li>
+                                <li><a href="{{url_for('substitution.leaderboard', difficulty='caesar')}}">Cezarjeva šifra</a></li>
                               </ul>
                             </li>
                         </ul>
