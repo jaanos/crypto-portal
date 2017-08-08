@@ -18,6 +18,9 @@
         difficulty = "{{difficulty}}";
         foreign = {% if foreign %} true {% else %} false {% endif %};
         next = "{{url_for('.play', difficulty = difficulty, idx = next)}}";
+        insertURL = "{{url_for('.leaderboard_insert')}}";
+        staticDir = "{{url_for('static', filename='')}}";
+        baseURL = "{{url_for('index')}}";
         window.onload = function () {
             initialize({{level}});
         };
