@@ -5,6 +5,7 @@ var expDays = 365;
 var ansHist = [];
 var histPtr = 0;
 var curHandPos = [0,0]; // [right,left]
+//var pointsForRightAnswerReadEasy = 3;<-- not in use
 var pointsForClueReadMedium = 30;
 var pointsForClueReadHard = 50;
 var userAnswers = [];
@@ -15,10 +16,14 @@ var positions = {   // x = [right, left]
         'g':[180,135],'h':[270,225],'i':[225,315],'j':[0,90],'k':[225,0],'l':[225,45],
         'm':[225,90],'n':[225,135],'o':[270,315],'p':[270,0],'q':[270,45],'r':[270,90],
         's':[270,135],'t':[315,0],'u':[315,45],'v':[0,135],'w':[45,90],'x':[45,135],
-        'y':[315,90],'z':[135,90],' ':[180,180],'init':[0,0]
+        'y':[315,90],'z':[135,90],' ':[180,180],'init':[0,0], '1':[225,180],'2':[270,180],
+        '3':[315,180],'4':[0,180],'5':[180,45],'6':[180,90],'7':[180,135],'7':[270,225],
+        '9':[225,315],
     };
 var middlePointRight, middlePointLeft;
 
+
+// INITIALIZATION
 function initialize_alphabet(mode, level) {
     refresh();
     // Get ready to watch user inputs
@@ -46,11 +51,6 @@ function initialize_alphabet(mode, level) {
 }
 
 function read_easy() {
-    //console.log("read, easy");
-}
-
-function write_easy() {
-    //console.log("write, easy");
 }
 
 function read_medium() {
@@ -58,11 +58,6 @@ function read_medium() {
     setTimeout(function() {
         $("#letterInput").focus();
     }, 500);
-}
-
-function write_medium() {
-    setFigure();
-    setFlagsMedium();
 }
 
 function read_hard() {
@@ -77,21 +72,71 @@ function read_hard() {
     var word = selectNewWord(window.words);
     var letters = word.split("");
     var idNumber = 1;
+    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/" +  "blank.png' class=''>");
     for (i = 0; i < letters.length; i++) {
         var letter = letters[i];
         $(".level-read-hard .panel-body .well").append("<img src='" + flagsDir + letter + ".png' class='hidden'>");
         $("#input-string-hard").append('<input id="num' + idNumber + '" class = "letterInputClass" type="text" maxlength="1" onkeyup="focusNext(event, \'#num' + (idNumber+1) + '.letterInputClass\')">');
-        //$("#input-string-hard").append('<input id="num' + idNumber + '" class = "letterInputClass" type="text" maxlength="1">');
         idNumber++;
     }
+}
+
+function write_easy() {
+}
+
+function write_medium() {
+    setFigure();
+    setFlagsMedium();
 }
 
 function write_hard() {
     setFigure();
 }
 
+
 $( document ).ready(function() {
     checkCookie(cookie_name);
+    
+    // flip animation (index site)
+    $('.f1_container').click(function() {
+            $(this).toggleClass('active');
+        }); 
+        
+    // pop-up instructions
+    $("#pop-up").click(function(){
+        $("#myModal").css("display", "block");
+    });
+    
+    $("#cl").click(function() {
+        $("#myModal").css("display", "none");
+    })
+    
+    
+    ///////////////////
+    /* When the user clicks on the button, 
+    toggle between hiding and showing the dropdown content */
+   
+    $("#writeButton").click(function(){
+        $("#myDropdown").toggleClass( "show");
+    });
+    
+    // Close the dropdown menu if the user clicks outside of it
+    /*
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+    
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+    */
+    ///////////////////
     
     /* *************************************************************************** */
     /* ********************************   READ  ********************************** */
@@ -109,24 +154,36 @@ $( document ).ready(function() {
             $(this).addClass("btn-success");
             $("#next-arrow").attr("href", "next");
             buttonsDisable();
-           
-            if(histPtr == 0 && ansHist > 1 ){
+            // History
+            if(histPtr == 0 && ansHist.length < 1 ){
                 addHistoryEasy(0,1);
             }
             else{
                 addHistoryEasy(1,1);
             }
-           
+            //Points and learning progress
+            //addPoints(pointsForRightAnswerReadEasy); <-- not in use
             addPoints(1);
             moveToLearnt(letter);
        } else {
             $(this).removeClass("btn-info");
             $(this).addClass("btn-danger");
             $(this).attr("disabled", "disabled");
+            // History
+            addHistoryEasy(1,0);
+             //Points and learning progress
             removePoints(1);
             moveToNotLearnt(letter);
-            addHistoryEasy(1,0);
+            //pointsForRightAnswerReadEasy--; <-- not in use
        }
+    });
+    
+    // Function listens for click on help button    <-- not in use
+    $(".level-read-easy #read_easy_help").click(function(e){
+        if(pointsForRightAnswerReadEasy > 0){
+        //disables one option
+        disableOneChoiceRead();
+        }
     });
     
     // Function listens for click on "next arrow"
@@ -136,12 +193,14 @@ $( document ).ready(function() {
             histPtr++;
             if(histPtr == ansHist.length){  // New letter
                 selectAndDisplayNewLetter(window.alphabet,"easy");
+                //pointsForRightAnswerReadEasy = 3; <-- not in use
                 if(histPtr != 0){
                     addHistoryEasy(0,0); // push to history and mark as unanswered
                 }
             }
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0){   // Chosen letter is not answered
                 displayOldLetter(ansHist[histPtr][2], getChoices(ansHist[histPtr][0]));
+                //pointsForRightAnswerReadEasy = ansHist[histPtr][3]; <-- not in use
             }
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 1){   // Chosen letter is answered
                 $(".level-read-easy #next-arrow").attr("href", "next");
@@ -170,46 +229,57 @@ $( document ).ready(function() {
      *      READ MEDIUM
      */
     
-    // READ MEDIUM: ob pritisku na enter preveri vnos
+    // Function listens for enter press and checks the answer
     $("#letterInput").keypress(function(e) {
         //Enter pressed?
         if(e.which == 10 || e.which == 13) {
             var vnos = (document.getElementById('letterInput')).value;
-            
             if ($("#picture-letter").hasClass("tested") || vnos === "") {
-                // Enter je bil pritisnjen brez spremembe crke.
-                // Ali: polje je prazno
+                // Enter was pressed without changing the letter
+                // Or: input is empty
                 return;
             } else {
-                // Oznaci, da je bil pritisnjen enter - dokler uporabnik ne spremeni crke, mu ponovni pritiski na enter ne odstevajo tock.
+                // Marks enter as "pressed" - pressing agen don't cause more negative points
                 $("#picture-letter").addClass("tested");
             }
             
-            console.log("crka: "+vnos);
-            //preveri ce se vpisana crka ujema z resitvijo
+            // Checks if input letter matches with correct one
             var image_link = $("#picture-letter img").attr("src").split("/");
             var image_name = image_link[image_link.length - 1];
             var letter = image_name.split(".")[0];
             
-            console.log("Pravilna crka: "+letter+" vnos: "+vnos);
-            
+
             if(vnos.toUpperCase() === letter.toUpperCase()){
-                console.log("pravilno");
                 $("#letterInput").addClass("correctInput");
                 $("#letterInput").removeClass("wrongInput");
                 $("#next-arrow").attr("href", "next");
                 document.getElementById('letterInput').disabled = true;
-                addHistoryMedium();
-                addPoints(1);
+                // History
+                if(histPtr == 0 && ansHist.length < 1 ){
+                    addHistoryMedium(0,1);
+                }
+                else{
+                    addHistoryMedium(1,1);
+                }
+                
                 $("#picture-letter").removeClass("tested");
                 $("#next-arrow").focus();
+                // Points and learning progress
+                addPoints(1);
                 moveToLearnt(letter);
             } else {
-                console.log("napacno");
                 $("#letterInput").addClass("wrongInput");
                 $("#letterInput").removeClass("correctInput");
-                removePoints(1);
                 $("#letterInput").focus().select();
+                moveToNotLearnt(letter);
+                if(histPtr == 0 && ansHist.length < 1 ){
+                    addHistoryMedium(0,0);
+                }
+                else{
+                    addHistoryMedium(1,0);
+                }
+                // Points and learning progress
+                removePoints(1);
                 moveToNotLearnt(letter);
             }
                 
@@ -218,7 +288,7 @@ $( document ).ready(function() {
         }
     });
     
-    // BRANJE MEDIUM - prikaz resitve
+    // Function shows the correct solution
     $("#read_medium_solution").click(function(){
         $(this).attr("disabled", "disabled");
         if (getPoints() >= pointsForClueReadMedium) {
@@ -228,8 +298,16 @@ $( document ).ready(function() {
             $("#next-arrow").attr("href", "next");
             $("#letterInput").addClass("correctInput");
             $("#letterInput").removeClass("wrongInput");
-            addHistoryMedium();
+            // History
+            if(histPtr == 0 && ansHist > 1 ){
+                addHistoryMedium(0,1);
+            }
+            else{
+                addHistoryMedium(1,1);
+            }
+            // Points and learning progress
             removePoints(pointsForClueReadMedium);
+            moveToNotLearnt(letterSelected);
             $("#next-arrow").focus();
         } else {
             $("#letterInput").focus();
@@ -240,20 +318,32 @@ $( document ).ready(function() {
     $(".level-read-medium #next-arrow").click(function(e) {
         e.preventDefault();
         if ($("#next-arrow").attr("href") === "next") {
-            $("#letterInput").removeClass("correctInput");
-            if(histPtr >= ansHist.length || histPtr+1 >= ansHist.length)
-            {
+            histPtr++;
+            if(histPtr == ansHist.length){  // New letter
                 selectAndDisplayNewLetter(window.alphabet,"medium");
                 refresh();
-                histPtr++;
+                $("#letterInput").removeClass()
+                $("#letterInput").val("");
                 $("#letterInput").focus();
+                if(histPtr != 0){
+                    addHistoryMedium(0,0); // push to history and mark as unanswered
+                }
             }
-            else{
-                histPtr++;
-                $("#letterInput").addClass("correctInput");
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0){   // Chosen letter is not answered
+                displayOldLetterMedium(ansHist[histPtr]);
+                $("#read_medium_solution").removeAttr("disabled");
+            }
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 1){   // Chosen letter is answered
+                $(".level-read-medium #next-arrow").attr("href", "next");
                 restoreHistoryMedium();
             }
+            else{   // Chosen letter is answered
+                restoreHistoryMedium();
+            }
+            $(".level-read-medium #prew-arrow").attr("href", "prew");
+            if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0)$(".level-read-medium #next-arrow").removeAttr("href"); 
         }
+     
     });
     
     // Listens for click on "prev arrow" (read-medium)
@@ -261,9 +351,6 @@ $( document ).ready(function() {
         e.preventDefault();
         if ($("#prew-arrow").attr("href") === "prew") {
             histPtr--;
-            //document.getElementById('letterInput').disabled = true;
-            //$("#letterInput").css('border-color', '#000000 #000000 rgb(36, 143, 36) #000000');
-            $("#letterInput").addClass("correctInput");
             restoreHistoryMedium();
         }
     });
@@ -273,16 +360,19 @@ $( document ).ready(function() {
      *      READ HARD
      */
     
-    //READ HARD (preveri vnos gesla ko je pritisnjen enter - branje hard)
+    // Function checks input when enter is pressed
     $("#input-string-hard").keypress(function(e) {
-        //Enter pressed?
+        // Enter pressed?
         if(e.which == 10 || e.which == 13) {
-            var index = 0;
+            console.log("enter pressed");
+            var index = 1;
             var numWrongOrUnanswered = 0;
             var numWrong = 0; var numCorrect = 0;
             $("#input-string-hard .letterInputClass").each(function(index) {
                 var input = $(this).val();
-                var letter = getLetterFromURL($(".level-read-hard img:eq(" + index + ")").attr("src"));
+                var letter = getLetterFromURL($("#picture-letter img:eq(" + (index+1) + ")").attr("src"));
+                console.log("letter<-------: "+letter);
+                console.log("input<-------: "+input);
                 if (input.toUpperCase() === letter.toUpperCase()) {
                     // Correct input
                     if ($(this).attr("disabled") != "disabled") {
@@ -313,21 +403,26 @@ $( document ).ready(function() {
             if (numWrongOrUnanswered == 0) {
                 $("#next-arrow").attr("href", "next");
                 $("#next-arrow").focus();
-                if(histPtr == 0){
+                if(histPtr == 0 && ansHist.length < 1 ){
                     pushHistoryReadHard(1);
                 }
                 else{
                     setHistoryReadHard(1);
                 }
             } else {
-                // Postavi cursor na prvo napacno crko
+                // Sets cursor to first wrong letter
                 var el = $("#num1");
                 while (el.attr("disabled") == "disabled") {
                     el = el.next();
                 }
                 el.focus().select();
+                if(histPtr == 0 && ansHist.length < 1 ){
+                    pushHistoryReadHard(0);
+                }
+                else{
+                    setHistoryReadHard(0);
+                }
             }
-            console.log("Dodajam " + numCorrect + "; Odvzemam " + numWrong);
             addPoints(numCorrect);
             removePoints(numWrong);
         } else {
@@ -337,13 +432,14 @@ $( document ).ready(function() {
         }
     });
     
-    // READ HARD - sprozi animacijo
+    // Function starts animaton
     $("#start-animation").click(function() {
         if ($(this).hasClass("used")) {
             removePoints(pointsForClueReadHard);
         }
         $(this).attr("disabled", "disabled");
         focusFirstFree("#input-string-hard #num1");
+        //$(".level-read-hard .well img" + ":eq(" + (1 - 1) + ")").addClass("hidden");
         displaySequenceOfImages(".level-read-hard .well img", 0);
         $(this).addClass("used");
         $("#start-animation").text("Začni znova!");
@@ -368,28 +464,24 @@ $( document ).ready(function() {
             }
             
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0){   // Chosen letter is not answered
-                //DisplayNewLetterWriteHard(ansHist[histPtr][0]); ////// <-------------- SPISI FUNKCIJO KI RESTORA PODANI NIZ
                 console.log("2");
                 $("#start-animation").css("visibility", "visible");
                 restoreStringReadHard(ansHist[histPtr][0]);
             }
             
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 1){   // Chosen letter is answered
-                console.log("3");
+            console.log("3");
                 $(".level-read-hard #next-arrow").attr("href", "next");
                 restoreHistoryReadHard();
             }
             
             else{   // Chosen letter is answered
-                console.log("4");
+            console.log("4");
                 restoreHistoryReadHard();
             }
             
             $(".level-read-hard #prew-arrow").attr("href", "prew");
-            if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0){
-                console.log("i will remove nex arrow"); 
-                $(".level-read-hard #next-arrow").removeAttr("href");
-            }
+            if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0) $(".level-read-hard #next-arrow").removeAttr("href");
         }
     });
     
@@ -417,7 +509,7 @@ $( document ).ready(function() {
      *      WRITE EASY
      */
     
-    // WRITE - EASY preverjanje pravilnosti
+    // Function checks correctness of choice
     $(".imageSelectionWrap #picture-letter").click(function() {
         if ($(this).hasClass("not_active")) return;
         var url = $(this).find(".imageSelection").attr("src");
@@ -425,18 +517,33 @@ $( document ).ready(function() {
         var letter = $(".level-write-easy #letterToGuess span").text();
         console.log(letter);
         if (letterSelected.toUpperCase() === letter.toUpperCase()) {
-            $(this).addClass("correctInput");
-            $(this).removeClass("wrongInput");
+            $(this).parent().addClass("correctInput");
+            $(this).parent().removeClass("wrongInput");
             $("#next-arrow").attr("href", "next");
-            addPoints(1);
             imageButtonsDisable($(this).parent().parent());
-            addHistoryWriteEasy();
+            // History
+            if(histPtr == 0 && ansHist > 1 ){
+                addHistoryWriteEasy(0,1);
+            }
+            else{
+                addHistoryWriteEasy(1,1);
+            }
+            // Points and learning progress
+            addPoints(1); 
             moveToLearnt(letter);
         } else {
-            $(this).removeClass("correctInput");
-            $(this).addClass(("wrongInput"));
-            removePoints(1);
+            $(this).parent().removeClass("correctInput");
+            $(this).parent().addClass(("wrongInput"));
             imageOneButtonDisable(this);
+            // History
+            if(histPtr == 0 && ansHist > 1 ){
+                addHistoryWriteEasy(0,0);
+            }
+            else{
+                addHistoryWriteEasy(1,0);
+            }
+            // Points and learning progress
+            removePoints(1);
             moveToNotLearnt(letter);
         }
     });
@@ -445,17 +552,30 @@ $( document ).ready(function() {
     $(".level-write-easy #next-arrow").click(function(e) {
         e.preventDefault();
         if ($("#next-arrow").attr("href") === "next") {
-            if(histPtr >= ansHist.length || histPtr+1 >= ansHist.length){
+            histPtr++;
+            if(histPtr == ansHist.length){  // New letter
                 selectAndDisplayNewImage(alphabet, "easy");
                 refresh();
-                imageButtonsEnable($(this).parent().parent());
-                histPtr++;
+                imageButtonsEnable($(".imageSelectionWrap #picture-letter").parent().parent());
+                if(histPtr != 0){
+                    addHistoryWriteEasy(0,0); // push to history and mark as unanswered
+                }
             }
-            else{
-                histPtr++;
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0){   // Chosen letter is not answered
+                displayOldLetterWriteEasy(ansHist[histPtr][2], ansHist[histPtr][0]);
+            }
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 1){   // Chosen letter is answered
+                $(".level-write-easy #next-arrow").attr("href", "next");
                 restoreHistoryWriteEasy();
             }
+            else{   // Chosen letter is answered
+                restoreHistoryWriteEasy();
+            }
+            $(".level-write-easy #prew-arrow").attr("href", "prew");
+            if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0)$(".level-write-easy #next-arrow").removeAttr("href"); 
         }
+    
+        
     });
     
     // Listens for click on "prew arrow" (write-easy)
@@ -478,21 +598,25 @@ $( document ).ready(function() {
         if($("#check").attr("href") === "enabled"){
             var letter = $(".level-write-medium #letterToGuess span").text().toLowerCase();
             if(checkIfCorrWrite()){
-                addPoints(1);
                 markCheckControlWrite(1);
                 disableCheckControlWrite();
                 $(".level-write-medium #next-arrow").attr("href", "next");
+                // History
                 if(histPtr == 0){
                     pushHistoryWriteMedium(1);
                 }
                 else{
                     setHistoryWriteMedium(1);
                 }
+                // Points and learning process
                 moveToLearnt(letter);
+                addPoints(1);
             }
+            else if(checkIfOtherCorrLetterWrite()){}
             else{
-                removePoints(1);                
                 markCheckControlWrite(0);
+                // Points and learning process
+                removePoints(1);                
                 moveToNotLearnt(letter);
             }
         }
@@ -551,22 +675,35 @@ $( document ).ready(function() {
         e.preventDefault();
         if($("#check").attr("href") === "enabled"){
             var letter = $(".level-write-hard #letterToGuess span").text().toLowerCase();
-            if(checkIfCorrWrite()){
-                addPoints(1);
-                markCheckControlWrite(1);
+            if(checkIfCorrWrite()){ markCheckControlWrite(1);
                 disableCheckControlWrite();
                 $(".level-write-hard #next-arrow").attr("href", "next");
+                // History
                 if(histPtr == 0){
                     pushHistoryWriteHard(1);
                 }
                 else{
                     setHistoryWriteHard(1);
                 }
+                // Points and learning progress
+                if($("#imageLeftFlag").attr("href")!="enabled" || $("#imageRightFlag").attr("href")!="enabled"){
+                    addPoints(1); 
+                }
+                else addPoints(2);
                 moveToLearnt(letter);
             }
+            else if(checkIfOneIsCorrWrite()){
+                checkIfOtherCorrLetterWrite();
+                
+            }
+            else if(checkIfOtherCorrLetterWrite()){}
             else{
-                removePoints(1); 
                 markCheckControlWrite(0);
+                // Points and learning progress
+                if($("#imageLeftFlag").attr("href")!="enabled" || $("#imageRightFlag").attr("href")!="enabled"){
+                    removePoints(1); 
+                }
+                else removePoints(2); 
                 moveToNotLearnt(letter);
             }
         }
@@ -671,14 +808,14 @@ $( document ).ready(function() {
     
     // Function for tracking mouse movements
     function mouseMoveLeft(e) {
-        //Izracun centra kroznice in pozicije miske
+        // Center of rotation and position of mouse
         var centerMis = [e.clientX, e.clientY];
         
-        //Izracun kota premika
+        // Angle of rotation
         var radians = Math.atan2(centerMis[0] - middlePointLeft[0], centerMis[1] - (middlePointLeft[1] - window.scrollY));
         var degree = (radians * (180 / Math.PI)*-1)+180; 
         
-        //Rotacije za vse brskalike
+        // Rotation for all browsers
         var objFlagLeft = $("#imageLeftFlag");
         objFlagLeft.css('-moz-transform', 'rotate('+degree+'deg)');
         objFlagLeft.css('-webkit-transform', 'rotate('+degree+'deg)');
@@ -697,15 +834,14 @@ function selectAndDisplayNewLetter(alphabet, mode) {
     var choices = selectChoices(alphabet, letter);
     $("#read_medium_solution").removeAttr("disabled");
     
-    //$(".level-read-"+mode+" #picture-letter img").attr("src", flagsDir + letter + ".png");
     displayNewLetter(letter,mode,choices);
 }
 
-//Displays given letter
+// Displays given letter
 function displayNewLetter(letter,mode,choices) {
     $(".level-read-"+mode+" #picture-letter img").attr("src", flagsDir + letter + ".png");
 
-    //Clears inputs and options
+    // Clears inputs and options
     if(mode === "easy") {
         clearSelectedOptions("choices", choices);
     } else if( mode === "medium") {
@@ -713,7 +849,7 @@ function displayNewLetter(letter,mode,choices) {
     }
 }
 
-//Displays old letter (popravi sliko in izbire)
+// Displays old letter (popravi sliko in izbire)
 function displayOldLetter(corrLetter, choices){
     var ans = ansHist[histPtr][0].split(",");
     var buttons = document.getElementById('choices'),button;
@@ -744,7 +880,7 @@ function displayOldLetter(corrLetter, choices){
     }
     $(".level-read-easy #next-arrow").attr("href", "next");
 }
-//Function for geting leters from history (Read-easy) - returns string
+// Function for geting leters from history (Read-easy) - returns string
 function getChoices(choices){
     var string = [];
     choices = choices.split(",");
@@ -754,6 +890,19 @@ function getChoices(choices){
     return string;
 }
 
+// Display Letter from history that has not been answ.
+function displayOldLetterMedium(ansHist){
+    // Display image
+    $("#picture-letter img").attr("src", flagsDir + ansHist[2].toLowerCase() + ".png");
+    // Display old input
+    var inputClass = ansHist[0].split("-")[1];
+    var ans = ansHist[0].split("-")[0];
+    $("#letterInput").attr("class", inputClass);
+    $("#letterInput").val(ans);
+    $("#letterInput").removeAttr("disabled");
+}
+
+// Function selects and displays new letter
 function selectAndDisplayNewImage(alphabet, mode) {
     var letter = selectNewLetter(alphabet);
     var choices = selectChoices(alphabet, letter);
@@ -762,10 +911,13 @@ function selectAndDisplayNewImage(alphabet, mode) {
     clearSelectedImages("#coreLogic #picture-letter", choices);
 }
 
+// Function selects
 function selectNewLetter(alphabet) {
+    /*
     for (var i = 0; i < alphabet.length; i++) {
         console.log(alphabet[i] + ": " + userAnswers[alphabet[i]]);
     }
+    */
     // Poisci najslabse poznano crko (pazi, da ni enaka prejsnji prikazani crki)
     var worseNumber;
     if (prevLetter === "a") {
@@ -786,11 +938,12 @@ function selectNewLetter(alphabet) {
             selectFrom.push(alphabet[i]);
         }
     }
-    console.log("selectFrom: " + selectFrom);
+    //console.log("selectFrom: " + selectFrom);
     prevLetter = selectFrom[Math.floor(Math.random() * selectFrom.length)];
     return prevLetter;
 }
 
+// Function selects new Word
 function selectNewWord(words) {
     words = words.split(", ");
     var word = words[Math.floor(Math.random() * words.length)];
@@ -801,6 +954,7 @@ function selectNewWord(words) {
     return word;
 }
 
+// Function selects new choices
 function selectChoices(alphabet, letter) {
     var choices=[];
     choices[0] = letter;
@@ -818,6 +972,7 @@ function selectChoices(alphabet, letter) {
     return choices;
 }
 
+// Function clears selected options
 function clearSelectedOptions(elementID, choices) {
     var buttons = document.getElementById(elementID),button;
     var j = 0;
@@ -835,18 +990,71 @@ function clearSelectedOptions(elementID, choices) {
     $("#prew-arrow").attr("href", "prew");
 }
 
+// Function selects image
 function clearSelectedImages(elementID, choices) {
     var i = 0;
     $(elementID).each(function() {
         $(this).find("img").attr("src", flagsDir + choices[i].toLowerCase() + ".png");
-        $(this).removeClass("wrongInput");
-        $(this).removeClass("correctInput");
+        $(this).parent().removeClass("wrongInput");
+        $(this).parent().removeClass("correctInput");
         i++;
     });
     $("#next-arrow").removeAttr("href");
     $("#prew-arrow").attr("href", "prew");
 }
 
+// Function displays sequence of images
+function displaySequenceOfImages(elements, index) {
+    if (index == $(elements).length) {
+        if (getPoints() >= pointsForClueReadHard) {
+            //$(".level-read-hard .panel-body .well").append("<img src='" + "/static/" +  "blank.png' class=''>");
+            console.log("lahko se enkrat sprozis");
+            $("#start-animation").removeAttr("disabled");
+            $(elements + ":eq(" + 0 + ")").removeClass("hidden");
+        }
+    }
+    if (index <= $(elements).length) {
+        if (index > 0) {
+            $(elements + ":eq(" + (index - 1) + ")").addClass("hidden");
+        }
+        $(elements + ":eq(" + index + ")").removeClass("hidden");
+
+        readHardTimer = setTimeout(function() {
+            displaySequenceOfImages(elements, (index + 1))
+        }, 1000);
+    }
+}
+
+/*
+// Function disables one choice [random]    <-- not in use
+function disableOneChoiceRead(){
+    console.log("disable one choice");
+    // indexira vse mozne izbire in najde eno rendom
+    var buttons = document.getElementById('choices'),button;
+    var counter = 0; var posibleOptions = [];
+    var corrLetter = getLetterFromURL($("#picture-letter img").attr('src'));
+    for(var i = 0; i < buttons.children.length; i++){
+        button = buttons.children[i];
+        var buttonClass = button.className;
+        var buttonLetter = button.innerHTML;
+        console.log("disabled: "+button.disabled);
+        var disabled = button.disabled;
+        if(buttonClass.includes("btn-info") && buttonLetter.toLowerCase() != corrLetter.toLowerCase() && !disabled){
+            console.log("pusham");
+           posibleOptions.push(button);
+           counter++;
+        }
+    }
+    if(counter > 0){
+    var index = Math.floor(Math.random() * counter);
+    var selectet = posibleOptions[index];
+    selectet.disabled = true;
+    pointsForRightAnswerReadEasy--;
+    }
+}
+*/ 
+
+// Function clears input
 function clearInput(elementID) {
     document.getElementById(elementID).value="";
     document.getElementById(elementID).disabled = false;
@@ -856,12 +1064,13 @@ function clearInput(elementID) {
     $("#prew-arrow").attr("href", "prew");
 }
 
+// Function puts focus on next wrong input
 function focusNext(event, elementToFocus) {
     var char = event.which || event.keyCode;
     if (isLetter(String.fromCharCode(char))) {
         var numOfLetters = $(".letterInputClass").length;
         while (numOfLetters >= 0 && $(elementToFocus).attr("disabled") == "disabled") {
-            // Najdi prvo polje, ki ni disabled
+            // Find first field which is not disabled
             elementToFocus = $(elementToFocus).next(".letterInputClass");
             numOfLetters--;
         }
@@ -869,6 +1078,7 @@ function focusNext(event, elementToFocus) {
     }
 }
 
+// Function puts focus on first free input
 function focusFirstFree(elementToFocus) {
     var numOfLetters = $(".letterInputClass").length;
     while (numOfLetters >= 0 && $(elementToFocus).attr("disabled") == "disabled") {
@@ -879,11 +1089,13 @@ function focusFirstFree(elementToFocus) {
     $(elementToFocus).focus().select();
 }
 
+// Function move element to learned
 function moveToLearnt(element) {
     element = element.toLowerCase();
     userAnswers[element]++;
 }
 
+// Function move element to not learned
 function moveToNotLearnt(element) {
     element = element.toLowerCase();
     userAnswers[element]--;
@@ -895,9 +1107,9 @@ function refresh() {
 }
 
 
-/*
-*   HISTORY
-*/
+/* *************************************************************************** */
+/* *****************************   HISTORY  ********************************** */
+/* *************************************************************************** */
 
 //Function adds current answer to history - READ_EASY [push=0/set=1, !ans=0/ans=1]
 function addHistoryEasy(set,ans){
@@ -919,8 +1131,8 @@ function addHistoryEasy(set,ans){
             state+=buttonLetter+"S"
         }
     }
-    if(set == 1) ansHist[histPtr]=[state,ans,corrLetter];
-    else ansHist.push([state,ans,corrLetter]);
+    if(set == 1) ansHist[histPtr]=[state,ans,corrLetter]; // ,pointsForRightAnswerReadEasy <-- not in use
+    else ansHist.push([state,ans,corrLetter]); // ,pointsForRightAnswerReadEasy <-- not in use
 }
 
 // Function adds prev. answer from history - READ_EASY
@@ -954,17 +1166,23 @@ function restoreHistoryEasy(){
     $(".level-read-easy #next-arrow").attr("href", "next");
 }
 
-//Function adds current answer to history - READ_MEDIUM
-function addHistoryMedium(){
-    if(histPtr >= ansHist.length){
-        var input = (document.getElementById('letterInput')).value;
-        ansHist.push(input);
+// Function adds current answer to history - READ_MEDIUM [push=0/set=1, !ans=0/ans=1]
+function addHistoryMedium(set, ans){
+    var input = (document.getElementById('letterInput')).value;
+    var corrLetter = getLetterFromURL($("#picture-letter img").attr('src'));
+    var stateOfAns = $("#letterInput").attr('class');
+    var state = input + "-" +stateOfAns;
+    if(set == 1){
+        ansHist[histPtr]=[state,ans,corrLetter];
+    }
+    else{
+        ansHist.push([state,ans,corrLetter]);
     }
 }
 
 // Function adds prev. answer from history - READ_MEDIUM
 function restoreHistoryMedium(){
-    var output = ansHist[histPtr];
+    var output = ansHist[histPtr][0].split("-")[0];
     (document.getElementById('letterInput')).value = output;
     document.getElementById('letterInput').disabled = true;
     $(".level-read-medium #picture-letter img").attr("src", flagsDir + output.toLowerCase() + ".png");
@@ -975,12 +1193,11 @@ function restoreHistoryMedium(){
     }
     $(".level-read-medium #next-arrow").attr("href", "next");
     $("#read_medium_solution").attr("disabled", "disabled");
-}
+    $("#letterInput").removeClass().addClass("correctInput");
+} 
 
-//Function adds current answer to history - WRITE_EASY
-function addHistoryWriteEasy(){
-    console.log("dodal bom v zgodovino");
-    if(histPtr >= ansHist.length){
+// Function adds current answer to history - WRITE_EASY
+function addHistoryWriteEasy(set, ans){
     var state="";
     var buttons = document.getElementById('choices');
     for(var i = 0; i < buttons.children.length; i++){
@@ -996,13 +1213,13 @@ function addHistoryWriteEasy(){
             state+=buttonLetter+"I"
         }
     }
-    ansHist.push(state);
-    console.log("IZHOD: " + ansHist);
-    }
+    var corrLetter = $("#letterToGuess span").text();
+    console.log("dodal bom v zgodovino: "+state);
+    if(set == 1) ansHist[histPtr]=[state,ans,corrLetter];
+    else ansHist.push([state,ans,corrLetter]);
 }
 
-/*          HISTORY TMP (READ HARD)        */
-//Function adds sequence to hisrory [string, 0=not anws.//1=anws]
+// Function adds sequence to hisrory [string, 0=not anws.//1=anws]
 function pushHistoryReadHard(ans){
     //Najprej pridobi niz iz imen
     var pictures = $(".level-read-hard .panel-body .well").html().split(".png");
@@ -1010,26 +1227,42 @@ function pushHistoryReadHard(ans){
     for(var i = 0; i < pictures.length -1; i++){
         string+=pictures[i].slice(-1);
     }
-
-    ansHist.push([string,ans]);
-   
+    var state="";
+    var index = 0;
+    $("#input-string-hard .letterInputClass").each(function(index) {
+        var input = $(this).val();
+        var ansClass = $(this).attr('class');
+        if(index != 0)state+=",";
+        state += input+"-"+ansClass;
+        index++;
+        console.log("pridobil sem info za zgodovino: "+input+" "+ansClass);
+    });
+    ansHist.push([string,ans,state]);
 }
 
-//Function sets history  [string, 0=not anws.//1=anws]
+// Function sets history  [string, 0=not anws.//1=anws]
 function setHistoryReadHard(ans){
     var pictures = $(".level-read-hard .panel-body .well").html().split(".png");
     var string="";
     for(var i = 0; i < pictures.length -1; i++){
         string+=pictures[i].slice(-1);
     }
-    ansHist[histPtr] = [string,ans];
+    var state="";
+    var index = 0;
+    $("#input-string-hard .letterInputClass").each(function(index) {
+        var input = $(this).val();
+        var ansClass = $(this).attr('class');
+        if(index != 0)state+=",";
+        state += input+"-"+ansClass;
+        index++;
+        console.log("pridobil sem info za zgodovino: "+input+" "+ansClass);
+    });
+    ansHist[histPtr] = [string,ans,state];
 }
 
-//Function restores and displays history on current histPtr
+// Function restores and displays history on current histPtr
 function restoreHistoryReadHard(){
-    var string = ansHist[histPtr][0]; //pridobim niz
-    
-    //pocistimo in pripravimo na novo
+    var string = ansHist[histPtr][0];
     // Clean up
     $(".level-read-hard .panel-body .well").html("");
     $("#input-string-hard").html("");
@@ -1037,7 +1270,6 @@ function restoreHistoryReadHard(){
     $("#start-animation").removeClass("used");
     $("#start-animation").text("Začni!");
     clearTimeout(readHardTimer);
-    
 
     var letters = string.split("");
     var idNumber = 1;
@@ -1047,17 +1279,17 @@ function restoreHistoryReadHard(){
         $("#input-string-hard").append('<input id="num' + idNumber + '" class = "letterInputClass correctInput" type="text" maxlength="1" value = "' + letter + '">');
         idNumber++;
     }
-    // onemogoci ponoven vnos crk
+    // Enable input
     textFieldsDisable(".letterInputClass");
     $("#start-animation").css("visibility", "hidden");
-    //prikazemo (sekvenco slik + crke)
+    // Show sequence of images
     displaySequenceOfImages(".level-read-hard .well img", 0);
-    
 }
 
 // Function restores given word as unanswered
 function restoreStringReadHard(word){
     // Clean up
+    console.log("Vsebina zgodovine: "+ansHist[histPtr]);
     $(".level-read-hard .panel-body .well").html("");
     $("#input-string-hard").html("");
     $("#next-arrow").removeAttr("href");
@@ -1068,28 +1300,28 @@ function restoreStringReadHard(word){
 
     var letters = word.split("");
     var idNumber = 1;
+    var state = ansHist[histPtr][2].split(",");
     for (i = 0; i < letters.length; i++) {
         var letter = letters[i];
         $(".level-read-hard .panel-body .well").append("<img src='" + flagsDir + letter + ".png' class='hidden'>");
-        $("#input-string-hard").append('<input id="num' + idNumber + '" class = "letterInputClass" type="text" maxlength="1" onkeyup="focusNext(event, \'#num' + (idNumber+1) + '.letterInputClass\')">');
+        var prevAns = state[i].split("-")[0];
+        var prevClass = state[i].split("-")[1];
+        $("#input-string-hard").append('<input id="num' + idNumber + '" class = "'+prevClass+'" type="text" maxlength="1" onkeyup="focusNext(event, \'#num' + (idNumber+1) + '.letterInputClass\') "value = '+prevAns+'>');
         idNumber++;
     }
     
 }
-/* *************************************** */
 
 // Function adds prev. answer from history - WRITE_EASY
 function restoreHistoryWriteEasy(){
-    console.log("ZGODOVINA: "+ansHist[histPtr]);
-    console.log(histPtr + " " + ansHist);
-    var ans = ansHist[histPtr].split(",");
+    var ans = ansHist[histPtr][0].split(",");
     var buttons = document.getElementById('choices');
     imageButtonsDisable($("#choices"));
     var j = 0;
     for(var i = 0; i < buttons.children.length; i++){
         var letter = (ans[j].split(""))[0];
         var colour = (ans[j].split(""))[1];
-        // id-ju picture-letter doda class
+        // adds class
         if(colour == 'I'){
             console.log("I");
             $(buttons.children[i]).find(".image_option").removeClass("wrongInput").removeClass("correctInput");
@@ -1108,7 +1340,7 @@ function restoreHistoryWriteEasy(){
         }
         j++;
     }
-    console.log("POINTER: " + histPtr);
+    var corrLetter = $("#letterToGuess span").text();
     if(histPtr === 0){
         $(".level-write-easy #prew-arrow").removeAttr("href");
     }else{
@@ -1117,7 +1349,44 @@ function restoreHistoryWriteEasy(){
     $(".level-write-easy #next-arrow").attr("href", "next");
 }
 
-/* COOKIES - stores number of points */
+// Function displays letter
+function displayOldLetterWriteEasy(corrLetter, choices){
+    var ans = choices.split(",");
+    var buttons = document.getElementById('choices');
+    imageButtonsDisable($("#choices"));
+    var j = 0;
+    for(var i = 0; i < buttons.children.length; i++){
+        var letter = (ans[j].split(""))[0];
+        var colour = (ans[j].split(""))[1];
+        if(colour == 'I'){
+            $(buttons.children[i]).find(".image_option").removeClass().addClass("image_option");
+            $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
+        }
+        else if(colour == 'D'){
+            $(buttons.children[i]).find(".image_option").removeClass().addClass("image_option wrongInput not_active");
+            $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
+        }
+        else if(colour == 'S'){
+            $(buttons.children[i]).find(".image_option").removeClass().addClass("image_option correctInput");
+            $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
+        }
+        j++;
+    }
+    $("#letterToGuess span").text(corrLetter.toUpperCase());
+    if(histPtr === 0){
+        $(".level-write-easy #prew-arrow").removeAttr("href");
+    }else{
+        $(".level-write-easy #prew-arrow").attr("href", "prew");
+    }
+    $(".level-write-easy #next-arrow").attr("href", "next");
+}
+
+
+
+/* *************************************************************************** */
+/* *****************************  COOKIES  *********************************** */
+/* *************************************************************************** */
+                    /* COOKIES - stores number of points */
 
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
@@ -1152,17 +1421,17 @@ function checkCookie(cname) {
 }
 
 function setPoints(points) {
-    $("#points #poits-display").text(Number(points));
+    $("#points #points-display").text(Number(points));
 }
 
 function addPoints(pointsAdded) {
-    var pointsNow = Number($("#points #poits-display").text()) + pointsAdded;
+    var pointsNow = Number($("#points #points-display").text()) + pointsAdded;
     setPoints(pointsNow);
     setCookie(cookie_name, pointsNow, expDays);
 }
 
 function removePoints(pointsRemoved) {
-    var pointsNow = Number($("#points #poits-display").text()) - pointsRemoved;
+    var pointsNow = Number($("#points #points-display").text()) - pointsRemoved;
     if (pointsNow < 0) {
         pointsNow = 0;
     }
@@ -1171,30 +1440,7 @@ function removePoints(pointsRemoved) {
 }
 
 function getPoints() {
-    return Number($("#points #poits-display").text());
-}
-
-/*
- *  Display sequence of images
- */
-
-function displaySequenceOfImages(elements, index) {
-    if (index == $(elements).length) {
-        if (getPoints() >= pointsForClueReadHard) {
-            console.log("lahko se enkrat sprozis");
-            $("#start-animation").removeAttr("disabled");
-        }
-    }
-    if (index <= $(elements).length) {
-        if (index > 0) {
-            $(elements + ":eq(" + (index - 1) + ")").addClass("hidden");
-        }
-        $(elements + ":eq(" + index + ")").removeClass("hidden");
-
-        readHardTimer = setTimeout(function() {
-            displaySequenceOfImages(elements, (index + 1))
-        }, 1000);
-    }
+    return Number($("#points #points-display").text());
 }
 
 
@@ -1208,6 +1454,50 @@ function checkIfCorrWrite(){
     if(positions[letter][0] == curHandPos[0] && positions[letter][1] == curHandPos[1]) return true;
     else return false;
 }
+
+// Function for checking if one flag is correct
+function checkIfOneIsCorrWrite(){
+    var letter = $("#letterToGuess span").text().toLowerCase();
+    if(positions[letter][1] == curHandPos[1]){
+        disableFlags("left");
+        return true;
+    }
+    else if(positions[letter][0] == curHandPos[0]){ //-right
+        disableFlags("right");
+        return true;
+    }
+    else return false;
+}
+
+//Function checks if position is another valid letter
+function checkIfOtherCorrLetterWrite(){
+    for(var letter in positions){
+        if(letter != "init" && positions[letter][0] == curHandPos[0] && positions[letter][1] == curHandPos[1]){
+            //flash right letter
+            flashRightLetter(letter);
+            return true;
+        }
+    }
+    return false;
+}
+
+//Function flashes letter that corresponds to current position
+function flashRightLetter(letter){
+    var letterOld = $("#letterToGuess span").text();
+    
+    $("#letterToGuess span").fadeOut(150, function(){
+        $("#letterToGuess span").text(letter.toUpperCase());
+        $("#letterToGuess span").fadeIn(150, function(){
+            setTimeout(function(){
+                $("#letterToGuess span").fadeOut(150, function(){
+                    $("#letterToGuess span").text(letterOld.toUpperCase());
+                    $("#letterToGuess span").fadeIn(150, function(){ });
+                });
+            }, 150);
+        });
+    });
+}
+
 
 // Function marks check image appropriately (1-corect // 0-err // 2-normal)
 function markCheckControlWrite(status){
@@ -1448,11 +1738,11 @@ function enableFlags(flag){
     }
 }
 
-/* *************************************************************************** */
 
-/*
- *  Support functions
- */
+
+/* *************************************************************************** */
+/* **************************   SUPPORT FUNCTIONS  *************************** */
+/* *************************************************************************** */
 
 function shuffle(a) {
     for (let i = a.length; i; i--) {

@@ -4,8 +4,14 @@ body {
      /* background: url(background.jpg);
 	background-attachment: fixed;
 	background-size: 100%;*/
-	background-color: #F6E3CE;
+	/*background-color: #F6E3CE;*/
+	/*
+	background-color:#fff;
+    background-image:-webkit-radial-gradient(center, #fff, #ddd);
+    */
 }
+    
+
 #p1{
 	font-size: 18px;
 	font-family: 'Open Sans';
@@ -29,8 +35,8 @@ body {
 	table-layout: fixed;
 }
 img.img-responsive{
-	display: :table-cell;
-	max-width: : 100%;
+	display: table-cell;
+	max-width: 100%;
 }
 .pozdrav{
 	color: #FFFFFF;

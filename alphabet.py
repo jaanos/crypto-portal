@@ -6,8 +6,8 @@ from database import database
 
 app = Blueprint('alphabet', __name__)
 
-abc = u"abcdefghijklmnopqrstuvwxyz"
-available_alphabets = ["flags"]
+abc = ""
+available_alphabets = ["flags","sign","greek"]
 
 # get words from database
 def get_all_words():
@@ -16,6 +16,14 @@ def get_all_words():
     cur.execute("SELECT Word FROM Words")
     return [row[0] for row in cur]
 words = get_all_words()
+
+# get alphabet from folder
+def getValidLetters(selectedAlphabet):
+    file =open('static/images/'+selectedAlphabet+'/alphabet.txt',"r")
+    alphabet = file.readlines()[0]
+    global abc 
+    abc = alphabet
+    return alphabet
 
 def select_word(list_words):
     return list_words[randint(0, len(list_words)-1)]
@@ -41,7 +49,32 @@ def alphabet_exists(alphabet):
 def index(selected_alphabet = "flags", mode = "easy", level = "easy"):
     # check if folder with images exists
     if (alphabet_exists(selected_alphabet)):
-        return render_template("alphabet.flags.html", nav = "alphabet", alphabet = abc, intro = "1")
+        if(selected_alphabet=="flags"): return render_template("alphabet.flags.html", nav = "alphabet", alphabet = getValidLetters(selected_alphabet), intro = "1")
+        else: return render_template("alphabet.generic.html", nav = "alphabet", alphabet = getValidLetters(selected_alphabet), intro = "1", alphabetForLearning=selected_alphabet)
+    else:
+        return "Te abecede pa (se) ne poznam!"
+
+@app.route("/flags")
+def flags(selected_alphabet = "flags", mode = "easy", level = "easy"):
+    # check if folder with images exists
+    if (alphabet_exists(selected_alphabet)):
+        return render_template("alphabet.flags.html", nav = "alphabet", alphabet = getValidLetters(selected_alphabet), intro = "1")
+    else:
+        return "Te abecede pa (se) ne poznam!"
+        
+@app.route("/sign")
+def sign(selected_alphabet = "sign", mode = "easy", level = "easy"):
+    # check if folder with images exists
+    if (alphabet_exists(selected_alphabet)):
+        return render_template("alphabet.generic.html", nav = "alphabet", alphabet = getValidLetters(selected_alphabet), intro = "1", alphabetForLearning="sign")
+    else:
+        return "Te abecede pa (se) ne poznam!"
+
+@app.route("/greek")
+def greek(selected_alphabet = "greek", mode = "easy", level = "easy"):
+    # check if folder with images exists
+    if (alphabet_exists(selected_alphabet)):
+        return render_template("alphabet.generic.html", nav = "alphabet", alphabet = getValidLetters(selected_alphabet), intro = "1", alphabetForLearning="greek")
     else:
         return "Te abecede pa (se) ne poznam!"
 
@@ -53,11 +86,16 @@ def redirect_to_intro(selected_alphabet = "flags", mode = "read"):
 @app.route("/<selected_alphabet>/<mode>/<level>/")
 def display_excercise(selected_alphabet = "flags", mode = "read", level = "easy"):
     if (alphabet_exists(selected_alphabet)):
-        letter = select_letter(abc)
-        return render_template("alphabet.flags.html", intro = "0",
+        letter = select_letter(getValidLetters(selected_alphabet))
+        if(selected_alphabet == "flags"):
+            return render_template("alphabet.flags.html", intro = "0",
             nav = "alphabet", mode = mode, level = level, letter = letter,
             choices = return_choices(letter), word=select_word(words),
-            alphabet = abc, words = words)
+            alphabet = getValidLetters(selected_alphabet), words = words, alphabetForLearning=selected_alphabet )
+        else : 
+            return render_template("alphabet.generic.html", intro = "0",
+            nav = "alphabet", mode = mode, level = level, letter = letter,
+            choices = return_choices(letter), word=select_word(words),
+            alphabet = getValidLetters(selected_alphabet), words = words, alphabetForLearning=selected_alphabet )
     else:
         return "Te abecede pa (se) ne poznam!"
-
