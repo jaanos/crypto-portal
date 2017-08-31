@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from flask import *
 from database import database
+from datetime import datetime, tzinfo
 import random
 import json
 import re
+import hashlib
 
 app = Blueprint('substitution', __name__)
 
@@ -37,7 +39,7 @@ def getText(id):
     cur.execute("SELECT text, language FROM substitution WHERE id = %s", [id])
     txt = cur.fetchone()
     cur.close()
-    return (txt[0].decode("UTF-8"), txt[1])
+    return txt
 
 def crypt(text, level):
     xyz = [x for x in abc]
@@ -79,8 +81,37 @@ def play(difficulty, idx=-1, language=None):
         cipher = text
     else:
         cipher = crypt(text, level)
-    return render_template("substitution.play.html",
-        nav = "substitution", next = (idx+1) % len(texts), lang = lang,
-        difficulty = difficulty, level = level, input = json.dumps(cipher),
-        foreign = len(foreign[lang].intersection(text.upper())) > 0)
-    
+
+    text_hash = hashlib.md5(text.upper().encode('utf-8')).hexdigest()
+    return render_template(
+        "substitution.play.html", nav="substitution",
+        next=(idx+1) % len(texts), lang=lang, difficulty=difficulty,
+        level=level, input=json.dumps(cipher), text_hash=text_hash,
+        foreign=len(foreign[lang].intersection(text.upper())) > 0
+    )
+
+@app.route("/leaderboard_insert", methods=['POST'])
+def leaderboard_insert():
+    name = request.form['name']
+    time = int(request.form['time_solved'])
+    print(time)
+    time_solved = datetime.utcfromtimestamp(time)
+    print(time_solved)
+    difficulty = request.form['difficulty']
+
+    db = database.dbcon()
+    cur = db.cursor()
+    query = 'INSERT INTO crypto_leaderboard (name, difficulty, time_solved) VALUES (%s, %s, %s)'
+    cur.execute(query, (name, difficulty, time_solved))
+    db.commit()
+    cur.close()
+    return json.dumps({'status': 'OK'})
+
+@app.route("/leaderboard")
+def leaderboard():
+    db = database.dbcon()
+    cur = db.cursor()
+    query = 'SELECT * FROM crypto_leaderboard'
+    cur.execute(query)
+    users = [[x[1], x[2], x[3].strftime('%H:%M:%S')] for x in cur.fetchall()]
+    return render_template("substitution.leaderboard.html", users=users)

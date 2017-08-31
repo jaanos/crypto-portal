@@ -1,14 +1,7 @@
 body {
 	padding: 0px;
-     margin: 0;
-     /* background: url(background.jpg);
-	background-attachment: fixed;
-	background-size: 100%;*/
-	/*background-color: #F6E3CE;*/
-	/*
-	background-color:#fff;
-    background-image:-webkit-radial-gradient(center, #fff, #ddd);
-    */
+	margin: 0;
+	background-color: white;
 }
     
 
@@ -16,18 +9,7 @@ body {
 	font-size: 18px;
 	font-family: 'Open Sans';
 }
-#begin{
-	float: right;
-	margin-right: 2%;
-	padding-right: 5%;
-	padding-left: 5%;
-}
-#next{
-	float: right;
-	margin-right: 2%;
-	padding-right: 5%;
-	padding-left: 5%;
-}
+
 .wrapper{
 	float:left;
 	clear:left;
@@ -82,7 +64,6 @@ img.img-responsive{
 .navbar-default .navbar-nav > li > a:focus {
     color: #FFFFFF;
     background-color: #2f76a7;
-    border-color: none;
 }
 .table-nonfluid {
 	width: auto !important;

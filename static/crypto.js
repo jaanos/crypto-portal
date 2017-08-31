@@ -12,6 +12,8 @@ var freeLetters = null; // letters remaining and available for substitution
 var cryptedMessage = null; // original message input by user to the message box
 var frequencyTable = null; // table of letter frequencies in the original message
 var ALPHABET = null; // array containing the 25 letters in the english alphabet for resetting
+var chartData = null;
+var timer = null;
 
 function stripBlanks(fld) {
     var result = "";
@@ -41,6 +43,7 @@ function initialize(st){
     ALPHABET = new Array(); // constant alphabet array 
     freeLetters = new Array();
     addResetButton();
+    addHeaderLogo();
 	addNextButton();
     var A = "A".charCodeAt(0);
     for (var i = 0; i < 26; i++){ // fill alphabet array
@@ -61,10 +64,533 @@ function initialize(st){
     }
     
     //window.onresize = updateEssentials;
+    hideNavBar();
     updateEssentials(); // adds the letter selection, message display, and frequency tables
+    loadChart();
 }
 
+/**
+ * Method hides the navigation menu.
+ */
+function hideNavBar() {
+    var navBar = document.getElementsByClassName('main');
+    for (var i = 0; i < navBar.length; i++) {
+        navBar[i].style.display="none";
+    }
+}
 
+/**
+ * Loads the initial charts. First chart contains frequencies of the letters in
+ * the encrypted text and the second contains frequencies of letters in either
+ * sl/eng alphabets.
+ */
+function loadChart() {
+
+    var stats_sl = { 'A':10.5, 'B':2.0, 'C':0.7, 'Č':1.5, 'D':3.4, 'E': 10.7,
+        'F':0.1, 'G':1.6, 'H':1.1, 'I': 9.0, 'J':4.7, 'K':3.7, 'L':5.3, 'M':3.3,
+        'N': 6.3, 'O':9.1, 'P':3.4, 'R':5.0 , 'S':5.1, 'Š':1.0, 'T':4.3, 'U':1.9,
+        'V':3.8, 'Z':2.1, 'Ž':0.7};
+
+    var stats_en = { 'A': 8.2, 'B': 1.5, 'C': 2.8, 'D': 4.2, 'E': 12.7,
+        'F': 2.2, 'G': 2.0, 'H': 6.1, 'I': 7.0, 'J': 0.2, 'K': 0.8, 'L': 4.0,
+        'M': 2.4, 'N': 6.7, 'O': 7.5, 'P': 1.9, 'Q': 0.1, 'R': 6.0, 'S': 6.3,
+        'T': 9.1, 'U': 2.8, 'V': 1.0, 'W': 2.4, 'X': 0.2, 'Y': 2.0 ,'Z': 0.1};
+
+    loadChartDataVariable();
+    chartData.currentStats = foreign ? stats_en: stats_sl;
+    chartData.plot1_data= getChartData(frequencyTable, 'frequency');
+    chartData.plot2_data = getChartData(chartData.currentStats, 'static');
+    addSortButton('info-btn-1', "chart1");
+    addSortButton('info-btn-2', "chart2");
+    drawChart('chart1', chartData.plot1_data);
+    drawChart('chart2', sortChartData(chartData.plot2_data[0], chartData.plot2_data[1], 1));
+    setChartInfo('chart1', chartData.plot1_data[1]);
+    setChartInfo('chart2', chartData.plot2_data[1]);
+    loadSlider();
+}
+
+/**
+ * Method loads the global variable used for the chart functionality
+ */
+function loadChartDataVariable() {
+    chartData = (function() {
+        var currentStats = null;
+        var plot1 = null;
+        var plot2 = null;
+        var plot1_data = null;
+        var plot2_data = null;
+        return {
+            plot1: null,
+            plot2: null,
+            plot1_data: null,
+            plot2_data: null,
+            currentStats: null
+        };
+    })();
+}
+
+/**
+ * Method loads the global variable used for the timer functionality
+ */
+function loadTimerDataVariable() {
+    timer = (function() {
+        var second = null;
+        var minute = null;
+        var hour = null;
+        var count_second = null;
+        var count_minute = null;
+        var count_hour = null;
+        var timerId = null;
+        return {
+            second: null,
+            minute: null,
+            hour: null,
+            count_second: 0,
+            count_minute: 0,
+            count_hour: 0,
+            timerId : null
+        };
+    })();
+}
+
+/**
+ * Returns the data for the second graph containing the sl/eng frequencies of
+ * letters in the alphabet.
+ * @param {dictionary} stats - Contains mapping of letters to frequencies
+ * @param {string} type - Tells the type of chart data
+ * @return {Array}  Returns an array containing series and ticks
+ */
+function getChartData(stats, type) {
+
+    var keys = Object.keys(stats);
+
+    var series = [];
+    var total_keys = 0;
+    for (var i = 0; i < keys.length; i++) {
+        total_keys += stats[keys[i]];
+        series.push(stats[keys[i]]);
+    }
+
+    if (type === 'frequency') {
+        series = series.map(function(s) {
+            return (s/total_keys)*100;
+        });
+    }
+
+    return [series, keys];
+}
+
+/**
+ * Method sorts the chart data either by letters or frequencies
+ * @param {Array} series - Array of frequencies
+ * @param {Array} keys - Array of letters
+ * @param {number} sort - Defines the type of the sort
+ */
+function sortChartData(series, keys, sort) {
+
+    var tuples = [];
+    for (var i = 0; i < keys.length; i++) {
+        tuples.push([keys[i], series[i]]);
+    }
+
+    if (sort == 1) {
+        tuples.sort(function(first, second) {
+            return second[1] - first[1];
+        });
+    } else {
+        tuples.sort(function (first, second) {
+            return first[0].toString().localeCompare(second[0]);
+        });
+    }
+
+    var s = [];
+    var k = [];
+    for (var j = 0; j < tuples.length; j++) {
+        k.push(tuples[j][0]);
+        s.push(tuples[j][1]);
+    }
+    return [s, k]
+}
+
+/**
+ * Method sets the information display for each graph, depending of the chart
+ * passed as the argument.
+ * @param {string} chart - Id of chart
+ * @param {Array} ticks - Data on x axis for dispaly
+ */
+function setChartInfo(chart, ticks) {
+
+    if (chart === 'chart1') {
+        $('#chart1').bind('jqplotDataHighlight',
+            function (ev, seriesIndex, pointIndex, data) {
+                $('#info-msg-1').html('Pojavitev črke:  <strong>' + ticks[pointIndex] + '</strong> v besedilu - ' + data[1].toFixed(1) + '%');
+            }
+        );
+
+    } else  {
+        $('#chart2').bind('jqplotDataHighlight',
+            function (ev, seriesIndex, pointIndex, data) {
+                $('#info-msg-2').html('Frekvenca črke:  <strong>' + ticks[pointIndex]  + '</strong> v slovenskem jeziku - ' + data[1].toFixed(1) + '%');
+            });
+    }
+
+}
+
+/**
+ * Settings for the chart.
+ * @param {Array} ticks - Array containing the occurring letters in the text.
+ */
+function chartOptions(ticks) {
+    return {
+        height: 100,
+        seriesColors: ['#2e8698'],
+        seriesDefaults: {
+            renderer: $.jqplot.BarRenderer,
+            pointLabels: {show: true, formatString: '%.1f'},
+            dragable: {
+                color: '#2e8698',
+                constrainTo: 'y'
+            }
+        },
+        axes: {
+            xaxis: {
+                renderer: $.jqplot.CategoryAxisRenderer,
+                ticks: ticks
+            },
+            yaxis: {
+                labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+            }
+        },
+        grid: {
+            backgroundColor: "#FFFFFF",
+            gridLineColor: "#FFFFFF",
+            gridLineWidth: 0,
+            shadow: false,
+            drawBorder: true,
+            borderColor: '#2e8698'
+        }
+    };
+}
+
+/**
+ * Returns the data for the second graph containing the sl/eng frequencies of
+ * letters in the alphabet.
+ * @param {string} chart_id - Id of chart to be drawn
+ * @param {Array} data - Array containing series and ticks for display
+ */
+function drawChart(chart_id, data) {
+
+    var series = data[0];
+    var ticks = data[1];
+
+    $(document).ready(function () {
+
+        $.jqplot.config.enablePlugins = true;
+        var plot = $.jqplot(chart_id, [series], chartOptions(ticks));
+
+        $(window).resize(function() {
+            plot.replot( { resetAxes: true } );
+        });
+
+        if (chart_id === 'chart1') {
+            chartData.plot1_data = data;
+            chartData.plot1 = plot;
+        }
+        else {
+            chartData.plot2_data = data;
+            chartData.plot2 = plot
+        }
+    });
+}
+
+/**
+ * Method updates the chart with new data. (destroy is used because it is
+ * faster than replot)
+ * @param {String} chart_id - Id of the chart to be updated
+ * @param {Array} data - New data to be filled in the chart.
+ */
+function updateChart(chart_id, data) {
+
+    var series = data[0];
+    var ticks = data[1];
+
+    if (chart_id == 'chart1') {
+        chartData.plot1.destroy();
+        chartData.plot1 = $.jqplot('chart1', [series], chartOptions(ticks))
+        chartData.plot1_data = data
+    }
+    else {
+        chartData.plot2.destroy();
+        chartData.plot2 = $.jqplot('chart2', [series], chartOptions(ticks))
+        chartData.plot2_data = data
+    }
+}
+
+/**
+ * Method adds a sort button next to the chart info display above the chart.
+ * @param {string} info_btn_id - Id of the button to be added
+ */
+function addSortButton(info_btn_id, chart_id) {
+    var info = document.getElementById(info_btn_id);
+    var button;
+
+    if (info_btn_id === 'info-btn-1') {
+        button = createSortButton("chartSortButton1", chart_id,
+            "sortChart(this.id);"
+        );
+    }
+    else {
+        button = createSortButton("chartSortButton2", chart_id,
+            "sortChart(this.id);"
+        );
+    }
+    info.appendChild(button);
+}
+
+/**
+ * Method creates the chart sort button.
+ * @param {String} button_id - Id that the button will get
+ * @param {String} chart_id - Id that the button will get
+ * @param {String} function_name - Function that will be called when the button
+ * is clicked
+ * @returns {Object} Returns the newly created button
+ */
+function createSortButton(button_id, chart_id, function_name) {
+        var button = document.createElement("button");
+        button.setAttribute("value", "0");
+        button.setAttribute("id", button_id);
+        button.setAttribute("data-chart-id", chart_id);
+        button.setAttribute("class","btn btn-default btn-sm");
+        button.setAttribute("onclick", function_name);
+        button.textContent = "Sortiraj po abecedi";
+        return button;
+}
+
+/**
+ * Method sorts the data depending of the value of the clicked button.
+ * Afer the data is sorted it is re-displayed.
+ * @param {String} button_id - Id that the button
+ */
+function sortChart(button_id) {
+    var btn = document.getElementById(button_id);
+    var chart_id = btn.getAttribute("data-chart-id");
+    var data;
+    if (chart_id === "chart1") {
+        data = sortChartData(chartData.plot1_data[0], chartData.plot1_data[1], btn.value);
+    }
+    else {
+        data = sortChartData(chartData.plot2_data[0], chartData.plot2_data[1], btn.value);
+    }
+
+    if (btn.value === '0' ) {
+        btn.setAttribute('value', '1');
+        btn.textContent = "Sortiraj po frekvenci";
+    }
+    else {
+        btn.setAttribute('value', '0');
+        btn.textContent = "Sortiraj po abecedi";
+    }
+
+    updateChart(chart_id, data);
+}
+
+/**
+ * Method loads the slider handle. Depending on the position of the handle
+ * the chart is shifted left or right.
+ */
+function loadSlider() {
+    $(document).ready(function () {
+        var handle = $("#custom-handle");
+        var max = Object.keys(chartData.currentStats).length;
+        $("#slider").slider({
+            min: 0,
+            max: max,
+            value: 0,
+            create: function() {
+                handle.text( $( this ).slider( "value" ));
+            },
+            slide: function( event, ui ) {
+                var data = chartData.plot2_data;
+                var ticks = data[1].slice(0);
+                var series = data[0].slice(0);
+                var shifted = handle.text() - ui.value;
+                if (shifted > 0) {
+                    var removed = ticks.splice(0,shifted);
+                    ticks = ticks.concat(removed);
+                    series = series.concat(series.splice(0,shifted));
+                }
+                else {
+                    var remove = ticks.splice((ticks.length)-Math.abs(shifted),Math.abs(shifted));
+                    ticks =  remove.concat(ticks);
+                    remove = series.splice((series.length)-Math.abs(shifted), Math.abs(shifted));
+                    series =  remove.concat(series);
+                }
+                handle.text( ui.value );
+                updateChart('chart2', [series, ticks]);
+            }
+        });
+    });
+}
+
+/**
+ * Fixates the fixed-div to the top right of the page. It serves as a parent
+ * div for the timer.
+ */
+$('#parent').scroll(function() {
+    $('#fixed-div').css('top', $(this).scrollTop());
+});
+
+/**
+ * Method starts the timer when the first letter is dragged or typed.
+ * The time_second div is added once the timer starts. time_minute div is added
+ * once the seconds reach 59 and the time_hours div is added once the minutes
+ * reach 59. The divs are updated every second.
+ */
+function startTimer() {
+
+    if (!timer) {
+        loadTimerDataVariable();
+        timer.second = true;
+        addTimerDiv("pie_second", "time_second", null);
+
+        var span_second = $('#time_second');
+        var span_minute = null;
+        var span_hour = null;
+        var max_time = 60;
+        timer.count_second = parseInt(span_second.text());
+        timer.count_minute = 0;
+        timer.count_hour = 0;
+        timer.timerId = setInterval(function () {
+            if (timer.count_second >= 59) {
+                if (!timer.minute) {
+                    addTimerDiv("pie_minute", "time_minute", "pie_second");
+                    span_minute = $('#time_minute');
+                    timer.count_minute = parseInt(span_minute.text());
+                    timer.minute = true
+                }
+                timer.count_second = 0;
+                timer.count_minute++;
+                span_minute.html(("0" + timer.count_minute).slice(-2));
+            }
+            if (timer.count_minute >= 59) {
+                if (!timer.hour) {
+                    addTimerDiv("pie_hour", "time_hour", "pie_minute");
+                    span_hour = $('#time_hour');
+                    timer.count_hour = parseInt(span_hour.text());
+                    timer.hour = true
+                }
+                timer.count_minute = 0;
+                timer.count_hour++;
+                span_hour.html(("0" + timer.count_hour).slice(-2));
+            }
+            timer.count_second++;
+            span_second.html(("0" + timer.count_second).slice(-2));
+            updatePieInterval(timer.count_second, max_time, '#pie_second');
+            updatePieInterval(timer.count_minute, max_time, '#pie_minute');
+            updatePieInterval(timer.count_hour, max_time, '#pie_hour');
+        }, 1000);
+    }
+}
+
+/**
+ * Method updates the timer div element.
+ * @param {number} percent - Current interval number
+ * @param {number} time - Max interval number
+ * @param {String} pie - Id of the div to update the pie
+ */
+function updatePieInterval(percent, time, pie) {
+    var deg;
+    if (percent < (time / 2)) {
+        deg = 90 + (360 * percent / time);
+        $(pie).css('background-image',
+            'linear-gradient(' + deg + 'deg, transparent 50%, white 50%),linear-gradient(90deg, white 50%, transparent 50%)'
+        );
+    } else if (percent >= (time / 2)) {
+        deg = -90 + (360 * percent / time);
+        $(pie).css('background-image',
+            'linear-gradient(' + deg + 'deg, transparent 50%, #2e8698 50%),linear-gradient(90deg, white 50%, transparent 50%)'
+        );
+    }
+}
+
+/**
+ * Method inserts the timer div inside a fixed div element. Depending on the
+ * passed parameters we can create a seconds/minutes/hours timer.
+ * @param {String} time_id - Id of the span that hold the interval number
+ * @param {String} interval - Interval that we are adding
+ * @param {String} append_before - Id of the timer div to insert before
+ */
+function addTimerDiv(time_id, interval, append_before){
+    var fixed_div = document.getElementById("fixed-div");
+
+    var pie_div = document.createElement("div");
+    pie_div.setAttribute("id", time_id);
+    pie_div.setAttribute("class", "pie");
+
+    var span = createTimerDiv(interval);
+    pie_div.appendChild(span[0]);
+    pie_div.appendChild(span[1]);
+
+    fixed_div.insertBefore(pie_div, document.getElementById(append_before));
+}
+
+/**
+ * Method creates a div that holds a two spans, one displays the number of the
+ * interval (minutes/seconds/hours) as a number and the other displays a visual
+ * representation of the interval.
+ * @param {String} time_id - Id of the span that hold the interval number
+ */
+function createTimerDiv(time_id) {
+    var span_block = document.createElement("span");
+    span_block.setAttribute("class", "block");
+
+    var span_time = document.createElement("span");
+    span_time.setAttribute("class","time");
+    span_time.setAttribute("id", time_id);
+    span_time.innerHTML = "00";
+
+    return [span_block, span_time]
+}
+
+/**
+ * Method checks if hash of the solved encrypted message matches the original
+ * text hash. If they match, the timer is stopped and a popup is display to
+ * enter the participants name.
+ */
+function checkHash() {
+    if (md5($("#messageOutput").val().toUpperCase()) == original_hash) {
+        clearInterval(timer.timerId);
+        displayFinishPopup();
+    }
+}
+
+/**
+ * Method displays the popup when the puzzle if solved. The participant can
+ * enter his/hers name to be added to the leaderboard.
+ */
+function displayFinishPopup() {
+    var txt;
+    var total_minutes = (timer.count_hour * 60 + timer.count_minute).toFixed(2);
+    var person = prompt("Čestitke uspelo vam je rešiti uganko v " + total_minutes + " min " + timer.count_second + "sec" , "oseba1");
+    if (person == null || person == "") {
+        txt = null;
+    } else {
+        $(function() {
+        $.ajax({
+            url: insertURL,
+            data: {'name':person, 'difficulty':difficulty, 'time_solved': (timer.count_hour * 3600 + timer.count_minute * 60 + timer.count_second)},
+            type: 'POST',
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+    }
+    console.log(txt);
+}
 
 function updateEssentials(){
     frequencyTable = new Array(); // frequencyTable will be handled by the getMessageDisplay method
@@ -101,13 +627,31 @@ function bySortedValue(obj) {
     return out;
 }
 
+/**
+ * Method wraps characters with a span tag.
+ * @param input String of letters
+ * @return {Array} Array of letters
+ */
+function getCryptedMessageParagraph(input) {
+    var array = input.split('');
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] in reverseDict) {
+            array[i] = "<span class='messageOutputSolved'>" + array[i] +  "</span>"
+        }
+        else {
+            array[i] = "<span class=''>" + array[i] +  "</span>"
+        }
+    }
+    return array;
+}
+
 // returns the message as an array of words for displaying the message and controlling text wrapping
 function getCryptedMessage(){
     //$('#messageOutput').val("");
-	$("#messageOutput").html("");
+	var messageOutput = $("#messageOutput").html("");
     var crypt = new Array(); // array of strings each representing a word
 	
-    $('#messageOutput').append(input);
+    messageOutput.append(getCryptedMessageParagraph(input));
     var i = 0; // index of the current character being investigated
     var currentWord = "";
     while (i < input.length){ // loop through every letter in the input
@@ -243,16 +787,17 @@ function newUneditableMessageCharacter(character){ // div element to be in the t
 function newEditableMessageLetter(letter){
     var letterDisplay = document.createElement("input");
     letterDisplay.setAttribute("original", letter); // original attribute holds the letter in the original crypted message
-    letterDisplay.setAttribute("class", "decryptedCharacter");
     letterDisplay.setAttribute("draggable", true);
     letterDisplay.setAttribute("ondragstart", "letterDragged(event);");
     letterDisplay.setAttribute("onmouseenter", "highlightLetter(this);");
     letterDisplay.setAttribute("placeholder", letter);
     if (letter in dictionary){
+        letterDisplay.setAttribute("class", "decryptedCharacter draggedIn");
         letterDisplay.setAttribute("value", dictionary[letter]);
         //letterDisplay.textContent = dictionary[letter];
     }
     else{
+        letterDisplay.setAttribute("class", "decryptedCharacter");
         letterDisplay.setAttribute("value", "");
         //letterDisplay.textContent = "";
     }
@@ -290,9 +835,11 @@ function letterDraggedOutOfMessage(ev){
 // substitute accordinly when a freeLetter is dragged into a letter slot in the message display
 function letterDraggedIntoMessage(event){
     event.preventDefault();
+    startTimer();
     var substitution = event.dataTransfer.getData("Text"); // value of the letter being dragged
     var original = event.currentTarget.getAttribute("value"); // cell that the letter is being dragged towards
     substitute(original, substitution);
+    checkHash();
 }
 
 function letterDragged(event){ // tell the recipient of this letter what letter is coming
@@ -302,9 +849,9 @@ function letterDragged(event){ // tell the recipient of this letter what letter 
 // returns a draggable div element to be inserted into the freeLettersDisplay
 function newDraggableFreeLetter(letter){
     var letterDisplay = document.createElement("div");
-    letterDisplay.textContent = letter.toLowerCase();
-    letterDisplay.setAttribute("value", letter.toLowerCase());
-    letterDisplay.setAttribute("class", "decryptedCharacter");
+    letterDisplay.textContent = letter;
+    letterDisplay.setAttribute("value", letter);
+    letterDisplay.setAttribute("class", "freeLetter");
     letterDisplay.setAttribute("draggable", true);
     letterDisplay.setAttribute("ondragstart", "letterDragged(event);");
     return letterDisplay;
@@ -333,7 +880,13 @@ function highlightLetter(element){
         if (currElement.getAttribute("class") == "letterFrequency" || currElement.getAttribute("class") == "letterFrequencySolved") {
             continue;
         }
-        currElement.setAttribute("class", "highlightedLetter");
+        if (currElement.classList.contains("draggedIn")) {
+            currElement.setAttribute("class", "highlightedLetter draggedInHover");
+        }
+        else {
+            currElement.setAttribute("class", "highlightedLetter");
+        }
+
         currElement.setAttribute("id", "highlighted"); // tell the program which letter is highlighted
         currElement.setAttribute("onmouseleave", "unhighlightLetter(this);");
     }
@@ -349,19 +902,26 @@ function unhighlightLetter(element){
         if (currElement.getAttribute("class") == "letterFrequency" || currElement.getAttribute("class") == "letterFrequencySolved") {
             continue;
         }
-        currElement.setAttribute("class", "decryptedCharacter");
+        if (currElement.classList.contains("draggedInHover")) {
+           currElement.setAttribute("class", "decryptedCharacter draggedIn");
+        }
+        else {
+            currElement.setAttribute("class", "decryptedCharacter");
+        }
         currElement.removeAttribute("id"); // tell the program which letter is highlighted
     }
 }
 
 // function to be called when a key is pressed while a letter is highlighted
-function keyPressedWhileHighlighted(evt) { 
+function keyPressedWhileHighlighted(evt) {
+  startTimer();
   evt = evt || window.event; 
   var charCode = evt.charCode || evt.keyCode;
-  var substitution = String.fromCharCode(charCode).toLowerCase();
+  var substitution = String.fromCharCode(charCode).toUpperCase();
   var lettersToChange = document.getElementsByClassName("highlightedLetter");
   var original = lettersToChange[0].getAttribute("original"); // only need the original from one of the elements 
   substitute(original, substitution);
+  checkHash();
 };
 
 // carries out a suggested substitution
@@ -393,7 +953,7 @@ function substitute(original, substitution){
         }
     }
     $("#messageOutput").html("");
-    $('#messageOutput').append(decrypt);
+    $('#messageOutput').append(getCryptedMessageParagraph(decrypt));
 
     updateEssentialsSecondly();
 }
@@ -433,7 +993,7 @@ function deleteFreeLetter(letter){
 
 // adds the reset button to the buttons panel
 function addResetButton(){
-    var buttons = document.getElementById("buttons");
+    var buttons = document.getElementById("center");
     if (buttons.getElementsByTagName("button").length <= 1){
         buttons.appendChild(resetButton());
     }
@@ -441,32 +1001,45 @@ function addResetButton(){
 
 // adds the next button to the buttons panel for new cryptogram
 function addNextButton(){
-    var buttons = document.getElementById("buttons");
+    var buttons = document.getElementById("center");
     if (buttons.getElementsByTagName("button").length <= 1){
         buttons.appendChild(nextButton());
     }
 }
 
+function addHeaderLogo() {
+    var logo = document.getElementById(("center"));
+    logo.appendChild(headerLogo());
+}
+
 // returns a reset button to be appended to the buttons panel
 function resetButton(){
-    var button = document.createElement("button");
+    var button = document.createElement("label");
     button.setAttribute("value", "Reset");
-    button.setAttribute("id", "begin");
-    button.setAttribute("class","btn btn-default btn-bg");
+    button.setAttribute("id", "reset");
+    button.setAttribute("class","btn nav-btn glyphicon glyphicon-repeat");
     button.setAttribute("onclick", "reset();");
-    button.textContent = "Začni znova";
     return button;
 }
 
 // returns a next button to be appended to the buttons panel
 function nextButton(){
-    var button = document.createElement("button");
+    var button = document.createElement("label");
     button.setAttribute("value", "Next");
     button.setAttribute("id", "next");
-    button.setAttribute("class","btn btn-default btn-bg");
+    button.setAttribute("class","btn nav-btn glyphicon glyphicon-arrow-right");
     button.setAttribute("onclick", "location.href = next;");
-    button.textContent = "Naslednji";
     return button;
+}
+
+function headerLogo() {
+    var image = document.createElement("img");
+    image.setAttribute("src", staticDir + "slikca.png");
+    image.setAttribute("id", "logo");
+    var link = document.createElement("a")
+    link.setAttribute("href", baseURL);
+    link.appendChild(image);
+    return link;
 }
 
 // returns an element with a br tag
