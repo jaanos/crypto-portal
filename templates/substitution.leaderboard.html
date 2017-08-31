@@ -1,7 +1,7 @@
-{% extends "main.html" %}
+{% extends "header.html" %}
 {% block head %}
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='substitution.leaderboard.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/substitution.leaderboard.css')}}"/>
 {% endblock %}
 {% block body %}
 
@@ -15,7 +15,7 @@
                         <header>
                             <div id="col-1" class="col-md-4">
                                 <span id="top-number">1.</span>
-                                <img id="top-profile" src="{{ url_for('static', filename = 'bell.png') }}">
+                                <img id="top-profile" src="{{ url_for('static', filename = 'images/bell.png') }}">
                                 <span id="top-name">{{ user[0] }}</span>
                             </div>
                             <div id="col-2" class="col-md-4">
@@ -23,7 +23,7 @@
                                 <span id="top-value">{{ user[1] }}</span>
                             </div>
                             <div id="col-3" class="col-md-4">
-                                <img src="{{ url_for('static', filename = 'clock-icon-s.png') }}" id="clock">
+                                <img src="{{ url_for('static', filename = 'images/substitution/clock-icon-s.png') }}" id="clock">
                                 <span id="top-time">{{ user[2] }}</span>
                             </div>
                         </header>
@@ -31,7 +31,7 @@
                         <div class="player">
                             <div class="col-xs-4 col-md-4 col-1">
                                 <span class="number">{{ loop.index }}.</span>
-                                <img class="profile" src={{ url_for('static', filename = 'profile-s.png') }}>
+                                <img class="profile" src={{ url_for('static', filename = 'images/substitution/profile-s.png') }}>
                                 <span class="name">{{ user[0] }}</span>
                             </div>
                             <div class="col-xs-4 col-md-4 col-2">
@@ -39,14 +39,13 @@
                                 <span class="value">{{ user[1] }}</span>
                             </div>
                             <div class="col-xs-4 col-md-4 col-3">
-                                <img src="/static/clock-icon-s.png" class="clock">
+                                <img src={{ url_for('static', filename = 'images/substitution/clock-icon-s.png') }} class="clock">
                                 <span class="time">{{ user[2] }}</span>
                             </div>
                         </div>
                     {% endif %}
                     </div>
                 {% endfor %}
-
             </div>
         </div>
     </div>

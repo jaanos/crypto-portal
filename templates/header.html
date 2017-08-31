@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Kriptogram</title>
+    <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}"/>
+    <!-- CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/header.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/substitution.css')}}" />
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+<nav id="top">
+    <h1>Kriptogram</h1>
+    <a href="{{url_for('index')}}">
+        <img src={{url_for('static', filename='images/main/logo.png')}} />
+    </a>
+</nav>
+
+<!-- nav-bar -->
+<nav id="nav-bar">
+    <ul>
+        <li>
+            <a href="{{url_for('index')}}">
+                <img src="{{url_for('static', filename='images/main/home-icon.png')}}" id='home'>
+            </a>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="{{url_for('substitution.index')}}">Zamenjalka <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a>Težavnosti</a></li>
+                <li class="divider"></li>
+                <li><a href="{{url_for('substitution.play', difficulty='easy')}}">Lahko</a></li>
+                <li><a href="{{url_for('substitution.play', difficulty='medium')}}">Srednje</a></li>
+                <li><a href="{{url_for('substitution.play', difficulty='hard')}}">Težko</a></li>
+                <li class="divider"></li>
+                <li><a href="{{url_for('substitution.play', difficulty='caesar')}}">Cezarjeva šifra</a></li>
+                <li><a href="{{url_for('substitution.play', difficulty='ready')}}">Pripravljene zamenjalke</a></li>
+                <li class="divider"></li>
+                <li><a>Lestvice</a></li>
+                <li class="divider"></li>
+                <li><a href="{{url_for('substitution.leaderboard', difficulty='easy')}}">Lahko</a></li>
+                <li><a href="{{url_for('substitution.leaderboard', difficulty='medium')}}">Srednje</a></li>
+                <li><a href="{{url_for('substitution.leaderboard', difficulty='hard')}}">Težko</a></li>
+                <li><a href="{{url_for('substitution.leaderboard', difficulty='caesar')}}">Cezarjeva šifra</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="{{url_for('steganography.index')}}">Steganografija <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="{{url_for('steganography.colors')}}">Mešanje barv</a></li>
+                <li><a href="{{url_for('steganography.images')}}">Skrivanje sporočila v sliko</a></li>
+            </ul>
+        </li>
+        <li>
+            <a>Abeceda</a>
+        </li>
+    </ul>
+</nav>
+
+{% block body %}
+{% endblock %}
+
+</body>
+</html>
