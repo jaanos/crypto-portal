@@ -1,105 +1,443 @@
 {% extends "main.html" %}
 {% block body %}
+		<script src="{{url_for('static', filename='pixelmatch.js')}}"></script>
+		<style>
+			body, html {
+				margin:0;
+				padding:0;
+				font-family:Arial,sans-serif;
+			}
+			h1 {
+				color:black;
+				margin-bottom:10px;
+			}
+			#main {
+				position:relative;
+				width:1140px;
+				padding:20px;
+				margin:auto;
+			}
+			#right {
+				position:relative;
+				float:left;
+				margin: 10px;
+				width:600px;
+				vertical-align:top;
+				display: inline;
+			}
+			#left {
+				position:relative;
+				float:left;
+				width:460px;
+				padding:10px;
+				margin-right:30px;
+				border-right:3px solid #7A91A1;
+				display: inline;
+			}
+			.half {
+				position:relative;
+				display:inline-block;
+				width:49%;
+			}
+			#original {
+				vertical-align:top;
+			}
+			#messageArea {
+				width:100%;
+			}
+			.btns {
+				margin-top:15px;
+				margin-bottom:10px;
+				padding: 0 40px;
+			}
+			.btn {
+				padding:10px 20px 10px 20px;
+				-moz-border-radius:15px;
+				-o-border-radius:15px;
+				-webkit-border-radius:15px;
+				border-radius:15px;
+				border:2px solid #6445ff;
+				cursor:pointer;
+				color:#6445ff;
+				background-color:white;
+				width:50px;
+				text-align:center;
+			}
+			.btn:hover {
+				color:white;
+				background-color:#6445ff;
+			}
+			#download {
+				position:absolute;
+				top:47px;
+				left:4px;
+				padding:10px 5px 5px 3px;
+				width:10px;
+				border-top:1px solid black;
+				-moz-border-radius:0 0 15px 15px;
+				-o-border-radius:0 0 15px 15px;
+				-webkit-border-radius:0 0 15px 15px;
+				border-radius:0 0 15px 15px;
+				text-decoration:none;
+			}
+			#download:hover {
+				width:70px;
+			}
+			#download:hover:after {
+				content:"ownload";
+			}
+			#description {
+				line-height:25px;
+				padding-bottom:5px;
+				border-bottom:1px solid lightgrey;
+			}
+			#capacity {
+				font-weight:normal;
+				font-size:15px;
+				margin-left:10px;
+				vertical-align:middle;
+			}
+			.note {
+				font-size:9px;
+				text-align:center;
+				color:black;
+			}
+			.invisible {
+				visibility:hidden;
+			}
+			.clear {
+				clear:both;
+			}
+			.footer {
+				margin-top:25px;
+				width:100%;
+				text-align:right;
+			}
+			textarea{
+				width:328px;
+				padding:10px;
+				height:200px;
+				resize:none;
+			}
+			h2{
+				margin-top:0;
+			}
 
-<script type="text/javascript">
-    imgdata = "{{data}}";
-
-    function uncover() {
-        offset = parseInt($("#offset")[0].value);
-        if (offset < 0 || offset >= imgdata.length-7) offset = 0;
-        $("#text").text("")
-        out = ""
-        for (i=offset; i < imgdata.length-7; i += 8) {
-            ord = 0;
-            for (j=0; j < 8; j++) {
-                ord *= 2;
-                ord += imgdata.charCodeAt(i+j) & 1;
+            /* The Modal (background) */
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                padding-top: 100px; /* Location of the box */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.3); /* Black w/ opacity */
             }
-            if (ord == 0) break;
-            out += String.fromCharCode(ord);
-        }
-        $("#text").append($('<div/>').text(decodeURIComponent(escape(out))).html());
-    }
 
-    function checkEmpty() {
-        ok = $("#newname")[0].value.length > 0;
-        if (!ok) {
-            $("#error").html("Ime datoteke ni navedeno!");
-        }
-        return ok;
-    }
-</script>
+            /* Modal Content */
+            .modal-content {
+                position: relative;
+                background-color: #fefefe;
+                text-align: center;
+                font-family: "Open Sans";
+                margin: auto;
+                padding: 0;
+                border: 1px solid #888;
+                width: 30%;
+                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+                -webkit-animation-name: animatetop;
+                -webkit-animation-duration: 0.4s;
+                animation-name: animatetop;
+                animation-duration: 0.4s
+            }
 
-<div class="row">
-   <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="panel panel-default">
-            <div class="panel-heading" id="glava">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <b><span class="pozdrav1">Skrivanje sporočila v sliko</span></b>
-                    </div>
+            /* Add Animation */
+            @-webkit-keyframes animatetop {
+                from {top:-300px; opacity:0}
+                to {top:0; opacity:1}
+            }
+
+            @keyframes animatetop {
+                from {top:-300px; opacity:0}
+                to {top:0; opacity:1}
+            }
+
+            /* The Close Button */
+            .close1 {
+                color: white;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close1:hover,
+            .close1:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+            .close2 {
+                color: white;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close2:hover,
+            .close2:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+            .modal-header {
+                padding: 2px 16px;
+                background-color: #2e8698;
+                color: white;
+            }
+
+            .modal-body {padding: 2px 16px;}
+		</style>
+	</head>
+	<body>
+        <div id="myModal1" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="cl1" class="close1">&times;</span>
+                    <h2>Opozorilo</h2>
                 </div>
-            </div>
-            <div class="panel-body">
-                <div class="container-fluid">
-                    <div class="row-fluid">
-                        <div class="col-lg-8 col-md-8 col-sm-8">
-                            {% if name != None %}
-                            <div class="row-fluid">
-                                Slika: {{name}} <br />
-                                <img src="{{url_for('.show', idx=idx)}}" class="img-thumbnail" />
-                            </div>
-                            <div class="row-fluid" style="margin-top: 10px;">
-                                <form action="{{url_for('.images', idx=idx)}}" method="POST" onClick="return checkEmpty();">
-                                    <div class="form-group">
-                                        <label for="text">Besedilo</label>
-                                        <textarea name="text" id="text" class="form-control" rows="5" placeholder="Vnesi besedilo">{{text}}</textarea>
-                                    </div>
-                                    <div class="form-group {% if error %}has-error{% endif %}">
-                                        <label for="newname">Ime datoteke</label>
-                                        <label for="newname" class="has-error" id="error" style="float: right;">{% if error %}{{errstr}}{% endif %}</label>
-                                        <input type="text" class="form-control" id="newname" name="newname" placeholder="Vpiši ime datoteke" value="{{newname}}" />
-                                    </div>
-                                    <div class="form-group form-inline">
-                                        <label for="offset">Zamik</label>
-                                        <input type="number" class="form-control" id="offset" name="offset" value="{{offset}}" style="width: 100px; margin-left: 5px;" />
-                                        <div style="float: right;">
-                                            <button type="button" class="btn btn-default btn-sm" onClick="uncover();">Razkrij sporočilo</button>
-                                            <button type="submit" class="btn btn-primary btn-sm">Skrij sporočilo</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            {% else %}
-                            <div class="row-fluid">
-                                Izberi sliko iz seznama na desni!
-                            </div>
-                            {% endif %}
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            Slike na voljo: <br /><br />
-                            <table class="table table-hover">
-                                {% for id, name, time, sessid in imgs %}
-                                <tr>
-                                    <td>
-                                        {% if sessid == session %}
-                                        <form action="{{url_for('.delete', idx=id, ret=idx)}}" method="POST">
-                                            <button type="submit" class="btn btn-danger btn-xs">X</button>
-                                        </form>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        <a href="{{url_for('.images', idx=id)}}">{{name}}</a>
-                                    </td>
-                                    <td>{{time}}</td>
-                                </tr>
-                                {% endfor %}
-                            </table>
-                        </div>
-                    </div>
+                <div class="modal-body">
+                    <p>Izberite slikovno datoteko!</p>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+        <div id="myModal2" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="cl2" class="close2">&times;</span>
+                    <h2>Opozorilo</h2>
+                </div>
+                <div class="modal-body">
+                    <p>Datoteka je prevelika!</p>
+                </div>
+            </div>
+        </div>
+		<div id="myModal3" class="modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<span id="cl3" class="close2">&times;</span>
+					<h2>Opozorilo</h2>
+				</div>
+				<div class="modal-body">
+					<p>V sliko poskušate zakodirati preveč besedila!</p>
+				</div>
+			</div>
+		</div>
+		<div id="main">
+			<div id="left">
+				<h2>Slika:</h2>
+				<input id="file" type="file"/><br/>
+				<h2>Tekst:<span id="capacity"></span></h2>
+				<textarea id="text">Vnesite besedilo ki ga želite zakodirati.</textarea>
+				<div class="btns">
+					<span id="hide" class="btn">Skrij besedilo</span>
+					<span id="read" class="btn">Razkrij besedilo</span>
+				</div>
+			</div>
+			<br id="right">
+				<div id="original" class="half">
+					<h2>Slika brez sporočila:</h2>
+					<img id="img" src="{{url_for('static', filename='generic-pic1.png')}}"/>
+				</div>
+                </br>
+				<div id="stego" class="half">
+					<h2 id="title2" style="display: none;">Slika s sporočilom:</h2>
+					<img id="cover" src=""/>
+					<a style="display: none;" id="download" class="btn small" download="prenos.png" rel="nofollow"><strong>D</strong></a>
+				</div>
+				<div id="messageArea" class="invisible">
+					<h2>Zakodirano sporočilo:</h2>
+					<div id="message"></div>
+				</div>
+			</div>
+			</div>
+			<button id="diff" style="display: none;">Prikaži razliko </button>
+            <canvas id="myCanvas3" style="border:solid rgb(200,100,200);"> </canvas>
+		<script type="text/javascript" src="{{url_for('static', filename='steganography.js')}}"></script>
+		<script type="text/javascript">
+
+
+             function handleFileSelect(evt) {
+        var original = document.getElementById("original"),
+            stego = document.getElementById("stego"),
+            img = document.getElementById("img"),
+            cover = document.getElementById("cover"),
+            message = document.getElementById("message");
+        f = document.getElementById("file").files[0];
+        modal1 = document.getElementById('myModal1');
+        modal2 = document.getElementById('myModal2');
+        close1 = document.getElementById('cl1');
+        close2 = document.getElementById('cl2');
+        close1.onclick = function() {
+            modal1.style.display = "none";
+        };
+        close2.onclick = function() {
+            modal2.style.display = "none";
+        };
+
+        window.onclick = function(event) {
+            if (event.target == modal1||event.target == modal2) {
+                modal1.style.display = "none";
+                modal2.style.display = "none";
+            }
+        };
+        if(!original || !stego) return;
+
+        var fsize = f.size||f.fileSize;
+        if(fsize > 2000000)
+        {
+            modal2.style.display = "block";
+            return;
+        }
+        var name = document.getElementById("file").files[0].name;
+        var ext = name.split('.').pop().toLowerCase();
+        if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1)
+        {
+            modal1.style.display = "block";
+            return;
+        }
+
+        var files = evt.target.files; // FileList object
+
+        // Loop through the FileList and render image files as thumbnails.
+        for (var i = 0, f; f = files[i]; i++) {
+
+            // Only process image files.
+            if (!f.type.match('image.*')) {
+                continue;
+            }
+
+            var reader = new FileReader();
+
+            // Closure to capture the file information.
+            reader.onload = (function(theFile) {
+                return function(e) {
+                    img.src = e.target.result;
+                    img.title = escape(theFile.name);
+                    stego.className = "half invisible";
+                    cover.src = "";
+                    message.innerHTML="";
+                    message.parentNode.className="invisible";
+                    updateCapacity();
+                };
+            })(f);
+
+            // Read in the image file as a data URL.
+            reader.readAsDataURL(f);
+			updateCapacity();
+        }
+    }
+
+
+
+    function hide() {
+        var stego = document.getElementById("stego"),
+            img = document.getElementById("img"),
+            cover = document.getElementById("cover"),
+            message = document.getElementById("message"),
+            textarea = document.getElementById("text"),
+            download = document.getElementById("download");
+        if(textarea.value.length > steg.getHidingCapacity(img)){
+            modal3 = document.getElementById('myModal3');
+            close3 = document.getElementById('cl3');
+            modal3.style.display = "block";
+            close3.onclick = function() {
+                modal3.style.display = "none";
+            };
+
+            window.onclick = function(event) {
+                if (event.target == modal3) {
+                    modal3.style.display = "none";
+                }
+            };
+            return;
+		}
+        download.style.display = "block";
+        document.getElementById("title2").style.display = 'block';
+        document.getElementById("diff").style.display = 'block';
+        if(img && textarea) {
+            var a = img.width;
+            var b = img.height;
+            cover.src = steg.encode(textarea.value, img, {"width": img.width, "height": img.height});
+            stego.className = "half";
+            message.innerHTML="";
+            message.parentNode.className="invisible";
+            download.href=cover.src.replace("image/png", "image/octet-stream");
+        }
+    }
+
+    function read() {
+        var img = document.getElementById("img"),
+            cover = document.getElementById("cover"),
+            message = document.getElementById("message"),
+            textarea = document.getElementById("text");
+        if(img && textarea) {
+            message.innerHTML = steg.decode(img);
+            if(message.innerHTML !== "") {
+                message.parentNode.className="";
+                textarea.value = message.innerHTML;
+                updateCapacity();
+            }
+        }
+    }
+
+    function difference(){
+        var canvas1 = document.createElement('canvas');
+        var ctx1    = canvas1.getContext('2d');
+        var canvas2 = document.createElement('canvas');
+        var ctx2   = canvas2.getContext('2d');
+        var canvas3 = document.getElementById('myCanvas3');
+        canvas3.style.visibility = 'visible';
+        var ctx3    = canvas3.getContext('2d');
+        var myImgElement1 = document.getElementById('img');
+        var width = myImgElement1.width, height=myImgElement1.height;
+        canvas1.width = width;
+        canvas1.height = height;
+		canvas2.width = width;
+        canvas2.height = height;
+		canvas3.width = width;
+        canvas3.height = height;
+        ctx1.drawImage( myImgElement1, 0, 0 );
+        var myImgElement2 = document.getElementById('cover');
+        ctx2.drawImage( myImgElement2, 0, 0);
+        var img1 = ctx1.getImageData(0, 0, width,height),
+            img2 = ctx2.getImageData(0, 0, width,height),
+            diff = ctx3.createImageData(width, height);
+
+        pixelmatch(img1.data, img2.data, diff.data, width, height, {threshold: 0.0001});
+
+        ctx3.putImageData(diff, 0, 0);
+    }
+
+    function updateCapacity() {
+        var img = document.getElementById('img'),
+            textarea = document.getElementById('text');
+        if(img && text)
+            document.getElementById('capacity').innerHTML='('+textarea.value.length + '/' + steg.getHidingCapacity(img) +' znakov)';
+    }
+
+    window.onload = function(){
+        document.getElementById('file').addEventListener('change', handleFileSelect, false);
+        document.getElementById('hide').addEventListener('click', hide, false);
+        document.getElementById('read').addEventListener('click', read, false);
+        document.getElementById('diff').addEventListener('click', difference, false);
+        document.getElementById('text').addEventListener('keyup', updateCapacity, false);
+        updateCapacity();
+        document.getElementById('myCanvas3').style.visibility='hidden';
+    };
+		</script>
 {% endblock %}
