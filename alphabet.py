@@ -6,7 +6,7 @@ from database import database
 
 app = Blueprint('alphabet', __name__)
 
-abc = ""
+abc = None
 available_alphabets = ["flags","sign","greek"]
 
 # get words from database
@@ -17,13 +17,16 @@ def get_all_words():
     return [row[0] for row in cur]
 words = get_all_words()
 
-# get alphabet from folder
+# get alphabet from database
 def getValidLetters(selectedAlphabet):
-    file =open('static/images/'+selectedAlphabet+'/alphabet.txt',"r")
-    alphabet = file.readlines()[0]
-    global abc 
-    abc = alphabet
-    return alphabet
+    global abc
+    if abc is None:
+        db = database.dbcon()
+        cur = db.cursor()
+        cur.execute("SELECT alphabet FROM alphabet WHERE name = %s", [selectedAlphabet])
+        alphabet = cur.fetchone()[0]
+        abc = alphabet
+    return abc
 
 def select_word(list_words):
     return list_words[randint(0, len(list_words)-1)]
