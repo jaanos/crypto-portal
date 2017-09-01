@@ -7,6 +7,12 @@ import json
 import re
 import hashlib
 
+try:
+    basestring
+    decode = lambda x: x.decode("utf-8")
+except NameError:
+    decode = lambda x: x
+
 app = Blueprint('substitution', __name__)
 
 abc = u"ABCČDEFGHIJKLMNOPQRSŠTUVWXYZŽ"
@@ -116,7 +122,7 @@ def leaderboard(difficulty):
     # sort = 'ORDER BY "{}" ASC'.format('time_solved')
     query = ' '.join([table, condition])
     cur.execute(query)
-    users = [[x[1].decode('utf-8'), translation[x[2]].decode('utf-8'),
+    users = [[decode(x[1]), decode(translation[x[2]]),
               x[3].strftime('%H:%M:%S')] for x in cur.fetchall()]
     users.sort(key=lambda x: datetime.strptime(x[2], '%H:%M:%S'))
     return render_template("substitution.leaderboard.html", users=users)

@@ -16,7 +16,7 @@ app.secret_key = sesskey
 
 @app.route("/")
 def index():
-    return render_template("start.html", nav = "start")
+    return render_template("index.html", nav = "start")
 
 @app.route("/favicon.ico")
 def favicon():
