@@ -20,7 +20,7 @@ If you want to add a new alphabet to the site, follow these steps:
 2. images must be in the folder `[alphabet name]` named after the alphabet (e.g., `flags`, `greek`,...)
 3. the `alphabet` table in the database must contain a row with the alphabet name in the `name` column, and a string containing valid letters for the alphabet (without spaces) in the `alphabet` column
     - e.g., if valid letters for the alphabet are `a`, `b`, `c` and `d`, then the row must contain the string `abcd`
-4. in `main.html`, add:
+4. in `header.html`, add:
 ```html
 <li><a href="{{url_for('alphabet.[alphabet name]')}}">[alphabet name slo]</a></li>
 ```
