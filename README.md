@@ -25,6 +25,7 @@ If you want to add a new alphabet to the site, follow these steps:
 <li><a href="{{url_for('alphabet.[alphabet name]')}}">[alphabet name slo]</a></li>
 ```
    for the drop down menu
+
 5. in `alphabet.py`, add:
 ```python
       @app.route("/[alphabet name]")
