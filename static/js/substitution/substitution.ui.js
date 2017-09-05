@@ -128,10 +128,11 @@
                    if (letter in substitutionDict) {
                        solvedMessage += "<span class='messageOutputSolved'>" +
                            substitutionDict[letter] + "</span>";
+                       solvedMessageRaw += substitutionDict[letter];
                    } else {
                        solvedMessage += letter;
+                       solvedMessageRaw += letter;
                    }
-                   solvedMessageRaw += letter;
                });
                if (idx !== array.length-1) {
                    solvedMessage += " ";
@@ -220,6 +221,9 @@
         getEncryptedLetters: function() {
             return encryptedLetterDict;
         },
+        getFrequencyLetters: function() {
+            return letterFrequencyDict;
+        },
         setEncryptedLettersDisplayValue: function(encryptedLetters, value, addClass, removeClass) {
             var letter;
             var setClass = true;
@@ -236,6 +240,23 @@
                 letter.val(value);
             })
         },
+        setFrequencyLettersDisplayValue: function(el, value, addClass, removeClass) {
+
+            var element = $(el);
+            console.log(el);
+            console.log(element);
+
+            if ((addClass && removeClass)) {
+                element.addClass(addClass);
+                element.removeClass(removeClass);
+            }
+             if (value) {
+                 element.html(value + ' =' + element.html().split(' =')[1]);
+             }
+             else {
+                 element.html(element.attr('original') + ' =' + element.html().split(' =')[1]);
+             }
+        },
         removeFreeLetter: function(value) {
             var freeLetter = $(freeLetterDict[value][0]);
             freeLetter.detach().css({'top': '', 'left': ''});
@@ -245,8 +266,9 @@
             var freeLetter = $(freeLetterDict[value][0]);
             var freeLetterContainer = $('#freeLetterContainer');
             freeLetterContainer.append(freeLetter);
+            freeLetterDict[value][1] = false;
             sortDivs(freeLetterContainer);
-        }
+        },
     }
 
 }(substitution || {}));
@@ -282,7 +304,7 @@ function sortDivs(element) {
  * enter the participants name.
  */
 function checkHash() {
-    if (md5($("#solvedMessageContainer").val().toUpperCase()) == substitution.util.original_hash) {
+    if (md5($("#solvedMessageContainer").attr('value').toUpperCase()) == substitution.util.original_hash) {
         clearInterval(timer.timerId);
         displayFinishPopup();
     }
@@ -310,7 +332,7 @@ function displayFinishPopup() {
                     url: '/substitution/leaderboard/insert',
                     data: {
                         'name': player,
-                        'difficulty': difficulty,
+                        'difficulty': substitution.util.difficulty,
                         'time_solved': (timer.count_hour * 3600 + timer.count_minute * 60 + timer.count_second)
                     },
                     type: 'POST',

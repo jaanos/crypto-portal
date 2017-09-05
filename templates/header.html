@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/header.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/substitution.css')}}" />
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -44,14 +43,10 @@
                 <li><a href="{{url_for('substitution.play', difficulty='hard')}}">Težko</a></li>
                 <li class="divider"></li>
                 <li><a href="{{url_for('substitution.play', difficulty='caesar')}}">Cezarjeva šifra</a></li>
+                 <li class="divider"></li>
+                <li><a href="{{url_for('substitution.leaderboard', difficulty='easy')}}">Lestvice</a></li>
+                <li class="divider"></li>
                 <li><a href="{{url_for('substitution.play', difficulty='ready')}}">Pripravljene zamenjalke</a></li>
-                <li class="divider"></li>
-                <li><a>Lestvice</a></li>
-                <li class="divider"></li>
-                <li><a href="{{url_for('substitution.leaderboard', difficulty='easy')}}">Lahko</a></li>
-                <li><a href="{{url_for('substitution.leaderboard', difficulty='medium')}}">Srednje</a></li>
-                <li><a href="{{url_for('substitution.leaderboard', difficulty='hard')}}">Težko</a></li>
-                <li><a href="{{url_for('substitution.leaderboard', difficulty='caesar')}}">Cezarjeva šifra</a></li>
             </ul>
         </li>
         <li class="dropdown">

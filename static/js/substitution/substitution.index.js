@@ -20,9 +20,13 @@ function load() {
     substitution.ui.loadEncryptedLetters();
     substitution.ui.loadSolvedMessageContainer();
     substitution.ui.loadFrequencyDisplay();
+    substitution.event.registerFreeLetterHoverEvent();
+    substitution.event.registerLetterInputHoverEvent();
+    substitution.event.registerFrequencyHoverEvent();
     substitution.event.registerFreeLetterDraggableEvent();
     substitution.event.registerWordLetterClickEvent();
     substitution.event.registerWordLetterDroppableEvent();
     substitution.event.registerWordInputChangeEvent();
+    substitution.event.registerNavBarButtonEvent();
     loadChart();
 }
