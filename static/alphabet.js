@@ -21,10 +21,12 @@ var positions = {   // x = [right, left]
         '9':[225,315],
     };
 var middlePointRight, middlePointLeft;
+var alphabetName;
 
 
 // INITIALIZATION
-function initialize_alphabet(mode, level) {
+function initialize_alphabet(mode, level, alphabetForLearning) {
+    alphabetName = alphabetForLearning;
     refresh();
     // Get ready to watch user inputs
     for (var i = 0; i < alphabet.length; i++) {
@@ -43,7 +45,9 @@ function initialize_alphabet(mode, level) {
         if (level == "easy") {
             write_easy();
         } else if (level == "medium") {
-            write_medium();
+            if(alphabetForLearning == "flags")
+                write_medium();
+            else write_medium_generic();
         } else if (level == "hard") {
             write_hard();
         }
@@ -93,8 +97,53 @@ function write_hard() {
     setFigure();
 }
 
+function write_medium_generic(){
+    var taskCharacter = $("#letterToGuess").text();
+    //izbere 9 + 1 prava crk iz abecede
+    var choices = selectNewChoiceBundle(window.alphabet, taskCharacter);
+    
+    //pripravi izbiro slik
+    var z = 0, left=0;
+    for(var i = 0; i < choices.length; i++){
+        $(".multipleImageContainer").append("<div class='imgContain'><a><img class='multipleImages' style='z-index:"+z+";left:"+left+"px' src='"+flagsDir + choices[i].toLowerCase() + ".png' /></a></div>");
+        z++;
+        left+=120;
+    }
+    $('.imgContain a img').click(function (e) {
+        e.preventDefault();
+        alert('You Clicked Me: '+getLetterFromURL($(this).attr('src')));
+    });
+}
+
+
+function selectNewChoiceBundle(standardAlphabet, taskCharacter){
+    console.log("Na volj imam: "+standardAlphabet+" in naloga je: "+taskCharacter);
+    //iz vseh izbere 9 ki niso taskCharacter
+    var choices=[];
+    choices[0] = taskCharacter;
+    for(var i = 1; i < 10; i++){
+        var tmp = standardAlphabet[Math.floor(Math.random() * standardAlphabet.length)];
+        if(choices.includes(tmp)){
+            i--;
+            continue;
+        }
+        else{
+           choices[i] = tmp;
+           console.log("dodal sem med izbire:"+tmp);
+        }
+    }
+    shuffle(choices);
+    return choices;
+}
+
 
 $( document ).ready(function() {
+    ///////////////////////////////////////////////////////
+        
+    ///////////////////////////////////////////////////////
+    
+    
+    
     checkCookie(cookie_name);
     
     // flip animation (index site)
@@ -758,69 +807,71 @@ $( document ).ready(function() {
     
     // RIGHT
     // Event listener for click-and-drag of right flag
-    document.getElementById("imageRightFlag").addEventListener("mousedown",function(e){
-         e.preventDefault();
-        if($("#imageRightFlag").attr("href") === "enabled"){
-            window.document.addEventListener("mousemove", mouseMoveRight,true);
+    if(alphabetName == "flags"){
+        document.getElementById("imageRightFlag").addEventListener("mousedown",function(e){
+             e.preventDefault();
+            if($("#imageRightFlag").attr("href") === "enabled"){
+                window.document.addEventListener("mousemove", mouseMoveRight,true);
+                
+                window.document.addEventListener("mouseup",function a(e){
+                    e.preventDefault();
+                    window.document.removeEventListener("mousemove", mouseMoveRight,true);
+                    fixPosition("right");
+                    window.document.removeEventListener("mouseup", a,true);
+                },true);
+            }
+        });    
+    
+        
+        // Function for tracking mouse movements
+        function mouseMoveRight(e) {
+            //Izracun centra kroznice in pozicije miske
+            var centerMis = [e.clientX, e.clientY];
             
-            window.document.addEventListener("mouseup",function a(e){
-                e.preventDefault();
-                window.document.removeEventListener("mousemove", mouseMoveRight,true);
-                fixPosition("right");
-                window.document.removeEventListener("mouseup", a,true);
-            },true);
+            //Izracun kota premika
+            var degree = Math.atan2(centerMis[0] - middlePointRight[0], -(centerMis[1] - (middlePointRight[1] - window.scrollY)))* (180 / Math.PI);
+            
+            //Rotacije za vse brskalike
+            var objFlagRight = $("#imageRightFlag");
+            objFlagRight.css('-moz-transform', 'rotate('+degree+'deg)');
+            objFlagRight.css('-webkit-transform', 'rotate('+degree+'deg)');
+            objFlagRight.css('-o-transform', 'rotate('+degree+'deg)');
+            objFlagRight.css('-ms-transform', 'rotate('+degree+'deg)');
         }
-    });    
-
-    
-    // Function for tracking mouse movements
-    function mouseMoveRight(e) {
-        //Izracun centra kroznice in pozicije miske
-        var centerMis = [e.clientX, e.clientY];
         
-        //Izracun kota premika
-        var degree = Math.atan2(centerMis[0] - middlePointRight[0], -(centerMis[1] - (middlePointRight[1] - window.scrollY)))* (180 / Math.PI);
+         
+        // LEFT
+        // Event listener for click-and-drag of right flag
+        document.getElementById("imageLeftFlag").addEventListener("mousedown",function(e){
+            e.preventDefault();
+            if($("#imageLeftFlag").attr("href") === "enabled"){
+                window.document.addEventListener("mousemove", mouseMoveLeft,true);
         
-        //Rotacije za vse brskalike
-        var objFlagRight = $("#imageRightFlag");
-        objFlagRight.css('-moz-transform', 'rotate('+degree+'deg)');
-        objFlagRight.css('-webkit-transform', 'rotate('+degree+'deg)');
-        objFlagRight.css('-o-transform', 'rotate('+degree+'deg)');
-        objFlagRight.css('-ms-transform', 'rotate('+degree+'deg)');
-    }
-    
-     
-    // LEFT
-    // Event listener for click-and-drag of right flag
-    document.getElementById("imageLeftFlag").addEventListener("mousedown",function(e){
-        e.preventDefault();
-        if($("#imageLeftFlag").attr("href") === "enabled"){
-            window.document.addEventListener("mousemove", mouseMoveLeft,true);
-    
-            window.document.addEventListener("mouseup",function a(e){
-                e.preventDefault();
-                window.document.removeEventListener("mousemove", mouseMoveLeft,true);
-                fixPosition("left");
-                window.document.removeEventListener("mouseup", a,true);
-            },true);
+                window.document.addEventListener("mouseup",function a(e){
+                    e.preventDefault();
+                    window.document.removeEventListener("mousemove", mouseMoveLeft,true);
+                    fixPosition("left");
+                    window.document.removeEventListener("mouseup", a,true);
+                },true);
+            }
+        });    
+        
+        // Function for tracking mouse movements
+        function mouseMoveLeft(e) {
+            // Center of rotation and position of mouse
+            var centerMis = [e.clientX, e.clientY];
+            
+            // Angle of rotation
+            var radians = Math.atan2(centerMis[0] - middlePointLeft[0], centerMis[1] - (middlePointLeft[1] - window.scrollY));
+            var degree = (radians * (180 / Math.PI)*-1)+180; 
+            
+            // Rotation for all browsers
+            var objFlagLeft = $("#imageLeftFlag");
+            objFlagLeft.css('-moz-transform', 'rotate('+degree+'deg)');
+            objFlagLeft.css('-webkit-transform', 'rotate('+degree+'deg)');
+            objFlagLeft.css('-o-transform', 'rotate('+degree+'deg)');
+            objFlagLeft.css('-ms-transform', 'rotate('+degree+'deg)');
         }
-    });    
-    
-    // Function for tracking mouse movements
-    function mouseMoveLeft(e) {
-        // Center of rotation and position of mouse
-        var centerMis = [e.clientX, e.clientY];
-        
-        // Angle of rotation
-        var radians = Math.atan2(centerMis[0] - middlePointLeft[0], centerMis[1] - (middlePointLeft[1] - window.scrollY));
-        var degree = (radians * (180 / Math.PI)*-1)+180; 
-        
-        // Rotation for all browsers
-        var objFlagLeft = $("#imageLeftFlag");
-        objFlagLeft.css('-moz-transform', 'rotate('+degree+'deg)');
-        objFlagLeft.css('-webkit-transform', 'rotate('+degree+'deg)');
-        objFlagLeft.css('-o-transform', 'rotate('+degree+'deg)');
-        objFlagLeft.css('-ms-transform', 'rotate('+degree+'deg)');
     }
 });
 

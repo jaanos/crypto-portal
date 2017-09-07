@@ -680,3 +680,25 @@
   float: left;
   width: 100%;
 }
+
+/* Write medium generic */
+.multipleImages{
+  transition: all .1s ease-in-out;
+  position:absolute;
+  border: 1px solid #aaa;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  margin-top:70px;
+}
+
+
+.multipleImages:hover{
+  transform: scale(1.5, 1.5);  
+  opacity: 1;
+  z-index:1000 !important;
+  margin-top:0px;
+}
+
+.multipleImageContainer{
+  height:250px;
+}
