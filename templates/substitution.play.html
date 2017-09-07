@@ -2,6 +2,7 @@
 {%  block head %}
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.jqplot.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/substitution.css')}}" />
     <!-- JS PLUGINS -->
     <script type="text/javascript" language="javascript" src="{{ url_for('static', filename='js/substitution/plugins/jquery.jqplot.min.js') }}"></script>
     <script type="text/javascript" language="javascript" src={{ url_for('static', filename="js/substitution/plugins/jqplot.categoryAxisRenderer.js") }}></script>
@@ -31,8 +32,10 @@
                 insertURL: "{{url_for('.leaderboard_insert')}}",
                 staticDir: "{{url_for('static', filename='')}}",
                 baseURL: "{{url_for('index')}}",
-                level: "{{level}}"
+                level: "{{level}}",
+                text_original: "{{ text_original|safe}}"
             };
+            text_original= "{{ text_original|safe}}";
             storeVariables(args);
             load();
         };

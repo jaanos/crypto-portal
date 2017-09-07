@@ -12,10 +12,11 @@
     padding-left: 30px;
     font-size: 16px;
     display: inline-block;
+    font-weight: bold;
 }
 #left {
     float: left;
-    width: 864px;
+    width: 867px;
     border: 1px solid #ccc;
     height: 680px;
     border-top: none;

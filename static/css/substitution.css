@@ -54,6 +54,7 @@
     font-size: 20px;
     margin-right: 3px;
     display: inline-block;
+    position: relative;
 }
 .freeLetterDisplay {
     color: #467892;
@@ -61,6 +62,11 @@
     background-color: #eeeeee;
     border: 2px solid #467892;
 }
+.freeLetterDisplayHover {
+    border-color: #f9a333;
+    color: #f9a333;
+}
+
 /* ENCRYPTED LETTERS */
 /* Box displaying both the original message and its updated substituted equivalent */
 #encryptedLetterContainer{
@@ -88,6 +94,7 @@
 /* Letters contained in the wordContainer  */
 .wordLetter {
     display: inline-block;
+    position: relative;
     width: 29px;
     height: 35px;
 }
@@ -103,7 +110,13 @@
     color: #eeeeee;
     border-radius: 5px;
     background-color: #467892;
-    border: 2px solid #467892;
+    border: 1px solid #eeeeee;
+}
+.letterInputDisplayHover {
+    color: #467892;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    border: 1px solid #467892;
 }
 /* Letter input representign characters not A-Z */
 .letterInputPunctuation {
@@ -166,21 +179,7 @@
     color: #f9a333;
 }
 
-.decryptedCharacter:hover {
-    border-color: #f9a333;
-    color: #f9a333;
-    background-color: #eeeeee;
-}
-.decryptedCharacter:hover {
-    border-color: #f9a333;
-    color: #f9a333;
-    background-color: #eeeeee;
-}
-
-.draggedIn {
-    color: #39434b;
-    background-color: #eeeeee;
-}
+/* ENCRYPTED LETTERS TEXT PLACEHOLDERS */
 
 ::-webkit-input-placeholder {
    font-weight: normal;
@@ -208,32 +207,7 @@
    font-family: 'Roboto', sans-serif;
 }
 
-.uneditableCharacter{ 
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-    width: 5px;
-    height: 20px;
-    line-height: 20px;
-    font-size: 20px;
-    margin: 0px;
-    display: inline-block;
-}
-
-/* div element for the letter in the message that is currently selected by the mouse */
-.highlightedLetter{ 
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-	font-weight: bold;
-    width: 28px;
-    height: 35px;
-    line-height: 30px;
-    font-size: 20px;
-    color: #467892;
-    border-radius: 8px;
-    background-color: #eeeeee;
-    border: 2px solid #467892;
-    display: inline-block;
-}
+/* CHARTS */
 
 #chartDiv {
     margin-top: 20px;
@@ -254,12 +228,13 @@
     margin-left: 40px;
 }
 
+/* TIMER */
+
 #fixed-div {
     position:fixed;
     top:20px;
     right: 20px;
 }
-
 .pie{
     width: 60px;
     height: 60px;
@@ -280,7 +255,6 @@
     top:8px;
     left:8px;
 }
-
 .time{
   font-size:2em;
   position:absolute;
@@ -288,7 +262,6 @@
   left:23%;
   opacity: 0.6;/*color:lighten(#000,60%);*/
 }
-
 .degree{
   /*90 + ( 360 * .1 )*/
       background-image:
