@@ -49,7 +49,9 @@ function initialize_alphabet(mode, level, alphabetForLearning) {
                 write_medium();
             else write_medium_generic();
         } else if (level == "hard") {
-            write_hard();
+            if(alphabetForLearning == "flags")
+                write_hard();
+            else write_hard_generic();
         }
     }
 }
@@ -102,22 +104,74 @@ function write_medium_generic(){
     //izbere 9 + 1 prava crk iz abecede
     var choices = selectNewChoiceBundle(window.alphabet, taskCharacter);
     
+    var spacing = ($(".multipleImageContainer").width())/11;
+    console.log("spacing: "+spacing);
+    
     //pripravi izbiro slik
     var z = 0, left=0;
     for(var i = 0; i < choices.length; i++){
-        $(".multipleImageContainer").append("<div class='imgContain'><a><img class='multipleImages' style='z-index:"+z+";left:"+left+"px' src='"+flagsDir + choices[i].toLowerCase() + ".png' /></a></div>");
+        $(".multipleImageContainer").append("<div class='imgContain'><a href='active'><img class='multipleImages' style='z-index:"+z+";left:"+left+"px' src='"+flagsDir + choices[i].toLowerCase() + ".png' /></a></div>");
         z++;
-        left+=120;
+        left+=spacing;
     }
     $('.imgContain a img').click(function (e) {
         e.preventDefault();
-        alert('You Clicked Me: '+getLetterFromURL($(this).attr('src')));
+        if($(this).parent().attr("href") == "active"){
+            var chosen = getLetterFromURL($(this).attr('src')).toLowerCase();
+            var right = $("#letterToGuess span").text().toLowerCase();
+            if(chosen == right){
+                //zeleno
+                $(this).addClass("success"); //-> disable all
+                $(".multipleImageContainer .imgContain a").removeAttr("href");
+            }
+            else{
+                $(this).addClass("err");
+                $(this).parent().removeAttr("href");
+            }
+        }
     });
 }
 
+function write_hard_generic(){
+    var nmb = window.alphabet.length;
+    var allChoices = [];
+    for(var i = 0; i < nmb; i++){
+        allChoices.push((window.alphabet).charAt(i));
+    }
+    
+    shuffle(allChoices);
+    
+    var numberOfContainer = 0;
+    for(var x = 0; x <= nmb; x+=9){
+        
+        $(".allImageContainer").append("<div class='multipleImageContainer"+numberOfContainer+"'style='height:120px'></div>"); 
+       
+       var z = 0, left=0;
+       for(var i = 0; i < 9 && x+i < nmb; i++){
+                   $(".allImageContainer .multipleImageContainer"+numberOfContainer).append("<div class='imgContain'><a href='active'><img draggable='true' ondragstart='drag(event)' class='multipleImages' id ='image"+(x+i)+"' style='z-index:"+z+";left:"+left+"px' src='"+flagsDir + allChoices[x+i].toLowerCase() + ".png' /></a></div>");
+           z++;
+           left+=95; 
+       }
+       
+       numberOfContainer++; 
+    }
+    console.log("do:1");
+    //doda kvadratke za vsako crko
+    var word = "test";
+    console.log("do:2");
+    for(var i = 0; i < word.length; i++){
+        console.log("do:3");
+            $(".taskContainer").append("<div id='taskContainer"+i+"' class='taskLetter position"+i+"' ondrop='drop(event)' ondragover='allowDrop(event)'><span>"+(word.charAt(i)).toUpperCase()+"</span></div>");
+    }
+    
+    
+    
+    
+    
+    
+}
 
 function selectNewChoiceBundle(standardAlphabet, taskCharacter){
-    console.log("Na volj imam: "+standardAlphabet+" in naloga je: "+taskCharacter);
     //iz vseh izbere 9 ki niso taskCharacter
     var choices=[];
     choices[0] = taskCharacter;
@@ -129,7 +183,6 @@ function selectNewChoiceBundle(standardAlphabet, taskCharacter){
         }
         else{
            choices[i] = tmp;
-           console.log("dodal sem med izbire:"+tmp);
         }
     }
     shuffle(choices);
@@ -139,7 +192,23 @@ function selectNewChoiceBundle(standardAlphabet, taskCharacter){
 
 $( document ).ready(function() {
     ///////////////////////////////////////////////////////
-        
+    $("#checkGeneric").click(function (e){
+        e.preventDefault();
+        if($(this).attr("href")=="enabled"){
+           //pridobi vsa polja in poglej kaj je gor
+            
+            var result="";
+            $(".taskContainer .taskLetter").each(function(){
+                var url = $(this).css('background-image');
+                if(url=="none")result+="_";
+                else result+=getLetterFromURL(url);
+                
+            });
+            //oznaci-> ce je prov zeleno in zakleni
+            alert("trenutno: "+result);
+            //drugace rdece 
+        }
+    });
     ///////////////////////////////////////////////////////
     
     
@@ -807,72 +876,71 @@ $( document ).ready(function() {
     
     // RIGHT
     // Event listener for click-and-drag of right flag
-    if(alphabetName == "flags"){
-        document.getElementById("imageRightFlag").addEventListener("mousedown",function(e){
-             e.preventDefault();
-            if($("#imageRightFlag").attr("href") === "enabled"){
-                window.document.addEventListener("mousemove", mouseMoveRight,true);
-                
-                window.document.addEventListener("mouseup",function a(e){
-                    e.preventDefault();
-                    window.document.removeEventListener("mousemove", mouseMoveRight,true);
-                    fixPosition("right");
-                    window.document.removeEventListener("mouseup", a,true);
-                },true);
-            }
-        });    
+    document.getElementById("imageRightFlag").addEventListener("mousedown",function(e){
+         e.preventDefault();
+        if($("#imageRightFlag").attr("href") === "enabled"){
+            window.document.addEventListener("mousemove", mouseMoveRight,true);
+            
+            window.document.addEventListener("mouseup",function a(e){
+                e.preventDefault();
+                window.document.removeEventListener("mousemove", mouseMoveRight,true);
+                fixPosition("right");
+                window.document.removeEventListener("mouseup", a,true);
+            },true);
+        }
+    });    
+
     
+    // Function for tracking mouse movements
+    function mouseMoveRight(e) {
+        //Izracun centra kroznice in pozicije miske
+        var centerMis = [e.clientX, e.clientY];
         
-        // Function for tracking mouse movements
-        function mouseMoveRight(e) {
-            //Izracun centra kroznice in pozicije miske
-            var centerMis = [e.clientX, e.clientY];
-            
-            //Izracun kota premika
-            var degree = Math.atan2(centerMis[0] - middlePointRight[0], -(centerMis[1] - (middlePointRight[1] - window.scrollY)))* (180 / Math.PI);
-            
-            //Rotacije za vse brskalike
-            var objFlagRight = $("#imageRightFlag");
-            objFlagRight.css('-moz-transform', 'rotate('+degree+'deg)');
-            objFlagRight.css('-webkit-transform', 'rotate('+degree+'deg)');
-            objFlagRight.css('-o-transform', 'rotate('+degree+'deg)');
-            objFlagRight.css('-ms-transform', 'rotate('+degree+'deg)');
-        }
+        //Izracun kota premika
+        var degree = Math.atan2(centerMis[0] - middlePointRight[0], -(centerMis[1] - (middlePointRight[1] - window.scrollY)))* (180 / Math.PI);
         
-         
-        // LEFT
-        // Event listener for click-and-drag of right flag
-        document.getElementById("imageLeftFlag").addEventListener("mousedown",function(e){
-            e.preventDefault();
-            if($("#imageLeftFlag").attr("href") === "enabled"){
-                window.document.addEventListener("mousemove", mouseMoveLeft,true);
-        
-                window.document.addEventListener("mouseup",function a(e){
-                    e.preventDefault();
-                    window.document.removeEventListener("mousemove", mouseMoveLeft,true);
-                    fixPosition("left");
-                    window.document.removeEventListener("mouseup", a,true);
-                },true);
-            }
-        });    
-        
-        // Function for tracking mouse movements
-        function mouseMoveLeft(e) {
-            // Center of rotation and position of mouse
-            var centerMis = [e.clientX, e.clientY];
-            
-            // Angle of rotation
-            var radians = Math.atan2(centerMis[0] - middlePointLeft[0], centerMis[1] - (middlePointLeft[1] - window.scrollY));
-            var degree = (radians * (180 / Math.PI)*-1)+180; 
-            
-            // Rotation for all browsers
-            var objFlagLeft = $("#imageLeftFlag");
-            objFlagLeft.css('-moz-transform', 'rotate('+degree+'deg)');
-            objFlagLeft.css('-webkit-transform', 'rotate('+degree+'deg)');
-            objFlagLeft.css('-o-transform', 'rotate('+degree+'deg)');
-            objFlagLeft.css('-ms-transform', 'rotate('+degree+'deg)');
-        }
+        //Rotacije za vse brskalike
+        var objFlagRight = $("#imageRightFlag");
+        objFlagRight.css('-moz-transform', 'rotate('+degree+'deg)');
+        objFlagRight.css('-webkit-transform', 'rotate('+degree+'deg)');
+        objFlagRight.css('-o-transform', 'rotate('+degree+'deg)');
+        objFlagRight.css('-ms-transform', 'rotate('+degree+'deg)');
     }
+    
+     
+    // LEFT
+    // Event listener for click-and-drag of right flag
+    document.getElementById("imageLeftFlag").addEventListener("mousedown",function(e){
+        e.preventDefault();
+        if($("#imageLeftFlag").attr("href") === "enabled"){
+            window.document.addEventListener("mousemove", mouseMoveLeft,true);
+    
+            window.document.addEventListener("mouseup",function a(e){
+                e.preventDefault();
+                window.document.removeEventListener("mousemove", mouseMoveLeft,true);
+                fixPosition("left");
+                window.document.removeEventListener("mouseup", a,true);
+            },true);
+        }
+    });    
+    
+    // Function for tracking mouse movements
+    function mouseMoveLeft(e) {
+        // Center of rotation and position of mouse
+        var centerMis = [e.clientX, e.clientY];
+        
+        // Angle of rotation
+        var radians = Math.atan2(centerMis[0] - middlePointLeft[0], centerMis[1] - (middlePointLeft[1] - window.scrollY));
+        var degree = (radians * (180 / Math.PI)*-1)+180; 
+        
+        // Rotation for all browsers
+        var objFlagLeft = $("#imageLeftFlag");
+        objFlagLeft.css('-moz-transform', 'rotate('+degree+'deg)');
+        objFlagLeft.css('-webkit-transform', 'rotate('+degree+'deg)');
+        objFlagLeft.css('-o-transform', 'rotate('+degree+'deg)');
+        objFlagLeft.css('-ms-transform', 'rotate('+degree+'deg)');
+    }
+    
 });
 
 /* *************************************************************************** */
@@ -1858,7 +1926,41 @@ function isLetter(c) {
 }
 
 
+/* *************************************************************************** */
+/* ****************************   DRAG AND DROP  ***************************** */
+/* *************************************************************************** */
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
 
 
+function drag(ev) {
+    console.log("okej class je: "+event.target.src);
+    ev.dataTransfer.setData("text", event.target.src);
+}
 
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    console.log("droped in: "+ev.target.id);
+    //$($(ev.target).attr("class")).append("<img src= '"+data+"'>");
+    var idName= ev.target.id;
+    $("#"+idName+" span").addClass("hidden");
+    $("#"+idName).attr("draggable",'true');
+    $("#"+idName).attr("ondragstart",'dragFromTask(event)');
+    $("#"+idName).attr("style","background-image: url("+data+");background-repeat:no-repeat;background-size:contain;");
+}
 
+function dragFromTask(ev){
+    ev.dataTransfer.setData("text", event.target.id);
+}
+
+function dropInTrash(ev){
+    ev.preventDefault();
+    //izbrisi iz tam kjer je prislo plz
+    console.log("droped in: "+ev.dataTransfer.getData("text"));
+    var data = ev.dataTransfer.getData("text");
+    $("#"+data).attr("style","background-image:none");
+    $("#"+data+" span").removeClass();
+}

@@ -688,12 +688,25 @@
   border: 1px solid #aaa;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   background-color: white;
-  margin-top:70px;
+  /*
+  margin-top:50px;
+  transform: scale(0.7, 0.7);  
+  */
+  transform: scale(0.5, 0.5);
 }
 
 
+
+.multipleImages.success{
+  background-color: green;
+}
+
+.multipleImages.err{
+  background-color: red;
+}
+
 .multipleImages:hover{
-  transform: scale(1.5, 1.5);  
+  transform: scale(1.2, 1.2);  
   opacity: 1;
   z-index:1000 !important;
   margin-top:0px;
@@ -701,4 +714,63 @@
 
 .multipleImageContainer{
   height:250px;
+}
+
+/* write hard generc */
+.taskContainer{
+  height: 130px;
+  border: 1px solid #aaa;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  border-radius: 0px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin-bottom: 1px;
+}
+
+
+.taskLetterWraper{
+  margin: auto;
+}
+
+.allImageContainer{
+  border: 1px solid #aaa;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  border-radius: 0px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.taskLetter{
+  border: 1px solid #aaa;
+  width:80px;
+  height:80px;
+  float: left;
+  margin: 10px;
+  text-align: center;
+}
+
+.taskContainer span{
+  font-weight: 900;
+  font-size: 60px;
+  color: #2b6482;
+  top: 50%;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.trashCan{
+  float:right;
+}
+.trashCan a img{
+  vertical-align:none;
+  height:70%;
+  width:70%;
+}
+
+#checkGeneric img{
+  margin-top:50px;
+  max-width:30%;
+  max-height:30%;
 }
