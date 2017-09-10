@@ -250,13 +250,13 @@
                                 
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-4 arrowContainer">
-                                        <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='arrow-left.png')}}"/></a>
+                                        <a id="prew-arrow-generic" class="elementFloatRight"><img src="{{url_for('static', filename='arrow-left.png')}}"/></a>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 text-center">
                                         <div id="letterToGuess" class="letterToGuess text-center"><span>{% print letter.upper() %}</span></div>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 arrowContainer">
-                                        <a id="next-arrow"><img src="{{url_for('static', filename='arrow-right.png')}}"/></a>
+                                        <a id="next-arrow-generic"><img src="{{url_for('static', filename='arrow-right.png')}}"/></a>
                                     </div>
                                 </div>
                                 
@@ -281,15 +281,15 @@
                                 
                                 <div class="row">
                                     <div class="col-lg-1 col-md-1 col-sm-1">
-                                        <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='arrow-left.png')}}"/></a>
+                                        <a id="prew-arrow-generic" class="elementFloatRight"><img src="{{url_for('static', filename='arrow-left.png')}}"/></a>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-10">
                                         <div class="taskContainer elements-center">
-                                            <div dragable="false" ondrop='dropInTrash(event)' ondragover='allowDrop(event)' class="trashCan"><a><img src="{{url_for('static', filename='trashCan.png')}}"></a></div>
+                                            <div dragable="false" ondrop='dropInTrash(event)' ondragover='allowDropTrash(event)' ondragleave="dragLeaveTrash(event)" class="trashCan"><a><img src="{{url_for('static', filename='trashCan.png')}}"></a></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-1 col-md-1 col-sm-1">
-                                        <a id="next-arrow"><img src="{{url_for('static', filename='arrow-right.png')}}"/></a>
+                                        <a id="next-arrow-generic"><img src="{{url_for('static', filename='arrow-right.png')}}"/></a>
                                     </div>
                                 </div>
                                 
