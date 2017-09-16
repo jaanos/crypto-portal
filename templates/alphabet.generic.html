@@ -37,7 +37,15 @@
             <div class="panel-heading" id="head">
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-4 alignVerticalCenter">
-                        <b><span class="pozdrav1">{% print alphabetForLearning %}</span></b>
+                        <b><span class="pozdrav1"> 
+                            {%if (alphabetForLearning == "sign"): %}
+                                {%print("Znakovna abeceda")%}
+                            {%elif (alphabetForLearning == "greek")%}
+                                {%print("Grška abeceda")%}
+                            {%else:%}
+                                {%print(alphabetForLearning)%}
+                            {%endif%}
+                        </span></b>
                         {% if intro != "1" %}<button id="pop-up" class="align-middle">Navodila</button>{% endif %}
                     </div>
                     <div class="menu-nav">
