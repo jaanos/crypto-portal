@@ -682,49 +682,41 @@
 }
 
 /* Write medium generic */
-.multipleImages{
-  transition: all .1s ease-in-out;
-  position:absolute;
-  border: 1px solid #aaa;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  background-color: white;
-  /*
-  margin-top:50px;
-  transform: scale(0.7, 0.7);  
-  */
-  transform: scale(0.5, 0.5);
+
+
+
+
+.success{
+  background-color: #5cb85c;
+}
+
+.err{
+  background-color: #fa6b5c;
 }
 
 
 
-.multipleImages.success{
-  background-color: green;
-}
 
-.multipleImages.err{
-  background-color: red;
-}
 
-.multipleImages:hover{
-  transform: scale(1.2, 1.2);  
-  opacity: 1;
-  z-index:1000 !important;
-  margin-top:0px;
-}
 
 .multipleImageContainer{
   height:250px;
 }
 
 /* write hard generc */
-.taskContainer{
-  height: 130px;
+.task{
   border: 1px solid #aaa;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   border-radius: 0px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   margin-bottom: 1px;
+}
+.taskContainerWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -738,6 +730,7 @@
   border-radius: 0px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+
 }
 
 .taskLetter{
@@ -760,17 +753,152 @@
   visibility: hidden;
 }
 
+
+.halfHidden{
+  visibility: visible;
+  opacity: 0.7;
+}
+
+
 .trashCan{
+  position: absolute;
+  right: 0;
+  /*
   float:right;
+  text-align: right;
+  padding-right: 20px;
+  */
 }
 .trashCan a img{
   vertical-align:none;
-  height:70%;
-  width:70%;
+  width:40%;
+  padding-bottom: 5px;
+  padding-top: 5px;
 }
 
 #checkGeneric img{
+  max-width:20%;
+  width: 50%;
+}
+
+.disabled{
+  opacity: 0.5;
+}
+
+
+.controlContainerGeneric{
+  border: 1px solid #aaa;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  border-radius: 0px;
+  margin-bottom: 1px;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  text-align: center;
+  
+  position: relative;
+  
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.border{
+  border-style: dashed;
+  border-width: 1px;
+}
+
+#imageContainerGeneral{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imgContainHard{
+  cursor: pointer;
+  text-align: center;
+  
+  float: left;
+  width:120px;
+  
+  border: 1px solid #aaa;
+  /*box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);*/
+  background-color: white;
+  
+  transition: all .1s ease-in-out;
+  
+  /*transform: scale(0.5, 0.5); */
+  border-radius: 5px;
+  margin: 4px;
+}
+
+
+
+
+
+.imgContainHard:hover{
+  
+  transform: scale(1.9, 1.9);  
+  opacity: 1;
+  z-index:1000 !important;
+  margin-top:0px;
+  
+}
+
+.multipleImagesHard{
+  
+  
+  
+  width:100%;
+  height:100%;
+}
+
+.multipleImagesHard img{
+  max-width: 90%;
+}
+
+
+.multipleImages{
+  transition: all .1s ease-in-out;
+  position:absolute;
+  border: 1px solid #aaa;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  /*
   margin-top:50px;
-  max-width:30%;
-  max-height:30%;
+  transform: scale(0.7, 0.7);  
+  */
+  transform: scale(0.5, 0.5);
+  
+  border-radius: 5px;
+}
+
+
+.multipleImages:hover{
+  transform: scale(1.2, 1.2);  
+  opacity: 1;
+  z-index:1000 !important;
+  margin-top:0px;
+}
+
+.multipleImages.success{
+  background-color: #5cb85c;
+}
+
+.multipleImages.err{
+  background-color: #fa6b5c;
+}
+
+.imgContain a[href="active"] img{
+  opacity: 1;
+}
+
+.imgContain a img{
+  opacity: 0.7;
+}
+
+.nextArrowGenericWrapper, .prewArrowGenericWrapper{
+  margin-top:20px;
 }

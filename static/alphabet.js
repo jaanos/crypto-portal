@@ -169,14 +169,14 @@ function write_hard_generic(){
     var numberOfContainer = 0;
     for(var x = 0; x <= nmb; x+=9){
         
-        $(".allImageContainer").append("<div class='multipleImageContainer"+numberOfContainer+"'style='height:120px'></div>"); 
-       
-       var z = 0, left=0;
-       for(var i = 0; i < 9 && x+i < nmb; i++){
-                   $(".allImageContainer .multipleImageContainer"+numberOfContainer).append("<div class='imgContain'><a href='active'><img draggable='true' ondragstart='drag(event)' class='multipleImages' id ='image"+(x+i)+"' style='z-index:"+z+";left:"+left+"px' src='"+flagsDir + allChoices[x+i].toLowerCase() + ".png' /></a></div>");
-           z++;
-           left+=95; 
-       }
+        $(".allImageContainer").append("<div class='multipleImageContainer"+numberOfContainer+"'id='imageContainerGeneral'></div>");
+        
+        var z = 0, left=0;
+        for(var i = 0; i < 9 && x+i < nmb; i++){
+            $(".allImageContainer .multipleImageContainer"+numberOfContainer).append("<div class='imgContainHard'><a class='multipleImagesHard'><img draggable='true' ondragstart='drag(event)' id ='image"+(x+i)+"';' src='"+flagsDir + allChoices[x+i].toLowerCase() + ".png' /></a></div>");
+            z++;
+            left+=95; 
+        }
        
        numberOfContainer++; 
     }
@@ -189,12 +189,14 @@ function write_hard_generic(){
 
 function selectAndDisplayNewWordWriteHardGeneric(){
     //clean
-    $(".taskContainer").html('<div dragable="false" ondrop="dropInTrash(event)" ondragover="allowDropTrash(event)" ondragleave="dragLeaveTrash(event)" class="trashCan"><a><img src= "/static/trashCan.png"></a></div>');
-
+    //$(".taskContainer").html('<div dragable="false" ondrop="dropInTrash(event)" ondragover="allowDropTrash(event)" ondragleave="dragLeaveTrash(event)" class="trashCan"><a><img src= "/static/trashCan.png"></a></div>');
+    $(".taskContainer").html("");
 
 
     //doda kvadratke za vsako crko
     var word =  selectNewWord(window.words);
+    while (word.length > 8)
+        word =  selectNewWord(window.words);
     console.log("beseda: "+word);
     for(var i = 0; i < word.length; i++){
         $(".taskContainer").append("<div id='taskContainer"+i+"' class='taskLetter position"+i+"' ondrop='drop(event)' ondragover='allowDrop(event)'  ondragleave='dragLeave(event)'><span>"+(word.charAt(i)).toUpperCase()+"</span></div>");
@@ -285,6 +287,10 @@ function newTaskWriteMediumGeneric(){
 
 $( document ).ready(function() {
     ///////////////////////////////////////////////////////
+    
+    console.log("Vse mozne besede: "+window.words);
+    
+    
     $("#checkGeneric").click(function (e){
         e.preventDefault();
         if($(this).attr("href")=="enabled"){
@@ -302,8 +308,13 @@ $( document ).ready(function() {
                 if(url != "none"){
                     var letter = getLetterFromURL(url);
                     if(state != "")state+=",";
-                    if(letter == taskWord.charAt(position)){
-                        $(this).css('background-color',"green");
+                    if($(this).hasClass("success")){
+                        position++;
+                        return;
+                    }
+                    else if(letter == taskWord.charAt(position)){
+                        $(this).removeClass("err");
+                        $(this).addClass("success disabled");
                         $(this).attr("ondragstart","return false;");
                         
                         addPoints(1);
@@ -312,7 +323,7 @@ $( document ).ready(function() {
                         state+=letter+"S";
                     }
                     else{
-                        $(this).css('background-color',"red");
+                        $(this).addClass("err");
                         
                         removePoints(1);
                         moveToNotLearnt(letter);
@@ -371,16 +382,16 @@ $( document ).ready(function() {
                         state+= letter + "I";
                     });
                     
-                    addHistoryWriteHardGeneric(0,0,state,taskWord); // push to history and mark as unanswered
+                    addHistoryWriteHardGeneric(0,0,taskWord,state); // push to history and mark as unanswered
                 }
             }
             
-            else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0){   // Chosen word is not answered
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][2] == 0){   // Chosen word is not answered
                 //restoreStringWriteHardGeneric(ansHist[histPtr][0],ansHist[histPtr][1]);
                 restoreHistoryWriteHardGeneric(ansHist[histPtr][0],ansHist[histPtr][1]);
             }
             
-            else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 1){   // Chosen letter is answered
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][2] == 1){   // Chosen letter is answered
                 $(".level-write-hard #next-arrow-generic").attr("href", "next");
                 restoreHistoryWriteHardGeneric();
             }
@@ -390,7 +401,7 @@ $( document ).ready(function() {
             }
             
             $(".level-write-hard #prew-arrow-generic").attr("href", "prew");
-            if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0) $(".level-write-hard #next-arrow-generic").removeAttr("href");
+            if(histPtr == ansHist.length-1 && ansHist[histPtr][2] == 0) $(".level-write-hard #next-arrow-generic").removeAttr("href");
         }
     });
     
@@ -1306,7 +1317,7 @@ function selectNewLetter(alphabet) {
 
 // Function selects new Word
 function selectNewWord(words) {
-    words = words.split(", ");
+    words = words.split(",");
     var word = words[Math.floor(Math.random() * words.length)];
     var re = new RegExp("&#39;", 'g');
     word = word.replace(re, "");
@@ -1621,32 +1632,33 @@ function restoreHistoryWriteHardGeneric(word = ansHist[histPtr][0], ans = ansHis
     console.log("restore for state: "+word+" -> "+ans);
      
     //clear prew state
-    $(".taskContainer").html('<div dragable="false" ondrop="dropInTrash(event)" ondragover="allowDropTrash(event)" ondragleave="dragLeaveTrash(event)" class="trashCan"><a><img src= "/static/trashCan.png"></a></div>');
+    //$(".taskContainer").html('<div dragable="false" ondrop="dropInTrash(event)" ondragover="allowDropTrash(event)" ondragleave="dragLeaveTrash(event)" class="trashCan"><a><img src= "/static/trashCan.png"></a></div>');
+    $(".taskContainer").html("");
        
     for(var position in word){
         var letter = word.charAt(position);
         var corr = ans[position].charAt(1);
         if(corr == "S"){
-            $(".taskContainer").append("<div id='taskContainer"+position+"' class='taskLetter position"+position+"' ondrop='drop(event)' ondragover='allowDrop(event)'  ondragleave='dragLeave(event)' ondragstart='return false;'><span class='hidden'>"+letter.toUpperCase()+"</span></div>");
+            $(".taskContainer").append("<div id='taskContainer"+position+"' class='taskLetter position"+position+"' ondrop='drop(event)' ondragover='allowDrop(event)'  ondragleave='dragLeave(event)' ondragstart='return false;'><span class='halfHidden'>"+letter.toUpperCase()+"</span></div>");
             
             $(".taskContainer #taskContainer"+position).css("background-image","url("+flagsDir + letter + ".png)");
             $(".taskContainer #taskContainer"+position).css("background-repeat","no-repeat");
             $(".taskContainer #taskContainer"+position).css("background-size","contain");
-            $(".taskContainer #taskContainer"+position).css("background-color","green");
+            $(".taskContainer #taskContainer"+position).addClass("success disabled");
         }    
         else if(corr == "D"){
             $(".taskContainer").append("<div id='taskContainer"+position+"' class='taskLetter position"+position+"' ondrop='drop(event)' ondragover='allowDrop(event)'  ondragleave='dragLeave(event)'><span class='hidden'>"+letter.toUpperCase()+"</span></div>");
             $(".taskContainer #taskContainer"+position).css("background-image","url("+flagsDir + letter + ".png)");
             $(".taskContainer #taskContainer"+position).css("background-repeat","no-repeat");
             $(".taskContainer #taskContainer"+position).css("background-size","contain");
-            $(".taskContainer #taskContainer"+position).css("background-color","red");
+            $(".taskContainer #taskContainer"+position).addClass("err disabled");
         }
         else {
-            $(".taskContainer").append("<div id='taskContainer"+position+"' class='taskLetter position"+position+"' ondrop='drop(event)' ondragover='allowDrop(event)'  ondragleave='dragLeave(event)'><span class='hidden'>"+letter.toUpperCase()+"</span></div>");
+            $(".taskContainer").append("<div id='taskContainer"+position+"' class='taskLetter position"+position+"' ondrop='drop(event)' ondragover='allowDrop(event)'  ondragleave='dragLeave(event)'><span class=''>"+letter.toUpperCase()+"</span></div>");
             $(".taskContainer #taskContainer"+position).css("background-image","none");
             $(".taskContainer #taskContainer"+position).css("background-repeat","no-repeat");
             $(".taskContainer #taskContainer"+position).css("background-size","contain");
-            $(".taskContainer #taskContainer"+position).css("background-color","white");
+            $(".taskContainer #taskContainer"+position).removeClass("success disabled err");
         }
     } 
 }
@@ -2344,12 +2356,22 @@ function dragLeave(ev){
 
 function allowDropTrash(ev) {
     ev.preventDefault();
-    $(ev.target).css("border-style","dashed");
+    console.log("nad in tag name: "+$(ev.target).prop("tagName"));
+    if($(ev.target).prop("tagName") == "IMG"){
+        $(ev.target).parent().parent().addClass("border");
+        return;
+    }
+    $(ev.target).addClass("border");
 }
 
 function dragLeaveTrash(ev){
     ev.preventDefault();
-    $(ev.target).css("border-style","dashed");
+    console.log("vn in tag name: "+$(ev.target).prop("tagName"));
+    if($(ev.target).prop("tagName") == "IMG"){
+        $(ev.target).parent().parent().removeClass("border");
+        return;
+    }
+    $(ev.target).removeClass("border");
 }
 
 function drag(ev) {
@@ -2397,7 +2419,13 @@ function dragFromTask(ev){
 function dropInTrash(ev){
     ev.preventDefault();
     
+    $(".trashCan").removeClass("border");
+    
     var data = ev.dataTransfer.getData("text");
+    
+    if(data.indexOf("taskConatiner") !== -1)return;
+    
     $("#"+data).attr("style","background-image:none");
+    $("#"+data).removeClass("succes err");
     $("#"+data+" span").removeClass();
 }

@@ -13,7 +13,20 @@ def get_all_words():
     db = database.dbcon()
     cur = db.cursor()
     cur.execute("SELECT Word FROM Words")
-    return [row[0] for row in cur]
+    row = cur.fetchone()
+    
+    listOfWords = ""
+    max = 0
+    while row is not None:
+        if(len(row[0]) > max):
+            max = len(row[0])
+        if listOfWords != "":
+            listOfWords += ","
+        listOfWords += (row[0])
+        row = cur.fetchone()
+    
+    print max   
+    return listOfWords
 words = get_all_words()
 
 # get alphabet from database

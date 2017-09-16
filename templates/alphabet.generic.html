@@ -281,32 +281,37 @@
                                 
                                 <div class="row">
                                     <div class="col-lg-1 col-md-1 col-sm-1">
+                                    <div class="prewArrowGenericWrapper">
                                         <a id="prew-arrow-generic" class="elementFloatRight"><img src="{{url_for('static', filename='arrow-left.png')}}"/></a>
                                     </div>
+                                    </div>
                                     <div class="col-lg-10 col-md-10 col-sm-10">
-                                        <div class="taskContainer elements-center">
+                                        <div class="task">
+                                            <div class="taskContainerWrapper">
+                                                <div class="taskContainer elements-center" ></div>
+                                            </div>
+                                            <!--<div dragable="false" ondrop='dropInTrash(event)' ondragover='allowDropTrash(event)' ondragleave="dragLeaveTrash(event)" class="trashCan"><a><img src="{{url_for('static', filename='trashCan.png')}}"></a></div>-->
+                                        </div>
+                                        <div class="controlContainerGeneric">
+                                            
+                                            <a id="checkGeneric" href="enabled"><img src="{{url_for('static', filename='check.png')}}"/></a>
                                             <div dragable="false" ondrop='dropInTrash(event)' ondragover='allowDropTrash(event)' ondragleave="dragLeaveTrash(event)" class="trashCan"><a><img src="{{url_for('static', filename='trashCan.png')}}"></a></div>
+                                            
                                         </div>
                                     </div>
                                     <div class="col-lg-1 col-md-1 col-sm-1">
-                                        <a id="next-arrow-generic"><img src="{{url_for('static', filename='arrow-right.png')}}"/></a>
+                                        <div class="nextArrowGenericWrapper">
+                                            <a id="next-arrow-generic"><img src="{{url_for('static', filename='arrow-right.png')}}"/></a>
+                                        </div>
                                     </div>
                                 </div>
                                 
                                 <div class="row">
                                     <div class="col-lg-10 col-md-10 col-sm-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 text-center">
-                                        <div class="allImageContainer"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 text-center">
-                                                <div class="controlContainerGeneric">
-                                                    <a id="checkGeneric" href="enabled"><img src="{{url_for('static', filename='check.png')}}"/></a>
-                                                </div>   
-                                            </div>
+                                        <div class="allImageContainer">
                                         </div>
                                     </div>
+                                </div>
                                 {% endif %}
                             {% endif %}
                            
