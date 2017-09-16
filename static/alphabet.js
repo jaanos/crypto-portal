@@ -114,7 +114,7 @@ function write_medium_generic(){
         z++;
         left+=spacing;
     }
-
+    
     $('.imgContain a img').click(function (e) {
         e.preventDefault();
         if($(this).parent().attr("href") == "active"){
@@ -124,7 +124,6 @@ function write_medium_generic(){
                 //zeleno
                 $(this).addClass("success"); //-> disable all
                 $(".multipleImageContainer .imgContain a").removeAttr("href");
-
                 $(".level-write-medium #next-arrow-generic").attr("href","next");
                 $(".level-write-medium #next-arrow").attr("href", "next");
                 
@@ -152,7 +151,7 @@ function write_medium_generic(){
                 }
                 // Points and learning progress
                 removePoints(1);
-                moveToNotLearnt(right);
+                moveToNotLearnt(right,0.5);
             }
         }
     });
@@ -207,7 +206,6 @@ function selectAndDisplayNewWordWriteHardGeneric(){
 function selectNewChoiceBundle(standardAlphabet, taskCharacter){
     //iz vseh izbere 9 ki niso taskCharacter
     var choices=[];
-
     choices[0] = taskCharacter.toLowerCase();
     for(var i = 1; i < 10; i++){
         var tmp = standardAlphabet[Math.floor(Math.random() * standardAlphabet.length)];
@@ -281,7 +279,7 @@ function newTaskWriteMediumGeneric(){
                 }
                 // Points and learning progress
                 removePoints(1);
-                moveToNotLearnt(right);
+                moveToNotLearnt(right,1);
             }
         }
     });
@@ -292,7 +290,8 @@ $( document ).ready(function() {
     
     console.log("Vse mozne besede: "+window.words);
     
-        $("#checkGeneric").click(function (e){
+    
+    $("#checkGeneric").click(function (e){
         e.preventDefault();
         if($(this).attr("href")=="enabled"){
            //pridobi vsa polja in poglej kaj je gor
@@ -327,7 +326,7 @@ $( document ).ready(function() {
                         $(this).addClass("err");
                         
                         removePoints(1);
-                        moveToNotLearnt(letter);
+                        moveToNotLearnt(letter,1);
                         
                         state+=letter+"D";
                         nmbOfWrong+=1;
@@ -546,7 +545,7 @@ $( document ).ready(function() {
             addHistoryEasy(1,0);
              //Points and learning progress
             removePoints(1);
-            moveToNotLearnt(letter);
+            moveToNotLearnt(letter,1);
             //pointsForRightAnswerReadEasy--; <-- not in use
        }
     });
@@ -644,7 +643,7 @@ $( document ).ready(function() {
                 $("#letterInput").addClass("wrongInput");
                 $("#letterInput").removeClass("correctInput");
                 $("#letterInput").focus().select();
-                moveToNotLearnt(letter);
+                moveToNotLearnt(letter,1);
                 if(histPtr == 0 && ansHist.length < 1 ){
                     addHistoryMedium(0,0);
                 }
@@ -653,7 +652,7 @@ $( document ).ready(function() {
                 }
                 // Points and learning progress
                 removePoints(1);
-                moveToNotLearnt(letter);
+                moveToNotLearnt(letter,1);
             }
                 
         } else {
@@ -680,7 +679,7 @@ $( document ).ready(function() {
             }
             // Points and learning progress
             removePoints(pointsForClueReadMedium);
-            moveToNotLearnt(letterSelected);
+            moveToNotLearnt(letterSelected,1);
             $("#next-arrow").focus();
         } else {
             $("#letterInput").focus();
@@ -917,7 +916,7 @@ $( document ).ready(function() {
             }
             // Points and learning progress
             removePoints(1);
-            moveToNotLearnt(letter);
+            moveToNotLearnt(letter,1);
         }
     });
     
@@ -990,7 +989,7 @@ $( document ).ready(function() {
                 markCheckControlWrite(0);
                 // Points and learning process
                 removePoints(1);                
-                moveToNotLearnt(letter);
+                moveToNotLearnt(letter,1);
             }
         }
     });
@@ -1077,7 +1076,7 @@ $( document ).ready(function() {
                     removePoints(1); 
                 }
                 else removePoints(2); 
-                moveToNotLearnt(letter);
+                moveToNotLearnt(letter,1);
             }
         }
     });
@@ -1195,7 +1194,6 @@ $( document ).ready(function() {
         objFlagLeft.css('-o-transform', 'rotate('+degree+'deg)');
         objFlagLeft.css('-ms-transform', 'rotate('+degree+'deg)');
     }
-    
 });
 
 /* *************************************************************************** */
@@ -1287,11 +1285,11 @@ function selectAndDisplayNewImage(alphabet, mode) {
 
 // Function selects
 function selectNewLetter(alphabet) {
-    /*
-    for (var i = 0; i < alphabet.length; i++) {
+    
+    /*for (var i = 0; i < alphabet.length; i++) {
         console.log(alphabet[i] + ": " + userAnswers[alphabet[i]]);
-    }
-    */
+    }*/
+    
     // Poisci najslabse poznano crko (pazi, da ni enaka prejsnji prikazani crki)
     var worseNumber;
     if (prevLetter === "a") {
@@ -1467,13 +1465,13 @@ function focusFirstFree(elementToFocus) {
 // Function move element to learned
 function moveToLearnt(element) {
     element = element.toLowerCase();
-    userAnswers[element]++;
+    userAnswers[element] += 1;
 }
 
 // Function move element to not learned
-function moveToNotLearnt(element) {
+function moveToNotLearnt(element, substract) {
     element = element.toLowerCase();
-    userAnswers[element]--;
+    userAnswers[element] -= substract;
 }
 
 function refresh() {
@@ -1894,7 +1892,7 @@ function displayOldLetterWriteMediumGeneric(corrLetter, choices, isAnswered=fals
                 }
                 // Points and learning progress
                 removePoints(1);
-                moveToNotLearnt(right);
+                moveToNotLearnt(right,1);
             }
         }
     });
