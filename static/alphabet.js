@@ -76,6 +76,9 @@ function read_hard() {
     $("#start-animation").text("Začni!");
     
     var word = selectNewWord(window.words);
+    while (! isValidWord(word, alphabet)) {
+        word = selectNewWord(window.words);
+    }
     var letters = word.split("");
     var idNumber = 1;
     $(".level-read-hard .panel-body .well").append("<img src='" + "/static/" +  "blank.png' class=''>");
@@ -1325,6 +1328,16 @@ function selectNewWord(words) {
     word = word.replace("]","");
     console.log("my word: "+word);
     return word;
+}
+
+function isValidWord(word, alphabet) {
+    var alph_array = alphabet.split("");
+    for (var i = 0; i < word.length; i++) {
+        if (alph_array.indexOf(word[i]) < 0) {
+            return false;
+        }
+    }
+    return true;
 }
 
 // Function selects new choices
