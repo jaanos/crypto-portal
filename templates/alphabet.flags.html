@@ -18,14 +18,56 @@
         </div>
         <div class="modal-body">
             {% if mode == "read" %}
-                {% if level == "easy" %}<p> Kratka navodila za: branje lahko! </p>
-                {% elif level == "medium" %}<p> Kratka navodila za: branje srednje! </p>
-                {% elif level == "hard" %}<p> Kratka navodila za: branje tezko! </p>
+                {% if level == "easy" %}
+                <p>
+                    Izmed ponujenih črk <strong>izberite</strong> tisto, ki jo <strong>predstavlja</strong> prikazana slika.</br></br> 
+                    Če bo izbrana črka <strong style="color:green;">pravilna</strong>, se bo gumb obarval zeleno in po kliku na desno puščico se vam bo prikazala nova naloga.</br></br>
+                    Če bo izbira <strong style="color:red;">napačna</strong>, se bo gumb obarval rdeče. V tem primeru lahko poskusite <strong>ponovno</strong>, dokler ne izberete
+                    pravilne rešitve. Vsaka <strong style="color:red;">napačna</strong> izbira se <strong>kaznuje</strong> z negativno točko.</br></br>
+                    S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.
+                </p>
+                {% elif level == "medium" %}
+                <p>
+                    V polje pod sliko <strong>vnesite črko</strong>, ki jo slika predstavlja, in <strong>pritisnite enter</strong>.</br></br>
+                    Če je vaš odgovor <strong style="color:green;">pravilen</strong>, se bo spodnji rob polja obarval zeleno, sicer rdeče.</br></br> 
+                    V primeru <strong style="color:green;">pravilnega</strong> odgovora se vam ob kliku na desno puščico prikaže nova naloga, v primeru <strong style="color:red;">napačnega</strong> odgovora pa lahko poskusite znova.</br></br> 
+                    Če ste s prejšnjimi nalogami zbrali dovolj točk, lahko s klikom na gumb <strong>"Rešitev"</strong> izveste, katero črko predstavlja slika (s tem izgubite nekaj svojih točk).</br></br> 
+                    S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.
+                </p>
+                {% elif level == "hard" %}
+                <p>
+                    S klikom na gumb <strong>"Začni"</strong> sprožite animacijo.</br></br>
+                    Prikazalo se vam bo zaporedje slik, od katerih bo vsaka prikazovala eno črko. Črke vnesite v polja pod sliko in <strong>pritisnite enter</strong>.
+                    Polja, kamor ste vnesli pravilno črko, se bodo obarvala <strong style="color:green;">zeleno</strong>, polja z napačno črko <strong style="color:red;">rdeče</strong>, prazna polja pa bodo ostala <strong>nespremenjena</strong>.</br></br>
+                    Za vsako pravilno vnešeno črko <strong>dobite</strong> eno točko, medtem ko za vsako napačno vnešeno črko eno točko <strong>izgubite</strong>.
+                    Prazno polje točk ne spreminja.</br></br>
+                    Če ste s prejšnjimi nalogami zbrali <strong>dovolj točk</strong>, lahko s klikom na gumb <strong>"Začni znova"</strong> animacijo sprožite še enkrat (s tem izgubite nekaj svojih točk). </br></br>
+                    S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.
+                </p>
                 {% endif %}
             {% elif mode == "write" %}
-                {% if level == "easy" %}<p> Kratka navodila za: pisanje lahko! </p>
-                {% elif level == "medium" %}<p> Kratka navodila za: pisanje srednje! </p>
-                {% elif level == "hard" %}<p> Kratka navodila za: pisanje tezko! </p>
+                {% if level == "easy" %}
+                <p>
+                    Izmed ponujenih slik <strong>izberite</strong> tisto, ki jo <strong>predstavlja</strong> prikazana črka.</br></br>
+                    Če bo izbrana slika <strong style="color:green;">pravilna</strong>, se bo gumb obarval zeleno in po kliku na desno puščico se vam bo prikazala nova naloga.</br></br>
+                    Če bo izbira <strong style="color:red;">napačna</strong>, se bo gumb obarval rdeče. V tem primeru lahko poskusite <strong>ponovno</strong>, dokler ne izberete
+                    pravilne rešitve. Vsaka <strong style="color:red;">napačna</strong> izbira se <strong>kaznuje</strong> z negativno točko.</br></br>
+                    S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.
+                </p>
+                {% elif level == "medium" %}
+                <p>
+                    Kliknite in <strong>zavrtite</strong> neosenčeno zastavico v pravilen položaj in kliknite <strong>kjukico</strong> pod sliko.</br></br>
+                    Če je vaš odgovor <strong style="color:green;">pravilen</strong>, se kljukica obarva zeleno in s klikom na desno puščico se vam prikaže naslednja naloga.</br></br>
+                    Če pa je vaš odgovor <strong style="color:red;">napačen</strong>, se kjukica obarva rdeče, v polju s črko pa se za <strong>trenutek prikaže črka</strong>, ki jo predstavlja trenutna postavitev rok.</br></br>
+                    S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.
+                </p>
+                {% elif level == "hard" %}
+                <p> 
+                    Kliknite in <strong>zavrtite</strong> zastavici na ustrezni mesti in kliknite <strong>kjukico</strong> pod sliko.</br></br>
+                    Če je vaš odgovor <strong style="color:green;">pravilen</strong>, se kljukica obarva zeleno in s klikom na desno puščico se vam prikaže naslednja naloga.</br></br>
+                    Če pa je vaš odgovor <strong style="color:red;">napačen</strong>, se kljukica obarva rdeče, v polju s črko pa se za <strong>trenutek prikaže črka</strong>, ki jo trenutna postavitev rok predstavlja.</br></br>
+                    Če pravilno postavite le eno zastavico, se onemogoči njeno premikanje. S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.
+                </p>
                 {% endif %}
             {% endif %}
         </div>
@@ -109,9 +151,14 @@
                     <div class="container-fluid">
                         <div class="row-fluid">
                             <div class="">
-                                <h1>Uvod</h1>
-                                <p>Dobrodošli na strani za učenje komuniciranja s pomočjo zastavic.</p>
-                                <p>Spodaj si lahko ogledate seznam vseh črk, ki se jih lahko naučite s pomočjo te aplikacije.</p>
+                                <h1>Semafor</h1>
+                                <p>Dobrodošli na strani za učenje komuniciranje s pomočjo tujih abeced.</p>
+                                <p><strong>Na kratko o izbrani abecedi:</strong></p>
+                                <p>
+                                    Ta abeceda je uporabna za prenašanje sporočil na daljavo, ko sta sogovornika predaleč narazen, da bi se slišala, se pa še lahko vidita.
+                                </p>
+                                </br>
+                                <p>Spodaj si lahko ogledate seznam vseh črk, ki se jih lahko naučite s pomočjo te aplikacije. Za ogled posameznega simbola kliknite na ustrezno kartico.</p>
                             </div>
                             <div class="show-all-flags">
                                 {% for letter in alphabet %}

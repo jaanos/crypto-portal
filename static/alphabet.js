@@ -16,9 +16,7 @@ var positions = {   // x = [right, left]
         'g':[180,135],'h':[270,225],'i':[225,315],'j':[0,90],'k':[225,0],'l':[225,45],
         'm':[225,90],'n':[225,135],'o':[270,315],'p':[270,0],'q':[270,45],'r':[270,90],
         's':[270,135],'t':[315,0],'u':[315,45],'v':[0,135],'w':[45,90],'x':[45,135],
-        'y':[315,90],'z':[135,90],' ':[180,180],'init':[0,0], '1':[225,180],'2':[270,180],
-        '3':[315,180],'4':[0,180],'5':[180,45],'6':[180,90],'7':[180,135],'7':[270,225],
-        '9':[225,315],
+        'y':[315,90],'z':[135,90],' ':[180,180],'init':[0,0],
     };
 var middlePointRight, middlePointLeft;
 var alphabetName;
@@ -113,7 +111,7 @@ function write_medium_generic(){
     //pripravi izbiro slik
     var z = 0, left=0;
     for(var i = 0; i < choices.length; i++){
-        $(".multipleImageContainer").append("<div class='imgContain'><a href='active'><img class='multipleImages' style='z-index:"+z+";left:"+left+"px' src='"+flagsDir + choices[i].toLowerCase() + ".png' /></a></div>");
+        $(".multipleImageContainer").append("<div class='imgContain'><a href='active'><img class='multipleImages' src='"+flagsDir + choices[i].toLowerCase() + ".png' /></a></div>");
         z++;
         left+=spacing;
     }
@@ -125,8 +123,9 @@ function write_medium_generic(){
             var right = $("#letterToGuess span").text().toLowerCase();
             if(chosen == right){
                 //zeleno
-                $(this).addClass("success"); //-> disable all
+                $(this).parent().parent().addClass("success"); //-> disable all
                 $(".multipleImageContainer .imgContain a").removeAttr("href");
+                $(".multipleImageContainer .imgContain").addClass("disabled");
                 $(".level-write-medium #next-arrow-generic").attr("href","next");
                 $(".level-write-medium #next-arrow").attr("href", "next");
                 
@@ -142,7 +141,8 @@ function write_medium_generic(){
                 moveToLearnt(right);
             }
             else{
-                $(this).addClass("err");
+                $(this).parent().parent().addClass("err");
+                $(this).parent().parent().addClass("disabled");
                 $(this).parent().removeAttr("href");
                 
                 // History
@@ -162,6 +162,7 @@ function write_medium_generic(){
 
 function write_hard_generic(){
     var nmb = window.alphabet.length;
+    console.log("abeceda: "+window.alphabet);
     var allChoices = [];
     for(var i = 0; i < nmb; i++){
         allChoices.push((window.alphabet).charAt(i));
@@ -198,7 +199,7 @@ function selectAndDisplayNewWordWriteHardGeneric(){
 
     //doda kvadratke za vsako crko
     var word =  selectNewWord(window.words);
-    while (word.length > 8)
+    while (word.length > 8 || !isValidWord(word, window.alphabet))
         word =  selectNewWord(window.words);
     console.log("beseda: "+word);
     for(var i = 0; i < word.length; i++){
@@ -253,8 +254,9 @@ function newTaskWriteMediumGeneric(){
             var right = $("#letterToGuess span").text().toLowerCase();
             if(chosen == right){
                 //zeleno
-                $(this).addClass("success"); //-> disable all
+                $(this).parent().parent().addClass("success"); //-> disable all
                 $(".multipleImageContainer .imgContain a").removeAttr("href");
+                $(".multipleImageContainer .imgContain").addClass("disabled");
                 $(".level-write-medium #next-arrow-generic").attr("href","next");
                 $(".level-write-medium #next-arrow").attr("href", "next");
                 
@@ -270,7 +272,8 @@ function newTaskWriteMediumGeneric(){
                 moveToLearnt(right);
             }
             else{
-                $(this).addClass("err");
+                $(this).parent().parent().addClass("err");
+                $(this).parent().parent().addClass("disabled");
                 $(this).parent().removeAttr("href");
                 
                 // History
@@ -305,13 +308,15 @@ $( document ).ready(function() {
             });
             var position = 0;
             var state = "";
-            var nmbOfWrong = 0;
+            var nmbOfCorrect = 0;
             $(".taskContainer .taskLetter").each(function(){
                 var url = $(this).css('background-image');
                 if(url != "none"){
                     var letter = getLetterFromURL(url);
                     if(state != "")state+=",";
                     if($(this).hasClass("success")){
+                        state+=letter+"S";
+                        nmbOfCorrect+=1;
                         position++;
                         return;
                     }
@@ -324,6 +329,7 @@ $( document ).ready(function() {
                         moveToLearnt(letter);
                         
                         state+=letter+"S";
+                        nmbOfCorrect+=1;
                     }
                     else{
                         $(this).addClass("err");
@@ -332,27 +338,33 @@ $( document ).ready(function() {
                         moveToNotLearnt(letter,1);
                         
                         state+=letter+"D";
-                        nmbOfWrong+=1;
                     }
                 }
                 else{
+                    if(state != "")state+=",";
                     state+="_I";
                 }
                 position++;
             });
             
             if(histPtr == 0 && ansHist.length < 1 ){
-                if(nmbOfWrong == taskWord.length)addHistoryWriteHardGeneric(0, taskWord, state);
-                else{
-                    addHistoryWriteHardGeneric(0, 1, taskWord, state);
+                if(nmbOfCorrect == taskWord.length){
+                    addHistoryWriteHardGeneric(1, 0, taskWord, state);
                     $(".level-write-hard #next-arrow-generic").attr("href", "next");
+                    $("#checkGeneric img").attr("src", staticDir + "check_correct.png");
+                }
+                else{
+                    addHistoryWriteHardGeneric(0, 0, taskWord, state);
                 }
             }
             else{
-                if(nmbOfWrong == taskWord.length)addHistoryWriteHardGeneric(1, 0, taskWord, state);
-                else{
+                if(nmbOfCorrect == taskWord.length){
                     addHistoryWriteHardGeneric(1, 1, taskWord, state);
                     $(".level-write-hard #next-arrow-generic").attr("href", "next");
+                    $("#checkGeneric img").attr("src", staticDir + "check_correct.png");
+                }
+                else{
+                    addHistoryWriteHardGeneric(0, 1, taskWord, state);
                 }
             }
             
@@ -384,22 +396,25 @@ $( document ).ready(function() {
                         if(state != "")state+=",";
                         state+= letter + "I";
                     });
-                    
+                    $("#checkGeneric img").attr("src", staticDir + "check.png");
                     addHistoryWriteHardGeneric(0,0,taskWord,state); // push to history and mark as unanswered
                 }
             }
             
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][2] == 0){   // Chosen word is not answered
                 //restoreStringWriteHardGeneric(ansHist[histPtr][0],ansHist[histPtr][1]);
+                $("#checkGeneric img").attr("src", staticDir + "check.png");
                 restoreHistoryWriteHardGeneric(ansHist[histPtr][0],ansHist[histPtr][1]);
             }
             
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][2] == 1){   // Chosen letter is answered
                 $(".level-write-hard #next-arrow-generic").attr("href", "next");
+                $("#checkGeneric img").attr("src", staticDir + "check_correct.png");
                 restoreHistoryWriteHardGeneric();
             }
             
             else{   // Chosen letter is answered
+                $("#checkGeneric img").attr("src", staticDir + "check_correct.png");
                 restoreHistoryWriteHardGeneric();
             }
             
@@ -413,6 +428,7 @@ $( document ).ready(function() {
         e.preventDefault();
         if ($("#prew-arrow-generic").attr("href") === "prew") {
             histPtr--;
+            $("#checkGeneric img").attr("src", staticDir + "check_correct.png");
             restoreHistoryWriteHardGeneric();
             //textFieldsDisable(".letterInputClass");
             //$("#start-animation").css("visibility", "hidden");
@@ -474,6 +490,7 @@ $( document ).ready(function() {
     
     // flip animation (index site)
     $('.f1_container').click(function() {
+        console.log("click");
             $(this).toggleClass('active');
         }); 
         
@@ -987,7 +1004,9 @@ $( document ).ready(function() {
                 moveToLearnt(letter);
                 addPoints(1);
             }
-            else if(checkIfOtherCorrLetterWrite()){}
+            else if(checkIfOtherCorrLetterWrite()){
+                markCheckControlWrite(0);
+            }
             else{
                 markCheckControlWrite(0);
                 // Points and learning process
@@ -1050,7 +1069,8 @@ $( document ).ready(function() {
         e.preventDefault();
         if($("#check").attr("href") === "enabled"){
             var letter = $(".level-write-hard #letterToGuess span").text().toLowerCase();
-            if(checkIfCorrWrite()){ markCheckControlWrite(1);
+            if(checkIfCorrWrite()){ 
+                markCheckControlWrite(1);
                 disableCheckControlWrite();
                 $(".level-write-hard #next-arrow").attr("href", "next");
                 // History
@@ -1068,8 +1088,8 @@ $( document ).ready(function() {
                 moveToLearnt(letter);
             }
             else if(checkIfOneIsCorrWrite()){
+                markCheckControlWrite(0);
                 checkIfOtherCorrLetterWrite();
-                
             }
             else if(checkIfOtherCorrLetterWrite()){}
             else{
@@ -1639,19 +1659,19 @@ function restoreStringWriteHardGeneric(string,satte){
     //restore string
 }
 
-function restoreHistoryWriteHardGeneric(word = ansHist[histPtr][0], ans = ansHist[histPtr][1].split(",")){
+function restoreHistoryWriteHardGeneric(word = ansHist[histPtr][0], ans = ansHist[histPtr][1]){
     //var word = ansHist[histPtr][0];
     //var ans[] = ansHist[histPtr][1].split(",");
     console.log("restore for state: "+word+" -> "+ans);
-     
+    var ansArr = ans.split(",");
     //clear prew state
     //$(".taskContainer").html('<div dragable="false" ondrop="dropInTrash(event)" ondragover="allowDropTrash(event)" ondragleave="dragLeaveTrash(event)" class="trashCan"><a><img src= "/static/trashCan.png"></a></div>');
     $(".taskContainer").html("");
        
     for(var position in word){
-        var letter = word.charAt(position);
-        var corr = ans[position].charAt(1);
+        var corr = ansArr[position].charAt(1);
         if(corr == "S"){
+            var letter = word.charAt(position);
             $(".taskContainer").append("<div id='taskContainer"+position+"' class='taskLetter position"+position+"' ondrop='drop(event)' ondragover='allowDrop(event)'  ondragleave='dragLeave(event)' ondragstart='return false;'><span class='halfHidden'>"+letter.toUpperCase()+"</span></div>");
             
             $(".taskContainer #taskContainer"+position).css("background-image","url("+flagsDir + letter + ".png)");
@@ -1660,13 +1680,15 @@ function restoreHistoryWriteHardGeneric(word = ansHist[histPtr][0], ans = ansHis
             $(".taskContainer #taskContainer"+position).addClass("success disabled");
         }    
         else if(corr == "D"){
-            $(".taskContainer").append("<div id='taskContainer"+position+"' class='taskLetter position"+position+"' ondrop='drop(event)' ondragover='allowDrop(event)'  ondragleave='dragLeave(event)'><span class='hidden'>"+letter.toUpperCase()+"</span></div>");
+            var letter = ansArr[position].charAt(0);
+            $(".taskContainer").append("<div id='taskContainer"+position+"' class='taskLetter position"+position+"' ondrop='drop(event)' ondragover='allowDrop(event)'  ondragleave='dragLeave(event)' draggable='true' ondragstart='dragFromTask(event)'><span class='hidden'>"+letter.toUpperCase()+"</span></div>");
             $(".taskContainer #taskContainer"+position).css("background-image","url("+flagsDir + letter + ".png)");
             $(".taskContainer #taskContainer"+position).css("background-repeat","no-repeat");
             $(".taskContainer #taskContainer"+position).css("background-size","contain");
-            $(".taskContainer #taskContainer"+position).addClass("err disabled");
+            $(".taskContainer #taskContainer"+position).addClass("err");
         }
         else {
+            var letter = word.charAt(position);
             $(".taskContainer").append("<div id='taskContainer"+position+"' class='taskLetter position"+position+"' ondrop='drop(event)' ondragover='allowDrop(event)'  ondragleave='dragLeave(event)'><span class=''>"+letter.toUpperCase()+"</span></div>");
             $(".taskContainer #taskContainer"+position).css("background-image","none");
             $(".taskContainer #taskContainer"+position).css("background-repeat","no-repeat");
@@ -1719,7 +1741,7 @@ function setHistoryReadHard(ans){
 
 // Function restores and displays history on current histPtr
 function restoreHistoryReadHard(){
-    var string = ansHist[histPtr][0];
+    var string = ansHist[histPtr][0].substring(1);
     // Clean up
     $(".level-read-hard .panel-body .well").html("");
     $("#input-string-hard").html("");
@@ -1730,6 +1752,9 @@ function restoreHistoryReadHard(){
 
     var letters = string.split("");
     var idNumber = 1;
+    
+    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/" +  "blank.png' class=''>");
+    
     for (i = 0; i < letters.length; i++) {
         var letter = letters[i];
         $(".level-read-hard .panel-body .well").append("<img src='" + flagsDir + letter + ".png' class='hidden'>");
@@ -1755,9 +1780,12 @@ function restoreStringReadHard(word){
     $("#start-animation").text("Začni!");
     clearTimeout(readHardTimer);
 
-    var letters = word.split("");
+    var letters = word.substring(1).split("");
     var idNumber = 1;
     var state = ansHist[histPtr][2].split(",");
+    
+    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/" +  "blank.png' class=''>");
+    
     for (i = 0; i < letters.length; i++) {
         var letter = letters[i];
         $(".level-read-hard .panel-body .well").append("<img src='" + flagsDir + letter + ".png' class='hidden'>");
@@ -2422,7 +2450,7 @@ function drop(ev) {
     divContainer.attr("draggable",'true');
     divContainer.attr("ondragstart",'dragFromTask(event)');
     divContainer.attr("style","background-image: url("+data+");background-repeat:no-repeat;background-size:contain;");
-    
+    divContainer.removeClass("success err")
 }
 
 function dragFromTask(ev){
