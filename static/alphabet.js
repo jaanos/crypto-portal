@@ -114,7 +114,7 @@ function write_medium_generic(){
         z++;
         left+=spacing;
     }
-    
+
     $('.imgContain a img').click(function (e) {
         e.preventDefault();
         if($(this).parent().attr("href") == "active"){
@@ -124,6 +124,7 @@ function write_medium_generic(){
                 //zeleno
                 $(this).addClass("success"); //-> disable all
                 $(".multipleImageContainer .imgContain a").removeAttr("href");
+
                 $(".level-write-medium #next-arrow-generic").attr("href","next");
                 $(".level-write-medium #next-arrow").attr("href", "next");
                 
@@ -206,6 +207,7 @@ function selectAndDisplayNewWordWriteHardGeneric(){
 function selectNewChoiceBundle(standardAlphabet, taskCharacter){
     //iz vseh izbere 9 ki niso taskCharacter
     var choices=[];
+
     choices[0] = taskCharacter.toLowerCase();
     for(var i = 1; i < 10; i++){
         var tmp = standardAlphabet[Math.floor(Math.random() * standardAlphabet.length)];
@@ -290,8 +292,7 @@ $( document ).ready(function() {
     
     console.log("Vse mozne besede: "+window.words);
     
-    
-    $("#checkGeneric").click(function (e){
+        $("#checkGeneric").click(function (e){
         e.preventDefault();
         if($(this).attr("href")=="enabled"){
            //pridobi vsa polja in poglej kaj je gor
@@ -1194,6 +1195,7 @@ $( document ).ready(function() {
         objFlagLeft.css('-o-transform', 'rotate('+degree+'deg)');
         objFlagLeft.css('-ms-transform', 'rotate('+degree+'deg)');
     }
+    
 });
 
 /* *************************************************************************** */

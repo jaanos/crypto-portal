@@ -52,9 +52,6 @@
   width: 50px;
 }
 
-
-
-
 /*  crke  */
  
 .f1_container {
@@ -478,7 +475,6 @@
     border-color: #fa6b5c;
 }
 
-
 .imageSelection{
   max-width:100%;
   max-height:100%;
@@ -486,8 +482,6 @@
 .wellMarginTop{
   margin-top: 30px;
 }
-
-
 
 .letterToGuess{
   border: 1px solid #aaa;
@@ -510,7 +504,6 @@
   margin-bottom: 20px;
   margin-top: 20px;
 }
-
 
 .letter-to-guess-container{
   border: 1px solid #aaa;
@@ -583,14 +576,9 @@
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
 
-
-
 #semaphoreCanvasLeftFlag, #semaphoreCanvasRightFlag {
   border:2px solid #000000;
 }
-
-
-
 
 #check img{
   max-width:10%;
@@ -682,10 +670,6 @@
 }
 
 /* Write medium generic */
-
-
-
-
 .success{
   background-color: #5cb85c;
 }
@@ -694,16 +678,12 @@
   background-color: #fa6b5c;
 }
 
-
-
-
-
-
 .multipleImageContainer{
   height:250px;
 }
 
 /* write hard generc */
+
 .task{
   border: 1px solid #aaa;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
@@ -712,6 +692,7 @@
   border-top-right-radius: 5px;
   margin-bottom: 1px;
 }
+
 .taskContainerWrapper{
   display: flex;
   flex-direction: column;
@@ -901,4 +882,5 @@
 
 .nextArrowGenericWrapper, .prewArrowGenericWrapper{
   margin-top:20px;
+
 }
