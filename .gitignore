@@ -61,4 +61,4 @@ target/
 .~*
 .htaccess
 auth.py
-static/uploads/
+static/uploads
