@@ -23,7 +23,7 @@ class DummyDB:
     def cursor(self):
         return self.cur
 
-    def close():
+    def close(self):
         return
 
 class Database:
