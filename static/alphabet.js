@@ -24,6 +24,7 @@ var alphabetName;
 
 // INITIALIZATION
 function initialize_alphabet(mode, level, alphabetForLearning) {
+    console.log("delam");
     alphabetName = alphabetForLearning;
     refresh();
     // Get ready to watch user inputs
@@ -73,9 +74,9 @@ function read_hard() {
     $("#start-animation").removeClass("used");
     $("#start-animation").text("Začni!");
     
-    var word = selectNewWord(window.words);
+    var word = selectNewWord($( window ).words);
     while (! isValidWord(word, alphabet)) {
-        word = selectNewWord(window.words);
+        word = selectNewWord($( window ).words);
     }
     var letters = word.split("");
     var idNumber = 1;
@@ -161,11 +162,11 @@ function write_medium_generic(){
 }
 
 function write_hard_generic(){
-    var nmb = window.alphabet.length;
+    var nmb = $( window ).alphabet.length;
     console.log("abeceda: "+window.alphabet);
     var allChoices = [];
     for(var i = 0; i < nmb; i++){
-        allChoices.push((window.alphabet).charAt(i));
+        allChoices.push(($( window ).alphabet).charAt(i));
     }
     
     shuffle(allChoices);
@@ -199,7 +200,7 @@ function selectAndDisplayNewWordWriteHardGeneric(){
 
     //doda kvadratke za vsako crko
     var word =  selectNewWord(window.words);
-    while (word.length > 8 || !isValidWord(word, window.alphabet))
+    while (word.length > 8 || !isValidWord(word, $( window ).alphabet))
         word =  selectNewWord(window.words);
     console.log("beseda: "+word);
     for(var i = 0; i < word.length; i++){
@@ -1156,13 +1157,13 @@ $( document ).ready(function() {
     document.getElementById("imageRightFlag").addEventListener("mousedown",function(e){
          e.preventDefault();
         if($("#imageRightFlag").attr("href") === "enabled"){
-            window.document.addEventListener("mousemove", mouseMoveRight,true);
+            $( window ).document.addEventListener("mousemove", mouseMoveRight,true);
             
-            window.document.addEventListener("mouseup",function a(e){
+            $( window ).document.addEventListener("mouseup",function a(e){
                 e.preventDefault();
-                window.document.removeEventListener("mousemove", mouseMoveRight,true);
+                $( window ).document.removeEventListener("mousemove", mouseMoveRight,true);
                 fixPosition("right");
-                window.document.removeEventListener("mouseup", a,true);
+                $( window ).document.removeEventListener("mouseup", a,true);
             },true);
         }
     });    
@@ -1174,7 +1175,7 @@ $( document ).ready(function() {
         var centerMis = [e.clientX, e.clientY];
         
         //Izracun kota premika
-        var degree = Math.atan2(centerMis[0] - middlePointRight[0], -(centerMis[1] - (middlePointRight[1] - window.scrollY)))* (180 / Math.PI);
+        var degree = Math.atan2(centerMis[0] - middlePointRight[0], -(centerMis[1] - (middlePointRight[1] - $( window ).scrollY)))* (180 / Math.PI);
         
         //Rotacije za vse brskalike
         var objFlagRight = $("#imageRightFlag");
@@ -1190,13 +1191,13 @@ $( document ).ready(function() {
     document.getElementById("imageLeftFlag").addEventListener("mousedown",function(e){
         e.preventDefault();
         if($("#imageLeftFlag").attr("href") === "enabled"){
-            window.document.addEventListener("mousemove", mouseMoveLeft,true);
+            $( window ).document.addEventListener("mousemove", mouseMoveLeft,true);
     
-            window.document.addEventListener("mouseup",function a(e){
+            $( window ).document.addEventListener("mouseup",function a(e){
                 e.preventDefault();
-                window.document.removeEventListener("mousemove", mouseMoveLeft,true);
+                $( window ).document.removeEventListener("mousemove", mouseMoveLeft,true);
                 fixPosition("left");
-                window.document.removeEventListener("mouseup", a,true);
+                $( window ).document.removeEventListener("mouseup", a,true);
             },true);
         }
     });    
@@ -1207,7 +1208,7 @@ $( document ).ready(function() {
         var centerMis = [e.clientX, e.clientY];
         
         // Angle of rotation
-        var radians = Math.atan2(centerMis[0] - middlePointLeft[0], centerMis[1] - (middlePointLeft[1] - window.scrollY));
+        var radians = Math.atan2(centerMis[0] - middlePointLeft[0], centerMis[1] - (middlePointLeft[1] - $( window ).scrollY));
         var degree = (radians * (180 / Math.PI)*-1)+180; 
         
         // Rotation for all browsers
@@ -1527,13 +1528,14 @@ function addHistoryEasy(set,ans){
         var buttonClass = button.className;
         var buttonLetter = button.innerHTML;
         if(state!="")state+=",";
-        if(buttonClass.includes("btn-info")){
+        if(typeof buttonClass === 'undefined') continue;
+        if($(button).hasClass("btn-info")){
            state+=buttonLetter+"I"
         }
-        else if(buttonClass.includes("btn-danger")){
+        else if($(button).hasClass("btn-danger")){
             state+=buttonLetter+"D"
         }
-        else if(buttonClass.includes("btn-success")){
+        else if($(button).hasClass("btn-success")){
             state+=buttonLetter+"S"
         }
     }
@@ -1659,9 +1661,10 @@ function restoreStringWriteHardGeneric(string,satte){
     //restore string
 }
 
-function restoreHistoryWriteHardGeneric(word = ansHist[histPtr][0], ans = ansHist[histPtr][1]){
-    //var word = ansHist[histPtr][0];
-    //var ans[] = ansHist[histPtr][1].split(",");
+function restoreHistoryWriteHardGeneric(word, ans){
+    word = typeof word !== 'undefined' ? word : ansHist[histPtr][0];
+    ans = typeof ans !== 'undefined' ? ans : ansHist[histPtr][1];
+    
     console.log("restore for state: "+word+" -> "+ans);
     var ansArr = ans.split(",");
     //clear prew state
@@ -1872,7 +1875,8 @@ function displayOldLetterWriteEasy(corrLetter, choices){
 }
 
 // Function displays letter [isAnswered = true if task has been succesfully answered]
-function displayOldLetterWriteMediumGeneric(corrLetter, choices, isAnswered=false){
+function displayOldLetterWriteMediumGeneric(corrLetter, choices, isAnswered){
+    isAnswered = typeof isAnswered !== 'undefined' ? isAnswered : false;
     //najprej crko
     $(".letterToGuess span").text(corrLetter.toUpperCase());
     
@@ -2308,8 +2312,8 @@ function enableFlags(flag){
 /* *************************************************************************** */
 
 function shuffle(a) {
-    for (let i = a.length; i; i--) {
-        let j = Math.floor(Math.random() * i);
+    for (var i = a.length; i; i--) {
+        var j = Math.floor(Math.random() * i);
         [a[i - 1], a[j]] = [a[j], a[i - 1]];
     }
 }

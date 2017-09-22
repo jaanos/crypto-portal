@@ -6,7 +6,10 @@
     var flagsDir = "{{url_for('static', filename='images/'+alphabetForLearning+'/')}}";
     var letter = "{{letter}}", mode = "{{mode}}", level = "{{level}}",
     choices = "{{choices}}", alphabet = "{{alphabet}}", words = "{{words}}", alphabetForLearning="{{alphabetForLearning}}";
-    window.onload = function(){initialize_alphabet(mode, level, alphabetForLearning);};
+    //$( window ).load(function(){initialize_alphabet(mode, level, alphabetForLearning));};
+    $( window ).load(function() {
+         initialize_alphabet(mode, level, alphabetForLearning);
+         });
 </script>
 <!-- POP-UP INSTRUCTIONS -->
 <div id="myModal" class="modal">
