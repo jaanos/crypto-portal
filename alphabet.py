@@ -41,7 +41,7 @@ def getIntro(selectedAlphabet):
     db = database.dbcon()
     cur = db.cursor()
     cur.execute("SELECT intro FROM alphabet WHERE name = %s", [selectedAlphabet])
-    introText = cur.fetchone()[0]
+    introText = unicode(cur.fetchone()[0], errors='ignore')
     return introText
     
 def select_word(list_words):
