@@ -1309,10 +1309,11 @@ function selectAndDisplayNewImage(alphabet, mode) {
 
 // Function selects
 function selectNewLetter(alphabet) {
+    console.log("Alphabet", alphabet);
     
-    /*for (var i = 0; i < alphabet.length; i++) {
+    for (var i = 0; i < alphabet.length; i++) {
         console.log(alphabet[i] + ": " + userAnswers[alphabet[i]]);
-    }*/
+    }
     
     // Poisci najslabse poznano crko (pazi, da ni enaka prejsnji prikazani crki)
     var worseNumber;
@@ -1334,8 +1335,13 @@ function selectNewLetter(alphabet) {
             selectFrom.push(alphabet[i]);
         }
     }
-    //console.log("selectFrom: " + selectFrom);
-    prevLetter = selectFrom[Math.floor(Math.random() * selectFrom.length)];
+    console.log("selectFrom: " + selectFrom);
+    if (selectFrom.length == 0) {
+        prevLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
+    } else {
+        prevLetter = selectFrom[Math.floor(Math.random() * selectFrom.length)];
+    }
+    console.log("Return letter: ", prevLetter);
     return prevLetter;
 }
 
