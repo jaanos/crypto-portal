@@ -2,7 +2,7 @@ import auth
 import MySQLdb
 
 class DummyCursor:
-    def close():
+    def close(self):
         return
 
     def execute(self, *largs):
