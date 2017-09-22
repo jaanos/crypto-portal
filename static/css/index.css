@@ -8,7 +8,7 @@
 }
 #nav-bar-2 h2 {
     color: #eee;
-    padding-top: 14px;
+    padding-top: 10px;
     padding-left: 30px;
     font-size: 16px;
     display: inline-block;
@@ -139,7 +139,7 @@
 /* FOOTER */
 
 #newsletter {
-    height: 290px;
+    height: 320px;
     clear: both;
     background-color: #374148;
 }
@@ -177,4 +177,28 @@
 }
 #newsletter button:hover {
     background-color: #3bb69b;
+}
+#logos {
+    background-color: #fff;
+    width: 1170px;
+    height: 160px;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+#logos img {
+    float: left;
+    margin-left: 60px;
+}
+#logos img:nth-child(1) {
+    margin-top: 55px;
+}
+#logos img:nth-child(2) {
+    margin-top: 40px;
+}
+#logos img:nth-child(3) {
+    margin-top: 36px;
+}
+#logos img:nth-child(4) {
+    margin-top: 18px;
+    
 }
