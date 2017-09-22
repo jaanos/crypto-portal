@@ -14,6 +14,7 @@ app.register_blueprint(githook_app)
 app.register_blueprint(substitution_app, url_prefix = '/substitution')
 app.register_blueprint(steganography_app, url_prefix = '/steganography')
 app.register_blueprint(alphabet_app, url_prefix = '/alphabet')
+app.register_blueprint(vegenere_app, url_prefix = '/vegenere')
 app.secret_key = sesskey
 
 @app.route("/")
