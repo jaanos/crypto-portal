@@ -319,7 +319,6 @@ function read() {
     if(img && textarea) {
         textarea.innerHTML = steg.decode(img);
         if(textarea.innerHTML !== "") {
-            textarea.parentNode.className="";
             textarea.value = textarea.innerHTML;
             updateCapacity();
         }
