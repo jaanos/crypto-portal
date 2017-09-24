@@ -1,14 +1,10 @@
 body {
 	padding: 0px;
      margin: 0;
-     /* background: url(background.jpg);
-	background-attachment: fixed;
-	background-size: 100%;*/
-	/*background-color: #F6E3CE;*/
-	/*
-	background-color:#fff;
+    background-color:#fff;
     background-image:-webkit-radial-gradient(center, #fff, #ddd);
-    */
+    background-image:-moz-radial-gradient(center, #fff, #ddd);
+    background-image:radial-gradient(center, #fff, #ddd);
 }
     
 

@@ -20,18 +20,27 @@ var positions = {   // x = [right, left]
     };
 var middlePointRight, middlePointLeft;
 var alphabetName;
+var isMobile = false;
+var clickCounterMobile = 0;
+var lastClickedElementMobile = null;
+var dragedImageData = null;
+var newTaskSize = null;
+var imageGeneralDir = "images/general/"
 
 
 // INITIALIZATION
 function initialize_alphabet(mode, level, alphabetForLearning) {
-    console.log("delam");
+    // device detection
+    if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
+    || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) isMobile = true
+    
+    console.log("naprava isMobile: " + isMobile);
     alphabetName = alphabetForLearning;
     refresh();
     // Get ready to watch user inputs
     for (var i = 0; i < alphabet.length; i++) {
         userAnswers[alphabet[i]] = 0;
     }
-
     if (mode == "read") {
         if (level == "easy") {
             read_easy();
@@ -74,13 +83,13 @@ function read_hard() {
     $("#start-animation").removeClass("used");
     $("#start-animation").text("Začni!");
     
-    var word = selectNewWord($( window ).words);
+    var word = selectNewWord(window.words);
     while (! isValidWord(word, alphabet)) {
-        word = selectNewWord($( window ).words);
+        word = selectNewWord(window.words);
     }
     var letters = word.split("");
     var idNumber = 1;
-    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/" +  "blank.png' class=''>");
+    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/images/general/" +  "blank.png' class=''>");
     for (i = 0; i < letters.length; i++) {
         var letter = letters[i];
         $(".level-read-hard .panel-body .well").append("<img src='" + flagsDir + letter + ".png' class='hidden'>");
@@ -110,15 +119,22 @@ function write_medium_generic(){
     console.log("spacing: "+spacing);
     
     //pripravi izbiro slik
-    var z = 0, left=0;
     for(var i = 0; i < choices.length; i++){
         $(".multipleImageContainer").append("<div class='imgContain'><a href='active'><img class='multipleImages' src='"+flagsDir + choices[i].toLowerCase() + ".png' /></a></div>");
-        z++;
-        left+=spacing;
     }
     
     $('.imgContain a img').click(function (e) {
         e.preventDefault();
+        if(isMobile){
+            clickCounterMobile+=1;
+            if(clickCounterMobile < 2) return;
+            else if(lastClickedElementMobile != e.target){
+                lastClickedElementMobile = e.target;
+                clickCounterMobile = 1;
+                return;
+            }
+            clickCounterMobile = 0;
+        }
         if($(this).parent().attr("href") == "active"){
             var chosen = getLetterFromURL($(this).attr('src')).toLowerCase();
             var right = $("#letterToGuess span").text().toLowerCase();
@@ -162,11 +178,11 @@ function write_medium_generic(){
 }
 
 function write_hard_generic(){
-    var nmb = $( window ).alphabet.length;
+    var nmb =window .alphabet.length;
     console.log("abeceda: "+window.alphabet);
     var allChoices = [];
     for(var i = 0; i < nmb; i++){
-        allChoices.push(($( window ).alphabet).charAt(i));
+        allChoices.push(( window .alphabet).charAt(i));
     }
     
     shuffle(allChoices);
@@ -178,16 +194,13 @@ function write_hard_generic(){
         
         var z = 0, left=0;
         for(var i = 0; i < 9 && x+i < nmb; i++){
-            $(".allImageContainer .multipleImageContainer"+numberOfContainer).append("<div class='imgContainHard'><a class='multipleImagesHard'><img draggable='true' ondragstart='drag(event)' id ='image"+(x+i)+"';' src='"+flagsDir + allChoices[x+i].toLowerCase() + ".png' /></a></div>");
+                $(".allImageContainer .multipleImageContainer"+numberOfContainer).append("<div class='imgContainHard'><a class='multipleImagesHard'><img draggable='true' ondragstart='drag(event)' id ='image"+(x+i)+"';' src='"+flagsDir + allChoices[x+i].toLowerCase() + ".png' /></a></div>");
             z++;
             left+=95; 
         }
        
        numberOfContainer++; 
     }
-    $(".imgContain a").click(function(e){
-        e.preventDefault();
-    });
     
     selectAndDisplayNewWordWriteHardGeneric();
 }
@@ -200,12 +213,96 @@ function selectAndDisplayNewWordWriteHardGeneric(){
 
     //doda kvadratke za vsako crko
     var word =  selectNewWord(window.words);
-    while (word.length > 8 || !isValidWord(word, $( window ).alphabet))
+    var wordLength = 8;
+    if(isMobile)wordLength=5;
+    while (word.length > wordLength || !isValidWord(word, window.alphabet))
         word =  selectNewWord(window.words);
     console.log("beseda: "+word);
     for(var i = 0; i < word.length; i++){
         $(".taskContainer").append("<div id='taskContainer"+i+"' class='taskLetter position"+i+"' ondrop='drop(event)' ondragover='allowDrop(event)'  ondragleave='dragLeave(event)'><span>"+(word.charAt(i)).toUpperCase()+"</span></div>");
     } 
+    
+    if(isMobile){
+        $(".imgContainHard").click(function(e){
+            console.log("CLICK!!");
+            $(this).toggleClass("activeHover");
+        });
+        
+        $(".imgContainHard a").draggable({
+          cursor: "move",
+          helper: 'clone',
+          revert: "invalid",
+          tolerance: "fit",
+          containment: "window",
+          start: function(event, ui){
+            if($(this).parent().hasClass("activeHover"))return false;
+			$(this).draggable('instance').offset.click = {
+                left: Math.floor(ui.helper.width() / 2),
+                top: Math.floor(ui.helper.height() / 2)
+            };
+            
+            dragedImageData = $(this).find("img").attr("src");
+          }
+        });
+      
+        $(".taskContainer .taskLetter").droppable({
+            over: function( event, ui ) {
+                console.log("over");
+                allowDrop(event);
+            },
+            out : function( event, ui ) {
+                console.log("out");
+                dragLeave(event);
+            },
+            drop: function( event, ui ) {
+                //implemented
+            }
+        });
+        
+        $(".taskContainer .taskLetter").draggable({
+          cursor: "move",
+          revert: "invalid",
+          tolerance: "fit",
+          containment: "window",
+          helper: function() {
+            //debugger;
+            var bg = $(this).css('background-image');
+            bg = bg.replace('url(','').replace(')','').replace(/\"/gi, "");
+            return "<img src='"+bg+"' style:'width:20%'>";
+          },
+          start: function(event, ui){
+            dragedImageData = $(this).attr('id');
+            console.log("start");
+			$(this).draggable('instance').offset.click = {
+                left: Math.floor(ui.helper.width() / 2),
+                top: Math.floor(ui.helper.height() / 2)
+            }; 
+          }
+        });
+        
+        $(".trashCan").droppable({
+            over: function( event, ui ) {
+                allowDropTrash(event);
+            },
+            end: function( event, ui ){
+                dragLeaveTrash(event);
+            }
+        });
+    }
+    
+    //resize task containers
+    if(isMobile){
+        var currWidth = $(".taskLetter").width();
+        var wraperWidth = $(".taskContainer").width();
+        var nmbOfchildren = $(".taskContainer").children().length;
+        if(wraperWidth*0.8 < currWidth*nmbOfchildren){
+            var newWidth = (wraperWidth/nmbOfchildren)*0.6;
+            $(".taskLetter").css("width",newWidth);
+            $(".taskLetter").css("height",newWidth);
+            $(".taskContainer span").css("font-size",newWidth*0.8);
+            newTaskSize = newWidth;
+        }
+    }
 }
 
 function selectNewChoiceBundle(standardAlphabet, taskCharacter){
@@ -240,16 +337,24 @@ function newTaskWriteMediumGeneric(){
     $(".multipleImageContainer").html("");
      
     //postavitev obojega
-    var z = 0, left=0;
     for(var i = 0; i < choices.length; i++){
-        $(".multipleImageContainer").append("<div class='imgContain'><a href='active'><img class='multipleImages' style='z-index:"+z+";left:"+left+"px' src='"+flagsDir + choices[i].toLowerCase() + ".png' /></a></div>");
-        z++;
-        left+=107;
+        $(".multipleImageContainer").append("<div class='imgContain'><a href='active'><img class='multipleImages' src='"+flagsDir + choices[i].toLowerCase() + ".png' /></a></div>");
     }
+    
     
     //listener
     $('.imgContain a img').click(function (e) {
         e.preventDefault();
+        if(isMobile){
+            clickCounterMobile+=1;
+            if(clickCounterMobile < 2) return;
+            else if(lastClickedElementMobile != e.target){
+                lastClickedElementMobile = e.target;
+                clickCounterMobile = 1;
+                return;
+            }
+            clickCounterMobile = 0;
+        }
         if($(this).parent().attr("href") == "active"){
             var chosen = getLetterFromURL($(this).attr('src')).toLowerCase();
             var right = $("#letterToGuess span").text().toLowerCase();
@@ -286,17 +391,31 @@ function newTaskWriteMediumGeneric(){
                 }
                 // Points and learning progress
                 removePoints(1);
-                moveToNotLearnt(right,1);
+                moveToNotLearnt(right,0.5);
             }
         }
     });
 }
 
 $( document ).ready(function() {
-    ///////////////////////////////////////////////////////
+    $(document).click(function(event) {
+        lastClickedElementMobile = event.target;
+    });
     
-    console.log("Vse mozne besede: "+window.words);
+    if(window.intro == 1){
+        var bodyWidth = $(".panel-body").width();
+        $('.f1_card').css({'width': (bodyWidth*0.18) + 'px'});
+        $('.f1_card').css({'height':(bodyWidth*0.18)+'px'});
+    }
     
+    if (window.mode == "write") {
+        if (window.level == "easy"){
+            var bodyWidth = $(".panel-body").width();
+            $('.image_option').css({'width': (bodyWidth*0.18) + 'px'});
+            $('.image_option').css({'height':(bodyWidth*0.18)+'px'});
+        }
+        
+    }
     
     $("#checkGeneric").click(function (e){
         e.preventDefault();
@@ -352,7 +471,7 @@ $( document ).ready(function() {
                 if(nmbOfCorrect == taskWord.length){
                     addHistoryWriteHardGeneric(1, 0, taskWord, state);
                     $(".level-write-hard #next-arrow-generic").attr("href", "next");
-                    $("#checkGeneric img").attr("src", staticDir + "check_correct.png");
+                    $("#checkGeneric img").attr("src", staticDir+ imageGeneralDir + "check_correct.png");
                 }
                 else{
                     addHistoryWriteHardGeneric(0, 0, taskWord, state);
@@ -362,7 +481,7 @@ $( document ).ready(function() {
                 if(nmbOfCorrect == taskWord.length){
                     addHistoryWriteHardGeneric(1, 1, taskWord, state);
                     $(".level-write-hard #next-arrow-generic").attr("href", "next");
-                    $("#checkGeneric img").attr("src", staticDir + "check_correct.png");
+                    $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check_correct.png");
                 }
                 else{
                     addHistoryWriteHardGeneric(0, 1, taskWord, state);
@@ -397,25 +516,25 @@ $( document ).ready(function() {
                         if(state != "")state+=",";
                         state+= letter + "I";
                     });
-                    $("#checkGeneric img").attr("src", staticDir + "check.png");
+                    $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check.png");
                     addHistoryWriteHardGeneric(0,0,taskWord,state); // push to history and mark as unanswered
                 }
             }
             
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][2] == 0){   // Chosen word is not answered
                 //restoreStringWriteHardGeneric(ansHist[histPtr][0],ansHist[histPtr][1]);
-                $("#checkGeneric img").attr("src", staticDir + "check.png");
+                $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check.png");
                 restoreHistoryWriteHardGeneric(ansHist[histPtr][0],ansHist[histPtr][1]);
             }
             
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][2] == 1){   // Chosen letter is answered
                 $(".level-write-hard #next-arrow-generic").attr("href", "next");
-                $("#checkGeneric img").attr("src", staticDir + "check_correct.png");
+                $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check_correct.png");
                 restoreHistoryWriteHardGeneric();
             }
             
             else{   // Chosen letter is answered
-                $("#checkGeneric img").attr("src", staticDir + "check_correct.png");
+                $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check_correct.png");
                 restoreHistoryWriteHardGeneric();
             }
             
@@ -429,7 +548,7 @@ $( document ).ready(function() {
         e.preventDefault();
         if ($("#prew-arrow-generic").attr("href") === "prew") {
             histPtr--;
-            $("#checkGeneric img").attr("src", staticDir + "check_correct.png");
+            $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check_correct.png");
             restoreHistoryWriteHardGeneric();
             //textFieldsDisable(".letterInputClass");
             //$("#start-animation").css("visibility", "hidden");
@@ -483,8 +602,6 @@ $( document ).ready(function() {
     });
     
     
-    ///////////////////////////////////////////////////////
-    
     
     
     checkCookie(cookie_name);
@@ -493,6 +610,7 @@ $( document ).ready(function() {
     $('.f1_container').click(function() {
         console.log("click");
             $(this).toggleClass('active');
+            
         }); 
         
     // pop-up instructions
@@ -513,23 +631,6 @@ $( document ).ready(function() {
         $("#myDropdown").toggleClass( "show");
     });
     
-    // Close the dropdown menu if the user clicks outside of it
-    /*
-    window.onclick = function(event) {
-      if (!event.target.matches('.dropbtn')) {
-    
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-        }
-      }
-    }
-    */
-    ///////////////////
     
     /* *************************************************************************** */
     /* ********************************   READ  ********************************** */
@@ -1156,18 +1257,32 @@ $( document ).ready(function() {
     // Event listener for click-and-drag of right flag
     document.getElementById("imageRightFlag").addEventListener("mousedown",function(e){
          e.preventDefault();
+         console.log("mousedown!!");
         if($("#imageRightFlag").attr("href") === "enabled"){
-            $( window ).document.addEventListener("mousemove", mouseMoveRight,true);
+            window.document.addEventListener("mousemove", mouseMoveRight,true);
             
-            $( window ).document.addEventListener("mouseup",function a(e){
+            window.document.addEventListener("mouseup",function a(e){
                 e.preventDefault();
-                $( window ).document.removeEventListener("mousemove", mouseMoveRight,true);
+                window.document.removeEventListener("mousemove", mouseMoveRight,true);
                 fixPosition("right");
-                $( window ).document.removeEventListener("mouseup", a,true);
+                window.document.removeEventListener("mouseup", a,true);
             },true);
         }
     });    
 
+    document.getElementById("imageRightFlag").addEventListener("touchmove",function(e){
+         e.preventDefault();
+        if($("#imageRightFlag").attr("href") === "enabled"){
+            window.document.addEventListener("touchmove", touchMoveRight,true);
+            
+            window.document.addEventListener("touchend",function a(e){
+                e.preventDefault();
+                window.document.removeEventListener("touchmove", touchMoveRight,true);
+                fixPosition("right");
+                window.document.removeEventListener("touchend", a,true);
+            },true);
+        }
+    });   
     
     // Function for tracking mouse movements
     function mouseMoveRight(e) {
@@ -1175,7 +1290,7 @@ $( document ).ready(function() {
         var centerMis = [e.clientX, e.clientY];
         
         //Izracun kota premika
-        var degree = Math.atan2(centerMis[0] - middlePointRight[0], -(centerMis[1] - (middlePointRight[1] - $( window ).scrollY)))* (180 / Math.PI);
+        var degree = Math.atan2(centerMis[0] - middlePointRight[0], -(centerMis[1] - (middlePointRight[1] -window.scrollY)))* (180 / Math.PI);
         
         //Rotacije za vse brskalike
         var objFlagRight = $("#imageRightFlag");
@@ -1185,22 +1300,51 @@ $( document ).ready(function() {
         objFlagRight.css('-ms-transform', 'rotate('+degree+'deg)');
     }
     
+    // Function for tracking mouse movements
+    function touchMoveRight(e) {
+        //Izracun centra kroznice in pozicije miske
+        var centerMis = [e.touches[0].clientX, e.touches[0].clientY];
+        
+        //Izracun kota premika
+        var degree = Math.atan2(centerMis[0] - middlePointRight[0], -(centerMis[1] - (middlePointRight[1] -window.scrollY)))* (180 / Math.PI);
+        
+        //Rotacije za vse brskalike
+        var objFlagRight = $("#imageRightFlag");
+        objFlagRight.css('-moz-transform', 'rotate('+degree+'deg)');
+        objFlagRight.css('-webkit-transform', 'rotate('+degree+'deg)');
+        objFlagRight.css('-o-transform', 'rotate('+degree+'deg)');
+        objFlagRight.css('-ms-transform', 'rotate('+degree+'deg)');
+    }
      
     // LEFT
     // Event listener for click-and-drag of right flag
     document.getElementById("imageLeftFlag").addEventListener("mousedown",function(e){
         e.preventDefault();
         if($("#imageLeftFlag").attr("href") === "enabled"){
-            $( window ).document.addEventListener("mousemove", mouseMoveLeft,true);
+            window.document.addEventListener("mousemove", mouseMoveLeft,true);
     
-            $( window ).document.addEventListener("mouseup",function a(e){
+            window.document.addEventListener("mouseup",function a(e){
                 e.preventDefault();
-                $( window ).document.removeEventListener("mousemove", mouseMoveLeft,true);
+                window.document.removeEventListener("mousemove", mouseMoveLeft,true);
                 fixPosition("left");
-                $( window ).document.removeEventListener("mouseup", a,true);
+                window.document.removeEventListener("mouseup", a,true);
             },true);
         }
-    });    
+    });
+    
+    document.getElementById("imageLeftFlag").addEventListener("touchmove",function(e){
+        e.preventDefault();
+        if($("#imageLeftFlag").attr("href") === "enabled"){
+            window.document.addEventListener("touchmove", touchMoveLeft,true);
+    
+            window.document.addEventListener("touchend",function a(e){
+                e.preventDefault();
+                window.document.removeEventListener("touchmove", touchMoveLeft,true);
+                fixPosition("left");
+                window.document.removeEventListener("touchend", a,true);
+            },true);
+        }
+    });
     
     // Function for tracking mouse movements
     function mouseMoveLeft(e) {
@@ -1208,7 +1352,7 @@ $( document ).ready(function() {
         var centerMis = [e.clientX, e.clientY];
         
         // Angle of rotation
-        var radians = Math.atan2(centerMis[0] - middlePointLeft[0], centerMis[1] - (middlePointLeft[1] - $( window ).scrollY));
+        var radians = Math.atan2(centerMis[0] - middlePointLeft[0], centerMis[1] - (middlePointLeft[1] - window.scrollY));
         var degree = (radians * (180 / Math.PI)*-1)+180; 
         
         // Rotation for all browsers
@@ -1218,7 +1362,26 @@ $( document ).ready(function() {
         objFlagLeft.css('-o-transform', 'rotate('+degree+'deg)');
         objFlagLeft.css('-ms-transform', 'rotate('+degree+'deg)');
     }
+    
+    function touchMoveLeft(e) {
+        // Center of rotation and position of mouse
+        var centerMis = [e.touches[0].clientX, e.touches[0].clientY];
+        
+        // Angle of rotation
+        var radians = Math.atan2(centerMis[0] - middlePointLeft[0], centerMis[1] - (middlePointLeft[1] - window.scrollY));
+        var degree = (radians * (180 / Math.PI)*-1)+180; 
+        
+        // Rotation for all browsers
+        var objFlagLeft = $("#imageLeftFlag");
+        objFlagLeft.css('-moz-transform', 'rotate('+degree+'deg)');
+        objFlagLeft.css('-webkit-transform', 'rotate('+degree+'deg)');
+        objFlagLeft.css('-o-transform', 'rotate('+degree+'deg)');
+        objFlagLeft.css('-ms-transform', 'rotate('+degree+'deg)');
+    }
+    
+    
 });
+
 
 /* *************************************************************************** */
 /* *******************************   CODE  *********************************** */
@@ -1438,35 +1601,6 @@ function displaySequenceOfImages(elements, index) {
     }
 }
 
-/*
-// Function disables one choice [random]    <-- not in use
-function disableOneChoiceRead(){
-    console.log("disable one choice");
-    // indexira vse mozne izbire in najde eno rendom
-    var buttons = document.getElementById('choices'),button;
-    var counter = 0; var posibleOptions = [];
-    var corrLetter = getLetterFromURL($("#picture-letter img").attr('src'));
-    for(var i = 0; i < buttons.children.length; i++){
-        button = buttons.children[i];
-        var buttonClass = button.className;
-        var buttonLetter = button.innerHTML;
-        console.log("disabled: "+button.disabled);
-        var disabled = button.disabled;
-        if(buttonClass.includes("btn-info") && buttonLetter.toLowerCase() != corrLetter.toLowerCase() && !disabled){
-            console.log("pusham");
-           posibleOptions.push(button);
-           counter++;
-        }
-    }
-    if(counter > 0){
-    var index = Math.floor(Math.random() * counter);
-    var selectet = posibleOptions[index];
-    selectet.disabled = true;
-    pointsForRightAnswerReadEasy--;
-    }
-}
-*/ 
-
 // Function clears input
 function clearInput(elementID) {
     document.getElementById(elementID).value="";
@@ -1614,19 +1748,23 @@ function restoreHistoryMedium(){
 function addHistoryWriteEasy(set, ans){
     var state="";
     var buttons = document.getElementById('choices');
-    for(var i = 0; i < buttons.children.length; i++){
-        var buttonClass = (buttons.children[i]).getElementsByTagName('div')[0].className;
-        var buttonLetter = getLetterFromURL((((buttons.children[i]).getElementsByTagName('div')[0]).getElementsByTagName('img')[0].src));
-        console.log("CRKA: " + buttonLetter);
-        if(state!="")state+=",";
-        if ($(buttons.children[i]).find(".image_option").hasClass("wrongInput")) {
-            state+=buttonLetter+"D"
-        } else if ($(buttons.children[i]).find(".image_option").hasClass("correctInput")) {
-            state+=buttonLetter+"S"
-        } else {
-            state+=buttonLetter+"I"
+    
+    $(".image_option").each(function(){
+        if(state != "")state += ",";
+        
+        var letter = getLetterFromURL($(this).find("img").attr('src'));
+        
+        if($(this).parent().hasClass("wrongInput")){
+            state+=letter+"D";
         }
-    }
+        else if($(this).parent().hasClass("correctInput")){
+            state+=letter+"S";
+        }
+        else{
+            state+=letter+"I";
+        }
+    });
+    
     var corrLetter = $("#letterToGuess span").text();
     console.log("dodal bom v zgodovino: "+state);
     if(set == 1) ansHist[histPtr]=[state,ans,corrLetter];
@@ -1640,10 +1778,11 @@ function addHistoryWriteMediumGeneric(set, ans){
     $(".imgContain .multipleImages").each(function(e){
         if(state!="")state+=",";
         var buttonLetter = getLetterFromURL($(this).attr("src"));
-        if($(this).hasClass("success")){
+        console.log("moj class: "+ ($(this).attr("class")) +" oce: "+ ($(this).parent().parent().attr("class")));
+        if($(this).parent().parent().hasClass("success")){
             state+=buttonLetter+"S";
         }
-        else if($(this).hasClass("err")){
+        else if($(this).parent().parent().hasClass("err")){
             state+=buttonLetter+"D";
         }
         else{
@@ -1762,7 +1901,7 @@ function restoreHistoryReadHard(){
     var letters = string.split("");
     var idNumber = 1;
     
-    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/" +  "blank.png' class=''>");
+    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/images/general/" +  "blank.png' class=''>");
     
     for (i = 0; i < letters.length; i++) {
         var letter = letters[i];
@@ -1793,7 +1932,7 @@ function restoreStringReadHard(word){
     var idNumber = 1;
     var state = ansHist[histPtr][2].split(",");
     
-    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/" +  "blank.png' class=''>");
+    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/images/general/" +  "blank.png' class=''>");
     
     for (i = 0; i < letters.length; i++) {
         var letter = letters[i];
@@ -1818,17 +1957,17 @@ function restoreHistoryWriteEasy(){
         // adds class
         if(colour == 'I'){
             console.log("I");
-            $(buttons.children[i]).find(".image_option").removeClass("wrongInput").removeClass("correctInput");
+            $(buttons.children[i]).find(".image_option").parent().removeClass("wrongInput").removeClass("correctInput");
             $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
         }
         else if(colour == 'D'){
             console.log("D");
-            $(buttons.children[i]).find(".image_option").addClass("wrongInput").removeClass("correctInput");
+            $(buttons.children[i]).find(".image_option").parent().addClass("wrongInput").removeClass("correctInput");
             $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
         }
         else if(colour == 'S'){
             console.log("S");
-            $(buttons.children[i]).find(".image_option").addClass("correctInput").removeClass("wrongInput");
+            $(buttons.children[i]).find(".image_option").parent().addClass("correctInput").removeClass("wrongInput");
             $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
             $("#letterToGuess span").text(letter.toUpperCase());
         }
@@ -1858,15 +1997,18 @@ function displayOldLetterWriteEasy(corrLetter, choices){
         var letter = (ans[j].split(""))[0];
         var colour = (ans[j].split(""))[1];
         if(colour == 'I'){
-            $(buttons.children[i]).find(".image_option").removeClass().addClass("image_option");
+            $(buttons.children[i]).find(".image_option").parent().removeClass("wrongInput correctInput")
+            $(buttons.children[i]).find(".image_option").removeClass("not_active")
             $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
         }
         else if(colour == 'D'){
-            $(buttons.children[i]).find(".image_option").removeClass().addClass("image_option wrongInput not_active");
+            (buttons.children[i]).find(".image_option").parent().addClass("wrongInput");
+            $(buttons.children[i]).find(".image_option").addClass("not_active");
             $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
         }
         else if(colour == 'S'){
-            $(buttons.children[i]).find(".image_option").removeClass().addClass("image_option correctInput");
+            $(buttons.children[i]).find(".image_option").parent().addClass("correctInput");
+            $(buttons.children[i]).find(".image_option").addClass("not_active");
             $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
         }
         j++;
@@ -1892,30 +2034,36 @@ function displayOldLetterWriteMediumGeneric(corrLetter, choices, isAnswered){
     //doda novo stanje
     var ans = choices.split(",");
     
-    var left=0, z=0;
     for(var position in ans){
         var choiceLetter = ans[position].charAt(0);
         var choiceLetterState = ans[position].charAt(1);
         
-        if(choiceLetterState == "S")$(".multipleImageContainer").append("<div class='imgContain'><a><img class='multipleImages success' style='z-index:"+z+";left:"+left+"px' src='"+flagsDir + choiceLetter.toLowerCase() + ".png' /></a></div>");
-        else if(choiceLetterState == "D")$(".multipleImageContainer").append("<div class='imgContain'><a><img class='multipleImages err' style='z-index:"+z+";left:"+left+"px' src='"+flagsDir + choiceLetter.toLowerCase() + ".png' /></a></div>");
-        else if(isAnswered) $(".multipleImageContainer").append("<div class='imgContain'><a><img class='multipleImages' style='z-index:"+z+";left:"+left+"px' src='"+flagsDir + choiceLetter.toLowerCase() + ".png' /></a></div>");
-        else $(".multipleImageContainer").append("<div class='imgContain'><a href='active'><img class='multipleImages' style='z-index:"+z+";left:"+left+"px' src='"+flagsDir + choiceLetter.toLowerCase() + ".png' /></a></div>");
-    
-        left+=107;
-        z++;
+        if(choiceLetterState == "S")$(".multipleImageContainer").append("<div class='imgContain success'><a><img class='multipleImages'src='"+flagsDir + choiceLetter.toLowerCase() + ".png' /></a></div>");
+        else if(choiceLetterState == "D")$(".multipleImageContainer").append("<div class='imgContain err'><a><img class='multipleImages' src='"+flagsDir + choiceLetter.toLowerCase() + ".png' /></a></div>");
+        else if(isAnswered) $(".multipleImageContainer").append("<div class='imgContain'><a><img class='multipleImages' src='"+flagsDir + choiceLetter.toLowerCase() + ".png' /></a></div>");
+        else $(".multipleImageContainer").append("<div class='imgContain'><a href='active'><img class='multipleImages' src='"+flagsDir + choiceLetter.toLowerCase() + ".png' /></a></div>");
     }
     
-    //listener
     $('.imgContain a img').click(function (e) {
         e.preventDefault();
+        if(isMobile){
+            clickCounterMobile+=1;
+            if(clickCounterMobile < 2) return;
+            else if(lastClickedElementMobile != e.target){
+                lastClickedElementMobile = e.target;
+                clickCounterMobile = 1;
+                return;
+            }
+            clickCounterMobile = 0;
+        }
         if($(this).parent().attr("href") == "active"){
             var chosen = getLetterFromURL($(this).attr('src')).toLowerCase();
             var right = $("#letterToGuess span").text().toLowerCase();
             if(chosen == right){
                 //zeleno
-                $(this).addClass("success"); //-> disable all
+                $(this).parent().parent().addClass("success"); //-> disable all
                 $(".multipleImageContainer .imgContain a").removeAttr("href");
+                $(".multipleImageContainer .imgContain").addClass("disabled");
                 $(".level-write-medium #next-arrow-generic").attr("href","next");
                 $(".level-write-medium #next-arrow").attr("href", "next");
                 
@@ -1931,7 +2079,8 @@ function displayOldLetterWriteMediumGeneric(corrLetter, choices, isAnswered){
                 moveToLearnt(right);
             }
             else{
-                $(this).addClass("err");
+                $(this).parent().parent().addClass("err");
+                $(this).parent().parent().addClass("disabled");
                 $(this).parent().removeAttr("href");
                 
                 // History
@@ -1943,7 +2092,7 @@ function displayOldLetterWriteMediumGeneric(corrLetter, choices, isAnswered){
                 }
                 // Points and learning progress
                 removePoints(1);
-                moveToNotLearnt(right,1);
+                moveToNotLearnt(right,0.5);
             }
         }
     });
@@ -2076,15 +2225,15 @@ function flashRightLetter(letter){
 function markCheckControlWrite(status){
     var tmp = $("#check img").attr("src");
     if(status == 1){
-        $("#check img").attr("src",staticDir + "check_correct.png");
+        $("#check img").attr("src",staticDir + imageGeneralDir+"check_correct.png");
         disableFlags("both");
     }
     else if(status == 0){
-        $("#check img").attr("src", staticDir + "check_err.png");
+        $("#check img").attr("src", staticDir + imageGeneralDir+"check_err.png");
         $("#check img").attr("href", "enabled");
     }
     else{
-        $("#check img").attr("src", staticDir + "check.png");
+        $("#check img").attr("src", staticDir + imageGeneralDir+"check.png");
         $("#check img").attr("href", "enabled");
     }
 }
@@ -2387,6 +2536,8 @@ function checkURL(url) {
 /* ****************************   DRAG AND DROP  ***************************** */
 /* *************************************************************************** */
 
+
+
 function allowDrop(ev) {
     ev.preventDefault();
     var idName= ev.target.id;
@@ -2425,6 +2576,7 @@ function dragLeaveTrash(ev){
     $(ev.target).removeClass("border");
 }
 
+
 function drag(ev) {
     //$(ev.target).attr("style","transform: scale(0.7, 0.7);")
     ev.dataTransfer.setData("text", event.target.src);
@@ -2436,7 +2588,12 @@ function drag(ev) {
 
 function drop(ev) {
     ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
+    var data;
+    if(isMobile){
+        data = dragedImageData;
+        console.log("data = "+data);
+    }
+    else data = ev.dataTransfer.getData("text");
     
     var idName= ev.target.id;
     
@@ -2458,9 +2615,13 @@ function drop(ev) {
         divContainer = $(ev.target).parent();
     }
     divContainer.attr("draggable",'true');
-    divContainer.attr("ondragstart",'dragFromTask(event)');
+    if(!isMobile)divContainer.attr("ondragstart",'dragFromTask(event)');
     divContainer.attr("style","background-image: url("+data+");background-repeat:no-repeat;background-size:contain;");
     divContainer.removeClass("success err")
+    if(newTaskSize != null){
+        divContainer.css("width",newTaskSize);
+        divContainer.css("height",newTaskSize);
+    }
 }
 
 function dragFromTask(ev){
@@ -2471,12 +2632,22 @@ function dropInTrash(ev){
     ev.preventDefault();
     
     $(".trashCan").removeClass("border");
-    
-    var data = ev.dataTransfer.getData("text");
+    var data;
+    if(isMobile){
+        data = dragedImageData;
+    }
+    else data = ev.dataTransfer.getData("text");
     
     if(data.indexOf("taskConatiner") !== -1)return;
     
     $("#"+data).attr("style","background-image:none");
     $("#"+data).removeClass("succes err");
     $("#"+data+" span").removeClass();
+    if(newTaskSize != null){
+        $("#"+data).css("width",newTaskSize);
+        $("#"+data).css("height",newTaskSize);
+        $("#"+data+" span").css("font-size",newTaskSize*0.8)
+    }
 }
+
+

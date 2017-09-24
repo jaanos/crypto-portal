@@ -69,9 +69,8 @@ def index(selected_alphabet = "flags", mode = "easy", level = "easy"):
     # check if folder with images exists
     if (alphabet_exists(selected_alphabet)):
         abc = getValidLetters(selected_alphabet)
-        introText = getIntro(selected_alphabet)
         if(selected_alphabet=="flags"): return render_template("alphabet.flags.html", nav = "alphabet", alphabet = abc, intro = "1")
-        else: return render_template("alphabet.generic.html", nav = "alphabet", alphabet = abc, intro = "1", introText = introText, alphabetForLearning=selected_alphabet)
+        else: return render_template("alphabet.generic.html", nav = "alphabet", alphabet = abc, intro = "1", introText = getIntro(selected_alphabet), alphabetForLearning=selected_alphabet)
     else:
         return "Te abecede pa (se) ne poznam!"
 
