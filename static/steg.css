@@ -45,6 +45,12 @@
     background-color: #fff;
     height: auto;
 }
+.container2 {
+    border: 1px solid #ccc;
+    border-bottom: none;
+    background-color: #fff;
+    height: auto;
+}
 #custom {
     margin: auto;
     display: block;
@@ -191,13 +197,14 @@ textarea:focus, input:focus, .uneditable-input:focus {
     background-color: #467892; 
     border: 1px solid #467892;
     margin-left: 40px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    display: block;
 }
-
-#diffH{
-    margin-left: 50%;
+#diffH h4 {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
-
-
 #coded{
     margin: auto;
     width: 37%;
@@ -211,28 +218,16 @@ textarea:focus, input:focus, .uneditable-input:focus {
     margin-bottom:10px;
     padding: 0 40px;
 }
-.btn {
-    padding:10px 20px 10px 20px;
-    -moz-border-radius:15px;
-    -o-border-radius:15px;
-    -webkit-border-radius:15px;
-    border-radius:15px;
-    border:2px solid #6445ff;
-    cursor:pointer;
-    color:#6445ff;
-    background-color:white;
-    width:50px;
-    text-align:center;
-}
-.btn:hover {
+
+#download:hover {
     color:white;
     background-color:#6445ff;
 }
 
 #myCanvas3{
 	border-style: solid;
-    border-width: 2px;
-    border-color: #467892;
+	border-width: 3px;
+	border-color: #467892;
 }
 
 #download {
@@ -247,6 +242,10 @@ textarea:focus, input:focus, .uneditable-input:focus {
     -webkit-border-radius:0 0 15px 15px;
     border-radius:0 0 15px 15px;
     text-decoration:none;
+	border:2px solid #6445ff;
+    cursor:pointer;
+    color:#6445ff;
+    background-color:white;
 }
 #download:hover {
     width:70px;
