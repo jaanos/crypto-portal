@@ -9,7 +9,7 @@
 }
 #nav-bar-2 h2 {
     color: #eee;
-    padding-top: 14px;
+    margin-top: 16px;
     padding-left: 10px;
     font-size: 16px;
     float: left;
@@ -119,6 +119,7 @@ textarea:focus, input:focus, .uneditable-input:focus {
     border-color: #2e8698!important;
     box-shadow: 0px 0px 0px #eee inset, 0 0 6px #467892!important;
     outline: 0 none !important;
+    border: 1px solid #467892 !important;
 }
 .txtstuff {
     resize: none;
