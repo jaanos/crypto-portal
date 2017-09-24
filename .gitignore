@@ -58,5 +58,7 @@ target/
 
 # custom
 *~
+.~*
 .htaccess
 auth.py
+static/uploads

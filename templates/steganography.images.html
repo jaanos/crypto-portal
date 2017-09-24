@@ -1,9 +1,9 @@
-{% extends "main.html" %}
+{% extends "header.html" %}
 {% block body %}
-		<script src="{{url_for('static', filename='pixelmatch.js')}}"></script>
-		<script src="{{url_for('static', filename='steg.js')}}"></script>
-		<script src="{{url_for('static', filename='steganography.js')}}"></script>
-		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='steg.css')}}" />
+		<script src="{{url_for('static', filename='js/steganography/pixelmatch.js')}}"></script>
+		<script src="{{url_for('static', filename='js/steganography/steg.js')}}"></script>
+		<script src="{{url_for('static', filename='js/steganography/steganography.js')}}"></script>
+		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/steganography.css')}}" />
 
     <!-- pop up nasvet + omejitve -->
 
@@ -89,7 +89,7 @@
             <input type="file" id="file" name="file"/>
         </div></div>
         
-        <img id="img" src="{{url_for('static', filename='generic-pic1.png')}}">
+        <img id="img" src="{{url_for('static', filename='images/generic-pic1.png')}}">
 
         <div id="coded"><p>Število kodiranih znakov </p><span id="capacity"></span></h2> </div>
         <textarea id="text" class="common" placeholder="Vpiši sporočilo..."></textarea><br>
@@ -107,14 +107,14 @@
 
                 <h4>Slika s sporočilom:</h4>
                 <img id="cover" src=""/>
-                <a style="display: none;" id="download" class="btn small" download="prenos.png" rel="nofollow"><strong>D</strong></a>
+                <button style="display: none;" id="download" onclick="document.getElementById('dlink').click()"><a id="dlink" download="prenos.png" rel="nofollow">Prenos</a></button>
 
                 <div id="diffH" style="display: none;">
                     <h4>Razlika med slikama:</h4>
                     <canvas id="myCanvas3"> </canvas>
                 </div>
+                <button id="diff">Prikaži razliko</button>
             </div>
-            <button id="diff">Prikaži razliko</button>
         </div>
     </div>
 	

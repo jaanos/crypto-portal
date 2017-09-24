@@ -18,7 +18,7 @@ def githook():
         return json.dumps({'msg': 'Hi!'})
     if request.headers.get('X-GitHub-Event') != "push":
         return json.dumps({'msg': "wrong event type"})
-    payload = json.loads(request.data)
+    payload = json.loads(request.data.decode("utf-8"))
     signature = request.headers.get('X-Hub-Signature').split('=')[1]
     mac = hmac.new(gitkey, msg=request.data, digestmod=sha1)
     if not compare_digest(mac.hexdigest(), signature):
