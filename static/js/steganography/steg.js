@@ -255,6 +255,7 @@ function hide() {
         cover = document.getElementById("cover"),
         textarea = document.getElementById("text"),
         download = document.getElementById("download");
+        dlink = document.getElementById("dlink");
     if(typeof f === "undefined"){
         modal5 = document.getElementById('myModal5');
         close5 = document.getElementById('cl5');
@@ -307,7 +308,7 @@ function hide() {
         var b = img.height;
         cover.src = steg.encode(textarea.value, img, {"width": img.width, "height": img.height});
         document.getElementById('text').value = "";
-        download.href=cover.src.replace("image/png", "image/octet-stream");
+        dlink.href=cover.src.replace("image/png", "image/octet-stream");
     }
 }
 

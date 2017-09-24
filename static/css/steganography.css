@@ -159,7 +159,7 @@ textarea:focus, input:focus, .uneditable-input:focus {
 #read {
     margin-left: 20px;
 }
-#hide:hover, #read:hover, #diff:hover {
+#hide:hover, #read:hover, #diff:hover, #download:hover {
     color: #fff;
     background-color: #396277;
     border: 1px solid #396277;
@@ -176,8 +176,6 @@ textarea:focus, input:focus, .uneditable-input:focus {
 	position:relative;
 	display:inline-block;
     margin-top: 40px;
-    margin-left: 40px;
-    height: 400px;
     max-height: auto;
 }
 #diff {
@@ -219,10 +217,7 @@ textarea:focus, input:focus, .uneditable-input:focus {
     padding: 0 40px;
 }
 
-#download:hover {
-    color:white;
-    background-color:#6445ff;
-}
+
 
 #myCanvas3{
 	border-style: solid;
@@ -231,27 +226,24 @@ textarea:focus, input:focus, .uneditable-input:focus {
 }
 
 #download {
-    position:absolute;
-    top:42px;
-    left:4px;
-    padding:10px 5px 5px 3px;
-    width:10px;
-    border-top:1px solid black;
-    -moz-border-radius:0 0 15px 15px;
-    -o-border-radius:0 0 15px 15px;
-    -webkit-border-radius:0 0 15px 15px;
-    border-radius:0 0 15px 15px;
-    text-decoration:none;
-	border:2px solid #6445ff;
-    cursor:pointer;
-    color:#6445ff;
-    background-color:white;
+    border-radius: 4px;
+    height: 35px;
+    width: 150px;
+    font-weight: bold;
+    text-shadow: 0 1px 1px rgba(0,0,0,.1);
+    -webkit-box-shadow: 0 2px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 2px 2px rgba(0,0,0,.2);
+	box-shadow: 0 2px 2px rgba(0,0,0,.2);
+    background-color: #467892;
+    border: 1px solid #467892;
+    margin-left: 40px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    display: block;
 }
-#download:hover {
-    width:70px;
-}
-#download:hover:after {
-    content:"ownload";
+
+#download a {
+    color: #fff;
 }
 
 /* pop-upi */
@@ -341,4 +333,8 @@ textarea:focus, input:focus, .uneditable-input:focus {
 .clear {
     height: 30px;
     clear: both;
+}
+
+#hidden {
+    text-align: center;
 }
