@@ -22,7 +22,7 @@ def index():
 
 @app.route("/favicon.ico")
 def favicon():
-    return redirect('static/favicon.ico')
+    return redirect('static/images/favicon.ico')
 
 if __name__ == '__main__':
     app.run(debug=True,host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080))) # DODANO ZA POTREBE CLOUD9

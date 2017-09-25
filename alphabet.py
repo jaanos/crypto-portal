@@ -13,7 +13,20 @@ def get_all_words():
     db = database.dbcon()
     cur = db.cursor()
     cur.execute("SELECT Word FROM Words")
-    return [row[0] for row in cur]
+    row = cur.fetchone()
+    
+    listOfWords = ""
+    max = 0
+    while row is not None:
+        if(len(row[0]) > max):
+            max = len(row[0])
+        if listOfWords != "":
+            listOfWords += ","
+        listOfWords += (row[0])
+        row = cur.fetchone()
+    
+    #print(max)
+    return listOfWords
 words = get_all_words()
 
 # get alphabet from database
@@ -24,6 +37,13 @@ def getValidLetters(selectedAlphabet):
     alphabet = cur.fetchone()[0]
     return alphabet
 
+def getIntro(selectedAlphabet):
+    db = database.dbcon()
+    cur = db.cursor()
+    cur.execute("SELECT intro FROM alphabet WHERE name = %s", [selectedAlphabet])
+    introText = cur.fetchone()[0]
+    return introText
+    
 def select_word(list_words):
     return list_words[randint(0, len(list_words)-1)]
 
@@ -50,7 +70,7 @@ def index(selected_alphabet = "flags", mode = "easy", level = "easy"):
     if (alphabet_exists(selected_alphabet)):
         abc = getValidLetters(selected_alphabet)
         if(selected_alphabet=="flags"): return render_template("alphabet.flags.html", nav = "alphabet", alphabet = abc, intro = "1")
-        else: return render_template("alphabet.generic.html", nav = "alphabet", alphabet = abc, intro = "1", alphabetForLearning=selected_alphabet)
+        else: return render_template("alphabet.generic.html", nav = "alphabet", alphabet = abc, intro = "1", introText = getIntro(selected_alphabet), alphabetForLearning=selected_alphabet)
     else:
         return "Te abecede pa (se) ne poznam!"
 
@@ -66,7 +86,7 @@ def flags(selected_alphabet = "flags", mode = "easy", level = "easy"):
 def sign(selected_alphabet = "sign", mode = "easy", level = "easy"):
     # check if folder with images exists
     if (alphabet_exists(selected_alphabet)):
-        return render_template("alphabet.generic.html", nav = "alphabet", alphabet = getValidLetters(selected_alphabet), intro = "1", alphabetForLearning="sign")
+        return render_template("alphabet.generic.html", nav = "alphabet", alphabet = getValidLetters(selected_alphabet), intro = "1",introText = getIntro(selected_alphabet), alphabetForLearning="sign")
     else:
         return "Te abecede pa (se) ne poznam!"
 
@@ -74,7 +94,7 @@ def sign(selected_alphabet = "sign", mode = "easy", level = "easy"):
 def greek(selected_alphabet = "greek", mode = "easy", level = "easy"):
     # check if folder with images exists
     if (alphabet_exists(selected_alphabet)):
-        return render_template("alphabet.generic.html", nav = "alphabet", alphabet = getValidLetters(selected_alphabet), intro = "1", alphabetForLearning="greek")
+        return render_template("alphabet.generic.html", nav = "alphabet", alphabet = getValidLetters(selected_alphabet), intro = "1",introText = getIntro(selected_alphabet), alphabetForLearning="greek")
     else:
         return "Te abecede pa (se) ne poznam!"
 

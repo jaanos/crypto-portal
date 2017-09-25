@@ -16,21 +16,31 @@ var positions = {   // x = [right, left]
         'g':[180,135],'h':[270,225],'i':[225,315],'j':[0,90],'k':[225,0],'l':[225,45],
         'm':[225,90],'n':[225,135],'o':[270,315],'p':[270,0],'q':[270,45],'r':[270,90],
         's':[270,135],'t':[315,0],'u':[315,45],'v':[0,135],'w':[45,90],'x':[45,135],
-        'y':[315,90],'z':[135,90],' ':[180,180],'init':[0,0], '1':[225,180],'2':[270,180],
-        '3':[315,180],'4':[0,180],'5':[180,45],'6':[180,90],'7':[180,135],'7':[270,225],
-        '9':[225,315],
+        'y':[315,90],'z':[135,90],' ':[180,180],'init':[0,0],
     };
 var middlePointRight, middlePointLeft;
+var alphabetName;
+var isMobile = false;
+var clickCounterMobile = 0;
+var lastClickedElementMobile = null;
+var dragedImageData = null;
+var newTaskSize = null;
+var imageGeneralDir = "images/general/"
 
 
 // INITIALIZATION
-function initialize_alphabet(mode, level) {
+function initialize_alphabet(mode, level, alphabetForLearning) {
+    // device detection
+    if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
+    || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) isMobile = true
+    
+    console.log("naprava isMobile: " + isMobile);
+    alphabetName = alphabetForLearning;
     refresh();
     // Get ready to watch user inputs
     for (var i = 0; i < alphabet.length; i++) {
         userAnswers[alphabet[i]] = 0;
     }
-
     if (mode == "read") {
         if (level == "easy") {
             read_easy();
@@ -43,9 +53,13 @@ function initialize_alphabet(mode, level) {
         if (level == "easy") {
             write_easy();
         } else if (level == "medium") {
-            write_medium();
+            if(alphabetForLearning == "flags")
+                write_medium();
+            else write_medium_generic();
         } else if (level == "hard") {
-            write_hard();
+            if(alphabetForLearning == "flags")
+                write_hard();
+            else write_hard_generic();
         }
     }
 }
@@ -70,9 +84,12 @@ function read_hard() {
     $("#start-animation").text("Začni!");
     
     var word = selectNewWord(window.words);
+    while (! isValidWord(word, alphabet)) {
+        word = selectNewWord(window.words);
+    }
     var letters = word.split("");
     var idNumber = 1;
-    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/" +  "blank.png' class=''>");
+    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/images/general/" +  "blank.png' class=''>");
     for (i = 0; i < letters.length; i++) {
         var letter = letters[i];
         $(".level-read-hard .panel-body .well").append("<img src='" + flagsDir + letter + ".png' class='hidden'>");
@@ -93,13 +110,507 @@ function write_hard() {
     setFigure();
 }
 
+function write_medium_generic(){
+    var taskCharacter = $("#letterToGuess").text();
+    //izbere 9 + 1 prava crk iz abecede
+    var choices = selectNewChoiceBundle(window.alphabet, taskCharacter);
+    
+    var spacing = ($(".multipleImageContainer").width())/11;
+    console.log("spacing: "+spacing);
+    
+    //pripravi izbiro slik
+    for(var i = 0; i < choices.length; i++){
+        $(".multipleImageContainer").append("<div class='imgContain'><a href='active'><img class='multipleImages' src='"+flagsDir + choices[i].toLowerCase() + ".png' /></a></div>");
+    }
+    
+    $('.imgContain a img').click(function (e) {
+        e.preventDefault();
+        if(isMobile){
+            clickCounterMobile+=1;
+            if(clickCounterMobile < 2) return;
+            else if(lastClickedElementMobile != e.target){
+                lastClickedElementMobile = e.target;
+                clickCounterMobile = 1;
+                return;
+            }
+            clickCounterMobile = 0;
+        }
+        if($(this).parent().attr("href") == "active"){
+            var chosen = getLetterFromURL($(this).attr('src')).toLowerCase();
+            var right = $("#letterToGuess span").text().toLowerCase();
+            if(chosen == right){
+                //zeleno
+                $(this).parent().parent().addClass("success"); //-> disable all
+                $(".multipleImageContainer .imgContain a").removeAttr("href");
+                $(".multipleImageContainer .imgContain").addClass("disabled");
+                $(".level-write-medium #next-arrow-generic").attr("href","next");
+                $(".level-write-medium #next-arrow").attr("href", "next");
+                
+                // History
+                if(histPtr == 0 && ansHist > 1 ){
+                    addHistoryWriteMediumGeneric(0,1);
+                }
+                else{
+                    addHistoryWriteMediumGeneric(1,1);
+                }
+                // Points and learning progress
+                addPoints(1); 
+                moveToLearnt(right);
+            }
+            else{
+                $(this).parent().parent().addClass("err");
+                $(this).parent().parent().addClass("disabled");
+                $(this).parent().removeAttr("href");
+                
+                // History
+                if(histPtr == 0 && ansHist > 1 ){
+                    addHistoryWriteMediumGeneric(0,0);
+                }
+                else{
+                    addHistoryWriteMediumGeneric(1,0);
+                }
+                // Points and learning progress
+                removePoints(1);
+                moveToNotLearnt(right,0.5);
+            }
+        }
+    });
+}
+
+function write_hard_generic(){
+    var nmb =window .alphabet.length;
+    console.log("abeceda: "+window.alphabet);
+    var allChoices = [];
+    for(var i = 0; i < nmb; i++){
+        allChoices.push(( window .alphabet).charAt(i));
+    }
+    
+    shuffle(allChoices);
+    
+    var numberOfContainer = 0;
+    for(var x = 0; x <= nmb; x+=9){
+        
+        $(".allImageContainer").append("<div class='multipleImageContainer"+numberOfContainer+"'id='imageContainerGeneral'></div>");
+        
+        var z = 0, left=0;
+        for(var i = 0; i < 9 && x+i < nmb; i++){
+                $(".allImageContainer .multipleImageContainer"+numberOfContainer).append("<div class='imgContainHard'><a class='multipleImagesHard'><img draggable='true' ondragstart='drag(event)' id ='image"+(x+i)+"';' src='"+flagsDir + allChoices[x+i].toLowerCase() + ".png' /></a></div>");
+            z++;
+            left+=95; 
+        }
+       
+       numberOfContainer++; 
+    }
+    
+    selectAndDisplayNewWordWriteHardGeneric();
+}
+
+function selectAndDisplayNewWordWriteHardGeneric(){
+    //clean
+    //$(".taskContainer").html('<div dragable="false" ondrop="dropInTrash(event)" ondragover="allowDropTrash(event)" ondragleave="dragLeaveTrash(event)" class="trashCan"><a><img src= "/static/trashCan.png"></a></div>');
+    $(".taskContainer").html("");
+
+
+    //doda kvadratke za vsako crko
+    var word =  selectNewWord(window.words);
+    var wordLength = 8;
+    if(isMobile)wordLength=5;
+    while (word.length > wordLength || !isValidWord(word, window.alphabet))
+        word =  selectNewWord(window.words);
+    console.log("beseda: "+word);
+    for(var i = 0; i < word.length; i++){
+        $(".taskContainer").append("<div id='taskContainer"+i+"' class='taskLetter position"+i+"' ondrop='drop(event)' ondragover='allowDrop(event)'  ondragleave='dragLeave(event)'><span>"+(word.charAt(i)).toUpperCase()+"</span></div>");
+    } 
+    
+    if(isMobile){
+        $(".imgContainHard").click(function(e){
+            console.log("CLICK!!");
+            $(this).toggleClass("activeHover");
+        });
+        
+        $(".imgContainHard a").draggable({
+          cursor: "move",
+          helper: 'clone',
+          revert: "invalid",
+          tolerance: "fit",
+          containment: "window",
+          start: function(event, ui){
+            if($(this).parent().hasClass("activeHover"))return false;
+			$(this).draggable('instance').offset.click = {
+                left: Math.floor(ui.helper.width() / 2),
+                top: Math.floor(ui.helper.height() / 2)
+            };
+            
+            dragedImageData = $(this).find("img").attr("src");
+          }
+        });
+      
+        $(".taskContainer .taskLetter").droppable({
+            over: function( event, ui ) {
+                console.log("over");
+                allowDrop(event);
+            },
+            out : function( event, ui ) {
+                console.log("out");
+                dragLeave(event);
+            },
+            drop: function( event, ui ) {
+                //implemented
+            }
+        });
+        
+        $(".taskContainer .taskLetter").draggable({
+          cursor: "move",
+          revert: "invalid",
+          tolerance: "fit",
+          containment: "window",
+          helper: function() {
+            //debugger;
+            var bg = $(this).css('background-image');
+            bg = bg.replace('url(','').replace(')','').replace(/\"/gi, "");
+            return "<img src='"+bg+"' style:'width:20%'>";
+          },
+          start: function(event, ui){
+            dragedImageData = $(this).attr('id');
+            console.log("start");
+			$(this).draggable('instance').offset.click = {
+                left: Math.floor(ui.helper.width() / 2),
+                top: Math.floor(ui.helper.height() / 2)
+            }; 
+          }
+        });
+        
+        $(".trashCan").droppable({
+            over: function( event, ui ) {
+                allowDropTrash(event);
+            },
+            end: function( event, ui ){
+                dragLeaveTrash(event);
+            }
+        });
+    }
+    
+    //resize task containers
+    if(isMobile){
+        var currWidth = $(".taskLetter").width();
+        var wraperWidth = $(".taskContainer").width();
+        var nmbOfchildren = $(".taskContainer").children().length;
+        if(wraperWidth*0.8 < currWidth*nmbOfchildren){
+            var newWidth = (wraperWidth/nmbOfchildren)*0.6;
+            $(".taskLetter").css("width",newWidth);
+            $(".taskLetter").css("height",newWidth);
+            $(".taskContainer span").css("font-size",newWidth*0.8);
+            newTaskSize = newWidth;
+        }
+    }
+}
+
+function selectNewChoiceBundle(standardAlphabet, taskCharacter){
+    //iz vseh izbere 9 ki niso taskCharacter
+    var choices=[];
+    choices[0] = taskCharacter.toLowerCase();
+    for(var i = 1; i < 10; i++){
+        var tmp = standardAlphabet[Math.floor(Math.random() * standardAlphabet.length)];
+        console.log("izbral: "+tmp);
+        if(choices.includes(tmp)){
+            i--;
+            continue;
+        }
+        else{
+           choices[i] = tmp;
+        }
+    }
+    shuffle(choices);
+    return choices;
+}
+
+
+function newTaskWriteMediumGeneric(){
+    //crka
+    var letter = selectNewLetter(window.alphabet);
+    $("#letterToGuess span").text(letter.toUpperCase());
+    
+    //izbira
+    var choices = selectNewChoiceBundle(window.alphabet, letter);
+     
+    //clean
+    $(".multipleImageContainer").html("");
+     
+    //postavitev obojega
+    for(var i = 0; i < choices.length; i++){
+        $(".multipleImageContainer").append("<div class='imgContain'><a href='active'><img class='multipleImages' src='"+flagsDir + choices[i].toLowerCase() + ".png' /></a></div>");
+    }
+    
+    
+    //listener
+    $('.imgContain a img').click(function (e) {
+        e.preventDefault();
+        if(isMobile){
+            clickCounterMobile+=1;
+            if(clickCounterMobile < 2) return;
+            else if(lastClickedElementMobile != e.target){
+                lastClickedElementMobile = e.target;
+                clickCounterMobile = 1;
+                return;
+            }
+            clickCounterMobile = 0;
+        }
+        if($(this).parent().attr("href") == "active"){
+            var chosen = getLetterFromURL($(this).attr('src')).toLowerCase();
+            var right = $("#letterToGuess span").text().toLowerCase();
+            if(chosen == right){
+                //zeleno
+                $(this).parent().parent().addClass("success"); //-> disable all
+                $(".multipleImageContainer .imgContain a").removeAttr("href");
+                $(".multipleImageContainer .imgContain").addClass("disabled");
+                $(".level-write-medium #next-arrow-generic").attr("href","next");
+                $(".level-write-medium #next-arrow").attr("href", "next");
+                
+                // History
+                if(histPtr == 0 && ansHist > 1 ){
+                    addHistoryWriteMediumGeneric(0,1);
+                }
+                else{
+                    addHistoryWriteMediumGeneric(1,1);
+                }
+                // Points and learning progress
+                addPoints(1); 
+                moveToLearnt(right);
+            }
+            else{
+                $(this).parent().parent().addClass("err");
+                $(this).parent().parent().addClass("disabled");
+                $(this).parent().removeAttr("href");
+                
+                // History
+                if(histPtr == 0 && ansHist > 1 ){
+                    addHistoryWriteMediumGeneric(0,0);
+                }
+                else{
+                    addHistoryWriteMediumGeneric(1,0);
+                }
+                // Points and learning progress
+                removePoints(1);
+                moveToNotLearnt(right,0.5);
+            }
+        }
+    });
+}
 
 $( document ).ready(function() {
+    $(document).click(function(event) {
+        lastClickedElementMobile = event.target;
+    });
+    
+    if(window.intro == 1){
+        var bodyWidth = $(".panel-body").width();
+        $('.f1_card').css({'width': (bodyWidth*0.18) + 'px'});
+        $('.f1_card').css({'height':(bodyWidth*0.18)+'px'});
+    }
+    
+    if (window.mode == "write") {
+        if (window.level == "easy"){
+            var bodyWidth = $(".panel-body").width();
+            $('.image_option').css({'width': (bodyWidth*0.18) + 'px'});
+            $('.image_option').css({'height':(bodyWidth*0.18)+'px'});
+        }
+        
+    }
+    
+    $("#checkGeneric").click(function (e){
+        e.preventDefault();
+        if($(this).attr("href")=="enabled"){
+           //pridobi vsa polja in poglej kaj je gor
+            
+            var taskWord = "";
+            $(".taskContainer .taskLetter span").each(function(e){
+                taskWord += ($(this).text()).toLowerCase();
+            });
+            var position = 0;
+            var state = "";
+            var nmbOfCorrect = 0;
+            $(".taskContainer .taskLetter").each(function(){
+                var url = $(this).css('background-image');
+                if(url != "none"){
+                    var letter = getLetterFromURL(url);
+                    if(state != "")state+=",";
+                    if($(this).hasClass("success")){
+                        state+=letter+"S";
+                        nmbOfCorrect+=1;
+                        position++;
+                        return;
+                    }
+                    else if(letter == taskWord.charAt(position)){
+                        $(this).removeClass("err");
+                        $(this).addClass("success disabled");
+                        $(this).attr("ondragstart","return false;");
+                        
+                        addPoints(1);
+                        moveToLearnt(letter);
+                        
+                        state+=letter+"S";
+                        nmbOfCorrect+=1;
+                    }
+                    else{
+                        $(this).addClass("err");
+                        
+                        removePoints(1);
+                        moveToNotLearnt(letter,1);
+                        
+                        state+=letter+"D";
+                    }
+                }
+                else{
+                    if(state != "")state+=",";
+                    state+="_I";
+                }
+                position++;
+            });
+            
+            if(histPtr == 0 && ansHist.length < 1 ){
+                if(nmbOfCorrect == taskWord.length){
+                    addHistoryWriteHardGeneric(1, 0, taskWord, state);
+                    $(".level-write-hard #next-arrow-generic").attr("href", "next");
+                    $("#checkGeneric img").attr("src", staticDir+ imageGeneralDir + "check_correct.png");
+                }
+                else{
+                    addHistoryWriteHardGeneric(0, 0, taskWord, state);
+                }
+            }
+            else{
+                if(nmbOfCorrect == taskWord.length){
+                    addHistoryWriteHardGeneric(1, 1, taskWord, state);
+                    $(".level-write-hard #next-arrow-generic").attr("href", "next");
+                    $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check_correct.png");
+                }
+                else{
+                    addHistoryWriteHardGeneric(0, 1, taskWord, state);
+                }
+            }
+            
+        }
+    });
+    
+    
+    
+    // Listens for click on "next arrow" (read-hard)
+    $(".level-write-hard #next-arrow-generic").click(function(e) {
+        e.preventDefault();
+        if ($("#next-arrow-generic").attr("href") === "next") {
+            histPtr++;
+            if(histPtr == ansHist.length){  // New seq
+                //read_hard();
+                //new word -> select and display
+                selectAndDisplayNewWordWriteHardGeneric();
+                refresh();
+                //$("#start-animation").css("visibility", "visible");
+                
+                $(".level-write-hard #next-arrow-generic").removeAttr("href");
+                if(histPtr != 0){
+                    //get state and word
+                    var taskWord = "";
+                    var state = "";
+                    $(".taskContainer .taskLetter span").each(function(e){
+                        var letter = ($(this).text()).toLowerCase(); 
+                        taskWord += letter;
+                        if(state != "")state+=",";
+                        state+= letter + "I";
+                    });
+                    $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check.png");
+                    addHistoryWriteHardGeneric(0,0,taskWord,state); // push to history and mark as unanswered
+                }
+            }
+            
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][2] == 0){   // Chosen word is not answered
+                //restoreStringWriteHardGeneric(ansHist[histPtr][0],ansHist[histPtr][1]);
+                $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check.png");
+                restoreHistoryWriteHardGeneric(ansHist[histPtr][0],ansHist[histPtr][1]);
+            }
+            
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][2] == 1){   // Chosen letter is answered
+                $(".level-write-hard #next-arrow-generic").attr("href", "next");
+                $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check_correct.png");
+                restoreHistoryWriteHardGeneric();
+            }
+            
+            else{   // Chosen letter is answered
+                $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check_correct.png");
+                restoreHistoryWriteHardGeneric();
+            }
+            
+            $(".level-write-hard #prew-arrow-generic").attr("href", "prew");
+            if(histPtr == ansHist.length-1 && ansHist[histPtr][2] == 0) $(".level-write-hard #next-arrow-generic").removeAttr("href");
+        }
+    });
+    
+    // Listens for click on "prev arrow" (read-hard)
+    $(".level-write-hard #prew-arrow-generic").click(function(e) {
+        e.preventDefault();
+        if ($("#prew-arrow-generic").attr("href") === "prew") {
+            histPtr--;
+            $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check_correct.png");
+            restoreHistoryWriteHardGeneric();
+            //textFieldsDisable(".letterInputClass");
+            //$("#start-animation").css("visibility", "hidden");
+            $(".level-write-hard #next-arrow-generic").attr("href", "next");
+            if(histPtr == 0){
+                $("#prew-arrow-generic").removeAttr("href");
+            }
+        }
+    });
+    
+    
+    
+    /*
+     *        WRITE MEDIUM -> GENRIC
+     */
+    
+    // Listens for click on "prew arrow" (write-hard)
+    $(".level-write-medium #prew-arrow-generic").click(function(e) {
+        e.preventDefault();
+        if ($("#prew-arrow-generic").attr("href") === "prew") {
+            histPtr--;
+            restoreHistoryWriteMediumGeneric();
+        }
+    });
+    
+    // Listens for click on "next arrow" (write-easy)
+     $(".level-write-medium #next-arrow-generic").click(function(e) {
+        e.preventDefault();
+        if ($("#next-arrow-generic").attr("href") === "next") {
+            histPtr++;
+            if(histPtr == ansHist.length){  // New letter
+                newTaskWriteMediumGeneric();
+                refresh();
+                if(histPtr != 0){
+                    addHistoryWriteMediumGeneric(0,0); // push to history and mark as unanswered
+                }
+            }
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0){   // Chosen letter is not answered
+                displayOldLetterWriteMediumGeneric(ansHist[histPtr][2], ansHist[histPtr][0]);
+            }
+            else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 1){   // Chosen letter is answered
+                $(".level-write-medium #next-arrow-generic").attr("href", "next");
+                restoreHistoryWriteMediumGeneric();
+            }
+            else{   // Chosen letter is answered
+                restoreHistoryWriteMediumGeneric();
+            }
+            $(".level-write-medium #prew-arrow-generic").attr("href", "prew");
+            if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0)$(".level-write-medium #next-arrow-generic").removeAttr("href"); 
+        }
+    });
+    
+    
+    
+    
     checkCookie(cookie_name);
     
     // flip animation (index site)
     $('.f1_container').click(function() {
+        console.log("click");
             $(this).toggleClass('active');
+            
         }); 
         
     // pop-up instructions
@@ -120,23 +631,6 @@ $( document ).ready(function() {
         $("#myDropdown").toggleClass( "show");
     });
     
-    // Close the dropdown menu if the user clicks outside of it
-    /*
-    window.onclick = function(event) {
-      if (!event.target.matches('.dropbtn')) {
-    
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-        }
-      }
-    }
-    */
-    ///////////////////
     
     /* *************************************************************************** */
     /* ********************************   READ  ********************************** */
@@ -173,7 +667,7 @@ $( document ).ready(function() {
             addHistoryEasy(1,0);
              //Points and learning progress
             removePoints(1);
-            moveToNotLearnt(letter);
+            moveToNotLearnt(letter,1);
             //pointsForRightAnswerReadEasy--; <-- not in use
        }
     });
@@ -271,7 +765,7 @@ $( document ).ready(function() {
                 $("#letterInput").addClass("wrongInput");
                 $("#letterInput").removeClass("correctInput");
                 $("#letterInput").focus().select();
-                moveToNotLearnt(letter);
+                moveToNotLearnt(letter,1);
                 if(histPtr == 0 && ansHist.length < 1 ){
                     addHistoryMedium(0,0);
                 }
@@ -280,7 +774,7 @@ $( document ).ready(function() {
                 }
                 // Points and learning progress
                 removePoints(1);
-                moveToNotLearnt(letter);
+                moveToNotLearnt(letter,1);
             }
                 
         } else {
@@ -307,7 +801,7 @@ $( document ).ready(function() {
             }
             // Points and learning progress
             removePoints(pointsForClueReadMedium);
-            moveToNotLearnt(letterSelected);
+            moveToNotLearnt(letterSelected,1);
             $("#next-arrow").focus();
         } else {
             $("#letterInput").focus();
@@ -544,7 +1038,7 @@ $( document ).ready(function() {
             }
             // Points and learning progress
             removePoints(1);
-            moveToNotLearnt(letter);
+            moveToNotLearnt(letter,1);
         }
     });
     
@@ -589,7 +1083,7 @@ $( document ).ready(function() {
     
    
     /*
-     *        WRITE MEDIUM
+     *        WRITE MEDIUM -> FLAGS
      */
     
     // Listens for click on "check" (write-medium)
@@ -612,12 +1106,14 @@ $( document ).ready(function() {
                 moveToLearnt(letter);
                 addPoints(1);
             }
-            else if(checkIfOtherCorrLetterWrite()){}
+            else if(checkIfOtherCorrLetterWrite()){
+                markCheckControlWrite(0);
+            }
             else{
                 markCheckControlWrite(0);
                 // Points and learning process
                 removePoints(1);                
-                moveToNotLearnt(letter);
+                moveToNotLearnt(letter,1);
             }
         }
     });
@@ -667,7 +1163,7 @@ $( document ).ready(function() {
     
     
     /*
-     *        WRITE HARD
+     *        WRITE HARD -> FLAGS
      */
     
     // Listens for click on "check" (write-hard)
@@ -675,7 +1171,8 @@ $( document ).ready(function() {
         e.preventDefault();
         if($("#check").attr("href") === "enabled"){
             var letter = $(".level-write-hard #letterToGuess span").text().toLowerCase();
-            if(checkIfCorrWrite()){ markCheckControlWrite(1);
+            if(checkIfCorrWrite()){ 
+                markCheckControlWrite(1);
                 disableCheckControlWrite();
                 $(".level-write-hard #next-arrow").attr("href", "next");
                 // History
@@ -693,8 +1190,8 @@ $( document ).ready(function() {
                 moveToLearnt(letter);
             }
             else if(checkIfOneIsCorrWrite()){
+                markCheckControlWrite(0);
                 checkIfOtherCorrLetterWrite();
-                
             }
             else if(checkIfOtherCorrLetterWrite()){}
             else{
@@ -704,7 +1201,7 @@ $( document ).ready(function() {
                     removePoints(1); 
                 }
                 else removePoints(2); 
-                moveToNotLearnt(letter);
+                moveToNotLearnt(letter,1);
             }
         }
     });
@@ -760,6 +1257,7 @@ $( document ).ready(function() {
     // Event listener for click-and-drag of right flag
     document.getElementById("imageRightFlag").addEventListener("mousedown",function(e){
          e.preventDefault();
+         console.log("mousedown!!");
         if($("#imageRightFlag").attr("href") === "enabled"){
             window.document.addEventListener("mousemove", mouseMoveRight,true);
             
@@ -772,6 +1270,19 @@ $( document ).ready(function() {
         }
     });    
 
+    document.getElementById("imageRightFlag").addEventListener("touchmove",function(e){
+         e.preventDefault();
+        if($("#imageRightFlag").attr("href") === "enabled"){
+            window.document.addEventListener("touchmove", touchMoveRight,true);
+            
+            window.document.addEventListener("touchend",function a(e){
+                e.preventDefault();
+                window.document.removeEventListener("touchmove", touchMoveRight,true);
+                fixPosition("right");
+                window.document.removeEventListener("touchend", a,true);
+            },true);
+        }
+    });   
     
     // Function for tracking mouse movements
     function mouseMoveRight(e) {
@@ -779,7 +1290,7 @@ $( document ).ready(function() {
         var centerMis = [e.clientX, e.clientY];
         
         //Izracun kota premika
-        var degree = Math.atan2(centerMis[0] - middlePointRight[0], -(centerMis[1] - (middlePointRight[1] - window.scrollY)))* (180 / Math.PI);
+        var degree = Math.atan2(centerMis[0] - middlePointRight[0], -(centerMis[1] - (middlePointRight[1] -window.scrollY)))* (180 / Math.PI);
         
         //Rotacije za vse brskalike
         var objFlagRight = $("#imageRightFlag");
@@ -789,6 +1300,21 @@ $( document ).ready(function() {
         objFlagRight.css('-ms-transform', 'rotate('+degree+'deg)');
     }
     
+    // Function for tracking mouse movements
+    function touchMoveRight(e) {
+        //Izracun centra kroznice in pozicije miske
+        var centerMis = [e.touches[0].clientX, e.touches[0].clientY];
+        
+        //Izracun kota premika
+        var degree = Math.atan2(centerMis[0] - middlePointRight[0], -(centerMis[1] - (middlePointRight[1] -window.scrollY)))* (180 / Math.PI);
+        
+        //Rotacije za vse brskalike
+        var objFlagRight = $("#imageRightFlag");
+        objFlagRight.css('-moz-transform', 'rotate('+degree+'deg)');
+        objFlagRight.css('-webkit-transform', 'rotate('+degree+'deg)');
+        objFlagRight.css('-o-transform', 'rotate('+degree+'deg)');
+        objFlagRight.css('-ms-transform', 'rotate('+degree+'deg)');
+    }
      
     // LEFT
     // Event listener for click-and-drag of right flag
@@ -804,7 +1330,21 @@ $( document ).ready(function() {
                 window.document.removeEventListener("mouseup", a,true);
             },true);
         }
-    });    
+    });
+    
+    document.getElementById("imageLeftFlag").addEventListener("touchmove",function(e){
+        e.preventDefault();
+        if($("#imageLeftFlag").attr("href") === "enabled"){
+            window.document.addEventListener("touchmove", touchMoveLeft,true);
+    
+            window.document.addEventListener("touchend",function a(e){
+                e.preventDefault();
+                window.document.removeEventListener("touchmove", touchMoveLeft,true);
+                fixPosition("left");
+                window.document.removeEventListener("touchend", a,true);
+            },true);
+        }
+    });
     
     // Function for tracking mouse movements
     function mouseMoveLeft(e) {
@@ -822,7 +1362,26 @@ $( document ).ready(function() {
         objFlagLeft.css('-o-transform', 'rotate('+degree+'deg)');
         objFlagLeft.css('-ms-transform', 'rotate('+degree+'deg)');
     }
+    
+    function touchMoveLeft(e) {
+        // Center of rotation and position of mouse
+        var centerMis = [e.touches[0].clientX, e.touches[0].clientY];
+        
+        // Angle of rotation
+        var radians = Math.atan2(centerMis[0] - middlePointLeft[0], centerMis[1] - (middlePointLeft[1] - window.scrollY));
+        var degree = (radians * (180 / Math.PI)*-1)+180; 
+        
+        // Rotation for all browsers
+        var objFlagLeft = $("#imageLeftFlag");
+        objFlagLeft.css('-moz-transform', 'rotate('+degree+'deg)');
+        objFlagLeft.css('-webkit-transform', 'rotate('+degree+'deg)');
+        objFlagLeft.css('-o-transform', 'rotate('+degree+'deg)');
+        objFlagLeft.css('-ms-transform', 'rotate('+degree+'deg)');
+    }
+    
+    
 });
+
 
 /* *************************************************************************** */
 /* *******************************   CODE  *********************************** */
@@ -913,11 +1472,12 @@ function selectAndDisplayNewImage(alphabet, mode) {
 
 // Function selects
 function selectNewLetter(alphabet) {
-    /*
+    console.log("Alphabet", alphabet);
+    
     for (var i = 0; i < alphabet.length; i++) {
         console.log(alphabet[i] + ": " + userAnswers[alphabet[i]]);
     }
-    */
+    
     // Poisci najslabse poznano crko (pazi, da ni enaka prejsnji prikazani crki)
     var worseNumber;
     if (prevLetter === "a") {
@@ -938,20 +1498,36 @@ function selectNewLetter(alphabet) {
             selectFrom.push(alphabet[i]);
         }
     }
-    //console.log("selectFrom: " + selectFrom);
-    prevLetter = selectFrom[Math.floor(Math.random() * selectFrom.length)];
+    console.log("selectFrom: " + selectFrom);
+    if (selectFrom.length == 0) {
+        prevLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
+    } else {
+        prevLetter = selectFrom[Math.floor(Math.random() * selectFrom.length)];
+    }
+    console.log("Return letter: ", prevLetter);
     return prevLetter;
 }
 
 // Function selects new Word
 function selectNewWord(words) {
-    words = words.split(", ");
+    words = words.split(",");
     var word = words[Math.floor(Math.random() * words.length)];
     var re = new RegExp("&#39;", 'g');
     word = word.replace(re, "");
     word = word.replace("[","");
     word = word.replace("]","");
+    console.log("my word: "+word);
     return word;
+}
+
+function isValidWord(word, alphabet) {
+    var alph_array = alphabet.split("");
+    for (var i = 0; i < word.length; i++) {
+        if (alph_array.indexOf(word[i]) < 0) {
+            return false;
+        }
+    }
+    return true;
 }
 
 // Function selects new choices
@@ -1025,35 +1601,6 @@ function displaySequenceOfImages(elements, index) {
     }
 }
 
-/*
-// Function disables one choice [random]    <-- not in use
-function disableOneChoiceRead(){
-    console.log("disable one choice");
-    // indexira vse mozne izbire in najde eno rendom
-    var buttons = document.getElementById('choices'),button;
-    var counter = 0; var posibleOptions = [];
-    var corrLetter = getLetterFromURL($("#picture-letter img").attr('src'));
-    for(var i = 0; i < buttons.children.length; i++){
-        button = buttons.children[i];
-        var buttonClass = button.className;
-        var buttonLetter = button.innerHTML;
-        console.log("disabled: "+button.disabled);
-        var disabled = button.disabled;
-        if(buttonClass.includes("btn-info") && buttonLetter.toLowerCase() != corrLetter.toLowerCase() && !disabled){
-            console.log("pusham");
-           posibleOptions.push(button);
-           counter++;
-        }
-    }
-    if(counter > 0){
-    var index = Math.floor(Math.random() * counter);
-    var selectet = posibleOptions[index];
-    selectet.disabled = true;
-    pointsForRightAnswerReadEasy--;
-    }
-}
-*/ 
-
 // Function clears input
 function clearInput(elementID) {
     document.getElementById(elementID).value="";
@@ -1092,13 +1639,13 @@ function focusFirstFree(elementToFocus) {
 // Function move element to learned
 function moveToLearnt(element) {
     element = element.toLowerCase();
-    userAnswers[element]++;
+    userAnswers[element] += 1;
 }
 
 // Function move element to not learned
-function moveToNotLearnt(element) {
+function moveToNotLearnt(element, substract) {
     element = element.toLowerCase();
-    userAnswers[element]--;
+    userAnswers[element] -= substract;
 }
 
 function refresh() {
@@ -1121,13 +1668,14 @@ function addHistoryEasy(set,ans){
         var buttonClass = button.className;
         var buttonLetter = button.innerHTML;
         if(state!="")state+=",";
-        if(buttonClass.includes("btn-info")){
+        if(typeof buttonClass === 'undefined') continue;
+        if($(button).hasClass("btn-info")){
            state+=buttonLetter+"I"
         }
-        else if(buttonClass.includes("btn-danger")){
+        else if($(button).hasClass("btn-danger")){
             state+=buttonLetter+"D"
         }
-        else if(buttonClass.includes("btn-success")){
+        else if($(button).hasClass("btn-success")){
             state+=buttonLetter+"S"
         }
     }
@@ -1200,23 +1748,102 @@ function restoreHistoryMedium(){
 function addHistoryWriteEasy(set, ans){
     var state="";
     var buttons = document.getElementById('choices');
-    for(var i = 0; i < buttons.children.length; i++){
-        var buttonClass = (buttons.children[i]).getElementsByTagName('div')[0].className;
-        var buttonLetter = getLetterFromURL((((buttons.children[i]).getElementsByTagName('div')[0]).getElementsByTagName('img')[0].src));
-        console.log("CRKA: " + buttonLetter);
-        if(state!="")state+=",";
-        if ($(buttons.children[i]).find(".image_option").hasClass("wrongInput")) {
-            state+=buttonLetter+"D"
-        } else if ($(buttons.children[i]).find(".image_option").hasClass("correctInput")) {
-            state+=buttonLetter+"S"
-        } else {
-            state+=buttonLetter+"I"
+    
+    $(".image_option").each(function(){
+        if(state != "")state += ",";
+        
+        var letter = getLetterFromURL($(this).find("img").attr('src'));
+        
+        if($(this).parent().hasClass("wrongInput")){
+            state+=letter+"D";
         }
-    }
+        else if($(this).parent().hasClass("correctInput")){
+            state+=letter+"S";
+        }
+        else{
+            state+=letter+"I";
+        }
+    });
+    
     var corrLetter = $("#letterToGuess span").text();
     console.log("dodal bom v zgodovino: "+state);
     if(set == 1) ansHist[histPtr]=[state,ans,corrLetter];
     else ansHist.push([state,ans,corrLetter]);
+}
+
+// Function adds current answer to history - WRITE_MEDIUM -> generic
+function addHistoryWriteMediumGeneric(set, ans){
+    var state="";
+    
+    $(".imgContain .multipleImages").each(function(e){
+        if(state!="")state+=",";
+        var buttonLetter = getLetterFromURL($(this).attr("src"));
+        console.log("moj class: "+ ($(this).attr("class")) +" oce: "+ ($(this).parent().parent().attr("class")));
+        if($(this).parent().parent().hasClass("success")){
+            state+=buttonLetter+"S";
+        }
+        else if($(this).parent().parent().hasClass("err")){
+            state+=buttonLetter+"D";
+        }
+        else{
+            state+=buttonLetter+"I"
+        }
+    });
+    
+    var corrLetter = $("#letterToGuess span").text();
+    console.log("dodal bom v zgodovino: "+state);
+    if(set == 1) ansHist[histPtr]=[state,ans,corrLetter];
+    else ansHist.push([state,ans,corrLetter]);
+}
+
+// Function adds current answer to history - WRITE_HARD -> generic
+function addHistoryWriteHardGeneric(state,set, word, ans){
+    if(set == 1)ansHist[histPtr] = ([word,ans,state]);
+    else ansHist.push([word,ans,state]);
+}
+
+function restoreStringWriteHardGeneric(string,satte){
+    //restore string
+}
+
+function restoreHistoryWriteHardGeneric(word, ans){
+    word = typeof word !== 'undefined' ? word : ansHist[histPtr][0];
+    ans = typeof ans !== 'undefined' ? ans : ansHist[histPtr][1];
+    
+    console.log("restore for state: "+word+" -> "+ans);
+    var ansArr = ans.split(",");
+    //clear prew state
+    //$(".taskContainer").html('<div dragable="false" ondrop="dropInTrash(event)" ondragover="allowDropTrash(event)" ondragleave="dragLeaveTrash(event)" class="trashCan"><a><img src= "/static/trashCan.png"></a></div>');
+    $(".taskContainer").html("");
+       
+    for(var position in word){
+        var corr = ansArr[position].charAt(1);
+        if(corr == "S"){
+            var letter = word.charAt(position);
+            $(".taskContainer").append("<div id='taskContainer"+position+"' class='taskLetter position"+position+"' ondrop='drop(event)' ondragover='allowDrop(event)'  ondragleave='dragLeave(event)' ondragstart='return false;'><span class='halfHidden'>"+letter.toUpperCase()+"</span></div>");
+            
+            $(".taskContainer #taskContainer"+position).css("background-image","url("+flagsDir + letter + ".png)");
+            $(".taskContainer #taskContainer"+position).css("background-repeat","no-repeat");
+            $(".taskContainer #taskContainer"+position).css("background-size","contain");
+            $(".taskContainer #taskContainer"+position).addClass("success disabled");
+        }    
+        else if(corr == "D"){
+            var letter = ansArr[position].charAt(0);
+            $(".taskContainer").append("<div id='taskContainer"+position+"' class='taskLetter position"+position+"' ondrop='drop(event)' ondragover='allowDrop(event)'  ondragleave='dragLeave(event)' draggable='true' ondragstart='dragFromTask(event)'><span class='hidden'>"+letter.toUpperCase()+"</span></div>");
+            $(".taskContainer #taskContainer"+position).css("background-image","url("+flagsDir + letter + ".png)");
+            $(".taskContainer #taskContainer"+position).css("background-repeat","no-repeat");
+            $(".taskContainer #taskContainer"+position).css("background-size","contain");
+            $(".taskContainer #taskContainer"+position).addClass("err");
+        }
+        else {
+            var letter = word.charAt(position);
+            $(".taskContainer").append("<div id='taskContainer"+position+"' class='taskLetter position"+position+"' ondrop='drop(event)' ondragover='allowDrop(event)'  ondragleave='dragLeave(event)'><span class=''>"+letter.toUpperCase()+"</span></div>");
+            $(".taskContainer #taskContainer"+position).css("background-image","none");
+            $(".taskContainer #taskContainer"+position).css("background-repeat","no-repeat");
+            $(".taskContainer #taskContainer"+position).css("background-size","contain");
+            $(".taskContainer #taskContainer"+position).removeClass("success disabled err");
+        }
+    } 
 }
 
 // Function adds sequence to hisrory [string, 0=not anws.//1=anws]
@@ -1262,7 +1889,7 @@ function setHistoryReadHard(ans){
 
 // Function restores and displays history on current histPtr
 function restoreHistoryReadHard(){
-    var string = ansHist[histPtr][0];
+    var string = ansHist[histPtr][0].substring(1);
     // Clean up
     $(".level-read-hard .panel-body .well").html("");
     $("#input-string-hard").html("");
@@ -1273,6 +1900,9 @@ function restoreHistoryReadHard(){
 
     var letters = string.split("");
     var idNumber = 1;
+    
+    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/images/general/" +  "blank.png' class=''>");
+    
     for (i = 0; i < letters.length; i++) {
         var letter = letters[i];
         $(".level-read-hard .panel-body .well").append("<img src='" + flagsDir + letter + ".png' class='hidden'>");
@@ -1298,9 +1928,12 @@ function restoreStringReadHard(word){
     $("#start-animation").text("Začni!");
     clearTimeout(readHardTimer);
 
-    var letters = word.split("");
+    var letters = word.substring(1).split("");
     var idNumber = 1;
     var state = ansHist[histPtr][2].split(",");
+    
+    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/images/general/" +  "blank.png' class=''>");
+    
     for (i = 0; i < letters.length; i++) {
         var letter = letters[i];
         $(".level-read-hard .panel-body .well").append("<img src='" + flagsDir + letter + ".png' class='hidden'>");
@@ -1324,29 +1957,34 @@ function restoreHistoryWriteEasy(){
         // adds class
         if(colour == 'I'){
             console.log("I");
-            $(buttons.children[i]).find(".image_option").removeClass("wrongInput").removeClass("correctInput");
+            $(buttons.children[i]).find(".image_option").parent().removeClass("wrongInput").removeClass("correctInput");
             $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
         }
         else if(colour == 'D'){
             console.log("D");
-            $(buttons.children[i]).find(".image_option").addClass("wrongInput").removeClass("correctInput");
+            $(buttons.children[i]).find(".image_option").parent().addClass("wrongInput").removeClass("correctInput");
             $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
         }
         else if(colour == 'S'){
             console.log("S");
-            $(buttons.children[i]).find(".image_option").addClass("correctInput").removeClass("wrongInput");
+            $(buttons.children[i]).find(".image_option").parent().addClass("correctInput").removeClass("wrongInput");
             $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
             $("#letterToGuess span").text(letter.toUpperCase());
         }
         j++;
     }
-    var corrLetter = $("#letterToGuess span").text();
     if(histPtr === 0){
         $(".level-write-easy #prew-arrow").removeAttr("href");
     }else{
         $(".level-write-easy #prew-arrow").attr("href", "prew");
     }
     $(".level-write-easy #next-arrow").attr("href", "next");
+}
+
+// Function adds prev. answer from history - WRITE_EASY
+function restoreHistoryWriteMediumGeneric(){
+    console.log("podatki za prikaz zgodovine: "+(ansHist[histPtr][2])+" "+(ansHist[histPtr][0]));
+    displayOldLetterWriteMediumGeneric(ansHist[histPtr][2], ansHist[histPtr][0],true);
 }
 
 // Function displays letter
@@ -1359,15 +1997,18 @@ function displayOldLetterWriteEasy(corrLetter, choices){
         var letter = (ans[j].split(""))[0];
         var colour = (ans[j].split(""))[1];
         if(colour == 'I'){
-            $(buttons.children[i]).find(".image_option").removeClass().addClass("image_option");
+            $(buttons.children[i]).find(".image_option").parent().removeClass("wrongInput correctInput")
+            $(buttons.children[i]).find(".image_option").removeClass("not_active")
             $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
         }
         else if(colour == 'D'){
-            $(buttons.children[i]).find(".image_option").removeClass().addClass("image_option wrongInput not_active");
+            (buttons.children[i]).find(".image_option").parent().addClass("wrongInput");
+            $(buttons.children[i]).find(".image_option").addClass("not_active");
             $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
         }
         else if(colour == 'S'){
-            $(buttons.children[i]).find(".image_option").removeClass().addClass("image_option correctInput");
+            $(buttons.children[i]).find(".image_option").parent().addClass("correctInput");
+            $(buttons.children[i]).find(".image_option").addClass("not_active");
             $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
         }
         j++;
@@ -1381,7 +2022,88 @@ function displayOldLetterWriteEasy(corrLetter, choices){
     $(".level-write-easy #next-arrow").attr("href", "next");
 }
 
-
+// Function displays letter [isAnswered = true if task has been succesfully answered]
+function displayOldLetterWriteMediumGeneric(corrLetter, choices, isAnswered){
+    isAnswered = typeof isAnswered !== 'undefined' ? isAnswered : false;
+    //najprej crko
+    $(".letterToGuess span").text(corrLetter.toUpperCase());
+    
+    //pocisti stanje
+    $(".multipleImageContainer").html("");
+    
+    //doda novo stanje
+    var ans = choices.split(",");
+    
+    for(var position in ans){
+        var choiceLetter = ans[position].charAt(0);
+        var choiceLetterState = ans[position].charAt(1);
+        
+        if(choiceLetterState == "S")$(".multipleImageContainer").append("<div class='imgContain success'><a><img class='multipleImages'src='"+flagsDir + choiceLetter.toLowerCase() + ".png' /></a></div>");
+        else if(choiceLetterState == "D")$(".multipleImageContainer").append("<div class='imgContain err'><a><img class='multipleImages' src='"+flagsDir + choiceLetter.toLowerCase() + ".png' /></a></div>");
+        else if(isAnswered) $(".multipleImageContainer").append("<div class='imgContain'><a><img class='multipleImages' src='"+flagsDir + choiceLetter.toLowerCase() + ".png' /></a></div>");
+        else $(".multipleImageContainer").append("<div class='imgContain'><a href='active'><img class='multipleImages' src='"+flagsDir + choiceLetter.toLowerCase() + ".png' /></a></div>");
+    }
+    
+    $('.imgContain a img').click(function (e) {
+        e.preventDefault();
+        if(isMobile){
+            clickCounterMobile+=1;
+            if(clickCounterMobile < 2) return;
+            else if(lastClickedElementMobile != e.target){
+                lastClickedElementMobile = e.target;
+                clickCounterMobile = 1;
+                return;
+            }
+            clickCounterMobile = 0;
+        }
+        if($(this).parent().attr("href") == "active"){
+            var chosen = getLetterFromURL($(this).attr('src')).toLowerCase();
+            var right = $("#letterToGuess span").text().toLowerCase();
+            if(chosen == right){
+                //zeleno
+                $(this).parent().parent().addClass("success"); //-> disable all
+                $(".multipleImageContainer .imgContain a").removeAttr("href");
+                $(".multipleImageContainer .imgContain").addClass("disabled");
+                $(".level-write-medium #next-arrow-generic").attr("href","next");
+                $(".level-write-medium #next-arrow").attr("href", "next");
+                
+                // History
+                if(histPtr == 0 && ansHist > 1 ){
+                    addHistoryWriteMediumGeneric(0,1);
+                }
+                else{
+                    addHistoryWriteMediumGeneric(1,1);
+                }
+                // Points and learning progress
+                addPoints(1); 
+                moveToLearnt(right);
+            }
+            else{
+                $(this).parent().parent().addClass("err");
+                $(this).parent().parent().addClass("disabled");
+                $(this).parent().removeAttr("href");
+                
+                // History
+                if(histPtr == 0 && ansHist > 1 ){
+                    addHistoryWriteMediumGeneric(0,0);
+                }
+                else{
+                    addHistoryWriteMediumGeneric(1,0);
+                }
+                // Points and learning progress
+                removePoints(1);
+                moveToNotLearnt(right,0.5);
+            }
+        }
+    });
+    
+    if(histPtr === 0){
+        $(".level-write-medium #prew-arrow-generic").removeAttr("href");
+    }else{
+        $(".level-write-medium #prew-arrow-generic").attr("href", "prew");
+    }
+    $(".level-write-medium #next-arrow-generic").attr("href", "next");
+}
 
 /* *************************************************************************** */
 /* *****************************  COOKIES  *********************************** */
@@ -1503,15 +2225,15 @@ function flashRightLetter(letter){
 function markCheckControlWrite(status){
     var tmp = $("#check img").attr("src");
     if(status == 1){
-        $("#check img").attr("src",staticDir + "check_correct.png");
+        $("#check img").attr("src",staticDir + imageGeneralDir+"check_correct.png");
         disableFlags("both");
     }
     else if(status == 0){
-        $("#check img").attr("src", staticDir + "check_err.png");
+        $("#check img").attr("src", staticDir + imageGeneralDir+"check_err.png");
         $("#check img").attr("href", "enabled");
     }
     else{
-        $("#check img").attr("src", staticDir + "check.png");
+        $("#check img").attr("src", staticDir + imageGeneralDir+"check.png");
         $("#check img").attr("href", "enabled");
     }
 }
@@ -1745,8 +2467,8 @@ function enableFlags(flag){
 /* *************************************************************************** */
 
 function shuffle(a) {
-    for (let i = a.length; i; i--) {
-        let j = Math.floor(Math.random() * i);
+    for (var i = a.length; i; i--) {
+        var j = Math.floor(Math.random() * i);
         [a[i - 1], a[j]] = [a[j], a[i - 1]];
     }
 }
@@ -1806,8 +2528,126 @@ function isLetter(c) {
     return c.toLowerCase() != c.toUpperCase();
 }
 
+function checkURL(url) {
+    return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+}
+
+/* *************************************************************************** */
+/* ****************************   DRAG AND DROP  ***************************** */
+/* *************************************************************************** */
 
 
 
+function allowDrop(ev) {
+    ev.preventDefault();
+    var idName= ev.target.id;
+    if(idName == ""){
+        $(ev.target).parent().css("border-style","dashed");
+    }
+    else $(ev.target).css("border-style","dashed");
+}
+
+function dragLeave(ev){
+    ev.preventDefault();
+    var idName= ev.target.id;
+    if(idName == ""){
+        $(ev.target).parent().css("border-style","solid");
+    }
+    else $(ev.target).css("border-style","solid");
+}
+
+function allowDropTrash(ev) {
+    ev.preventDefault();
+    console.log("nad in tag name: "+$(ev.target).prop("tagName"));
+    if($(ev.target).prop("tagName") == "IMG"){
+        $(ev.target).parent().parent().addClass("border");
+        return;
+    }
+    $(ev.target).addClass("border");
+}
+
+function dragLeaveTrash(ev){
+    ev.preventDefault();
+    console.log("vn in tag name: "+$(ev.target).prop("tagName"));
+    if($(ev.target).prop("tagName") == "IMG"){
+        $(ev.target).parent().parent().removeClass("border");
+        return;
+    }
+    $(ev.target).removeClass("border");
+}
+
+
+function drag(ev) {
+    //$(ev.target).attr("style","transform: scale(0.7, 0.7);")
+    ev.dataTransfer.setData("text", event.target.src);
+    var dragIcon = document.createElement('img');
+    dragIcon.src = event.target.src;
+    dragIcon.width = "20%";
+    ev.dataTransfer.setDragImage(dragIcon, 120, 120);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data;
+    if(isMobile){
+        data = dragedImageData;
+        console.log("data = "+data);
+    }
+    else data = ev.dataTransfer.getData("text");
+    
+    var idName= ev.target.id;
+    
+    if(!checkURL(data)){
+        if(idName == ""){
+            $(ev.target).parent().css("border-style","solid");
+        }
+        else $(ev.target).css("border-style","solid");
+        return;
+    }
+    
+    var divContainer;
+    if (idName != "") {
+        $("#"+idName+" span").addClass("hidden");
+        divContainer = $("#"+idName);
+    }
+    else{
+        $(ev.target).addClass("hidden");
+        divContainer = $(ev.target).parent();
+    }
+    divContainer.attr("draggable",'true');
+    if(!isMobile)divContainer.attr("ondragstart",'dragFromTask(event)');
+    divContainer.attr("style","background-image: url("+data+");background-repeat:no-repeat;background-size:contain;");
+    divContainer.removeClass("success err")
+    if(newTaskSize != null){
+        divContainer.css("width",newTaskSize);
+        divContainer.css("height",newTaskSize);
+    }
+}
+
+function dragFromTask(ev){
+    ev.dataTransfer.setData("text", event.target.id);
+}
+
+function dropInTrash(ev){
+    ev.preventDefault();
+    
+    $(".trashCan").removeClass("border");
+    var data;
+    if(isMobile){
+        data = dragedImageData;
+    }
+    else data = ev.dataTransfer.getData("text");
+    
+    if(data.indexOf("taskConatiner") !== -1)return;
+    
+    $("#"+data).attr("style","background-image:none");
+    $("#"+data).removeClass("succes err");
+    $("#"+data+" span").removeClass();
+    if(newTaskSize != null){
+        $("#"+data).css("width",newTaskSize);
+        $("#"+data).css("height",newTaskSize);
+        $("#"+data+" span").css("font-size",newTaskSize*0.8)
+    }
+}
 
 
