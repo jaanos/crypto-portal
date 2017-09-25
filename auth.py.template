@@ -7,6 +7,7 @@ dbuser = 'username'
 dbpass = 'password'
 dbhost = 'localhost'
 
-gitkey = 'github-secret'
+# For Python 3, gitkey must be bytes
+gitkey = b'github-secret'
 sesskey = 'session-secret'
 debug = True
