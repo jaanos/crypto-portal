@@ -25,7 +25,7 @@ def get_all_words():
         listOfWords += (row[0])
         row = cur.fetchone()
     
-    print max   
+    #print(max)
     return listOfWords
 words = get_all_words()
 
@@ -41,7 +41,7 @@ def getIntro(selectedAlphabet):
     db = database.dbcon()
     cur = db.cursor()
     cur.execute("SELECT intro FROM alphabet WHERE name = %s", [selectedAlphabet])
-    introText = unicode(cur.fetchone()[0], errors='ignore')
+    introText = cur.fetchone()[0]
     return introText
     
 def select_word(list_words):
