@@ -1,11 +1,25 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
-from flask import *
+import StringIO
+import base64
 
-app = Blueprint('steganography', __name__)
+from flask import request, redirect, url_for, render_template, Blueprint
+import json
+import glob
+import time
+from uuid import uuid4
+import random
+from PIL import Image
+import os
+
+app = Blueprint('steganography', __name__, static_folder='static')
+
+# Dovoljeni formati
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 @app.route('/')
 def index():
-	return redirect("steganography/images")
+    return redirect("steganography/images")
 
 @app.route('/images')
 def images():
@@ -14,3 +28,184 @@ def images():
 @app.route("/colors")
 def colors():
     return render_template("steganography.colors.html", nav = "steganography")
+
+@app.route("/visual")
+def visual():
+    return render_template("steganography.visual.html")
+
+# 1. upload
+@app.route("/visual", methods=["POST"])
+def upload_image():
+
+    file = request.form['file']
+    file_like = StringIO.StringIO(base64.decodestring(file.split(',')[1].decode()))
+    image_file = Image.open(file_like)
+    image = image_file.convert('1', dither=Image.NONE)  # pretvori v crno-belo
+
+    width, height = image.size
+
+    new_width = 200  # določi novo širino na 200px
+    # izračuna novo višino tako, da se ohrani razmerje stranic
+    new_height = int(height*(new_width/float(width)))
+
+    image = image.resize((new_width, new_height))
+
+    # poveča dimenzije za fakotr 2
+    outfile1 = Image.new("1", [dimension * 2 for dimension in
+                               image.size])  # transparency maska
+    outfile2 = Image.new("1", [dimension * 2 for dimension in image.size])
+
+    """width, height = image.size
+    new_width = 400
+    new_height = int(image.height * (new_width / image.width))
+    image = image.resize((new_width, new_height))
+
+    outfile1 = Image.new("1", image.size)          
+    outfile2 = Image.new("1", image.size)"""
+
+    # GENERIRAJ DELNI SLIKI (ŠUM)
+
+    for x in range(0, new_width):
+        for y in range(0, new_height):
+            source_px = image.getpixel((x, y))
+            assert source_px in (0, 255)
+            flip = random.random()  # naključno obarva piksel črno ali belo
+
+            if source_px == 0:  # če je source piksel črne barve
+                if flip < .5:  # verjetnost 0.5
+                    outfile1.putpixel((x * 2, y * 2),
+                                      source_px)  # začni s črno
+                    outfile1.putpixel((x * 2 + 1, y * 2), 1 - source_px)
+                    outfile1.putpixel((x * 2, y * 2 + 1), 1 - source_px)
+                    outfile1.putpixel((x * 2 + 1, y * 2 + 1), source_px)
+
+                    outfile2.putpixel((x * 2, y * 2),
+                                      1 - source_px)  # ker je source piksel črn, je položaj na drugi delni sliki ravno obraten
+                    outfile2.putpixel((x * 2 + 1, y * 2), source_px)
+                    outfile2.putpixel((x * 2, y * 2 + 1), source_px)
+                    outfile2.putpixel((x * 2 + 1, y * 2 + 1), 1 - source_px)
+
+                else:  # verjetnost 0.5
+                    outfile1.putpixel((x * 2, y * 2),
+                                      1 - source_px)  # začni z belo
+                    outfile1.putpixel((x * 2 + 1, y * 2), source_px)
+                    outfile1.putpixel((x * 2, y * 2 + 1), source_px)
+                    outfile1.putpixel((x * 2 + 1, y * 2 + 1), 1 - source_px)
+
+                    outfile2.putpixel((x * 2, y * 2),
+                                      source_px)  # na drugi delni sliki ravno obratno
+                    outfile2.putpixel((x * 2 + 1, y * 2), 1 - source_px)
+                    outfile2.putpixel((x * 2, y * 2 + 1), 1 - source_px)
+                    outfile2.putpixel((x * 2 + 1, y * 2 + 1), source_px)
+
+            elif source_px == 255:  # če je source piksel bele barve
+                if flip < .5:  # verjetnost 0.5
+                    outfile1.putpixel((x * 2, y * 2),
+                                      source_px)  # začni z belo
+                    outfile1.putpixel((x * 2 + 1, y * 2), 1 - source_px)
+                    outfile1.putpixel((x * 2, y * 2 + 1), 1 - source_px)
+                    outfile1.putpixel((x * 2 + 1, y * 2 + 1), source_px)
+
+                    outfile2.putpixel((x * 2, y * 2),
+                                      source_px)  # ker je source piksel bel, je položaj na drugi delni sliki enak
+                    outfile2.putpixel((x * 2 + 1, y * 2), 1 - source_px)
+                    outfile2.putpixel((x * 2, y * 2 + 1), 1 - source_px)
+                    outfile2.putpixel((x * 2 + 1, y * 2 + 1), source_px)
+                else:
+                    outfile1.putpixel((x * 2, y * 2),
+                                      1 - source_px)  # začni s črno
+                    outfile1.putpixel((x * 2 + 1, y * 2), source_px)
+                    outfile1.putpixel((x * 2, y * 2 + 1), source_px)
+                    outfile1.putpixel((x * 2 + 1, y * 2 + 1), 1 - source_px)
+
+                    outfile2.putpixel((x * 2, y * 2),
+                                      1 - source_px)  # ravno obratno
+                    outfile2.putpixel((x * 2 + 1, y * 2), source_px)
+                    outfile2.putpixel((x * 2, y * 2 + 1), source_px)
+                    outfile2.putpixel((x * 2 + 1, y * 2 + 1), 1 - source_px)
+
+    # outfile1.save(target + '/out1.png')  # prvo delno sliko shrani kot out1.png
+    # outfile2.save(target + '/out2.png')  # drugo delno sliko shrani kot out2.png
+
+    infile1 = outfile1 #Image.open(target + '/out1.png')  # odpri obe
+    infile2 = outfile2 #Image.open(target + '/out2.png')
+
+    # PREKRIVANJE SLIK
+    outfile = Image.new("1", infile1.size)  # transparency maska
+
+    for x in range(infile1.width):
+        for y in range(infile1.height):
+            outfile.putpixel((x, y), min(infile1.getpixel((x, y)),
+                                         infile2.getpixel((x,
+                                                           y))))  # prekrij istoloežne piksle obeh slik
+
+    # outfile.save(target + '/result.png')  # shrani kot result.png
+    output = StringIO.StringIO()
+    outfile.save(output, "PNG")
+    result = output.getvalue().encode("base64")
+
+    output.truncate(0)
+    infile1.save(output, "PNG")
+    out1 = output.getvalue().encode("base64")
+
+    output.truncate(0)
+    infile2.save(output, "PNG")
+    out2 = output.getvalue().encode("base64")
+    output.close()
+    return json.dumps({'result': result, 'out1': out1, 'out2': out2})
+
+# 2. upload
+
+@app.route("/visual/upload", methods=["POST"])
+def upload():
+    form = request.form
+
+    upload_key = str(uuid4())  # unikaten ID
+
+    # Ajax ali POST
+    is_ajax = False
+    if form.get("__ajax", None) == "true":
+        is_ajax = True
+
+    for key, value in form.items():
+        print(key, "=>", value)
+
+    files = []
+    for upload in request.files.getlist("file"):
+        if allowed_file(upload.filename):
+            files.append(upload)
+
+    if is_ajax:
+        return ajax_response(True, upload_key)
+    else:
+        return redirect(url_for("steganography.visual.upload_complete", uuid=upload_key))
+
+
+@app.route("/visual/files/<uuid>")
+def upload_complete(uuid):
+    root = app.static_folder+"/uploads/{}".format(uuid)
+    if not os.path.isdir(root):
+        return "Error: UUID not found!"
+
+    files = []
+    for file in glob.glob("{}/*.*".format(root)):
+        fname = file.split(os.sep)[-1]
+        files.append(fname)
+
+    return render_template("steganography.visual.html",
+                           uuid=uuid,
+                           files=files,
+                           time=time.time()
+                           )
+
+
+def ajax_response(status, msg):
+    status_code = "ok" if status else "error"
+    return json.dumps(dict(
+        status=status_code,
+        msg=msg,
+    ))
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
