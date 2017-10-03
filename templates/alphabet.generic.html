@@ -158,6 +158,8 @@
                             </div>
                                 <div class="show-all-flags">
                                 {% for letter in alphabet %}
+                                {% if (loop.index) % 4 == 1 %} <div class="lineWrapper">
+                                {% endif %}
                                 <div class="f1_container">
                                     <div class="f1_card">
                                         {% if ((loop.index-1) // 4) % 2 == 0 %} <div class="front face {% if loop.index % 2 == 0 %}dark{% else %}light{% endif %}"><h3 class="letterA {% if loop.index % 2 == 0 %}red{% else %}blue{% endif %}">{% print letter.upper() %}</h3></div>
@@ -168,8 +170,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                {% if (loop.index) % 4 == 0 %} <div class="clearLine"></div>
-                                        {% endif %}
+                                {% if (loop.index) % 4 == 0 %}</div>
+                                {% endif %}
                                 {% endfor %}    
                             </div>
                             <div class="">

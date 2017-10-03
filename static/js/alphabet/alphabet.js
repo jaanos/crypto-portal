@@ -405,14 +405,14 @@ $( document ).ready(function() {
     if(window.intro == 1){
         var bodyWidth = $(".panel-body").width();
         $('.f1_card').css({'width': (bodyWidth*0.18) + 'px'});
-        $('.f1_card').css({'height':(bodyWidth*0.18)+'px'});
+        $('.f1_card').css({'height':(bodyWidth*0.18) + 'px'});
     }
     
     if (window.mode == "write") {
         if (window.level == "easy"){
             var bodyWidth = $(".panel-body").width();
             $('.image_option').css({'width': (bodyWidth*0.18) + 'px'});
-            $('.image_option').css({'height':(bodyWidth*0.18)+'px'});
+            $('.image_option').css({'height':(bodyWidth*0.18) + 'px'});
         }
         
     }
