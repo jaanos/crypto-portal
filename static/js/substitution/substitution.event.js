@@ -129,7 +129,7 @@
                     return
                 }
             } else {
-                removeWordLetter(fromValue, toOriginal);
+                wordLetterDroppedOutside(input);
             }
             substitution.ui.loadSolvedMessageContainer();
             input.blur();
