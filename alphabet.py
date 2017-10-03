@@ -106,6 +106,7 @@ def redirect_to_intro(selected_alphabet = "flags", mode = "read"):
 
 @app.route("/<selected_alphabet>/<mode>/<level>/")
 def display_excercise(selected_alphabet = "flags", mode = "read", level = "easy"):
+    global words
     if words is None:
         words = get_all_words()
     if (alphabet_exists(selected_alphabet)):

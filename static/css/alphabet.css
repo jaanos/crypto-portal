@@ -43,6 +43,7 @@
 .menu-nav-item li a {
   float: left;
   width: 100%;
+  color: #eee;
 }
 
 .menu-nav-item a{
