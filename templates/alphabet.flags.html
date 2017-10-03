@@ -1,12 +1,15 @@
-{% extends "main.html" %}
+{% extends "header.html" %}
 {% block body %}
-<script type="text/javascript" src = "{{url_for('static', filename='alphabet.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/alphabet.css')}}" />
 <script type="text/javascript">
     var staticDir = "{{url_for('static', filename='')}}";
-    var flagsDir = "{{url_for('static', filename='images/flags/')}}";
+    var flagsDir = "{{url_for('static', filename='images/alphabet/flags/')}}";
     var letter = "{{letter}}", mode = "{{mode}}", level = "{{level}}",
-    choices = "{{choices}}", alphabet = "{{alphabet}}", words = "{{words}}";
-    window.onload = function(){initialize_alphabet(mode, level);};
+    choices = "{{choices}}", alphabet = "{{alphabet}}", words = "{{words}}", alphabetForLearning="{{alphabetForLearning}}",intro="{{intro}}";
+</script>
+<script type="text/javascript" src = "{{url_for('static', filename='js/alphabet/alphabet.js')}}"></script>
+<script type="text/javascript">
+    window.onload = function(){initialize_alphabet(mode, level, alphabetForLearning);};
 </script>
 
 <!-- POP-UP INSTRUCTIONS -->
@@ -18,14 +21,56 @@
         </div>
         <div class="modal-body">
             {% if mode == "read" %}
-                {% if level == "easy" %}<p> Kratka navodila za: branje lahko! </p>
-                {% elif level == "medium" %}<p> Kratka navodila za: branje srednje! </p>
-                {% elif level == "hard" %}<p> Kratka navodila za: branje tezko! </p>
+                {% if level == "easy" %}
+                <p>
+                    Izmed ponujenih črk <strong>izberite</strong> tisto, ki jo <strong>predstavlja</strong> prikazana slika.</br></br> 
+                    Če bo izbrana črka <strong style="color:green;">pravilna</strong>, se bo gumb obarval zeleno in po kliku na desno puščico se vam bo prikazala nova naloga.</br></br>
+                    Če bo izbira <strong style="color:red;">napačna</strong>, se bo gumb obarval rdeče. V tem primeru lahko poskusite <strong>ponovno</strong>, dokler ne izberete
+                    pravilne rešitve. Vsaka <strong style="color:red;">napačna</strong> izbira se <strong>kaznuje</strong> z negativno točko.</br></br>
+                    S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.
+                </p>
+                {% elif level == "medium" %}
+                <p>
+                    V polje pod sliko <strong>vnesite črko</strong>, ki jo slika predstavlja, in <strong>pritisnite enter</strong>.</br></br>
+                    Če je vaš odgovor <strong style="color:green;">pravilen</strong>, se bo spodnji rob polja obarval zeleno, sicer rdeče.</br></br> 
+                    V primeru <strong style="color:green;">pravilnega</strong> odgovora se vam ob kliku na desno puščico prikaže nova naloga, v primeru <strong style="color:red;">napačnega</strong> odgovora pa lahko poskusite znova.</br></br> 
+                    Če ste s prejšnjimi nalogami zbrali dovolj točk, lahko s klikom na gumb <strong>"Rešitev"</strong> izveste, katero črko predstavlja slika (s tem izgubite nekaj svojih točk).</br></br> 
+                    S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.
+                </p>
+                {% elif level == "hard" %}
+                <p>
+                    S klikom na gumb <strong>"Začni"</strong> sprožite animacijo.</br></br>
+                    Prikazalo se vam bo zaporedje slik, od katerih bo vsaka prikazovala eno črko. Črke vnesite v polja pod sliko in <strong>pritisnite enter</strong>.
+                    Polja, kamor ste vnesli pravilno črko, se bodo obarvala <strong style="color:green;">zeleno</strong>, polja z napačno črko <strong style="color:red;">rdeče</strong>, prazna polja pa bodo ostala <strong>nespremenjena</strong>.</br></br>
+                    Za vsako pravilno vnešeno črko <strong>dobite</strong> eno točko, medtem ko za vsako napačno vnešeno črko eno točko <strong>izgubite</strong>.
+                    Prazno polje točk ne spreminja.</br></br>
+                    Če ste s prejšnjimi nalogami zbrali <strong>dovolj točk</strong>, lahko s klikom na gumb <strong>"Začni znova"</strong> animacijo sprožite še enkrat (s tem izgubite nekaj svojih točk). </br></br>
+                    S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.
+                </p>
                 {% endif %}
             {% elif mode == "write" %}
-                {% if level == "easy" %}<p> Kratka navodila za: pisanje lahko! </p>
-                {% elif level == "medium" %}<p> Kratka navodila za: pisanje srednje! </p>
-                {% elif level == "hard" %}<p> Kratka navodila za: pisanje tezko! </p>
+                {% if level == "easy" %}
+                <p>
+                    Izmed ponujenih slik <strong>izberite</strong> tisto, ki jo <strong>predstavlja</strong> prikazana črka.</br></br>
+                    Če bo izbrana slika <strong style="color:green;">pravilna</strong>, se bo gumb obarval zeleno in po kliku na desno puščico se vam bo prikazala nova naloga.</br></br>
+                    Če bo izbira <strong style="color:red;">napačna</strong>, se bo gumb obarval rdeče. V tem primeru lahko poskusite <strong>ponovno</strong>, dokler ne izberete
+                    pravilne rešitve. Vsaka <strong style="color:red;">napačna</strong> izbira se <strong>kaznuje</strong> z negativno točko.</br></br>
+                    S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.
+                </p>
+                {% elif level == "medium" %}
+                <p>
+                    Kliknite in <strong>zavrtite</strong> neosenčeno zastavico v pravilen položaj in kliknite <strong>kjukico</strong> pod sliko.</br></br>
+                    Če je vaš odgovor <strong style="color:green;">pravilen</strong>, se kljukica obarva zeleno in s klikom na desno puščico se vam prikaže naslednja naloga.</br></br>
+                    Če pa je vaš odgovor <strong style="color:red;">napačen</strong>, se kjukica obarva rdeče, v polju s črko pa se za <strong>trenutek prikaže črka</strong>, ki jo predstavlja trenutna postavitev rok.</br></br>
+                    S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.
+                </p>
+                {% elif level == "hard" %}
+                <p> 
+                    Kliknite in <strong>zavrtite</strong> zastavici na ustrezni mesti in kliknite <strong>kjukico</strong> pod sliko.</br></br>
+                    Če je vaš odgovor <strong style="color:green;">pravilen</strong>, se kljukica obarva zeleno in s klikom na desno puščico se vam prikaže naslednja naloga.</br></br>
+                    Če pa je vaš odgovor <strong style="color:red;">napačen</strong>, se kljukica obarva rdeče, v polju s črko pa se za <strong>trenutek prikaže črka</strong>, ki jo trenutna postavitev rok predstavlja.</br></br>
+                    Če pravilno postavite le eno zastavico, se onemogoči njeno premikanje. S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.
+                </p>
                 {% endif %}
             {% endif %}
         </div>
@@ -34,41 +79,18 @@
 
 <div class="row">
    <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="panel panel-default level-{% print mode %}-{% print level %}" >
+        <div class="panel panel-default level-{{mode}}-{{level}}" >
             <div class="panel-heading" id="head">
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-4 alignVerticalCenter">
                         <b><span class="pozdrav1">Semafor</span></b>
                         {% if intro != "1" %}<button id="pop-up" class="align-middle">Navodila</button>{% endif %}
                     </div>
-                    
-                    <!--
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        <div class="text-center">
-                            <a value="Home" class="btn btn-default btn-bg {% if intro == '1' %}active{% endif %}" href="{{url_for('alphabet.index', selected_alphabet='flags')}}">Domov</a>
-                        </div>
-                    </div>
-                    -->
-                    <!--<div class="col-lg-4 col-md-4 col-sm-4" id ="buttons">-->
-                        <!--<a value = "Read" class="btn btn-default btn-bg {% if mode == "read" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode='read', level='easy')}}">Branje</a>
-                        <a value = "Write" class="btn btn-default btn-bg {% if mode == "write" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode='write', level='easy')}}">Pisanje</a>
-                        -->
                     <div class="menu-nav">
                         <div id="col-1" class="menu-nav-item">
-                            <a href="{{url_for('alphabet.index', selected_alphabet='flags')}}"><img src="{{url_for('static', filename='home-icon.png')}}"></a>
+                            <a href="{{url_for('alphabet.index', selected_alphabet='flags')}}"><img src="{{url_for('static', filename='images/home-icon.png')}}"></a>
                         </div>
                         <div id="col-2" class="menu-nav-item">
-                            <!--
-                            <div class="dropdown">
-                              <a value = "Write" id="writeButton" class="{% if mode == "write" %}active{% endif %}" ><span>Pisanje</span></a> 
-                              href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode='write', level='easy')}}"
-                              <div id="myDropdown" class="dropdown-content">
-                                <a href="#">Link 1</a>
-                                <a href="#">Link 2</a>
-                                <a href="#">Link 3</a>
-                              </div>
-                            </div>
-                            -->
                             <div class="dropdown {% if mode == "write" %}active{% endif %}">
 							  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Pisanje<span class="caret"></span></a>
 							  <ul class="dropdown-menu" role="menu">
@@ -90,18 +112,6 @@
 							</div>
                         </div>
                     </div>
-                    <!--
-                    <div id="col-1" class="">
-                        <img src="{{url_for('static', filename='home-icon.png')}}">
-                    </div>
-                    <div id="col-2" class="menu-nav">
-                        <span>Branje</span>
-                    </div>
-                    <div id="col-3" class="menu-nav">
-                        <span>Pisanje</span>
-                    </div>
-                    -->
-                    <!--</div>-->
                 </div>
             </div>
             {% if intro == "1" %}
@@ -109,22 +119,31 @@
                     <div class="container-fluid">
                         <div class="row-fluid">
                             <div class="">
-                                <h1>Uvod</h1>
-                                <p>Dobrodošli na strani za učenje komuniciranja s pomočjo zastavic.</p>
-                                <p>Spodaj si lahko ogledate seznam vseh črk, ki se jih lahko naučite s pomočjo te aplikacije.</p>
+                                <h1>Semafor</h1>
+                                <p>Dobrodošli na strani za učenje komuniciranje s pomočjo tujih abeced.</p>
+                                <p><strong>Na kratko o izbrani abecedi:</strong></p>
+                                <p>
+                                    Ta abeceda je uporabna za prenašanje sporočil na daljavo, ko sta sogovornika predaleč narazen, da bi se slišala, se pa še lahko vidita.
+                                </p>
+                                </br>
+                                <p>Spodaj si lahko ogledate seznam vseh črk, ki se jih lahko naučite s pomočjo te aplikacije. Za ogled posameznega simbola kliknite na ustrezno kartico.</p>
                             </div>
                             <div class="show-all-flags">
                                 {% for letter in alphabet %}
+                                {% if (loop.index) % 4 == 1 %} <div class="lineWrapper">
+                                {% endif %}
                                 <div class="f1_container">
                                     <div class="f1_card">
-                                        {% if ((loop.index-1) // 4) % 2 == 0 %} <div class="front face {% if loop.index % 2 == 0 %}dark{% else %}light{% endif %}"><h3 class="letterA {% if loop.index % 2 == 0 %}blue{% else %}red{% endif %}">{% print letter.upper() %}</h3></div>
-                                        {% else %}<div class="front face {% if loop.index % 2 == 0 %}light{% else %}dark{% endif %}"><h3 class="letterA {% if loop.index % 2 == 0 %}red{% else %}blue{% endif %}">{% print letter.upper() %}</h3></div>
+                                        {% if ((loop.index-1) // 4) % 2 == 0 %} <div class="front face {% if loop.index % 2 == 0 %}dark{% else %}light{% endif %}"><h3 class="letterA {% if loop.index % 2 == 0 %}red{% else %}blue{% endif %}">{% print letter.upper() %}</h3></div>
+                                        {% else %}<div class="front face {% if loop.index % 2 == 0 %}light{% else %}dark{% endif %}"><h3 class="letterA {% if loop.index % 2 == 0 %}blue{% else %}red{% endif %}">{% print letter.upper() %}</h3></div>
                                         {% endif %}
                                         <div class="back face">
-                                            <img src="{{url_for('static', filename='images/flags/'+letter+'.png')}}"/>
+                                            <img src="{{url_for('static', filename='images/alphabet/flags/'+letter+'.png')}}"/>
                                         </div>
                                     </div>
                                 </div>
+                                {% if (loop.index) % 4 == 0 %}</div>
+                                {% endif %}
                                 {% endfor %}
                             </div>
                             <div class="">
@@ -143,7 +162,7 @@
                             {% if mode == "read" %}
                                 {% if level == "easy" %}
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center">
+                                    <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center">
                                         <b>
                                             <span id="num-points-text">Število pravilnih odgovorov</span>
                                         </b>
@@ -151,13 +170,13 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-4 arrowContainer">
-                                        <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='arrow-left.png')}}"/></a>
+                                    <div class="col-lg-4 col-md-2 col-sm-2 arrowContainer">
+                                        <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/alphabet/arrow-left.png')}}"/></a>
                                     </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4 text-center" id = "coreLogic">
+                                    <div class="col-lg-4 col-md-8 col-sm-8 text-center" id = "coreLogic">
                                         <!-- <a id="read_easy_help" class="btn btn-default btn-bg">Pomoč</a> -->
                                         <div id="picture-letter" class="picture-letter well">
-                                            <img src="{{url_for('static', filename='images/flags/'+letter+'.png')}}" />
+                                            <img src="{{url_for('static', filename='images/alphabet/flags/'+letter+'.png')}}" />
                                         </div>
                                         <!--<a id="prew-arrow"><img src="{{url_for('static', filename='prew_arrow.png')}}"/></a>-->
                                         <div id="choices" class="choices">
@@ -167,13 +186,13 @@
                                         </div>
                                         <!--<a id="next-arrow"><img src="{{url_for('static', filename='next_arrow.png')}}"/></a>-->
                                     </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4 arrowContainer">
-                                        <a id="next-arrow"><img src="{{url_for('static', filename='arrow-right.png')}}"/></a>
+                                    <div class="col-lg-4 col-md-2 col-sm-2 arrowContainer">
+                                        <a id="next-arrow"><img src="{{url_for('static', filename='images/alphabet/arrow-right.png')}}"/></a>
                                     </div>
                                 </div>
                                 {% elif level == "medium" %}
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center">
+                                    <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center">
                                         <b>
                                             <span id="num-points-text">Število pravilnih odgovorov</span>
                                         </b>
@@ -181,17 +200,17 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center solutionButtonContainer">
+                                    <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center solutionButtonContainer">
                                         <a id="read_medium_solution" class="btn btn-default btn-bg btn-solution">Rešitev</a>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-4 arrowContainer">
-                                        <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='arrow-left.png')}}"/></a>
+                                    <div class="col-lg-4 col-md-2 col-sm-2 arrowContainer">
+                                        <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/alphabet/arrow-left.png')}}"/></a>
                                     </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 text-center" id = "coreLogic">
+                                <div class="col-lg-4 col-md-8 col-sm-8 text-center" id = "coreLogic">
                                     <div id="picture-letter" class="picture-letter well">
-                                        <img src="{{url_for('static', filename='images/flags/'+letter+'.png')}}" />
+                                        <img src="{{url_for('static', filename='images/alphabet/flags/'+letter+'.png')}}" />
                                     </div>
                                     <div class="inputContainer">
                                         <!--<a id="prew-arrow"><img src="{{url_for('static', filename='prew_arrow.png')}}"/></a>-->
@@ -199,12 +218,12 @@
                                         <!--<a id="next-arrow"><img src="{{url_for('static', filename='next_arrow.png')}}"/></a>-->
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 arrowContainer">
-                                    <a id="next-arrow"><img src="{{url_for('static', filename='arrow-right.png')}}"/></a>
+                                <div class="col-lg-4 col-md-2 col-sm-2 arrowContainer">
+                                    <a id="next-arrow"><img src="{{url_for('static', filename='images/alphabet/arrow-right.png')}}"/></a>
                                 </div>
                                 {% elif level == "hard" %}
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center">
+                                    <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center">
                                         <b>
                                             <span id="num-points-text">Število pravilnih odgovorov</span>
                                         </b>
@@ -212,28 +231,28 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center solutionButtonContainer">
+                                    <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center solutionButtonContainer">
                                         <a id="start-animation" class="btn btn-default btn-bg btn-solution">Začni!</a>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-4 arrowContainer">
-                                        <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='arrow-left.png')}}"/></a>
+                                    <div class="col-lg-4 col-md-2 col-sm-2 arrowContainer">
+                                        <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/alphabet/arrow-left.png')}}"/></a>
                                     </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 text-center" id = "coreLogic">
+                                <div class="col-lg-4 col-md-8 col-sm-8 text-center" id = "coreLogic">
                                     <div id="picture-letter" class="picture-letter well"></div>
                                     <!--<a id="prew-arrow"><img src="{{url_for('static', filename='prew_arrow.png')}}"/></a>-->
                                     <div id="input-string-hard"></div>
                                     <!--<a id="next-arrow"><img src="{{url_for('static', filename='next_arrow.png')}}"/></a>-->
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 arrowContainer">
-                                    <a id="next-arrow"><img src="{{url_for('static', filename='arrow-right.png')}}"/></a>
+                                <div class="col-lg-4 col-md-2 col-sm-2 arrowContainer">
+                                    <a id="next-arrow"><img src="{{url_for('static', filename='images/alphabet/arrow-right.png')}}"/></a>
                                 </div>
                                 {% endif %}
                             {% elif mode == "write" %}
                                 {% if level == "easy" %}
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center">
+                                    <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center">
                                         <b>
                                             <span id="num-points-text">Število pravilnih odgovorov</span>
                                         </b>
@@ -244,13 +263,13 @@
                                 
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-4 arrowContainer">
-                                        <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='arrow-left.png')}}"/></a>
+                                        <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/alphabet/arrow-left.png')}}"/></a>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 text-center">
                                         <div id="letterToGuess" class="letterToGuess text-center"><span>{% print letter.upper() %}</span></div>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 arrowContainer">
-                                        <a id="next-arrow"><img src="{{url_for('static', filename='arrow-right.png')}}"/></a>
+                                        <a id="next-arrow"><img src="{{url_for('static', filename='images/alphabet/arrow-right.png')}}"/></a>
                                     </div>
                                 </div>
                                 
@@ -263,7 +282,7 @@
                                                 {% for c in choices %}
                                                     <div class="imageSelectionWrap picture-letter-write">
                                                         <div id="picture-letter" class="image_option">
-                                                            <a><img class="imageSelection" src="{{url_for('static', filename='images/'+alphabetForLearning+'/'+c+'.png')}}" /></a>
+                                                            <a><img class="imageSelection" src="{{url_for('static', filename='images/alphabet/'+alphabetForLearning+'/'+c+'.png')}}" /></a>
                                                         </div>
                                                     </div>
                                                 {% endfor %}
@@ -274,7 +293,7 @@
                                    
                                 {% elif level == "medium" %}
                                     <div class="row">
-                                        <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center">
+                                        <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center">
                                             <b>
                                                 <span id="num-points-text">Število pravilnih odgovorov</span>
                                             </b>
@@ -284,44 +303,42 @@
                                 
                                 
                                     <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 text-center">
-                                                <div class="letter-to-guess-container">
-                                                    <div id="letterToGuess" class="text-center write-medium"><span>{% print letter.upper() %}</span></div>
-                                                </div>
-                                                
+                                        <div class="col-lg-6 col-md-10 col-sm-10 col-lg-offset-3 col-md-offset-1 col-sm-offset-1 text-center">
+                                            <div class="letter-to-guess-container">
+                                                <div id="letterToGuess" class="text-center write-medium"><span>{% print letter.upper() %}</span></div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 col-sm-3 arrowContainer">
-                                            <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='arrow-left.png')}}"/></a>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 text-center">
-                                            <div class="imageCointainer-wrapper">
-                                                <div class="imageCointainer-padding"></div>
-                                                <div id="imageCointainer">
-                                                    <img id="imageRightFlag" src="{{url_for('static', filename='right_flag.png')}}">
-                                                    <img id="imageBasicFigure" src="{{url_for('static', filename='basic_figure.png')}}">
-                                                    <img id="imageLeftFlag" src="{{url_for('static', filename='left_flag.png')}}">
-                                                </div>
-                                                <div class="imageCointainer-padding"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-3 col-sm-3 arrowContainer">
-                                            <a id="next-arrow"><img src="{{url_for('static', filename='arrow-right.png')}}"/></a>
                                         </div>
                                     </div>
                                     
                                     <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 text-center">
-                                                <div class="controlContainer">
-                                                    <a id="check" href="enabled"><img src="{{url_for('static', filename='check.png')}}"/></a>
-                                                </div>   
+                                        <div class="col-lg-3 col-md-1 col-sm-1 arrowContainer">
+                                            <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/alphabet/arrow-left.png')}}"/></a>
+                                        </div>
+                                        <div class="col-lg-6 col-md-10 col-sm-10 text-center">
+                                            <div class="imageCointainer-wrapper">
+                                                <div class="imageCointainer-padding"></div>
+                                                <div id="imageCointainer">
+                                                    <img id="imageRightFlag" src="{{url_for('static', filename='images/alphabet/right_flag.png')}}">
+                                                    <img id="imageBasicFigure" src="{{url_for('static', filename='images/alphabet/basic_figure.png')}}">
+                                                    <img id="imageLeftFlag" src="{{url_for('static', filename='images/alphabet/left_flag.png')}}">
+                                                </div>
+                                                <div class="imageCointainer-padding"></div>
                                             </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-1 col-sm-1 arrowContainer">
+                                            <a id="next-arrow"><img src="{{url_for('static', filename='images/alphabet/arrow-right.png')}}"/></a>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-10 col-sm-10 col-lg-offset-3 col-md-offset-1 col-sm-offset-1 text-center">
+                                            <div class="controlContainer">
+                                                <a id="check" href="enabled"><img src="{{url_for('static', filename='images/alphabet/check.png')}}"/></a>
+                                            </div>   
                                         </div>
                                     </div>
                                 {% elif level == "hard" %}
-                                <div class="row">
+                                    <div class="row">
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center">
                                             <b>
                                                 <span id="num-points-text">Število pravilnih odgovorov</span>
@@ -332,53 +349,51 @@
                                 
                                 
                                     <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 text-center">
-                                                <div class="letter-to-guess-container">
-                                                    <div id="letterToGuess" class="text-center write-medium"><span>{% print letter.upper() %}</span></div>
-                                                </div>
-                                                
-                                            </div>
+                                        <div class="col-lg-6 col-md-10 col-sm-10 col-lg-offset-3 col-md-offset-1 col-sm-offset-1 text-center">
+                                            <div class="letter-to-guess-container">
+                                                <div id="letterToGuess" class="text-center write-medium"><span>{% print letter.upper() %}</span></div>
+                                            </div>    
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-3 col-md-3 col-sm-3 arrowContainer">
-                                            <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='arrow-left.png')}}"/></a>
+                                        <div class="col-lg-3 col-md-1 col-sm-1 arrowContainer">
+                                            <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/alphabet/arrow-left.png')}}"/></a>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 text-center">
+                                        <div class="col-lg-6 col-md-10 col-sm-10 text-center">
                                             <div class="imageCointainer-wrapper">
                                                 <div class="imageCointainer-padding"></div>
                                                 <div id="imageCointainer">
-                                                    <img id="imageRightFlag" src="{{url_for('static', filename='right_flag.png')}}">
-                                                    <img id="imageBasicFigure" src="{{url_for('static', filename='basic_figure.png')}}">
-                                                    <img id="imageLeftFlag" src="{{url_for('static', filename='left_flag.png')}}">
+                                                    <img id="imageRightFlag" src="{{url_for('static', filename='images/alphabet/right_flag.png')}}">
+                                                    <img id="imageBasicFigure" src="{{url_for('static', filename='images/alphabet/basic_figure.png')}}">
+                                                    <img id="imageLeftFlag" src="{{url_for('static', filename='images/alphabet/left_flag.png')}}">
                                                 </div>
                                                 <div class="imageCointainer-padding"></div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3 col-md-3 col-sm-3 arrowContainer">
-                                            <a id="next-arrow"><img src="{{url_for('static', filename='arrow-right.png')}}"/></a>
+                                        <div class="col-lg-3 col-md-1 col-sm-1 arrowContainer">
+                                            <a id="next-arrow"><img src="{{url_for('static', filename='images/alphabet/arrow-right.png')}}"/></a>
                                         </div>
                                     </div>
                                     
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 text-center">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-10 col-sm-10 col-lg-offset-3 col-md-offset-1 col-sm-offset-1 text-center">
                                                 <div class="controlContainer">
-                                                    <a id="check" href="enabled"><img src="{{url_for('static', filename='check.png')}}"/></a>
+                                                    <a id="check" href="enabled"><img src="{{url_for('static', filename='images/alphabet/check.png')}}"/></a>
                                                 </div>   
                                             </div>
                                         </div>
-                                    </div>
                                 {% endif %}
                             {% endif %}
                            
                         </div>
                     </div>
+                    <div class="blankSpace"></div>
                 </div>
-                <div class="blankSpace"></div>
+                
                 <!-- Prenos vseh slik k odjemalcu, da aplikacija deluje tudi v offline nacinu -->
                 <div class="hidden all-flags">
                     {% for letter in alphabet %}
-                        <img src="{{url_for('static', filename='images/flags/'+letter+'.png')}}" />
+                        <img src="{{url_for('static', filename='images/alphabet/flags/'+letter+'.png')}}" />
                     {% endfor %}
                 </div>
             {% endif %}
