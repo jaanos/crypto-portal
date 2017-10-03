@@ -119,3 +119,96 @@ ul.dropdown-menu > .divider {
 #home {
     height: 30px;
 }
+
+.menu-nav{
+  /*vertical-align:middle; */
+  /*line-height: 33px;*/
+}
+.menu-nav-item {
+  float: right;
+  color: #ddd;
+  /*width: 80px;*/
+  font-size: 18px;
+  margin: auto;
+}
+
+.menu-nav-item a{
+  margin: auto;
+}
+
+.dropdown-menu{
+  min-width: 100px;
+}
+.menu-nav-item li a {
+  float: left;
+  width: 100%;
+  color: #eee;
+}
+
+.menu-nav-item a{
+  float: right;
+  color: #ddd;
+  width: 80px;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.menu-nav-item a span{
+  color: #ddd;
+}
+.menu-nav-item a span:hover {
+    color: #fff;
+}
+
+.menu-nav-item a img{
+  max-width:50%;
+}
+
+.menu-nav-item a img:hover{
+  cursor: pointer;
+}
+#col-1 a{
+  width: 50px;
+}
+
+#head{
+  background-color: #374148;
+}
+
+.panel {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.panel-heading{
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.panel-body{
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+/* Header */
+
+.splitHead{
+  width:50%;
+  float:left;
+}
+
+.pozdrav1{
+	color: #FFFFFF;
+	margin-left: 20px;
+	margin-right: 20px;
+	font-size: 24px;
+	float: left;
+}
+
+.popUpButton{
+ float:left;
+}
+
+.image_option{
+  padding: 10%;
+}
