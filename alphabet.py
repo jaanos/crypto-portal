@@ -8,6 +8,8 @@ app = Blueprint('alphabet', __name__)
 
 available_alphabets = ["flags","sign","greek"]
 
+words = None
+
 # get words from database
 def get_all_words():
     db = database.dbcon()
@@ -27,7 +29,6 @@ def get_all_words():
     
     #print(max)
     return listOfWords
-words = get_all_words()
 
 # get alphabet from database
 def getValidLetters(selectedAlphabet):
@@ -105,6 +106,8 @@ def redirect_to_intro(selected_alphabet = "flags", mode = "read"):
 
 @app.route("/<selected_alphabet>/<mode>/<level>/")
 def display_excercise(selected_alphabet = "flags", mode = "read", level = "easy"):
+    if words is None:
+        words = get_all_words()
     if (alphabet_exists(selected_alphabet)):
         abc = getValidLetters(selected_alphabet)
         letter = select_letter(abc)
