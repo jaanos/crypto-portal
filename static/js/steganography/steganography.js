@@ -71,7 +71,7 @@ Cover.prototype.config = {
           },
   "messageCompleted": function(data, i, threshold) {
             var done = true;
-            for(var j = 0; j < 16 && done; j+=1) {
+            for(var j = 0; j < 16 && done && i+j*4 < data.length; j+=1) {
               done = done && (data[i+j*4] === 255);
             }
             return done;
@@ -183,10 +183,10 @@ Cover.prototype.encode = function(message, image, options) {
     subOffset = qS.length;
   }
   // Write message-delimiter
-  for(index = (offset+subOffset); index-(offset+subOffset)<delimiter.length && (offset+delimiter.length)*4<data.length; index+=1)
-    data[(index*4)+3]=delimiter[index-(offset+subOffset)];
+  for(index = (offset+subOffset-threshold); index-(offset+subOffset-threshold)<delimiter.length && index*4<data.length; index+=1)
+    data[(index*4)+3]=delimiter[index-(offset+subOffset-threshold)];
   // Clear remaining data
-  for(i=((index+1)*4)+3; i<data.length; i+=4) data[i] = 255;
+  for(i=(index*4)+3; i<data.length; i+=4) data[i] = 255;
 
   imageData.data = data;
   shadowCtx.putImageData(imageData, 0, 0);
