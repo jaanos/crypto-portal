@@ -1,105 +1,160 @@
-{% extends "main.html" %}
+{% extends "header.html" %}
 {% block body %}
+		<script src="{{url_for('static', filename='js/steganography/pixelmatch.js')}}"></script>
+		<script src="{{url_for('static', filename='js/steganography/steg.js')}}"></script>
+		<script src="{{url_for('static', filename='js/steganography/steganography.js')}}"></script>
+		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/steganography.css')}}" />
 
-<script type="text/javascript">
-    imgdata = "{{data}}";
+<!-- pop-up navodila -->
 
-    function uncover() {
-        offset = parseInt($("#offset")[0].value);
-        if (offset < 0 || offset >= imgdata.length-7) offset = 0;
-        $("#text").text("")
-        out = ""
-        for (i=offset; i < imgdata.length-7; i += 8) {
-            ord = 0;
-            for (j=0; j < 8; j++) {
-                ord *= 2;
-                ord += imgdata.charCodeAt(i+j) & 1;
-            }
-            if (ord == 0) break;
-            out += String.fromCharCode(ord);
-        }
-        $("#text").append($('<div/>').text(decodeURIComponent(escape(out))).html());
-    }
+    <div id="myModal" class="modal">
+    <div class="modal-content">
+        <div id="header">
+            <span id="cl" class="close">&times;</span>
+            <h2>Navodila</h2>
+        </div>
+        <div class="modal-body" id="body-navodila">
+            <p>Steganografija je veda o skrivanju podatkov npr. v sporočilo, sliko ali video. Za razliko od kriptografije oziroma šifriranja podatkov, katere cilj je narediti podatke neberljive, steganografija poskuša prikriti obstoj podatkov. Cilj je onemogočiti zaznavo podatkov, ki so skriti v navidez nepomembnih podatkih. Spletna stran omogoča skrivanje sporočila v sliko. Na spletno stran lahko naložite svojo sliko, vanjo pa lahko zakodirate sporočilo, ali pa ga razberete, če se sporočilo v sliki že nahaja. Razlik med originalno sliko in sliko s sporočilom ni mogoče videti s prostim očesom, zato stran omogoča tudi vizualni prikaz nastale razlike.</p>
+        </div>
+    </div>
+</div>
 
-    function checkEmpty() {
-        ok = $("#newname")[0].value.length > 0;
-        if (!ok) {
-            $("#error").html("Ime datoteke ni navedeno!");
-        }
-        return ok;
-    }
-</script>
+    <!-- pop up nasvet + omejitve -->
+
+<div id="myModal1" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="cl1" class="close1">&times;</span>
+            <h2>Opozorilo</h2>
+        </div>
+        <div class="modal-body">
+            <p>Izberite slikovno datoteko!</p>
+        </div>
+    </div>
+</div>
+<div id="myModal2" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="cl2" class="close2">&times;</span>
+            <h2>Opozorilo</h2>
+        </div>
+        <div class="modal-body">
+            <p>Datoteka je prevelika! Največja dovoljena 2 MB.</p>
+        </div>
+    </div>
+</div>
+<div id="myModal3" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="cl3" class="close2">&times;</span>
+            <h2>Opozorilo</h2>
+        </div>
+        <div class="modal-body">
+            <p>V sliko poskušate zakodirati preveč besedila!</p>
+        </div>
+    </div>
+</div>
+<div id="myModal4" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="cl4" class="close2">&times;</span>
+            <h2>Opozorilo</h2>
+        </div>
+        <div class="modal-body">
+            <p>V tekstovno polje niste vnesli besedila, ki ga želite zakodirati!</p>
+        </div>
+    </div>
+</div>
+<div id="myModal5" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="cl5" class="close2">&times;</span>
+            <h2>Opozorilo</h2>
+        </div>
+        <div class="modal-body">
+            <p>Prosim naložite sliko!</p>
+        </div>
+    </div>
+</div>
+
+<div id="myModal6" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="cl6" class="close2">&times;</span>
+            <h2>Opozorilo</h2>
+        </div>
+        <div class="modal-body">
+            <p>Datoteka je prevelikih dimenzij. Maksimalna dovoljena dimenzija je 1000 x 1000 px.</p>
+        </div>
+    </div>
+</div>
 
 <div class="row">
    <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="panel panel-default">
-            <div class="panel-heading" id="glava">
+        <div class="panel panel-default" >
+            <div class="panel-heading" id="head">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <b><span class="pozdrav1">Skrivanje sporočila v sliko</span></b>
+                    <div class="splitHead">   
+                        <b>
+                            <span class="pozdrav1"> 
+                            Skrivanje sporočila v sliko
+                            </span>
+                        </b>
+                        <button id="pop-up">Navodila</button>
                     </div>
                 </div>
             </div>
-            <div class="panel-body">
-                <div class="container-fluid">
-                    <div class="row-fluid">
-                        <div class="col-lg-8 col-md-8 col-sm-8">
-                            {% if name != None %}
-                            <div class="row-fluid">
-                                Slika: {{name}} <br />
-                                <img src="{{url_for('.show', idx=idx)}}" class="img-thumbnail" />
-                            </div>
-                            <div class="row-fluid" style="margin-top: 10px;">
-                                <form action="{{url_for('.images', idx=idx)}}" method="POST" onClick="return checkEmpty();">
-                                    <div class="form-group">
-                                        <label for="text">Besedilo</label>
-                                        <textarea name="text" id="text" class="form-control" rows="5" placeholder="Vnesi besedilo">{{text}}</textarea>
-                                    </div>
-                                    <div class="form-group {% if error %}has-error{% endif %}">
-                                        <label for="newname">Ime datoteke</label>
-                                        <label for="newname" class="has-error" id="error" style="float: right;">{% if error %}{{errstr}}{% endif %}</label>
-                                        <input type="text" class="form-control" id="newname" name="newname" placeholder="Vpiši ime datoteke" value="{{newname}}" />
-                                    </div>
-                                    <div class="form-group form-inline">
-                                        <label for="offset">Zamik</label>
-                                        <input type="number" class="form-control" id="offset" name="offset" value="{{offset}}" style="width: 100px; margin-left: 5px;" />
-                                        <div style="float: right;">
-                                            <button type="button" class="btn btn-default btn-sm" onClick="uncover();">Razkrij sporočilo</button>
-                                            <button type="submit" class="btn btn-primary btn-sm">Skrij sporočilo</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            {% else %}
-                            <div class="row-fluid">
-                                Izberi sliko iz seznama na desni!
-                            </div>
-                            {% endif %}
+            
+            <div class="container2">
+                
+                <!-- Upload in prikaz slik -->
+
+                <div id="custom"><div class="custom-file-upload">
+                    <input type="file" id="file" name="file"/>
+                </div></div>
+                
+                <img id="img" src="{{url_for('static', filename='images/generic-pic1.png')}}">
+
+                <div id="coded"><p>Število kodiranih znakov </p><span id="capacity"></span></h2> </div>
+                <textarea id="text" class="common" placeholder="Vpiši sporočilo..."></textarea><br>
+                
+                <div id="buttons">
+                   
+                    <button id="hide" class="open-sans-font">Skrij sporočilo</button>
+                    <button id="read" class="open-sans-font">Razkrij sporočilo</button>
+                           
+                </div>
+                
+                <div id="border-top"></div>
+                <div id="hidden" style="display: none;">
+                    <div id="result">
+
+                        <h4>Slika s sporočilom:</h4>
+                        <img id="cover" src=""/>
+                        <button style="display: none;" id="download" onclick="document.getElementById('dlink').click()"><a id="dlink" download="prenos.png" rel="nofollow">Prenos</a></button>
+
+                        <div id="diffH" style="display: none;">
+                            <h4>Razlika med slikama:</h4>
+                            <canvas id="myCanvas3"> </canvas>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            Slike na voljo: <br /><br />
-                            <table class="table table-hover">
-                                {% for id, name, time, sessid in imgs %}
-                                <tr>
-                                    <td>
-                                        {% if sessid == session %}
-                                        <form action="{{url_for('.delete', idx=id, ret=idx)}}" method="POST">
-                                            <button type="submit" class="btn btn-danger btn-xs">X</button>
-                                        </form>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        <a href="{{url_for('.images', idx=id)}}">{{name}}</a>
-                                    </td>
-                                    <td>{{time}}</td>
-                                </tr>
-                                {% endfor %}
-                            </table>
-                        </div>
+                        <button id="diff">Prikaži razliko</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+	
+ <script type="text/javascript">
+ window.onload = function(){
+			document.getElementById('file').addEventListener('change', handleFileSelect, false);
+			document.getElementById('hide').addEventListener('click', hide, false);
+			document.getElementById('read').addEventListener('click', read, false);
+			document.getElementById('diff').addEventListener('click', difference, false);
+			document.getElementById('text').addEventListener('keyup', updateCapacity, false);
+			updateCapacity();
+            document.getElementById('myCanvas3').style.visibility='hidden';
+		};
+		</script>
+		
 {% endblock %}
