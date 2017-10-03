@@ -1,12 +1,14 @@
 {% extends "header.html" %}
 {% block body %}
 <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/alphabet.css')}}" />
-<script type="text/javascript" src = "{{url_for('static', filename='js/alphabet/alphabet.js')}}"></script>
 <script type="text/javascript">
     var staticDir = "{{url_for('static', filename='')}}";
-    var flagsDir = "{{url_for('static', filename='images/flags/')}}";
+    var flagsDir = "{{url_for('static', filename='images/alphabet/flags/')}}";
     var letter = "{{letter}}", mode = "{{mode}}", level = "{{level}}",
     choices = "{{choices}}", alphabet = "{{alphabet}}", words = "{{words}}", alphabetForLearning="{{alphabetForLearning}}",intro="{{intro}}";
+</script>
+<script type="text/javascript" src = "{{url_for('static', filename='js/alphabet/alphabet.js')}}"></script>
+<script type="text/javascript">
     window.onload = function(){initialize_alphabet(mode, level, alphabetForLearning);};
 </script>
 
@@ -136,7 +138,7 @@
                                         {% else %}<div class="front face {% if loop.index % 2 == 0 %}light{% else %}dark{% endif %}"><h3 class="letterA {% if loop.index % 2 == 0 %}blue{% else %}red{% endif %}">{% print letter.upper() %}</h3></div>
                                         {% endif %}
                                         <div class="back face">
-                                            <img src="{{url_for('static', filename='images/flags/'+letter+'.png')}}"/>
+                                            <img src="{{url_for('static', filename='images/alphabet/flags/'+letter+'.png')}}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -169,12 +171,12 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-2 col-sm-2 arrowContainer">
-                                        <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/general/arrow-left.png')}}"/></a>
+                                        <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/alphabet/arrow-left.png')}}"/></a>
                                     </div>
                                     <div class="col-lg-4 col-md-8 col-sm-8 text-center" id = "coreLogic">
                                         <!-- <a id="read_easy_help" class="btn btn-default btn-bg">Pomoč</a> -->
                                         <div id="picture-letter" class="picture-letter well">
-                                            <img src="{{url_for('static', filename='images/flags/'+letter+'.png')}}" />
+                                            <img src="{{url_for('static', filename='images/alphabet/flags/'+letter+'.png')}}" />
                                         </div>
                                         <!--<a id="prew-arrow"><img src="{{url_for('static', filename='prew_arrow.png')}}"/></a>-->
                                         <div id="choices" class="choices">
@@ -185,7 +187,7 @@
                                         <!--<a id="next-arrow"><img src="{{url_for('static', filename='next_arrow.png')}}"/></a>-->
                                     </div>
                                     <div class="col-lg-4 col-md-2 col-sm-2 arrowContainer">
-                                        <a id="next-arrow"><img src="{{url_for('static', filename='images/general/arrow-right.png')}}"/></a>
+                                        <a id="next-arrow"><img src="{{url_for('static', filename='images/alphabet/arrow-right.png')}}"/></a>
                                     </div>
                                 </div>
                                 {% elif level == "medium" %}
@@ -204,11 +206,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-2 col-sm-2 arrowContainer">
-                                        <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/general/arrow-left.png')}}"/></a>
+                                        <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/alphabet/arrow-left.png')}}"/></a>
                                     </div>
                                 <div class="col-lg-4 col-md-8 col-sm-8 text-center" id = "coreLogic">
                                     <div id="picture-letter" class="picture-letter well">
-                                        <img src="{{url_for('static', filename='images/flags/'+letter+'.png')}}" />
+                                        <img src="{{url_for('static', filename='images/alphabet/flags/'+letter+'.png')}}" />
                                     </div>
                                     <div class="inputContainer">
                                         <!--<a id="prew-arrow"><img src="{{url_for('static', filename='prew_arrow.png')}}"/></a>-->
@@ -217,7 +219,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-2 col-sm-2 arrowContainer">
-                                    <a id="next-arrow"><img src="{{url_for('static', filename='images/general/arrow-right.png')}}"/></a>
+                                    <a id="next-arrow"><img src="{{url_for('static', filename='images/alphabet/arrow-right.png')}}"/></a>
                                 </div>
                                 {% elif level == "hard" %}
                                 <div class="row">
@@ -235,7 +237,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-2 col-sm-2 arrowContainer">
-                                        <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/general/arrow-left.png')}}"/></a>
+                                        <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/alphabet/arrow-left.png')}}"/></a>
                                     </div>
                                 <div class="col-lg-4 col-md-8 col-sm-8 text-center" id = "coreLogic">
                                     <div id="picture-letter" class="picture-letter well"></div>
@@ -244,7 +246,7 @@
                                     <!--<a id="next-arrow"><img src="{{url_for('static', filename='next_arrow.png')}}"/></a>-->
                                 </div>
                                 <div class="col-lg-4 col-md-2 col-sm-2 arrowContainer">
-                                    <a id="next-arrow"><img src="{{url_for('static', filename='images/general/arrow-right.png')}}"/></a>
+                                    <a id="next-arrow"><img src="{{url_for('static', filename='images/alphabet/arrow-right.png')}}"/></a>
                                 </div>
                                 {% endif %}
                             {% elif mode == "write" %}
@@ -261,13 +263,13 @@
                                 
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-4 arrowContainer">
-                                        <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/general/arrow-left.png')}}"/></a>
+                                        <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/alphabet/arrow-left.png')}}"/></a>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 text-center">
                                         <div id="letterToGuess" class="letterToGuess text-center"><span>{% print letter.upper() %}</span></div>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 arrowContainer">
-                                        <a id="next-arrow"><img src="{{url_for('static', filename='images/general/arrow-right.png')}}"/></a>
+                                        <a id="next-arrow"><img src="{{url_for('static', filename='images/alphabet/arrow-right.png')}}"/></a>
                                     </div>
                                 </div>
                                 
@@ -280,7 +282,7 @@
                                                 {% for c in choices %}
                                                     <div class="imageSelectionWrap picture-letter-write">
                                                         <div id="picture-letter" class="image_option">
-                                                            <a><img class="imageSelection" src="{{url_for('static', filename='images/'+alphabetForLearning+'/'+c+'.png')}}" /></a>
+                                                            <a><img class="imageSelection" src="{{url_for('static', filename='images/alphabet/'+alphabetForLearning+'/'+c+'.png')}}" /></a>
                                                         </div>
                                                     </div>
                                                 {% endfor %}
@@ -310,28 +312,28 @@
                                     
                                     <div class="row">
                                         <div class="col-lg-3 col-md-1 col-sm-1 arrowContainer">
-                                            <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/general/arrow-left.png')}}"/></a>
+                                            <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/alphabet/arrow-left.png')}}"/></a>
                                         </div>
                                         <div class="col-lg-6 col-md-10 col-sm-10 text-center">
                                             <div class="imageCointainer-wrapper">
                                                 <div class="imageCointainer-padding"></div>
                                                 <div id="imageCointainer">
-                                                    <img id="imageRightFlag" src="{{url_for('static', filename='images/general/right_flag.png')}}">
-                                                    <img id="imageBasicFigure" src="{{url_for('static', filename='images/general/basic_figure.png')}}">
-                                                    <img id="imageLeftFlag" src="{{url_for('static', filename='images/general/left_flag.png')}}">
+                                                    <img id="imageRightFlag" src="{{url_for('static', filename='images/alphabet/right_flag.png')}}">
+                                                    <img id="imageBasicFigure" src="{{url_for('static', filename='images/alphabet/basic_figure.png')}}">
+                                                    <img id="imageLeftFlag" src="{{url_for('static', filename='images/alphabet/left_flag.png')}}">
                                                 </div>
                                                 <div class="imageCointainer-padding"></div>
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-md-1 col-sm-1 arrowContainer">
-                                            <a id="next-arrow"><img src="{{url_for('static', filename='images/general/arrow-right.png')}}"/></a>
+                                            <a id="next-arrow"><img src="{{url_for('static', filename='images/alphabet/arrow-right.png')}}"/></a>
                                         </div>
                                     </div>
                                     
                                     <div class="row">
                                         <div class="col-lg-6 col-md-10 col-sm-10 col-lg-offset-3 col-md-offset-1 col-sm-offset-1 text-center">
                                             <div class="controlContainer">
-                                                <a id="check" href="enabled"><img src="{{url_for('static', filename='images/general/check.png')}}"/></a>
+                                                <a id="check" href="enabled"><img src="{{url_for('static', filename='images/alphabet/check.png')}}"/></a>
                                             </div>   
                                         </div>
                                     </div>
@@ -355,28 +357,28 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3 col-md-1 col-sm-1 arrowContainer">
-                                            <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/general/arrow-left.png')}}"/></a>
+                                            <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/alphabet/arrow-left.png')}}"/></a>
                                         </div>
                                         <div class="col-lg-6 col-md-10 col-sm-10 text-center">
                                             <div class="imageCointainer-wrapper">
                                                 <div class="imageCointainer-padding"></div>
                                                 <div id="imageCointainer">
-                                                    <img id="imageRightFlag" src="{{url_for('static', filename='images/general/right_flag.png')}}">
-                                                    <img id="imageBasicFigure" src="{{url_for('static', filename='images/general/basic_figure.png')}}">
-                                                    <img id="imageLeftFlag" src="{{url_for('static', filename='images/general/left_flag.png')}}">
+                                                    <img id="imageRightFlag" src="{{url_for('static', filename='images/alphabet/right_flag.png')}}">
+                                                    <img id="imageBasicFigure" src="{{url_for('static', filename='images/alphabet/basic_figure.png')}}">
+                                                    <img id="imageLeftFlag" src="{{url_for('static', filename='images/alphabet/left_flag.png')}}">
                                                 </div>
                                                 <div class="imageCointainer-padding"></div>
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-md-1 col-sm-1 arrowContainer">
-                                            <a id="next-arrow"><img src="{{url_for('static', filename='images/general/arrow-right.png')}}"/></a>
+                                            <a id="next-arrow"><img src="{{url_for('static', filename='images/alphabet/arrow-right.png')}}"/></a>
                                         </div>
                                     </div>
                                     
                                         <div class="row">
                                             <div class="col-lg-6 col-md-10 col-sm-10 col-lg-offset-3 col-md-offset-1 col-sm-offset-1 text-center">
                                                 <div class="controlContainer">
-                                                    <a id="check" href="enabled"><img src="{{url_for('static', filename='images/general/check.png')}}"/></a>
+                                                    <a id="check" href="enabled"><img src="{{url_for('static', filename='images/alphabet/check.png')}}"/></a>
                                                 </div>   
                                             </div>
                                         </div>
@@ -391,7 +393,7 @@
                 <!-- Prenos vseh slik k odjemalcu, da aplikacija deluje tudi v offline nacinu -->
                 <div class="hidden all-flags">
                     {% for letter in alphabet %}
-                        <img src="{{url_for('static', filename='images/flags/'+letter+'.png')}}" />
+                        <img src="{{url_for('static', filename='images/alphabet/flags/'+letter+'.png')}}" />
                     {% endfor %}
                 </div>
             {% endif %}

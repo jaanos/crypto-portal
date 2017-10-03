@@ -25,7 +25,7 @@ var clickCounterMobile = 0;
 var lastClickedElementMobile = null;
 var dragedImageData = null;
 var newTaskSize = null;
-var imageGeneralDir = "images/general/"
+var imageGeneralDir = staticDir + "images/alphabet/"
 
 
 // INITIALIZATION
@@ -89,7 +89,7 @@ function read_hard() {
     }
     var letters = word.split("");
     var idNumber = 1;
-    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/images/general/" +  "blank.png' class=''>");
+    $(".level-read-hard .panel-body .well").append("<img src='" + imageGeneralDir + "blank.png' class=''>");
     for (i = 0; i < letters.length; i++) {
         var letter = letters[i];
         $(".level-read-hard .panel-body .well").append("<img src='" + flagsDir + letter + ".png' class='hidden'>");
@@ -207,7 +207,7 @@ function write_hard_generic(){
 
 function selectAndDisplayNewWordWriteHardGeneric(){
     //clean
-    //$(".taskContainer").html('<div dragable="false" ondrop="dropInTrash(event)" ondragover="allowDropTrash(event)" ondragleave="dragLeaveTrash(event)" class="trashCan"><a><img src= "/static/trashCan.png"></a></div>');
+    //$(".taskContainer").html('<div dragable="false" ondrop="dropInTrash(event)" ondragover="allowDropTrash(event)" ondragleave="dragLeaveTrash(event)" class="trashCan"><a><img src="' + imageGeneralDir + 'trashCan.png"></a></div>');
     $(".taskContainer").html("");
 
 
@@ -471,7 +471,7 @@ $( document ).ready(function() {
                 if(nmbOfCorrect == taskWord.length){
                     addHistoryWriteHardGeneric(1, 0, taskWord, state);
                     $(".level-write-hard #next-arrow-generic").attr("href", "next");
-                    $("#checkGeneric img").attr("src", staticDir+ imageGeneralDir + "check_correct.png");
+                    $("#checkGeneric img").attr("src", imageGeneralDir + "check_correct.png");
                 }
                 else{
                     addHistoryWriteHardGeneric(0, 0, taskWord, state);
@@ -481,7 +481,7 @@ $( document ).ready(function() {
                 if(nmbOfCorrect == taskWord.length){
                     addHistoryWriteHardGeneric(1, 1, taskWord, state);
                     $(".level-write-hard #next-arrow-generic").attr("href", "next");
-                    $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check_correct.png");
+                    $("#checkGeneric img").attr("src", imageGeneralDir + "check_correct.png");
                 }
                 else{
                     addHistoryWriteHardGeneric(0, 1, taskWord, state);
@@ -516,25 +516,25 @@ $( document ).ready(function() {
                         if(state != "")state+=",";
                         state+= letter + "I";
                     });
-                    $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check.png");
+                    $("#checkGeneric img").attr("src", imageGeneralDir + "check.png");
                     addHistoryWriteHardGeneric(0,0,taskWord,state); // push to history and mark as unanswered
                 }
             }
             
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][2] == 0){   // Chosen word is not answered
                 //restoreStringWriteHardGeneric(ansHist[histPtr][0],ansHist[histPtr][1]);
-                $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check.png");
+                $("#checkGeneric img").attr("src", imageGeneralDir + "check.png");
                 restoreHistoryWriteHardGeneric(ansHist[histPtr][0],ansHist[histPtr][1]);
             }
             
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][2] == 1){   // Chosen letter is answered
                 $(".level-write-hard #next-arrow-generic").attr("href", "next");
-                $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check_correct.png");
+                $("#checkGeneric img").attr("src", imageGeneralDir + "check_correct.png");
                 restoreHistoryWriteHardGeneric();
             }
             
             else{   // Chosen letter is answered
-                $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check_correct.png");
+                $("#checkGeneric img").attr("src", imageGeneralDir + "check_correct.png");
                 restoreHistoryWriteHardGeneric();
             }
             
@@ -548,7 +548,7 @@ $( document ).ready(function() {
         e.preventDefault();
         if ($("#prew-arrow-generic").attr("href") === "prew") {
             histPtr--;
-            $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check_correct.png");
+            $("#checkGeneric img").attr("src", imageGeneralDir + "check_correct.png");
             restoreHistoryWriteHardGeneric();
             //textFieldsDisable(".letterInputClass");
             //$("#start-animation").css("visibility", "hidden");
@@ -1583,7 +1583,7 @@ function clearSelectedImages(elementID, choices) {
 function displaySequenceOfImages(elements, index) {
     if (index == $(elements).length) {
         if (getPoints() >= pointsForClueReadHard) {
-            //$(".level-read-hard .panel-body .well").append("<img src='" + "/static/" +  "blank.png' class=''>");
+            //$(".level-read-hard .panel-body .well").append("<img src='" + imageGeneralDir + "blank.png' class=''>");
             //console.log("lahko se enkrat sprozis");
             $("#start-animation").removeAttr("disabled");
             $(elements + ":eq(" + 0 + ")").removeClass("hidden");
@@ -1813,7 +1813,7 @@ function restoreHistoryWriteHardGeneric(word, ans){
     //console.log("restore for state: "+word+" -> "+ans);
     var ansArr = ans.split(",");
     //clear prew state
-    //$(".taskContainer").html('<div dragable="false" ondrop="dropInTrash(event)" ondragover="allowDropTrash(event)" ondragleave="dragLeaveTrash(event)" class="trashCan"><a><img src= "/static/trashCan.png"></a></div>');
+    //$(".taskContainer").html('<div dragable="false" ondrop="dropInTrash(event)" ondragover="allowDropTrash(event)" ondragleave="dragLeaveTrash(event)" class="trashCan"><a><img src= "' + imageGeneralDir + 'trashCan.png"></a></div>');
     $(".taskContainer").html("");
        
     for(var position in word){
@@ -1901,7 +1901,7 @@ function restoreHistoryReadHard(){
     var letters = string.split("");
     var idNumber = 1;
     
-    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/images/general/" +  "blank.png' class=''>");
+    $(".level-read-hard .panel-body .well").append("<img src='" + imageGeneralDir + "blank.png' class=''>");
     
     for (i = 0; i < letters.length; i++) {
         var letter = letters[i];
@@ -1932,7 +1932,7 @@ function restoreStringReadHard(word){
     var idNumber = 1;
     var state = ansHist[histPtr][2].split(",");
     
-    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/images/general/" +  "blank.png' class=''>");
+    $(".level-read-hard .panel-body .well").append("<img src='" + imageGeneralDir + "blank.png' class=''>");
     
     for (i = 0; i < letters.length; i++) {
         var letter = letters[i];
@@ -2225,15 +2225,15 @@ function flashRightLetter(letter){
 function markCheckControlWrite(status){
     var tmp = $("#check img").attr("src");
     if(status == 1){
-        $("#check img").attr("src",staticDir + imageGeneralDir+"check_correct.png");
+        $("#check img").attr("src", imageGeneralDir + "check_correct.png");
         disableFlags("both");
     }
     else if(status == 0){
-        $("#check img").attr("src", staticDir + imageGeneralDir+"check_err.png");
+        $("#check img").attr("src", imageGeneralDir + "check_err.png");
         $("#check img").attr("href", "enabled");
     }
     else{
-        $("#check img").attr("src", staticDir + imageGeneralDir+"check.png");
+        $("#check img").attr("src", imageGeneralDir + "check.png");
         $("#check img").attr("href", "enabled");
     }
 }
