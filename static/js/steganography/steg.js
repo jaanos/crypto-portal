@@ -207,16 +207,36 @@ function handleFileSelect(evt) {
         if (!f.type.match('image.*')) {
             continue;
         }
-
+        var read = "";
         var reader = new FileReader();
+        var image = new Image();
+        image.addEventListener("load", function () {
+            if(image.width>1000 || image.height>1000)
+            {
+                modal6 = document.getElementById('myModal6');
+                close6 = document.getElementById('cl6');
+                modal6.style.display = "block";
+                close6.onclick = function() {
+                    modal6.style.display = "none";
+                };
+
+                window.onclick = function(event) {
+                    if (event.target == modal5) {
+                        modal6.style.display = "none";
+                    }
+                };
+                return;
+            }
+            img.src = read;
+        });
 
         // Closure to capture the file information.
         reader.onload = (function(theFile) {
             return function(e) {
-                img.src = e.target.result;
+                image.src = e.target.result;
+                read = e.target.result;
                 img.title = escape(theFile.name);
                 cover.src = "";
-                updateCapacity();
             };
         })(f);
 
@@ -235,6 +255,7 @@ function hide() {
         cover = document.getElementById("cover"),
         textarea = document.getElementById("text"),
         download = document.getElementById("download");
+        dlink = document.getElementById("dlink");
     if(typeof f === "undefined"){
         modal5 = document.getElementById('myModal5');
         close5 = document.getElementById('cl5');
@@ -287,7 +308,7 @@ function hide() {
         var b = img.height;
         cover.src = steg.encode(textarea.value, img, {"width": img.width, "height": img.height});
         document.getElementById('text').value = "";
-        download.href=cover.src.replace("image/png", "image/octet-stream");
+        dlink.href=cover.src.replace("image/png", "image/octet-stream");
     }
 }
 
@@ -298,7 +319,6 @@ function read() {
     if(img && textarea) {
         textarea.innerHTML = steg.decode(img);
         if(textarea.innerHTML !== "") {
-            textarea.parentNode.className="";
             textarea.value = textarea.innerHTML;
             updateCapacity();
         }
@@ -343,12 +363,12 @@ function updateCapacity() {
 
 
 
-window.onload = function(){
-    document.getElementById('file').addEventListener('change', handleFileSelect, false);
-    document.getElementById('hide').addEventListener('click', hide, false);
-    document.getElementById('read').addEventListener('click', read, false);
-    document.getElementById('diff').addEventListener('click', difference, false);
-    document.getElementById('text').addEventListener('keyup', updateCapacity, false);
-    updateCapacity();
-    document.getElementById('myCanvas3').style.visibility='hidden';
-};
+ window.onload = function(){
+			document.getElementById('file').addEventListener('change', handleFileSelect, false);
+			document.getElementById('hide').addEventListener('click', hide, false);
+			document.getElementById('read').addEventListener('click', read, false);
+			document.getElementById('diff').addEventListener('click', difference, false);
+			document.getElementById('text').addEventListener('keyup', updateCapacity, false);
+			updateCapacity();
+            document.getElementById('myCanvas3').style.visibility='hidden';
+		};

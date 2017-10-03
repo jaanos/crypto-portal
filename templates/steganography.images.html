@@ -1,25 +1,10 @@
 {% extends "header.html" %}
 {% block body %}
-		<script src="{{url_for('static', filename='pixelmatch.js')}}"></script>
-		<script src="{{url_for('static', filename='steg.js')}}"></script>
-		<script src="{{url_for('static', filename='steganography.js')}}"></script>
-		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='steg.css')}}" />
-    
-<!-- pop-up navodila -->
-    
-    <div id="myModal" class="modal">
-    <div class="modal-content">
-        <div id="header">
-            <span id="cl" class="close">&times;</span>
-            <h2>Navodila</h2>
-        </div>
-        <div class="modal-body" id="body-navodila">
-            <p>Steganografija je veda, kjer gre za prikrivanje datoteke, sporočila, slike ali videa v drugo datoteko, sporočilo, sliko ali video. Za razliko od kriptografije oziroma šifriranja podatkov, katere cilj je narediti podatke neberljive, steganografija poskuša prikriti obstoj podatkov. Cilj je onemogočiti zaznavo podatkov, ki so skriti v navidez nepomembnih podatkih. Spletna stran omogoča skrivanje sporočila v sliko. Na spletno stran lahko naložite svojo sliko. V njo pa lahko zakodirate sporočilo, ali pa ga odkodirate v primeru, da se sporočilo v sliki že nahaja. Zato, ker se razlike med slikama na vidi s prostim očesom. Stran tudi omogoča vizualni prikaz razlike, ki nastane. </p>
-        </div>
-    </div>
-    </div>
+		<script src="{{url_for('static', filename='js/steganography/pixelmatch.js')}}"></script>
+		<script src="{{url_for('static', filename='js/steganography/steg.js')}}"></script>
+		<script src="{{url_for('static', filename='js/steganography/steganography.js')}}"></script>
+		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/steganography.css')}}" />
 
-    
     <!-- pop up nasvet + omejitve -->
 
 <div id="myModal1" class="modal">
@@ -40,7 +25,7 @@
             <h2>Opozorilo</h2>
         </div>
         <div class="modal-body">
-            <p>Datoteka je prevelika!</p>
+            <p>Datoteka je prevelika! Največja dovoljena 2 MB.</p>
         </div>
     </div>
 </div>
@@ -77,6 +62,18 @@
         </div>
     </div>
 </div>
+
+<div id="myModal6" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="cl6" class="close2">&times;</span>
+            <h2>Opozorilo</h2>
+        </div>
+        <div class="modal-body">
+            <p>Datoteka je prevelikih dimenzij. Maksimalna dovoljena dimenzija je 1000 x 1000 px.</p>
+        </div>
+    </div>
+</div>
     
     <ul id="nav-bar-2">
         <li><h2>Skrivanje sporočila v sliko</h2></li>
@@ -84,7 +81,7 @@
     </ul>
     
     
-    <div class="container">
+    <div class="container2">
         
         <!-- Upload in prikaz slik -->
 
@@ -92,7 +89,7 @@
             <input type="file" id="file" name="file"/>
         </div></div>
         
-        <img id="img" src="{{url_for('static', filename='generic-pic1.png')}}">
+        <img id="img" src="{{url_for('static', filename='images/generic-pic1.png')}}">
 
         <div id="coded"><p>Število kodiranih znakov </p><span id="capacity"></span></h2> </div>
         <textarea id="text" class="common" placeholder="Vpiši sporočilo..."></textarea><br>
@@ -107,17 +104,30 @@
         <div id="border-top"></div>
         <div id="hidden" style="display: none;">
             <div id="result">
+
                 <h4>Slika s sporočilom:</h4>
                 <img id="cover" src=""/>
-                <a style="display: none;" id="download" class="btn small" download="prenos.png" rel="nofollow"><strong>D</strong></a>
+                <button style="display: none;" id="download" onclick="document.getElementById('dlink').click()"><a id="dlink" download="prenos.png" rel="nofollow">Prenos</a></button>
+
                 <div id="diffH" style="display: none;">
                     <h4>Razlika med slikama:</h4>
                     <canvas id="myCanvas3"> </canvas>
                 </div>
+                <button id="diff">Prikaži razliko</button>
             </div>
-            <button id="diff">Prikaži razliko</button>
         </div>
     </div>
- 
+	
+ <script type="text/javascript">
+ window.onload = function(){
+			document.getElementById('file').addEventListener('change', handleFileSelect, false);
+			document.getElementById('hide').addEventListener('click', hide, false);
+			document.getElementById('read').addEventListener('click', read, false);
+			document.getElementById('diff').addEventListener('click', difference, false);
+			document.getElementById('text').addEventListener('keyup', updateCapacity, false);
+			updateCapacity();
+            document.getElementById('myCanvas3').style.visibility='hidden';
+		};
+		</script>
 		
 {% endblock %}

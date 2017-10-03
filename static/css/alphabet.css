@@ -6,8 +6,23 @@
   background-color: #374148;
 }
 
+.panel {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.panel-heading{
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.panel-body{
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
 .menu-nav{
-  vertical-align:middle; 
+  /*vertical-align:middle; */
   /*line-height: 33px;*/
 }
 .menu-nav-item {
@@ -15,6 +30,11 @@
   color: #ddd;
   /*width: 80px;*/
   font-size: 18px;
+  margin: auto;
+}
+
+.menu-nav-item a{
+  margin: auto;
 }
 
 .dropdown-menu{
@@ -52,29 +72,30 @@
   width: 50px;
 }
 
-
-
-
 /*  crke  */
  
 .f1_container {
-    width: 970px;
-    margin: 50px auto;
+    width: 980px;
+    margin: 0 auto;
 }
 .f1_card {
     -webkit-transform-style: preserve-3d;
     -webkit-transition: all 0.5s linear;
     transform-style: preserve-3d;
-    transition: all 0.5s linear;
+    transition: all 0.35s linear;
     outline: 1px solid #eee;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    height: 180px;
-    width: 200px;
     float: left;
-    margin: 20px 20px;
+    margin: 2%;
     cursor: pointer;
-    -webkit-backface-visibility: hidden;
+    /*-webkit-backface-visibility: hidden;*/
+    text-align: center;
 }
+
+.clearLine{
+  clear: both;  
+}
+
 .light {
     background-color: #55839b;
 }
@@ -96,6 +117,7 @@
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
     outline: 1px solid #aaa;
+    background-color: white;
 }
 .face.back img {
   height: 110px;
@@ -104,10 +126,16 @@
   height: 100%;
 }
 .letterA {
-    font-size: 72px;
-    text-align: center;
-    padding-top: 35px;
-    font-weight: bold;
+  font-size: 72px;
+  /*text-align: center;*/
+  /*padding-top: 50%*/;
+  font-weight: bold;
+  
+  display: block;
+  position: relative;
+  top: 50%;
+  transform: translateY(-70%);
+  
 }
 .blue {
     color: #1b3e50;
@@ -137,6 +165,9 @@
   opacity: 0.5;
   cursor: default;
 }
+
+
+
 .level-write-easy .picture-letter:hover {
   cursor: pointer;
 }
@@ -184,7 +215,7 @@
 {
   width: 60px;
 	height: 60px;
-	background: #374148;
+	background: #2b6482;
 	-moz-border-radius: 30px;
   border-radius: 30px;
   margin:0 auto;
@@ -269,9 +300,9 @@
 }
 
 #pop-up{
-  background-color: #27b394;
+  background-color: #26ae90;
   border: 1px solid #27b394;
-  color: #eee;
+  color: #fff;
   font-size: 16px;
   height: 32px;
   width: 110px;
@@ -282,7 +313,7 @@
   margin-left:20px;
 }
 #pop-up:hover {
-    background-color: #2bc3a1;
+    background-color: #3bb69b;
     cursor: pointer;
 }
 /* pop-up navodila  */
@@ -290,7 +321,7 @@
 .modal {
     display: none; 
     position: fixed; 
-    z-index: 1; 
+    z-index: 1000 !important; 
     padding-top: 100px; 
     left: 0;
     top: 0;
@@ -312,7 +343,7 @@
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
-    animation-duration: 0.4s
+    animation-duration: 0.4s;
 }
 .modal-body {padding: 25px 16px;}
 #header {
@@ -357,7 +388,9 @@
   border-radius: 3px;
 }
 .picture-letter-write img{
-  margin:20px;
+  /*margin:20px;*/
+  width: 100%;
+  height: 100%;
   /*
   margin-top: 20px;
   margin-bottom: 20px;
@@ -433,20 +466,19 @@
   margin-right: 30px;
 }
 
-#next-arrow img, #prew-arrow img {
-	width: 40px;
-  height: 40px;
+#next-arrow img, #prew-arrow img, #next-arrow-generic img, #prew-arrow-generic img  {
+  height: 35px;
   /*max-width: calc((100% - 200px) / 2);*/
   margin-top: 5px;
   margin-bottom: 5px;
   filter: brightness(50%);
 }
 
-#next-arrow[href=next] img, #prew-arrow[href=prew] img {
+#next-arrow[href=next] img, #prew-arrow[href=prew] img,#next-arrow-generic[href=next] img, #prew-arrow-generic[href=prew] img {
   filter: brightness(120%);
 }
 
-#next-arrow:focus, #prew-arrow:focus {
+#next-arrow:focus, #prew-arrow:focus, #next-arrow-generic:focus, #prew-arrow-generic:focus {
   outline: none;
 }
 
@@ -464,6 +496,7 @@
 	border-color: #000;
 	border-width: 4px;
 	margin: 5px;
+	background-color: #fff;
 }
 
 #letterInput.correctInput, .letterInputClass.correctInput {
@@ -478,7 +511,6 @@
     border-color: #fa6b5c;
 }
 
-
 .imageSelection{
   max-width:100%;
   max-height:100%;
@@ -486,8 +518,6 @@
 .wellMarginTop{
   margin-top: 30px;
 }
-
-
 
 .letterToGuess{
   border: 1px solid #aaa;
@@ -510,7 +540,6 @@
   margin-bottom: 20px;
   margin-top: 20px;
 }
-
 
 .letter-to-guess-container{
   border: 1px solid #aaa;
@@ -583,14 +612,9 @@
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
 
-
-
 #semaphoreCanvasLeftFlag, #semaphoreCanvasRightFlag {
   border:2px solid #000000;
 }
-
-
-
 
 #check img{
   max-width:10%;
@@ -679,4 +703,243 @@
 .show-all-flags{
   float: left;
   width: 100%;
+  margin-top: 20px;
+}
+
+/* Write medium generic */
+.success{
+  background-color: #5cb85c;
+}
+
+.err{
+  background-color: #fa6b5c;
+}
+/*
+.multipleImageContainer{
+  height:250px;
+}
+*/
+/* write hard generc */
+
+.task{
+  border: 1px solid #aaa;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  border-radius: 0px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin-bottom: 1px;
+}
+
+.taskContainerWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.taskLetterWraper{
+  margin: auto;
+}
+
+.allImageContainer{
+  border: 1px solid #aaa;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  border-radius: 0px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+
+}
+
+.taskLetter{
+  border: 1px solid #aaa;
+  width:80px;
+  height:80px;
+  float: left;
+  margin: 10px;
+  text-align: center;
+}
+
+.taskContainer span{
+  font-weight: 900;
+  font-size: 60px;
+  color: #2b6482;
+  top: 50%;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+
+.halfHidden{
+  visibility: visible;
+  opacity: 0.7;
+}
+
+
+.trashCan{
+  position: absolute;
+  right: 0;
+  /*
+  float:right;
+  text-align: right;
+  padding-right: 20px;
+  */
+}
+.trashCan a img{
+  vertical-align:none;
+  width:40%;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+#checkGeneric img{
+  max-width:20%;
+  width: 50%;
+}
+
+.disabled{
+  opacity: 0.5;
+}
+
+
+.controlContainerGeneric{
+  border: 1px solid #aaa;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  border-radius: 0px;
+  margin-bottom: 1px;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  text-align: center;
+  
+  position: relative;
+  
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.border{
+  border-style: dashed;
+  border-width: 1px;
+}
+
+/* GENERIC WRITE -> HARD */
+#imageContainerGeneral{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imgContainHard{
+  cursor: pointer;
+  text-align: center;
+  
+  float: left;
+  width:120px;
+  
+  border: 1px solid #aaa;
+  background-color: white;
+  
+  transition: all .1s ease-in-out;
+  
+  border-radius: 5px;
+  margin: 4px;
+}
+
+.imgContainHard:hover, .imgContainHard:active,.imgContainHard:focus{
+  transform: scale(1.9, 1.9);  
+  opacity: 1;
+  z-index:1000 !important;
+  margin-top:0px;
+}
+
+.activeHover{
+  transform: scale(1.9, 1.9);  
+  opacity: 1;
+  z-index:1000 !important;
+  margin-top:0px;
+}
+
+.multipleImagesHard{width:100%;
+  height:100%;
+}
+
+.multipleImagesHard img{
+  max-width: 90%;
+}
+
+.nextArrowGenericWrapper, .prewArrowGenericWrapper{
+  margin-top:20px;
+}
+
+/* GENERIC WRITE -> MEDIUM */
+.imgContain.success{
+  background-color: #5cb85c;
+}
+
+.imgContain.err{
+  background-color: #fa6b5c;
+}
+
+.imgContain{
+  text-align: center;
+  
+  float: left;
+  width:120px;
+  
+  border: 1px solid #aaa;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  
+  transition: all .1s ease-in-out;
+  
+  border-radius: 5px;
+  margin: 4px;
+}
+
+.imgContain:hover{
+  transform: scale(1.9, 1.9);  
+  opacity: 1;
+  z-index:1000 !important;
+  margin-top:0px;
+}
+
+.multipleImages{width:100%;
+  height:100%;
+}
+
+.multipleImages img{
+  max-width: 90%;
+}
+
+.multipleImageContainerWrapper{
+  margin-top: 30px;
+}
+
+/* Header */
+
+.splitHead{
+  width:50%;
+  float:left;
+}
+
+.pozdrav1{
+	color: #FFFFFF;
+	margin-left: 20px;
+	margin-right: 20px;
+	font-size: 24px;
+	float: left;
+}
+
+.popUpButton{
+ float:left;
+}
+
+.image_option{
+  padding: 10%;
 }
