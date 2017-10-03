@@ -18,17 +18,16 @@
     float: left;
     width: 867px;
     border: 1px solid #ccc;
-    height: 680px;
     border-top: none;
+	border-bottom: none;
+	background-color: #fff;
 }
 #right {
-    float: left;
+	margin-left: 870px;
     border: 1px solid #ccc;
     border-left: none;
     border-top: none;
-    border-bottom: none;
-    width: 303px;
-    height: 680px;
+	border-bottom: none;
     background-color: #fff;
 }
 
@@ -76,7 +75,6 @@
 
 #text {
     background-color: #fff;
-    height: 410px;
 }
 #text p {
     padding-left: 25px;
@@ -179,11 +177,12 @@
     background-color: #3bb69b;
 }
 #logos {
+	clear: both;
     background-color: #fff;
     width: 1170px;
     height: 160px;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
+    border: 1px solid #ccc;
+    border-bottom: none;
 }
 #logos img {
     float: left;
