@@ -1,5 +1,6 @@
-{% extends "main.html" %}
+{% extends "header.html" %}
 {% block body %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/alphabet.css')}}" />
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{{url_for('static', filename='js/plugins/jquery.ui.touch-punch.min.js')}}"></script>
 <script type="text/javascript" src = "{{url_for('static', filename='js/alphabet/alphabet.js')}}"></script>

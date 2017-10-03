@@ -1,5 +1,6 @@
-{% extends "main.html" %}
+{% extends "header.html" %}
 {% block body %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/alphabet.css')}}" />
 <script type="text/javascript" src = "{{url_for('static', filename='js/alphabet/alphabet.js')}}"></script>
 <script type="text/javascript">
     var staticDir = "{{url_for('static', filename='')}}";
