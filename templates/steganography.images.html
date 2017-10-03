@@ -5,6 +5,20 @@
 		<script src="{{url_for('static', filename='js/steganography/steganography.js')}}"></script>
 		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/steganography.css')}}" />
 
+<!-- pop-up navodila -->
+
+    <div id="myModal" class="modal">
+    <div class="modal-content">
+        <div id="header">
+            <span id="cl" class="close">&times;</span>
+            <h2>Navodila</h2>
+        </div>
+        <div class="modal-body" id="body-navodila">
+            <p>Steganografija je veda o skrivanju podatkov npr. v sporočilo, sliko ali video. Za razliko od kriptografije oziroma šifriranja podatkov, katere cilj je narediti podatke neberljive, steganografija poskuša prikriti obstoj podatkov. Cilj je onemogočiti zaznavo podatkov, ki so skriti v navidez nepomembnih podatkih. Spletna stran omogoča skrivanje sporočila v sliko. Na spletno stran lahko naložite svojo sliko, vanjo pa lahko zakodirate sporočilo, ali pa ga razberete, če se sporočilo v sliki že nahaja. Razlik med originalno sliko in sliko s sporočilom ni mogoče videti s prostim očesom, zato stran omogoča tudi vizualni prikaz nastale razlike.</p>
+        </div>
+    </div>
+</div>
+
     <!-- pop up nasvet + omejitve -->
 
 <div id="myModal1" class="modal">
