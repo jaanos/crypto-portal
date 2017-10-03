@@ -8,6 +8,9 @@ app = Blueprint('alphabet', __name__)
 
 available_alphabets = ["flags","sign","greek"]
 
+global words
+words = None
+
 # get words from database
 def get_all_words():
     db = database.dbcon()
@@ -25,9 +28,8 @@ def get_all_words():
         listOfWords += (row[0])
         row = cur.fetchone()
     
-    print max   
+    #print(max)
     return listOfWords
-words = get_all_words()
 
 # get alphabet from database
 def getValidLetters(selectedAlphabet):
@@ -41,7 +43,7 @@ def getIntro(selectedAlphabet):
     db = database.dbcon()
     cur = db.cursor()
     cur.execute("SELECT intro FROM alphabet WHERE name = %s", [selectedAlphabet])
-    introText = unicode(cur.fetchone()[0], errors='ignore')
+    introText = cur.fetchone()[0]
     return introText
     
 def select_word(list_words):
@@ -105,6 +107,12 @@ def redirect_to_intro(selected_alphabet = "flags", mode = "read"):
 
 @app.route("/<selected_alphabet>/<mode>/<level>/")
 def display_excercise(selected_alphabet = "flags", mode = "read", level = "easy"):
+    try:
+        words
+    except NameError:
+        words = None
+    if words is None:
+        words = get_all_words()
     if (alphabet_exists(selected_alphabet)):
         abc = getValidLetters(selected_alphabet)
         letter = select_letter(abc)

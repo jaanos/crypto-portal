@@ -18,12 +18,11 @@ app.secret_key = sesskey
 
 @app.route("/")
 def index():
-    return render_template("start.html", nav = "start")
+    return render_template("index.html", nav = "start")
 
 @app.route("/favicon.ico")
 def favicon():
-    return redirect('static/favicon.ico')
+    return redirect('static/images/favicon.ico')
 
 if __name__ == '__main__':
     app.run(debug=True,host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080))) # DODANO ZA POTREBE CLOUD9
-    #app.run(debug=True)

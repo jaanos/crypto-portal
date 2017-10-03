@@ -75,8 +75,7 @@
 /*  crke  */
  
 .f1_container {
-    width: 970px;
-    margin: 0 auto;
+    margin: 13px;
 }
 .f1_card {
     -webkit-transform-style: preserve-3d;
@@ -92,8 +91,10 @@
     text-align: center;
 }
 
-.clearLine{
-  clear: both;  
+.lineWrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .light {
