@@ -8,12 +8,21 @@
 }
 #nav-bar-container {
     text-align: center;
-    padding-top: 3px;
+    height: 55px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: -10px;
+    margin-bottom: -10px;
 }
 #nav-bar-title {
     color: #eeeeee;
     font-weight: bold;
     font-size: 20px;
+    margin-top: -11px;
+    margin-bottom: -10px;
+    padding-top: 11px;
+    padding-bottom: 10px;
+    height: 55px;
     vertical-align: middle;
     display: inline-block;
 }
@@ -21,9 +30,13 @@
     color: #eeeeee;
     font-weight: bold;
     font-size: 20px;
-    margin: 0 10px 0 10px;
+    margin: -11px 10px -10px 10px;
+    padding-top: 11px;
+    padding-bottom: 10px;
+    height: 55px;
     display: inline-block;
     vertical-align: middle;
+    border-radius: 0px;
 }
 
 #next:hover, #reset:hover {
