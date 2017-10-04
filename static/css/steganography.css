@@ -28,8 +28,8 @@
     width: 110px;
     border-radius: 4px;
     -webkit-box-shadow: 0 2px 2px rgba(0,0,0,.2);
-	-moz-box-shadow: 0 2px 2px rgba(0,0,0,.2);
-	box-shadow: 0 2px 2px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 2px 2px rgba(0,0,0,.2);
+    box-shadow: 0 2px 2px rgba(0,0,0,.2);
 }
 #pop-up:hover {
     background-color: #3bb69b;
@@ -58,7 +58,8 @@
     margin-top: 50px;
 }
 .file-upload-wrapper {
-    margin-bottom: 40px;
+    width: 260px;
+    margin: auto auto 40px auto;
 }
 .file-upload-input {
     width: 140px;
@@ -80,6 +81,7 @@
     }
 .file-upload-button {
     cursor: pointer; 
+    width: 120px;
     display: inline-block; 
     color: #fff;
     font-size: 14px;
@@ -100,7 +102,7 @@
 }
 #img {
     margin: auto;
-	display: block;
+    display: block;
     min-height: 180px;
     max-width: 1000px;
     margin-bottom: 40px;
@@ -110,7 +112,7 @@ textarea {
     padding: 18px;
     margin:auto;
     margin-top: 20px;
-	display: block;
+    display: block;
 }
 textarea:hover {
     border: 1px solid #467892;
@@ -151,8 +153,8 @@ textarea:focus, input:focus, .uneditable-input:focus {
     font-weight: bold;
     text-shadow: 0 1px 1px rgba(0,0,0,.1);
     -webkit-box-shadow: 0 2px 2px rgba(0,0,0,.2);
-	-moz-box-shadow: 0 2px 2px rgba(0,0,0,.2);
-	box-shadow: 0 2px 2px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 2px 2px rgba(0,0,0,.2);
+    box-shadow: 0 2px 2px rgba(0,0,0,.2);
     color: #ffffff;
     background-color: #467892;
     border: 1px solid #467892;
@@ -169,13 +171,13 @@ textarea:focus, input:focus, .uneditable-input:focus {
     height:100%;
 }
 #cover{
-	margin-top:20px;
+    margin-top:20px;
     max-width: 1000px;
 }
 
 #result {
-	position:relative;
-	display:inline-block;
+    position:relative;
+    display:inline-block;
     margin-top: 40px;
     max-height: auto;
 }
@@ -190,12 +192,11 @@ textarea:focus, input:focus, .uneditable-input:focus {
     font-weight: bold;
     text-shadow: 0 1px 1px rgba(0,0,0,.1);
     -webkit-box-shadow: 0 2px 2px rgba(0,0,0,.2);
-	-moz-box-shadow: 0 2px 2px rgba(0,0,0,.2);
-	box-shadow: 0 2px 2px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 2px 2px rgba(0,0,0,.2);
+    box-shadow: 0 2px 2px rgba(0,0,0,.2);
     color: #fff;
     background-color: #467892; 
     border: 1px solid #467892;
-    margin-left: 40px;
     margin-bottom: 20px;
     margin-top: 20px;
     display: block;
@@ -218,12 +219,17 @@ textarea:focus, input:focus, .uneditable-input:focus {
     padding: 0 40px;
 }
 
-
+.btn-center {
+    margin: auto;
+    height: 35px;
+    width: 150px;
+    margin-bottom: 20px;
+}
 
 #myCanvas3{
-	border-style: solid;
-	border-width: 3px;
-	border-color: #467892;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #467892;
 }
 
 #download {
@@ -233,11 +239,10 @@ textarea:focus, input:focus, .uneditable-input:focus {
     font-weight: bold;
     text-shadow: 0 1px 1px rgba(0,0,0,.1);
     -webkit-box-shadow: 0 2px 2px rgba(0,0,0,.2);
-	-moz-box-shadow: 0 2px 2px rgba(0,0,0,.2);
-	box-shadow: 0 2px 2px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 2px 2px rgba(0,0,0,.2);
+    box-shadow: 0 2px 2px rgba(0,0,0,.2);
     background-color: #467892;
     border: 1px solid #467892;
-    margin-left: 40px;
     margin-bottom: 20px;
     margin-top: 20px;
     display: block;
