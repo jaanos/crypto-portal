@@ -221,7 +221,7 @@ function handleFileSelect(evt) {
                 };
 
                 window.onclick = function(event) {
-                    if (event.target == modal5) {
+                    if (event.target == modal6) {
                         modal6.style.display = "none";
                     }
                 };
