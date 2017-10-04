@@ -134,8 +134,8 @@
                                 {% endif %}
                                 <div class="f1_container">
                                     <div class="f1_card">
-                                        {% if ((loop.index-1) // 4) % 2 == 0 %} <div class="front face {% if loop.index % 2 == 0 %}dark{% else %}light{% endif %}"><h3 class="letterA {% if loop.index % 2 == 0 %}red{% else %}blue{% endif %}">{% print letter.upper() %}</h3></div>
-                                        {% else %}<div class="front face {% if loop.index % 2 == 0 %}light{% else %}dark{% endif %}"><h3 class="letterA {% if loop.index % 2 == 0 %}blue{% else %}red{% endif %}">{% print letter.upper() %}</h3></div>
+                                        {% if ((loop.index-1) // 4) % 2 == 0 %} <div class="front face {% if loop.index % 2 == 0 %}dark{% else %}light{% endif %}"><h3 class="letterA {% if loop.index % 2 == 0 %}red{% else %}blue{% endif %}">{{letter.upper()}}</h3></div>
+                                        {% else %}<div class="front face {% if loop.index % 2 == 0 %}light{% else %}dark{% endif %}"><h3 class="letterA {% if loop.index % 2 == 0 %}blue{% else %}red{% endif %}">{{letter.upper()}}</h3></div>
                                         {% endif %}
                                         <div class="back face">
                                             <img src="{{url_for('static', filename='images/alphabet/flags/'+letter+'.png')}}"/>
@@ -181,7 +181,7 @@
                                         <!--<a id="prew-arrow"><img src="{{url_for('static', filename='prew_arrow.png')}}"/></a>-->
                                         <div id="choices" class="choices">
                                         {% for c in choices %}
-                                            <button type="button" class="btn btn-info btn-letter">{% print c.upper() %}</button>
+                                            <button type="button" class="btn btn-info btn-letter">{{c.upper()}}</button>
                                         {% endfor %}
                                         </div>
                                         <!--<a id="next-arrow"><img src="{{url_for('static', filename='next_arrow.png')}}"/></a>-->
@@ -266,7 +266,7 @@
                                         <a id="prew-arrow" class="elementFloatRight"><img src="{{url_for('static', filename='images/alphabet/arrow-left.png')}}"/></a>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 text-center">
-                                        <div id="letterToGuess" class="letterToGuess text-center"><span>{% print letter.upper() %}</span></div>
+                                        <div id="letterToGuess" class="letterToGuess text-center"><span>{{letter.upper()}}</span></div>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 arrowContainer">
                                         <a id="next-arrow"><img src="{{url_for('static', filename='images/alphabet/arrow-right.png')}}"/></a>
@@ -305,7 +305,7 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-md-10 col-sm-10 col-lg-offset-3 col-md-offset-1 col-sm-offset-1 text-center">
                                             <div class="letter-to-guess-container">
-                                                <div id="letterToGuess" class="text-center write-medium"><span>{% print letter.upper() %}</span></div>
+                                                <div id="letterToGuess" class="text-center write-medium"><span>{{letter.upper()}}</span></div>
                                             </div>
                                         </div>
                                     </div>
@@ -351,7 +351,7 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-md-10 col-sm-10 col-lg-offset-3 col-md-offset-1 col-sm-offset-1 text-center">
                                             <div class="letter-to-guess-container">
-                                                <div id="letterToGuess" class="text-center write-medium"><span>{% print letter.upper() %}</span></div>
+                                                <div id="letterToGuess" class="text-center write-medium"><span>{{letter.upper()}}</span></div>
                                             </div>    
                                         </div>
                                     </div>
