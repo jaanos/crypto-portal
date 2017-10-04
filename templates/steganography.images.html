@@ -121,13 +121,17 @@
 
                 <h4>Slika s sporočilom:</h4>
                 <img id="cover" src=""/>
-                <button style="display: none;" id="download" onclick="document.getElementById('dlink').click()"><a id="dlink" download="prenos.png" rel="nofollow">Prenos</a></button>
+                <div class="btn-center">
+                    <button style="display: none;" id="download" onclick="document.getElementById('dlink').click()"><a id="dlink" download="prenos.png" rel="nofollow">Prenos</a></button>
+                </div>
 
                 <div id="diffH" style="display: none;">
                     <h4>Razlika med slikama:</h4>
                     <canvas id="myCanvas3"> </canvas>
                 </div>
-                <button id="diff">Prikaži razliko</button>
+                <div class="btn-center">
+                    <button id="diff">Prikaži razliko</button>
+                </div>
             </div>
         </div>
     </div>
