@@ -53,10 +53,7 @@ function doUpload() {
     // Gray out form
     $("#upload-form :input").attr("disabled", "disabled");
 
-    // Progress bar
-    console.log(PENDING_FILES);
-
-
+    var reader1 = new FileReader();
     var reader2 = new FileReader();
 
     reader1.onload = function(){
