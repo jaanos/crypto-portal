@@ -25,7 +25,7 @@ var clickCounterMobile = 0;
 var lastClickedElementMobile = null;
 var dragedImageData = null;
 var newTaskSize = null;
-var imageGeneralDir = "images/general/"
+var imageGeneralDir = staticDir + "images/alphabet/"
 
 
 // INITIALIZATION
@@ -34,7 +34,7 @@ function initialize_alphabet(mode, level, alphabetForLearning) {
     if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
     || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) isMobile = true
     
-    console.log("naprava isMobile: " + isMobile);
+    //console.log("naprava isMobile: " + isMobile);
     alphabetName = alphabetForLearning;
     refresh();
     // Get ready to watch user inputs
@@ -89,7 +89,7 @@ function read_hard() {
     }
     var letters = word.split("");
     var idNumber = 1;
-    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/images/general/" +  "blank.png' class=''>");
+    $(".level-read-hard .panel-body .well").append("<img src='" + imageGeneralDir + "blank.png' class=''>");
     for (i = 0; i < letters.length; i++) {
         var letter = letters[i];
         $(".level-read-hard .panel-body .well").append("<img src='" + flagsDir + letter + ".png' class='hidden'>");
@@ -116,7 +116,7 @@ function write_medium_generic(){
     var choices = selectNewChoiceBundle(window.alphabet, taskCharacter);
     
     var spacing = ($(".multipleImageContainer").width())/11;
-    console.log("spacing: "+spacing);
+    //console.log("spacing: "+spacing);
     
     //pripravi izbiro slik
     for(var i = 0; i < choices.length; i++){
@@ -179,7 +179,7 @@ function write_medium_generic(){
 
 function write_hard_generic(){
     var nmb =window .alphabet.length;
-    console.log("abeceda: "+window.alphabet);
+    //console.log("abeceda: "+window.alphabet);
     var allChoices = [];
     for(var i = 0; i < nmb; i++){
         allChoices.push(( window .alphabet).charAt(i));
@@ -207,7 +207,7 @@ function write_hard_generic(){
 
 function selectAndDisplayNewWordWriteHardGeneric(){
     //clean
-    //$(".taskContainer").html('<div dragable="false" ondrop="dropInTrash(event)" ondragover="allowDropTrash(event)" ondragleave="dragLeaveTrash(event)" class="trashCan"><a><img src= "/static/trashCan.png"></a></div>');
+    //$(".taskContainer").html('<div dragable="false" ondrop="dropInTrash(event)" ondragover="allowDropTrash(event)" ondragleave="dragLeaveTrash(event)" class="trashCan"><a><img src="' + imageGeneralDir + 'trashCan.png"></a></div>');
     $(".taskContainer").html("");
 
 
@@ -217,14 +217,14 @@ function selectAndDisplayNewWordWriteHardGeneric(){
     if(isMobile)wordLength=5;
     while (word.length > wordLength || !isValidWord(word, window.alphabet))
         word =  selectNewWord(window.words);
-    console.log("beseda: "+word);
+    //console.log("beseda: "+word);
     for(var i = 0; i < word.length; i++){
         $(".taskContainer").append("<div id='taskContainer"+i+"' class='taskLetter position"+i+"' ondrop='drop(event)' ondragover='allowDrop(event)'  ondragleave='dragLeave(event)'><span>"+(word.charAt(i)).toUpperCase()+"</span></div>");
     } 
     
     if(isMobile){
         $(".imgContainHard").click(function(e){
-            console.log("CLICK!!");
+            //console.log("CLICK!!");
             $(this).toggleClass("activeHover");
         });
         
@@ -247,11 +247,11 @@ function selectAndDisplayNewWordWriteHardGeneric(){
       
         $(".taskContainer .taskLetter").droppable({
             over: function( event, ui ) {
-                console.log("over");
+                //console.log("over");
                 allowDrop(event);
             },
             out : function( event, ui ) {
-                console.log("out");
+                //console.log("out");
                 dragLeave(event);
             },
             drop: function( event, ui ) {
@@ -272,7 +272,7 @@ function selectAndDisplayNewWordWriteHardGeneric(){
           },
           start: function(event, ui){
             dragedImageData = $(this).attr('id');
-            console.log("start");
+            //console.log("start");
 			$(this).draggable('instance').offset.click = {
                 left: Math.floor(ui.helper.width() / 2),
                 top: Math.floor(ui.helper.height() / 2)
@@ -311,7 +311,7 @@ function selectNewChoiceBundle(standardAlphabet, taskCharacter){
     choices[0] = taskCharacter.toLowerCase();
     for(var i = 1; i < 10; i++){
         var tmp = standardAlphabet[Math.floor(Math.random() * standardAlphabet.length)];
-        console.log("izbral: "+tmp);
+        //console.log("izbral: "+tmp);
         if(choices.includes(tmp)){
             i--;
             continue;
@@ -405,14 +405,14 @@ $( document ).ready(function() {
     if(window.intro == 1){
         var bodyWidth = $(".panel-body").width();
         $('.f1_card').css({'width': (bodyWidth*0.18) + 'px'});
-        $('.f1_card').css({'height':(bodyWidth*0.18)+'px'});
+        $('.f1_card').css({'height':(bodyWidth*0.18) + 'px'});
     }
     
     if (window.mode == "write") {
         if (window.level == "easy"){
             var bodyWidth = $(".panel-body").width();
             $('.image_option').css({'width': (bodyWidth*0.18) + 'px'});
-            $('.image_option').css({'height':(bodyWidth*0.18)+'px'});
+            $('.image_option').css({'height':(bodyWidth*0.18) + 'px'});
         }
         
     }
@@ -471,7 +471,7 @@ $( document ).ready(function() {
                 if(nmbOfCorrect == taskWord.length){
                     addHistoryWriteHardGeneric(1, 0, taskWord, state);
                     $(".level-write-hard #next-arrow-generic").attr("href", "next");
-                    $("#checkGeneric img").attr("src", staticDir+ imageGeneralDir + "check_correct.png");
+                    $("#checkGeneric img").attr("src", imageGeneralDir + "check_correct.png");
                 }
                 else{
                     addHistoryWriteHardGeneric(0, 0, taskWord, state);
@@ -481,7 +481,7 @@ $( document ).ready(function() {
                 if(nmbOfCorrect == taskWord.length){
                     addHistoryWriteHardGeneric(1, 1, taskWord, state);
                     $(".level-write-hard #next-arrow-generic").attr("href", "next");
-                    $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check_correct.png");
+                    $("#checkGeneric img").attr("src", imageGeneralDir + "check_correct.png");
                 }
                 else{
                     addHistoryWriteHardGeneric(0, 1, taskWord, state);
@@ -516,25 +516,25 @@ $( document ).ready(function() {
                         if(state != "")state+=",";
                         state+= letter + "I";
                     });
-                    $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check.png");
+                    $("#checkGeneric img").attr("src", imageGeneralDir + "check.png");
                     addHistoryWriteHardGeneric(0,0,taskWord,state); // push to history and mark as unanswered
                 }
             }
             
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][2] == 0){   // Chosen word is not answered
                 //restoreStringWriteHardGeneric(ansHist[histPtr][0],ansHist[histPtr][1]);
-                $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check.png");
+                $("#checkGeneric img").attr("src", imageGeneralDir + "check.png");
                 restoreHistoryWriteHardGeneric(ansHist[histPtr][0],ansHist[histPtr][1]);
             }
             
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][2] == 1){   // Chosen letter is answered
                 $(".level-write-hard #next-arrow-generic").attr("href", "next");
-                $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check_correct.png");
+                $("#checkGeneric img").attr("src", imageGeneralDir + "check_correct.png");
                 restoreHistoryWriteHardGeneric();
             }
             
             else{   // Chosen letter is answered
-                $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check_correct.png");
+                $("#checkGeneric img").attr("src", imageGeneralDir + "check_correct.png");
                 restoreHistoryWriteHardGeneric();
             }
             
@@ -548,7 +548,7 @@ $( document ).ready(function() {
         e.preventDefault();
         if ($("#prew-arrow-generic").attr("href") === "prew") {
             histPtr--;
-            $("#checkGeneric img").attr("src", staticDir + imageGeneralDir+"check_correct.png");
+            $("#checkGeneric img").attr("src", imageGeneralDir + "check_correct.png");
             restoreHistoryWriteHardGeneric();
             //textFieldsDisable(".letterInputClass");
             //$("#start-animation").css("visibility", "hidden");
@@ -608,7 +608,7 @@ $( document ).ready(function() {
     
     // flip animation (index site)
     $('.f1_container').click(function() {
-        console.log("click");
+        //console.log("click");
             $(this).toggleClass('active');
             
         }); 
@@ -858,15 +858,15 @@ $( document ).ready(function() {
     $("#input-string-hard").keypress(function(e) {
         // Enter pressed?
         if(e.which == 10 || e.which == 13) {
-            console.log("enter pressed");
+            //console.log("enter pressed");
             var index = 1;
             var numWrongOrUnanswered = 0;
             var numWrong = 0; var numCorrect = 0;
             $("#input-string-hard .letterInputClass").each(function(index) {
                 var input = $(this).val();
                 var letter = getLetterFromURL($("#picture-letter img:eq(" + (index+1) + ")").attr("src"));
-                console.log("letter<-------: "+letter);
-                console.log("input<-------: "+input);
+                //console.log("letter<-------: "+letter);
+                //console.log("input<-------: "+input);
                 if (input.toUpperCase() === letter.toUpperCase()) {
                     // Correct input
                     if ($(this).attr("disabled") != "disabled") {
@@ -944,13 +944,13 @@ $( document ).ready(function() {
         e.preventDefault();
         if ($("#next-arrow").attr("href") === "next") {
             histPtr++;
-            console.log("next-arrow");
+            //console.log("next-arrow");
             if(histPtr == ansHist.length){  // New seq
-                console.log("1");
+                //console.log("1");
                 read_hard();
                 refresh();
                 $("#start-animation").css("visibility", "visible");
-                console.log("Odstranil bom next arrow (1)");
+                //console.log("Odstranil bom next arrow (1)");
                 $(".level-read-hard #next-arrow").removeAttr("href");
                 if(histPtr != 0){
                     pushHistoryReadHard(0); // push to history and mark as unanswered
@@ -958,19 +958,19 @@ $( document ).ready(function() {
             }
             
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 0){   // Chosen letter is not answered
-                console.log("2");
+                //console.log("2");
                 $("#start-animation").css("visibility", "visible");
                 restoreStringReadHard(ansHist[histPtr][0]);
             }
             
             else if(histPtr == ansHist.length-1 && ansHist[histPtr][1] == 1){   // Chosen letter is answered
-            console.log("3");
+            //console.log("3");
                 $(".level-read-hard #next-arrow").attr("href", "next");
                 restoreHistoryReadHard();
             }
             
             else{   // Chosen letter is answered
-            console.log("4");
+            //console.log("4");
                 restoreHistoryReadHard();
             }
             
@@ -1009,7 +1009,7 @@ $( document ).ready(function() {
         var url = $(this).find(".imageSelection").attr("src");
         var letterSelected = getLetterFromURL(url);
         var letter = $(".level-write-easy #letterToGuess span").text();
-        console.log(letter);
+        //console.log(letter);
         if (letterSelected.toUpperCase() === letter.toUpperCase()) {
             $(this).parent().addClass("correctInput");
             $(this).parent().removeClass("wrongInput");
@@ -1257,7 +1257,7 @@ $( document ).ready(function() {
     // Event listener for click-and-drag of right flag
     document.getElementById("imageRightFlag").addEventListener("mousedown",function(e){
          e.preventDefault();
-         console.log("mousedown!!");
+         //console.log("mousedown!!");
         if($("#imageRightFlag").attr("href") === "enabled"){
             window.document.addEventListener("mousemove", mouseMoveRight,true);
             
@@ -1472,10 +1472,10 @@ function selectAndDisplayNewImage(alphabet, mode) {
 
 // Function selects
 function selectNewLetter(alphabet) {
-    console.log("Alphabet", alphabet);
+    //console.log("Alphabet", alphabet);
     
     for (var i = 0; i < alphabet.length; i++) {
-        console.log(alphabet[i] + ": " + userAnswers[alphabet[i]]);
+        //console.log(alphabet[i] + ": " + userAnswers[alphabet[i]]);
     }
     
     // Poisci najslabse poznano crko (pazi, da ni enaka prejsnji prikazani crki)
@@ -1498,13 +1498,13 @@ function selectNewLetter(alphabet) {
             selectFrom.push(alphabet[i]);
         }
     }
-    console.log("selectFrom: " + selectFrom);
+    //console.log("selectFrom: " + selectFrom);
     if (selectFrom.length == 0) {
         prevLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
     } else {
         prevLetter = selectFrom[Math.floor(Math.random() * selectFrom.length)];
     }
-    console.log("Return letter: ", prevLetter);
+    //console.log("Return letter: ", prevLetter);
     return prevLetter;
 }
 
@@ -1516,7 +1516,7 @@ function selectNewWord(words) {
     word = word.replace(re, "");
     word = word.replace("[","");
     word = word.replace("]","");
-    console.log("my word: "+word);
+    //console.log("my word: "+word);
     return word;
 }
 
@@ -1583,8 +1583,8 @@ function clearSelectedImages(elementID, choices) {
 function displaySequenceOfImages(elements, index) {
     if (index == $(elements).length) {
         if (getPoints() >= pointsForClueReadHard) {
-            //$(".level-read-hard .panel-body .well").append("<img src='" + "/static/" +  "blank.png' class=''>");
-            console.log("lahko se enkrat sprozis");
+            //$(".level-read-hard .panel-body .well").append("<img src='" + imageGeneralDir + "blank.png' class=''>");
+            //console.log("lahko se enkrat sprozis");
             $("#start-animation").removeAttr("disabled");
             $(elements + ":eq(" + 0 + ")").removeClass("hidden");
         }
@@ -1766,7 +1766,7 @@ function addHistoryWriteEasy(set, ans){
     });
     
     var corrLetter = $("#letterToGuess span").text();
-    console.log("dodal bom v zgodovino: "+state);
+    //console.log("dodal bom v zgodovino: "+state);
     if(set == 1) ansHist[histPtr]=[state,ans,corrLetter];
     else ansHist.push([state,ans,corrLetter]);
 }
@@ -1778,7 +1778,7 @@ function addHistoryWriteMediumGeneric(set, ans){
     $(".imgContain .multipleImages").each(function(e){
         if(state!="")state+=",";
         var buttonLetter = getLetterFromURL($(this).attr("src"));
-        console.log("moj class: "+ ($(this).attr("class")) +" oce: "+ ($(this).parent().parent().attr("class")));
+        //console.log("moj class: "+ ($(this).attr("class")) +" oce: "+ ($(this).parent().parent().attr("class")));
         if($(this).parent().parent().hasClass("success")){
             state+=buttonLetter+"S";
         }
@@ -1791,7 +1791,7 @@ function addHistoryWriteMediumGeneric(set, ans){
     });
     
     var corrLetter = $("#letterToGuess span").text();
-    console.log("dodal bom v zgodovino: "+state);
+    //console.log("dodal bom v zgodovino: "+state);
     if(set == 1) ansHist[histPtr]=[state,ans,corrLetter];
     else ansHist.push([state,ans,corrLetter]);
 }
@@ -1810,10 +1810,10 @@ function restoreHistoryWriteHardGeneric(word, ans){
     word = typeof word !== 'undefined' ? word : ansHist[histPtr][0];
     ans = typeof ans !== 'undefined' ? ans : ansHist[histPtr][1];
     
-    console.log("restore for state: "+word+" -> "+ans);
+    //console.log("restore for state: "+word+" -> "+ans);
     var ansArr = ans.split(",");
     //clear prew state
-    //$(".taskContainer").html('<div dragable="false" ondrop="dropInTrash(event)" ondragover="allowDropTrash(event)" ondragleave="dragLeaveTrash(event)" class="trashCan"><a><img src= "/static/trashCan.png"></a></div>');
+    //$(".taskContainer").html('<div dragable="false" ondrop="dropInTrash(event)" ondragover="allowDropTrash(event)" ondragleave="dragLeaveTrash(event)" class="trashCan"><a><img src= "' + imageGeneralDir + 'trashCan.png"></a></div>');
     $(".taskContainer").html("");
        
     for(var position in word){
@@ -1862,7 +1862,7 @@ function pushHistoryReadHard(ans){
         if(index != 0)state+=",";
         state += input+"-"+ansClass;
         index++;
-        console.log("pridobil sem info za zgodovino: "+input+" "+ansClass);
+        //console.log("pridobil sem info za zgodovino: "+input+" "+ansClass);
     });
     ansHist.push([string,ans,state]);
 }
@@ -1882,7 +1882,7 @@ function setHistoryReadHard(ans){
         if(index != 0)state+=",";
         state += input+"-"+ansClass;
         index++;
-        console.log("pridobil sem info za zgodovino: "+input+" "+ansClass);
+        //console.log("pridobil sem info za zgodovino: "+input+" "+ansClass);
     });
     ansHist[histPtr] = [string,ans,state];
 }
@@ -1901,7 +1901,7 @@ function restoreHistoryReadHard(){
     var letters = string.split("");
     var idNumber = 1;
     
-    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/images/general/" +  "blank.png' class=''>");
+    $(".level-read-hard .panel-body .well").append("<img src='" + imageGeneralDir + "blank.png' class=''>");
     
     for (i = 0; i < letters.length; i++) {
         var letter = letters[i];
@@ -1919,7 +1919,7 @@ function restoreHistoryReadHard(){
 // Function restores given word as unanswered
 function restoreStringReadHard(word){
     // Clean up
-    console.log("Vsebina zgodovine: "+ansHist[histPtr]);
+    //console.log("Vsebina zgodovine: "+ansHist[histPtr]);
     $(".level-read-hard .panel-body .well").html("");
     $("#input-string-hard").html("");
     $("#next-arrow").removeAttr("href");
@@ -1932,7 +1932,7 @@ function restoreStringReadHard(word){
     var idNumber = 1;
     var state = ansHist[histPtr][2].split(",");
     
-    $(".level-read-hard .panel-body .well").append("<img src='" + "/static/images/general/" +  "blank.png' class=''>");
+    $(".level-read-hard .panel-body .well").append("<img src='" + imageGeneralDir + "blank.png' class=''>");
     
     for (i = 0; i < letters.length; i++) {
         var letter = letters[i];
@@ -1956,17 +1956,17 @@ function restoreHistoryWriteEasy(){
         var colour = (ans[j].split(""))[1];
         // adds class
         if(colour == 'I'){
-            console.log("I");
+            //console.log("I");
             $(buttons.children[i]).find(".image_option").parent().removeClass("wrongInput").removeClass("correctInput");
             $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
         }
         else if(colour == 'D'){
-            console.log("D");
+            //console.log("D");
             $(buttons.children[i]).find(".image_option").parent().addClass("wrongInput").removeClass("correctInput");
             $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
         }
         else if(colour == 'S'){
-            console.log("S");
+            //console.log("S");
             $(buttons.children[i]).find(".image_option").parent().addClass("correctInput").removeClass("wrongInput");
             $(buttons.children[i]).find(".image_option img").attr("src", flagsDir + letter.toLowerCase() + ".png");
             $("#letterToGuess span").text(letter.toUpperCase());
@@ -1983,7 +1983,7 @@ function restoreHistoryWriteEasy(){
 
 // Function adds prev. answer from history - WRITE_EASY
 function restoreHistoryWriteMediumGeneric(){
-    console.log("podatki za prikaz zgodovine: "+(ansHist[histPtr][2])+" "+(ansHist[histPtr][0]));
+    //console.log("podatki za prikaz zgodovine: "+(ansHist[histPtr][2])+" "+(ansHist[histPtr][0]));
     displayOldLetterWriteMediumGeneric(ansHist[histPtr][2], ansHist[histPtr][0],true);
 }
 
@@ -2225,15 +2225,15 @@ function flashRightLetter(letter){
 function markCheckControlWrite(status){
     var tmp = $("#check img").attr("src");
     if(status == 1){
-        $("#check img").attr("src",staticDir + imageGeneralDir+"check_correct.png");
+        $("#check img").attr("src", imageGeneralDir + "check_correct.png");
         disableFlags("both");
     }
     else if(status == 0){
-        $("#check img").attr("src", staticDir + imageGeneralDir+"check_err.png");
+        $("#check img").attr("src", imageGeneralDir + "check_err.png");
         $("#check img").attr("href", "enabled");
     }
     else{
-        $("#check img").attr("src", staticDir + imageGeneralDir+"check.png");
+        $("#check img").attr("src", imageGeneralDir + "check.png");
         $("#check img").attr("href", "enabled");
     }
 }
@@ -2486,7 +2486,7 @@ function buttonsDisable(){
 
 /* Disables all "choices" - ImageButtons */
 function imageButtonsDisable(parent){ //doda class not_active
-    console.log("P:" + parent);
+    //console.log("P:" + parent);
     $(parent).find(".image_option").addClass("not_active");
 }
 
@@ -2558,7 +2558,7 @@ function dragLeave(ev){
 
 function allowDropTrash(ev) {
     ev.preventDefault();
-    console.log("nad in tag name: "+$(ev.target).prop("tagName"));
+    //console.log("nad in tag name: "+$(ev.target).prop("tagName"));
     if($(ev.target).prop("tagName") == "IMG"){
         $(ev.target).parent().parent().addClass("border");
         return;
@@ -2568,7 +2568,7 @@ function allowDropTrash(ev) {
 
 function dragLeaveTrash(ev){
     ev.preventDefault();
-    console.log("vn in tag name: "+$(ev.target).prop("tagName"));
+    //console.log("vn in tag name: "+$(ev.target).prop("tagName"));
     if($(ev.target).prop("tagName") == "IMG"){
         $(ev.target).parent().parent().removeClass("border");
         return;
@@ -2591,7 +2591,7 @@ function drop(ev) {
     var data;
     if(isMobile){
         data = dragedImageData;
-        console.log("data = "+data);
+        //console.log("data = "+data);
     }
     else data = ev.dataTransfer.getData("text");
     

@@ -3,28 +3,53 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/index.css')}}" />
 {% endblock %}
 {% block body %}
-    <div id="nav-bar-2"><h2>Dobrodošli na kriptografski strani</h2></div>
+<div class="row">
+   <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-default level-{{mode}}-{{level}}" >
+            <div class="panel-heading" id="head">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 alignVerticalCenter">
+                        <b><span class="pozdrav1">Dobrodošli na portalu Kriptogram!</span></b>
+                    </div>
+                </div>
+            </div>
     <section id="left">
         <div id="text">
-            <p id="first-p">Dobrodošli na spletni strani
-                <strong>Kriptogram</strong>, ki je nastala v sklopu projekta
-                E-vsebine v izobraževanju in je namenjena vsem vedoželjnim, še
-                posebej tistim, ki radi rešujete kriptografske uganke.<br><br>Sprehodite
-                se v svet zamenjalnih besedil in z reševanjem odkrivajte lepe
-                pregovore in besedila.
-                Glavni poudarek projekta je aplikacija Kvizko za e-učenje, ki
-                omogoča interaktivno in izzivov polno pridobivanje novega
-                znanja.</p>
+            <p id="first-p">
+                Dobrodošli na spletnem portalu <strong>Kriptogram</strong>,
+                ki je namenjen vsem vedoželjnim,
+                še posebej tistim, ki radi rešujete kriptografske uganke.
+                <br><br>
+                Sprehodite se v svet <a href="{{ url_for('substitution.index') }}">zamenjalk</a>
+                in z reševanjem odkrivajte lepe pregovore in besedila.
+                Poglejte si, kako lahko <a href="{{ url_for('steganography.images') }}">skrivate</a>
+                sporočila v slike in jih nato spet razberete.
+                Naučite se novih <a href="{{ url_for('alphabet.index') }}">abeced</a>,
+                s katerimi se lahko sporazumevate tudi, kadar ne morete govoriti.
+            </p>
             <h3>Kaj je kriptogram?</h3>
-            <p id="second-p">Kriptogram je načeloma vsako zašifrirano
-                sporočilo. Običajno je šifra, ki jo uporabljena v takem
-                besedilu, dovolj enostavna, da jo rešimo ročno. Pogosto se
-                uporabljajo zamenjalne šifra, kjer je vsaka črka zamenjana z
-                različno črko ali številko.<br>Za rešitev uganke je potrebno
-                tako poiskati prvotno sporočilo. Čeprav so včasih zamenjalne
-                šifre uporabljali v resne namene, jih danes večinoma najdemo v
-                zabavnem tisku, v časopisih ali revijah.</p>
+            <p id="second-p">
+                Kriptogram je načeloma vsako zašifrirano sporočilo.
+                Če je šifra, ki je uporabljena v takem besedilu,
+                dovolj enostavna, lahko besedilo razkrijemo sami.
+                Pogosto se uporabljajo zamenjalne šifre,
+                pri kateri se vsaka črka zamenja z drugo črko ali številko.
+                <br>
+                Za rešitev uganke je potrebno tako poiskati prvotno sporočilo.
+                Čeprav so včasih zamenjalne šifre uporabljali v resne namene,
+                jih danes večinoma najdemo v zabavnem tisku,
+                v časopisih ali revijah.
+            </p>
+
+            <h3>O projektu</h3>
+            <p>
+                Spletni portal Kriptogram je prvotno nastal v sklopu projekta
+                E-vsebine v izobraževanju (2015),
+                trenutno podobo pa je dobil v sklopu
+                Študentskih inovativnih projektov za družbeno korist (2017).
+            </p>
         </div>
+{#
         <div id="riddle">
             <img src={{ url_for('static', filename='images/bell.png') }}>
             <button id="riddle-btn">Uganka tedna</button>
@@ -36,12 +61,15 @@
                 morbi tristique senectus et netus et malesuada fames ac turpis
                 egestas.</p>
         </div>
+#}
     </section>
     <section id="right">
         <div id="kvizko">
             <img src={{ url_for('static', filename='images/e-kvizko.png') }}>
-            <button><a href="https://equiz.fri.uni-lj.si/welcome"
-                       target="_blank">Aplikacija Kvizko</a></button>
+            <button onclick="document.getElementById('kvizkolink').click()">
+                <a href="https://equiz.fri.uni-lj.si/welcome"
+                   id="kvizkolink" target="_blank">Aplikacija Kvizko</a>
+            </button>
             <p>Aplikacija je namenjena prenosu naravoslovnih ved izza pisalne
                 mize, preobremenjene s kupi knjig in zvezkov v vsakdanje
                 življenje. Omogočimo miselno zabavo kjerkoli in kadarkoli. <br><br>40
@@ -51,12 +79,24 @@
                 naloge za tekmovanja ali za krajšanje prostega časa. </p>
         </div>
     </section>
+{#
     <div id="newsletter">
         <h3>Kriptografske novice</h3>
         <p>Naročite se na kriptografske novice</p>
         <input type="email" placeholder="E-mail">
         <button>Potrdi</button>
     </div>
+#}
+    <div id="logos">
+        <img src={{ url_for('static', filename='images/image002.png') }}>
+        <img src={{ url_for('static', filename='images/image004.jpg') }}>
+        <img src={{ url_for('static', filename='images/image006.jpg') }}>
+        <img src={{ url_for('static', filename='images/image008.jpg') }}>
+    </div>
+        </div>
+    </div>
+</div>
+
     <script>
         $(document).ready(function () {
             $("#riddle-btn").click(function () {

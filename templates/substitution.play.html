@@ -42,13 +42,18 @@
     </script>
 {% endblock %}
 {% block body %}
-    <div id="nav-bar-2">
-        <div id="nav-bar-container">
-            <label id="btn-reset" class="btn nav-btn glyphicon glyphicon-repeat"></label>
-            <span id="nav-bar-title">Zamenjalka</span>
-            <label id="btn-next" class="btn nav-btn glyphicon glyphicon-play"></label>
-        </div>
-    </div>
+<div class="row">
+   <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-default" >
+            <div class="panel-heading" id="head">
+                <div class="row">
+                    <div id="nav-bar-container">
+                        <label id="btn-reset" class="btn nav-btn glyphicon glyphicon-repeat"></label>
+                        <span id="nav-bar-title">Zamenjalka</span>
+                        <label id="btn-next" class="btn nav-btn glyphicon glyphicon-play"></label>
+                    </div>
+                </div>
+            </div>
     <div id="container-logic">
         <div id="freeLetterContainer"></div>
         <div id="encryptedLetterContainer"></div>
@@ -78,6 +83,8 @@
     </div>
     <div id="fixed-div">
     </div>
+  </div>
+</div>
 
     {% include ('substitution.modal.html') %}
 
