@@ -43,25 +43,33 @@
 
             <h3>O projektu</h3>
             <p>
-                Spletni portal Kriptogram je prvotno nastal v sklopu projekta
-                E-vsebine v izobraževanju (2015),
-                trenutno podobo pa je dobil v sklopu
+                Spletni portal Kriptogram je nastal v sklopu
                 Študentskih inovativnih projektov za družbeno korist (2017).
             </p>
         </div>
-{#
         <div id="riddle">
-            <img src={{ url_for('static', filename='images/bell.png') }}>
+            <img src="{{ url_for('static', filename='images/bell.png') }}">
             <button id="riddle-btn">Uganka tedna</button>
-            <p id="riddle-txt">Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Aenean purus elit, dignissim a diam nec,
-                placerat rhoncus enim. Donec nec varius turpis. Sed ac risus
-                auctor, blandit tortor pharetra, semper dolor. Proin ac elit
-                viverra, congue metus vel, sodales urna. Pellentesque habitant
-                morbi tristique senectus et netus et malesuada fames ac turpis
-                egestas.</p>
+            <div id="riddle-txt">
+                <div id="riddle-content">
+                    <p>Kralj gre rad na dopust v svojo poletno hišo s kočijo.
+                    Naroči kočijažu, naj nikoli ne gre naravnost, ko pride na križišče,
+                    in naj na poti nikoli ne potuje po istem delu ceste dvakrat.
+                    Kočijaž mora obrniti desno ali levo, ko pride do katerega koli križišča.
+                    Na zemljevidu so prikazane vse ceste, ki vodijo od palače do poletne hiše.
+                    Debele črne črte označujejo ceste.
+                    Vse ceste, ki povezujejo dve sosednji križišči, so dolge 1 km.
+                    </p>
+                    <p>
+                    Pomagajte kočijažu do najkrajše poti in pojasnite,
+                    zakaj ni nobene krajše poti.
+                    </p>
+                </div>
+                <a href="{{ url_for('static', filename='images/riddle/zemljevid.png') }}">
+                    <img src="{{ url_for('static', filename='images/riddle/zemljevid.png') }}">
+                </a>
+            </div>
         </div>
-#}
     </section>
     <section id="right">
         <div id="kvizko">
