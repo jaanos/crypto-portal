@@ -9,11 +9,11 @@ from Crypto.Cipher import PKCS1_OAEP
 from Crypto.Signature import PKCS1_v1_5
 from Crypto.Hash import SHA256
 from base64 import b64encode, b64decode
+from auth import timestamp_public as public
+from auth import timestamp_private as private
 
 app = Blueprint('timestamp', __name__)
 
-public = "cert.pem"
-private = "key.pem"
 TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 
 def encrypt(message, pub_key):
