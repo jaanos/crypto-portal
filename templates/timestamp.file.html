@@ -14,8 +14,8 @@
 				<h4 class="w3-panel w3-green w3-round-xxlarge" style="padding-top:10px;padding-bottom:10px">Žigosanje uspešno!</h4> 
 				<p style="padding-left:10px">Algoritem: Sha256</p> 
 				<p style="padding-left:10px">Žigosal: portal Kriptogram</p> 
-				<p style="padding-left:10px">Zgoščevalna funkcija datoteke: {{ text.0 }} </p>
-				<p style="padding-left:10px">Čas žigosanja: {{ text.2 }} GMT +2 </p>
+				<p style="padding-left:10px">Zgoščevalna funkcija datoteke: {{ hash }} </p>
+				<p style="padding-left:10px">Čas žigosanja: {{ time }}</p>
 				<br>
 				<form action="download" method="post">
 					<input type="hidden" name="data" value="{{ text }}">
