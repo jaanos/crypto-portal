@@ -58,6 +58,8 @@ target/
 
 # custom
 *~
+.~*
 .htaccess
 auth.py
 *.pem
+static/uploads
