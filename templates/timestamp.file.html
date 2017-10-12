@@ -1,0 +1,41 @@
+{% extends "main.html" %}
+{% block body %}
+<div class="row">
+   <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading" id="glava">
+                <div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<b><span class="pozdrav1">Časovni žig</span></b>
+					</div>
+				</div>
+			</div>
+			{% if text %}
+				<h4 class="w3-panel w3-green w3-round-xxlarge" style="padding-top:10px;padding-bottom:10px">Žigosanje uspešno!</h4> 
+				<p style="padding-left:10px">Algoritem: Sha256</p> 
+				<p style="padding-left:10px">Žigosal: portal Kriptogram</p> 
+				<p style="padding-left:10px">Zgoščevalna funkcija datoteke: {{ text.0 }} </p>
+				<p style="padding-left:10px">Čas žigosanja: {{ text.2 }} GMT +2 </p>
+				<br>
+				<form action="download" method="post">
+					<input type="hidden" name="data" value="{{ text }}">
+					<input class="btn btn-primary btn-sm" type="submit" value="Prenesi potrdilo">
+				</form>
+			{% elif check %}
+				<p style="padding-top:10px;padding-left:10px;padding-bottom:10px">{{ check }}</p> 
+				<input class="btn btn-primary btn-sm" type="submit" value="Nazaj"
+				onclick="window.location.href='{{url_for('timestamp.checking')}}'">
+			{% elif error %}
+				<p style="padding-top:10px;padding-left:10px;padding-bottom:10px">{{ error }}</p> 
+				<input class="btn btn-primary btn-sm" type="submit" value="Osveži"
+				onclick="window.location.href='{{url_for('timestamp.checking')}}'">
+			{% else %}
+				<h4 class="w3-panel w3-green w3-round-xxlarge" style="padding-top:10px;padding-bottom:10px">Žigosanje neuspešno. Poskusite ponovno.</h4> <br>
+				<input class="btn btn-primary btn-sm" onclick="window.location.href='{{url_for('timestamp.signture')}}'" type="submit" value="Osveži">
+			{% endif %}	
+			<div id="swatch" class="ui-widget-content ui-corner-all"></div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

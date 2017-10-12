@@ -10,6 +10,7 @@
 	    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}" />
 	    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='cryptogram.css')}}" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	</head>
@@ -56,6 +57,16 @@
 							    <li><a href="{{url_for('steganography.colors')}}">Mešanje barv</a></li>
 							    <li><a href="{{url_for('steganography.images')}}">Skrivanje sporočila v sliko</a></li>
 							  </ul>
+							</li>
+						</ul>
+						<ul class="nav navbar-nav">
+							<li class="dropdown {% if nav == "timestamp" %}active{% endif %}">
+							 <a href="{{url_for('timestamp.index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Časovni žig<span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="{{url_for('timestamp.index')}}">Kaj je časovni žig?</a></li>
+									<li><a href="{{url_for('timestamp.signature')}}">Časovno žigosanje dokumenta</a></li>
+									<li><a href="{{url_for('timestamp.checking')}}">Preverjanje časovnega žiga</a></li>
+								</ul>
 							</li>
 						</ul>
 				      </ul>
