@@ -103,8 +103,8 @@ ul.dropdown-menu {
 
 ul.dropdown-menu li {
     height: 30px;
-    padding: 2px 2px 0 0;
-    width: 200px;
+    padding: 5px 2px 0px 5px;
+    min-width: 200px;
     background-color: #374148;
     text-align: center;
 }
@@ -127,6 +127,7 @@ ul.dropdown-menu > .divider {
   margin: 5px 0;
   overflow: hidden;
   background-color: #566671;
+  padding: 2px 2px 0 0;
 }
 
 #home {
