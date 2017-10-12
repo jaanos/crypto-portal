@@ -15,27 +15,27 @@
 				<div class="container-fluid">
 					<p>V splošnem je varni časovni žig digitalni zapis, ki zagotavlja podpis dokumenta z veljavnim digitalnim potrdilom v 
 					določenem časovnem trenutku in sicer na način, da povezuje datum in čas podpisa ter podatke v elektronski obliki na kriptografsko varen način. 
-					Preden pa si pogledamo natančneje namen in delovanje varnih časovnih žigov, pa je dobro, če si še na kratko pogledamo kaj je to koncept javnih ključev.</p><br>
-					<p>  <img src="{{url_for('static', filename='mailbox.jpg')}}" alt="Mailbox" style="float:right;margin:0 20px 20px 0;"/>
+					Preden pa si pogledamo natančneje namen in delovanje varnih časovnih žigov, pa je dobro, če si še na kratko pogledamo, kaj je to koncept javnih ključev.</p><br>
+					<p>  <img src="{{url_for('static', filename='images/timestamp/mailbox.jpg')}}" alt="Mailbox" style="float:right;margin:0 20px 20px 0;"/>
 					Koncept javnih ključev si lahko predstavljamo kot pošiljanje pisem med dvema osebama. Če želimo nekomu poslati pismo, ga moramo poslati
-					seveda naslovniku v njegov poštni nabiralnik. Ta, ko pismo dobi, lahko s svojim ključem odpre poštni nabiralnik, odpre pismo in ga prebere. 
+					seveda naslovniku v njegov poštni nabiralnik. Ta lahko, ko pismo dobi, s svojim ključem odpre poštni nabiralnik, odpre pismo in ga prebere. 
 					Podobno deluje tudi sistem javnih in zasebnih ključev. Ko pošiljamo neko sporočilo naslovniku uporabimo njegov javni ključ, da sporočilo zašifriramo, 
 					naslovnik pa s svojim zasebnim ključem sporočilo dešifrira in prebere naše sporočilo. S tem zagotovimo, da naše sporočilo lahko prebere le oseba, ki ji 
 					je namenjeno in njegova vsebina ni javno dostopna vsem poslušalcem. Par javnih in zasebnih ključev sta neki konstantni števili, ki ju ni možno izračunati, 
-					če poznamo le enega in ju uporabljamo v formulah za šifriranje. Javni ključ je dostopen komurkoli, zasebni ključ pa zgolj lastniku. Zakaj je to pomembno za
+					če poznamo le enega od njiju, in ju uporabljamo v formulah za šifriranje. Javni ključ je dostopen komurkoli, zasebni ključ pa zgolj lastniku. Zakaj je to pomembno za
 					časovno žigosanje malo kasneje.</p><br>
-					<p> <img src="{{url_for('static', filename='newspaper.jpg')}}" alt="Newspaper" style="float:left;margin:0 20px 20px 0;"/>
+					<p> <img src="{{url_for('static', filename='images/timestamp/newspaper.jpg')}}" alt="Newspaper" style="float:left;margin:0 20px 20px 0;"/>
 					Namen varnega časovnega žiga je zagotavljanje, da je nek določen dokument obstajal v trenutku žigosanja in se od takrat naprej ni spreminjal. 
-					Kot vsakdanji primer le tega si lahko vzamemo prodajo mobitela. Na splet postavimo oglas, da prodajamo nov, še neuporabljen mobilni telefon. 
-					Potencialni kupec ta oglas vidi, vendar ne verjame, da telefon še ni bil uporabljen, zato še ni povsem prepričan ali bi ga kupil. 
-					Ko nam to sporoči, se spomnimo, da mu lahko pošljemo sliko, kjer je neodprta škatla slikana z današnjo izdajo našega najljubšega časopisa, da mu zagotovimo, 
-					da zares prodajamo to kar obljubljamo. Ker se za nakup odloči, mu ga še isti dan pošljemo. Če dobi kupec drugačno vsebino, kot mu je bila obljubljena lahko s tem 
+					Kot vsakdanji primer le-tega si lahko vzamemo prodajo mobitela. Na splet postavimo oglas, da prodajamo nov, še neuporabljen mobilni telefon. 
+					Potencialni kupec ta oglas vidi, vendar ne verjame, da telefon še ni bil uporabljen, zato še ni povsem prepričan, ali bi ga kupil. 
+					Ko nam to sporoči, se spomnimo, da mu lahko pošljemo sliko, kjer je neodprta škatla slikana z današnjo izdajo našega najljubšega časopisa, da mu zagotovimo,
+					da zares prodajamo to, kar obljubljamo. Ker se za nakup odloči, mu ga še isti dan pošljemo. Če dobi kupec drugačno vsebino, kot mu je bila obljubljena, lahko s tem 
 					posnetkom dokažemo, da nismo mi krivi za to, ker je na dan oddaje bil izdelek še cel.</p><br>
 					<p>Ko želimo v neki aplikaciji časovno žigosati nek elektronski dokument oziroma podatke, pošljemo strežniku TSA 
-					(Time Stamping Authority oz izdajatelj časovnih žigov za elektronske dokumente) z zgostitveno funkcijo narejen "povzetek" (hash) 
+					(Time Stamping Authority oz. izdajatelj časovnih žigov za elektronske dokumente) z zgostitveno funkcijo narejen "povzetek" (hash) 
 					dokumenta oziroma podatkov. To je niz bitov fiksne dolžine (običajno 160 bitov), ki enolično določa dokument. Strežnik temu povzetku dopiše čas 
 					in vse skupaj podpiše s svojim zasebnim ključem - to je časovni žig. S tem je dokazano, da je elektronski dokument obstajal pred časom, 
-					navedenim v časovnem žigu, poleg tega pa se da preveriti, da se od časa žigosanja ni spremenil (naredimo ponovni povzetek dokumenta in se mora ujemati s 
+					navedenim v časovnem žigu, poleg tega pa se da preveriti, da se od časa žigosanja ni spremenil (naredimo ponovni povzetek dokumenta, ki se mora ujemati s 
 					tistim, ki je del časovnega žiga). Postopek je opisan v RFC 3161: Internet X.509 Public Key Infrastructure - Time-Stamp Protocol (TSP).</p>
 				</div>	
 			</div>	
