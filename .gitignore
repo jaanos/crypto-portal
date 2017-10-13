@@ -59,6 +59,7 @@ target/
 # custom
 *~
 .~*
+.idea
 .htaccess
 auth.py
 static/uploads
