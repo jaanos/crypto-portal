@@ -8,7 +8,7 @@
 }
 #nav-bar-2 h2 {
     color: #eee;
-    padding-top: 14px;
+    padding-top: 10px;
     padding-left: 30px;
     font-size: 16px;
     display: inline-block;
@@ -18,17 +18,16 @@
     float: left;
     width: 867px;
     border: 1px solid #ccc;
-    height: 680px;
     border-top: none;
+    border-bottom: none;
+    background-color: #fff;
 }
 #right {
-    float: left;
+    margin-left: 870px;
     border: 1px solid #ccc;
     border-left: none;
     border-top: none;
     border-bottom: none;
-    width: 303px;
-    height: 680px;
     background-color: #fff;
 }
 
@@ -76,7 +75,6 @@
 
 #text {
     background-color: #fff;
-    height: 410px;
 }
 #text p {
     padding-left: 25px;
@@ -103,8 +101,8 @@
 }
 
 #riddle {
-    height: 270px;
     background-color: #fff;
+    margin-bottom: 25px;
 }
 #riddle img {
     float: left;
@@ -134,12 +132,30 @@
     border: 2px dotted #ccc;
     padding: 20px;
     font-size: 15px;
+    overflow: auto;
+}
+
+#riddle-content {
+    width: 400px;
+    float: left;
+}
+
+#riddle-txt a {
+    position: absolute;
+    margin-left: 20px;
+    width: 200px;
+}
+
+#riddle-txt a img {
+    width: 200px;
+    height: auto;
+    margin: none;
 }
 
 /* FOOTER */
 
 #newsletter {
-    height: 290px;
+    height: 320px;
     clear: both;
     background-color: #374148;
 }
@@ -177,4 +193,29 @@
 }
 #newsletter button:hover {
     background-color: #3bb69b;
+}
+#logos {
+    clear: both;
+    background-color: #fff;
+    width: 1170px;
+    height: 160px;
+    border: 1px solid #ccc;
+    border-bottom: none;
+}
+#logos img {
+    float: left;
+    margin-left: 60px;
+}
+#logos img:nth-child(1) {
+    margin-top: 55px;
+}
+#logos img:nth-child(2) {
+    margin-top: 40px;
+}
+#logos img:nth-child(3) {
+    margin-top: 36px;
+}
+#logos img:nth-child(4) {
+    margin-top: 18px;
+    
 }

@@ -129,7 +129,7 @@
                     return
                 }
             } else {
-                removeWordLetter(fromValue, toOriginal);
+                wordLetterDroppedOutside(input);
             }
             substitution.ui.loadSolvedMessageContainer();
             input.blur();
@@ -191,7 +191,7 @@
             var nextBtn = $('#btn-next');
 
             nextBtn.on('click', function() {
-                window.location.reload(true);
+                window.location.href = substitution.util.nextUrl;
             });
 
             var resetBtn = $('#btn-reset');

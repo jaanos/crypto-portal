@@ -50,9 +50,19 @@
             </ul>
         </li>
         <li class="dropdown">
+          <a href="{{url_for('vigenere.index')}}" class="dropdown-toggle" data-toggle="dropdown" >Vigenerjeva sifra<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="{{url_for('vigenere.play', difficulty='easy')}}">Lahko</a></li>
+            <li><a href="{{url_for('vigenere.play', difficulty='medium')}}">Srednje</a></li>
+            <li><a href="{{url_for('vigenere.play', difficulty='hard')}}">Težko</a></li>
+            <li class="divider"></li>
+            <li><a href="{{url_for('vigenere.play', difficulty='ready')}}">Vigenerjeva šifra</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="{{url_for('steganography.index')}}">Steganografija <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="{{url_for('steganography.colors')}}">Mešanje barv</a></li>
+                {# <li><a href="{{url_for('steganography.colors')}}">Mešanje barv</a></li> #}
                 <li><a href="{{url_for('steganography.images')}}">Skrivanje sporočila v sliko</a></li>
             </ul>
         </li>
@@ -65,14 +75,12 @@
             </ul>
         </li>
         <li class="dropdown">
-          <a href="{{url_for('vigenere.index')}}" class="dropdown-toggle" data-toggle="dropdown" >Vigenerjeva sifra<span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="{{url_for('vigenere.play', difficulty='easy')}}">Lahko</a></li>
-            <li><a href="{{url_for('vigenere.play', difficulty='medium')}}">Srednje</a></li>
-            <li><a href="{{url_for('vigenere.play', difficulty='hard')}}">Težko</a></li>
-            <li class="divider"></li>
-            <li><a href="{{url_for('vigenere.play', difficulty='ready')}}">Vigenerjeva šifra</a></li>
-          </ul>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="{{url_for('timestamp.index')}}">Časovni žig <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="{{url_for('timestamp.index')}}">Kaj je časovni žig?</a></li>
+                <li><a href="{{url_for('timestamp.signature')}}">Časovno žigosanje dokumenta</a></li>
+                <li><a href="{{url_for('timestamp.checking')}}">Preverjanje časovnega žiga</a></li>
+            </ul>
         </li>
     </ul>
 </nav>

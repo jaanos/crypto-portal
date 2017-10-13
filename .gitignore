@@ -62,4 +62,5 @@ target/
 .idea
 .htaccess
 auth.py
+*.pem
 static/uploads
