@@ -7,6 +7,9 @@ dbuser = 'username'
 dbpass = 'password'
 dbhost = 'localhost'
 
+timestamp_public = "cert.pem"
+timestamp_private = "key.pem"
+
 # For Python 3, gitkey must be bytes
 gitkey = b'github-secret'
 sesskey = 'session-secret'
