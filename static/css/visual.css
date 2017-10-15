@@ -307,19 +307,23 @@
     margin-top: 50px;
 }
 #dropbox-container {
-    width: 880px;
+    width: 800px;
     display: block;
-    margin: auto;
+    margin: 0 auto;
 }
 #dropbox-1, #dropbox-2 {
     border: 2px dashed #467892;
     padding: 40px 10px 40px 10px;
-    width: 400px;
+    width: 48%;
     max-width: none;
     float: left;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;
 }
-#dropbox-1 {
-    margin-right: 30px;
+
+#dropbox-2 {
+    float: right;
 }
 #dropbox-1.active, #dropbox-2.active {
     border: 2px dashed #FA6B5C;
@@ -340,8 +344,8 @@
     margin-left: 150px;
 }
 #animation-btn-2 {
-    margin-left: 300px;
-    margin-bottom: 40px;
+    display: block;
+    margin: 0 auto;
     border-radius: 4px;
     height: 35px;
     width: 160px;

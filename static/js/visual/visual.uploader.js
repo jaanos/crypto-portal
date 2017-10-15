@@ -22,25 +22,7 @@ $(document).ready(function() {
     $('#post-form').on('submit', function(event){
         event.preventDefault();
         var formData = new FormData(this);
-        var fileInput = $('#img-1')[0].currentSrc;
-        $(function() {
-            $.ajax({
-                url: '/steganography/visual',
-                data: {
-                    'file': fileInput
-                    },
-                type: 'POST',
-                success: function (response) {
-                    response = JSON.parse(response);
-                    $('#img-left').attr( 'src', 'data:image/png;base64,'+ response['out1']);
-                    $('#img-right').attr( 'src', 'data:image/png;base64,'+ response['out2']);
-                    $('#img-result').attr( 'src', 'data:image/png;base64,'+ response['result']);
-                },
-                error: function (error) {
-                    console.log(error)
-                }
-            });
-        });
+
 });
 
 });

@@ -31,13 +31,14 @@ def colors():
 
 @app.route("/visual")
 def visual():
-    return render_template("steganography.visual.html")
+    return render_template("visual.crypto.html")
 
 # 1. upload
 @app.route("/visual", methods=["POST"])
 def upload_image():
 
     file = request.form['file']
+    print(file)
     file_like = StringIO.StringIO(base64.decodestring(file.split(',')[1].decode()))
     image_file = Image.open(file_like)
     image = image_file.convert('1', dither=Image.NONE)  # pretvori v crno-belo
@@ -192,7 +193,7 @@ def upload_complete(uuid):
         fname = file.split(os.sep)[-1]
         files.append(fname)
 
-    return render_template("steganography.visual.html",
+    return render_template("visual.crypto.html",
                            uuid=uuid,
                            files=files,
                            time=time.time()
