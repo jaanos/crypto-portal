@@ -136,18 +136,18 @@
 }
 
 #riddle-content {
-    width: 400px;
+    width: 470px;
     float: left;
 }
 
-#riddle-txt a {
+#riddle-txt a#riddle-img {
     position: absolute;
     margin-left: 20px;
-    width: 200px;
+    width: 130px;
 }
 
-#riddle-txt a img {
-    width: 200px;
+#riddle-txt a#riddle-img img {
+    width: 130px;
     height: auto;
     margin: none;
 }
