@@ -53,21 +53,22 @@
             <button id="riddle-btn">Uganka tedna</button>
             <div id="riddle-txt">
                 <div id="riddle-content">
-                    <p>Kralj gre rad na dopust v svoj poletni dvorec s kočijo.
-                    Naroči kočijažu, naj nikoli ne gre naravnost, ko pride na križišče,
-                    in naj na poti nikoli ne potuje po istem delu ceste dvakrat.
-                    Kočijaž mora obrniti desno ali levo, ko pride do kateregakoli križišča.
-                    Na zemljevidu so prikazane vse ceste, ki vodijo od palače do poletnega dvorca.
-                    Debele črne črte označujejo ceste.
-                    Vse ceste, ki povezujejo dve sosednji križišči, so dolge 1 km.
+                    <p>
+                    Ali se da pokriti (veliki) kvadrat 7x7
+                    z osmimi (malimi) kvadrati 3x3, pod pogojem,
+                    da so stranice malih kvadratov bodisi vzporedne
+                    ali pa pravokotne s stranicami velikega kvadrata?
                     </p>
                     <p>
-                    Pomagajte kočijažu do najkrajše poti in pojasnite,
-                    zakaj ni nobene krajše poti.
+                    Kot vedno iščemo čim bolj elegantno rešitev.
+                    </p>
+                    <p>
+                    Tedensko uganko najdete na
+                    <a href="https://ucilnica.fri.uni-lj.si/uganka">spletni učilnici FRI</a>.
                     </p>
                 </div>
-                <a href="{{ url_for('static', filename='images/riddle/zemljevid.png') }}">
-                    <img src="{{ url_for('static', filename='images/riddle/zemljevid.png') }}">
+                <a id="riddle-img" href="{{ url_for('static', filename='images/riddle/kvadrati.png') }}">
+                    <img src="{{ url_for('static', filename='images/riddle/kvadrati.png') }}">
                 </a>
             </div>
         </div>
