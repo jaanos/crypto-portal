@@ -54,21 +54,39 @@
             <div id="riddle-txt">
                 <div id="riddle-content">
                     <p>
-                    Ali se da pokriti (veliki) kvadrat 7x7
-                    z osmimi (malimi) kvadrati 3x3, pod pogojem,
-                    da so stranice malih kvadratov bodisi vzporedne
-                    ali pa pravokotne s stranicami velikega kvadrata?
+                    Pravokotnik 9x10 je pokrit s 45-imi dominami,
+                    med katerimi nekatere
+                    "<font color="#ff0000">ležijo</font>"
+                    (<font color="#ff0000">1x2</font>),
+                    druge pa "<font color="#0000ff">stojijo</font>"
+                    (<font color="#0000ff">2x1</font>).
+                    Načinov, da to storimo, je kar precej.
+                    Le pri eni možnosti prav vseh 45 domin leži.
                     </p>
-                    <p>
-                    Kot vedno iščemo čim bolj elegantno rešitev.
+                    <ol type="a">
+                    <li>
+                    Bi znali prešteti vsa pokritja,
+                    ali pa vsaj najti dobro spodnjo in dobro zgornjo mejo
+                    za to število
+                    (da bi vedeli, če lahko pri tej nalogi kaj sprogramiramo)?
+                    </li>
+                    <li>
+                    Domine bi rade zamenjale vloge,
+                    tj. ležeče bi rade vstale, stoječe pa bi se rade ulegle.
+                    Je to možno v kakšnem primeru,
+                    s tem, da domine v zamenjanih vlogah
+                    še vedno tvorijo pokritje pravokotnika 9x10?
+                    (V primeru vseh ležečih domin to očitno ni možno.)
+                    </li>
+                    </ol>
                     </p>
                     <p>
                     Tedensko uganko najdete na
                     <a href="https://ucilnica.fri.uni-lj.si/uganka">spletni učilnici FRI</a>.
                     </p>
                 </div>
-                <a id="riddle-img" href="{{ url_for('static', filename='images/riddle/kvadrati.png') }}">
-                    <img src="{{ url_for('static', filename='images/riddle/kvadrati.png') }}">
+                <a id="riddle-img" href="{{ url_for('static', filename='images/riddle/dom.png') }}">
+                    <img src="{{ url_for('static', filename='images/riddle/dom.png') }}">
                 </a>
             </div>
         </div>
