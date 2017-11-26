@@ -54,30 +54,27 @@
             <div id="riddle-txt">
                 <div id="riddle-content">
                     <p>
-                    Pravokotnik 9x10 je pokrit s 45-imi dominami,
-                    med katerimi nekatere
-                    "<font color="#ff0000">ležijo</font>"
-                    (<font color="#ff0000">1x2</font>),
-                    druge pa "<font color="#0000ff">stojijo</font>"
-                    (<font color="#0000ff">2x1</font>).
-                    Načinov, da to storimo, je kar precej.
-                    Le pri eni možnosti prav vseh 45 domin leži.
+                    Pajkova mreža povezuje štiri enako oddaljena vozlišča
+                    na vseh šest načinov
+                    (mimogrede: zato telesu,
+                    ki nastane kot konveksna ogrinjača,
+                    matematiki rečejo četverec).
+                    V različnih vozliščih se nahajata muha in slepi pajek.
+                    Muha se ne more premakniti,
+                    pajek pa se premika naključno iz enega vozlišča v drugega.
                     </p>
+                    <p>
                     <ol type="a">
                     <li>
-                    Bi znali prešteti vsa pokritja,
-                    ali pa vsaj najti dobro spodnjo in dobro zgornjo mejo
-                    za to število
-                    (da bi vedeli, če lahko pri tej nalogi kaj sprogramiramo)?
+                    Koliko je pričakovano število obratov,
+                    preden pajek doseže muho?
+                    <br /><br />
+                    Kaj pa, če četverec nadomestimo z
                     </li>
-                    <li>
-                    Domine bi rade zamenjale vloge,
-                    tj. ležeče bi rade vstale, stoječe pa bi se rade ulegle.
-                    Je to možno v kakšnem primeru,
-                    s tem, da domine v zamenjanih vlogah
-                    še vedno tvorijo pokritje pravokotnika 9x10?
-                    (V primeru vseh ležečih domin to očitno ni možno.)
-                    </li>
+                    <li>kocko,</li>
+                    <li>oktaedrom,</li>
+                    <li>dodekaedrom, ali</li>
+                    <li>ikozaedrom?</li>
                     </ol>
                     </p>
                     <p>
@@ -85,8 +82,8 @@
                     <a href="https://ucilnica.fri.uni-lj.si/uganka">spletni učilnici FRI</a>.
                     </p>
                 </div>
-                <a id="riddle-img" href="{{ url_for('static', filename='images/riddle/dom.png') }}">
-                    <img src="{{ url_for('static', filename='images/riddle/dom.png') }}">
+                <a id="riddle-img" href="{{ url_for('static', filename='images/riddle/cetverec.png') }}">
+                    <img src="{{ url_for('static', filename='images/riddle/cetverec.png') }}">
                 </a>
             </div>
         </div>
