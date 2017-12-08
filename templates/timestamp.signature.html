@@ -1,5 +1,8 @@
-{% extends "header.html" %}
+{% extends "index.html" %}
 {% block body %}
+
+<script src="{{url_for('static', filename='js/timestamp/timestamp.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/steganography.css')}}" />
 
 <div class="row">
    <div class="col-lg-12 col-md-12 col-sm-12">
@@ -11,16 +14,16 @@
 					</div>
 				</div>
 			</div>
-			<div class="panel-body">
-				<div class="container-fluid">
-					<form action="upload_file" method="post" enctype="multipart/form-data">
-						<p>Izberite datoteko za časovno žigosanje:</p><br>
-						<input type="file" name="fname" required>	
-						<input name="hash" class="btn btn-primary btn-sm" type="submit" value="Izberi">
-					</form>
+			<div class="container2">	
+				<div id="custom">
+					<div class="custom-file-upload">
+						<form action="upload_file" method="post" enctype="multipart/form-data">
+							<p style="padding-left: 20px">Izberite datoteko za časovno žigosanje:</p>
+							<input type="file" id="file" name="fname" onchange="this.form.submit()">	
+						</form>
+					</div>	
 				</div>	
 			</div>	
-			<div id="swatch" class="ui-widget-content ui-corner-all"></div>
 		</div>
 	</div>
 </div>

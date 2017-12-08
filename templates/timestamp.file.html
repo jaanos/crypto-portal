@@ -1,5 +1,31 @@
-{% extends "header.html" %}
+{% extends "index.html" %}
 {% block body %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	$( "#second" ).change(function(){
+		$.ajax({
+			url : 'check_hash',
+			type : 'POST',
+			data : new FormData($('form')[0]),
+			processData: false, 
+			contentType: false,
+			cache:false,
+			success: function (data) {
+				$('#second').hide()
+				$("#third").html("Zgoščevalna funkcija izbrane datoteke je: " + data);
+				$("#third").show();
+			}
+		});
+	});
+});
+</script>
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/timestamp.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/steganography.css')}}" />
+<script src="{{url_for('static', filename='js/timestamp/timestamp.js')}}"></script>
+
 <div class="row">
    <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="panel panel-default">
@@ -11,31 +37,65 @@
 				</div>
 			</div>
 			{% if text %}
-				<h4 class="w3-panel w3-green w3-round-xxlarge" style="padding-top:10px;padding-bottom:10px">Žigosanje uspešno!</h4> 
-				<p style="padding-left:10px">Algoritem: Sha256</p> 
-				<p style="padding-left:10px">Žigosal: portal Kriptogram</p> 
-				<p style="padding-left:10px">Zgoščevalna funkcija datoteke: {{ hash }} </p>
-				<p style="padding-left:10px">Čas žigosanja: {{ time }}</p>
-				<br>
-				<form action="download" method="post">
-					<input type="hidden" name="data" value="{{ text }}">
-					<input class="btn btn-primary btn-sm" type="submit" value="Prenesi potrdilo">
-				</form>
+				<div class="container2">	
+					<h2 id="rcorners1" style="padding-top: 10px;padding-bottom: 10px;text-align: center;">Žigosanje uspešno!</h4> 
+					<div id="custom">
+						<p>Algoritem: Sha256</p> 
+						<p>Žigosal: portal Kriptogram</p> 
+						<p>Zgoščevalna funkcija datoteke: {{ hash }} </p>
+						<p>Čas žigosanja: {{ time }}</p>
+						<br>
+						<form action="downloadCert" method="post">
+							<input type="hidden" name="data" value="{{ text }}">
+							<div id="buttons" style="padding-bottom: 70px">	
+								<button id="hide" class="open-sans-font" type="submit">Prenesi potrdilo</button>
+							</div>	
+						</form>
+					</div>
+				</div>	
 			{% elif check %}
-				<p style="padding-top:10px;padding-left:10px;padding-bottom:10px">{{ check }}</p> 
-				<input class="btn btn-primary btn-sm" type="submit" value="Nazaj"
-				onclick="window.location.href='{{url_for('timestamp.checking')}}'">
+				<div class="container2">
+					<div id="custom" style="padding-bottom: 50px">
+						<p>{{ check }}</p> <br>
+						<div id="first">
+							<p>Želite preveriti zgoščevalno funkcijo Vaše datoteke?</p>
+							<button id="hide" class="open-sans-font">Preveri</button>
+						</div>
+						<div class="custom-file-upload" id="second" style="display:none;" >
+							<form action="check_hash" method="post" enctype="multipart/form-data">
+								<p>Izberite datoteko za preverjanje zgoščevalne funkcije:</p>
+								<input type="file" id="file" name="fname">	
+							</form>	
+						</div>
+						<div id="third" style="display:none;" >
+						</div
+					</div>	
+				</div>		
 			{% elif error %}
-				<p style="padding-top:10px;padding-left:10px;padding-bottom:10px">{{ error }}</p> 
-				<input class="btn btn-primary btn-sm" type="submit" value="Osveži"
-				onclick="window.location.href='{{url_for('timestamp.checking')}}'">
+				<div class="container2">
+					<div id="custom" style="padding-bottom: 50px">
+						<p>{{ error }}</p><br>
+						<div id="buttons" >	
+							<button id="hide" class="open-sans-font" onclick="window.location.href='{{url_for('timestamp.checking')}}'">Nazaj</button>
+						</div>	
+					</div>
+				</div>
 			{% else %}
-				<h4 class="w3-panel w3-green w3-round-xxlarge" style="padding-top:10px;padding-bottom:10px">Žigosanje neuspešno. Poskusite ponovno.</h4> <br>
-				<input class="btn btn-primary btn-sm" onclick="window.location.href='{{url_for('timestamp.signture')}}'" type="submit" value="Osveži">
-			{% endif %}	
-			<div id="swatch" class="ui-widget-content ui-corner-all"></div>
+				<div class="container2">
+					<h2 id="rcorners2" style="padding-top:10px;padding-bottom:10px">Žigosanje neuspešno. Poskusite ponovno.</h4> <br>
+					<div id="custom" style="padding-bottom: 50px">	
+						<input id="hide" class="open-sans-font" onclick="window.location.href='{{url_for('timestamp.signture')}}'">Osveži</button>
+					</div>
+				</div>	
+			{% endif %}		
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+$('#hide').on('click', function() { 
+	$('#second').show().siblings('div').hide();
+});
+</script>
 
 {% endblock %}
