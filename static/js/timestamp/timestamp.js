@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    
+
     // auto-resize textarea okna glede na dolžino teksta
         var txt = $('#comments'),
         hiddenDiv = $(document.createElement('div')),
@@ -19,19 +19,19 @@ $(document).ready(function() {
 
         $(this).css('height', hiddenDiv.height());
         });
-    
+
     // pop-up navodila
-        
+
         $("#pop-up").click(function(){
             $("#myModal").css("display", "block");
         });
-            
+
         $("#cl").click(function() {
             $("#myModal").css("display", "none");
         })
-        
+
     // override default html gumba za izbiro slike
-        
+
         ;(function($) {
 
 		  var multipleSupport = typeof $('<input/>')[0].multiple !== 'undefined',
