@@ -64,6 +64,9 @@
                 <li><a href="{{url_for('alphabet.greek')}}">Grška abeceda</a></li>
             </ul>
         </li>
+        <li class="{% if nav == "password" %}active{% endif %}">
+            <a href="{{url_for('password.index')}}">Geslo</a>
+        </li>
     </ul>
 </nav>
 
