@@ -6,8 +6,8 @@ var ansHist = [];
 var histPtr = 0;
 var curHandPos = [0,0]; // [right,left]
 //var pointsForRightAnswerReadEasy = 3;<-- not in use
-var pointsForClueReadMedium = 30;
-var pointsForClueReadHard = 50;
+var pointsForClueReadMedium = 4;
+var pointsForClueReadHard = 4;
 var userAnswers = [];
 var readHardTimer;
 var prevLetter = "-";
