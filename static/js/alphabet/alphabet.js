@@ -400,7 +400,7 @@ function newTaskWriteMediumGeneric(){
 $( document ).ready(function() {
     
     // Listeners for key-navigation
-    $( document ).keydown(function(e) {
+    window.addEventListener("keydown", function (e) {
         var next_arrow = 39;
         var left_arrow = 37;
         var enter = 13;
@@ -412,37 +412,38 @@ $( document ).ready(function() {
         
         // [WRITE]
         // next
-        if (event.which == next_arrow && (level_code == "we" || level_code == "gwe")) we_na(e);
-        else if(event.which == next_arrow && level_code == "wm" ) wm_na(e);
-        else if(event.which == next_arrow && level_code == "gwm" ) wm_nag(e);
-        else if(event.which == next_arrow && level_code == "wh" ) wh_na(e);
-        else if(event.which == next_arrow && level_code == "gwh" ) wh_nag(e);
+        if (e.which  == next_arrow && (level_code == "we" || level_code == "gwe")) we_na(e);
+        else if(e.which  == next_arrow && level_code == "wm" ) wm_na(e);
+        else if(e.which  == next_arrow && level_code == "gwm" ) wm_nag(e);
+        else if(e.which  == next_arrow && level_code == "wh" ) wh_na(e);
+        else if(e.which  == next_arrow && level_code == "gwh" ) wh_nag(e);
         // prev
-        else if(event.which == left_arrow && (level_code == "we" || level_code == "gwe")) we_pa(e);
-        else if(event.which == left_arrow && level_code == "wm" ) wm_pa(e);
-        else if(event.which == left_arrow && level_code == "gwm" ) wm_pag(e);
-        else if(event.which == left_arrow && level_code == "wh" ) wh_pa(e);
-        else if(event.which == left_arrow && level_code == "gwh" ) wh_pag(e);
+        else if(e.which  == left_arrow && (level_code == "we" || level_code == "gwe")) we_pa(e);
+        else if(e.which  == left_arrow && level_code == "wm" ) wm_pa(e);
+        else if(e.which  == left_arrow && level_code == "gwm" ) wm_pag(e);
+        else if(e.which  == left_arrow && level_code == "wh" ) wh_pa(e);
+        else if(e.which  == left_arrow && level_code == "gwh" ) wh_pag(e);
         
         // [READ]
         // next
-        else if(event.which == next_arrow && (level_code == "re" || level_code == "gre")) re_na(e);
-        else if(event.which == next_arrow && (level_code == "rm" || level_code == "grm")) rm_na(e);
-        else if(event.which == next_arrow && (level_code == "rh" || level_code == "grh")) rh_na(e);
+        else if(e.which  == next_arrow && (level_code == "re" || level_code == "gre")) re_na(e);
+        else if(e.which  == next_arrow && (level_code == "rm" || level_code == "grm")) rm_na(e);
+        else if(e.which  == next_arrow && (level_code == "rh" || level_code == "grh")) rh_na(e);
         // prev
-        else if(event.which == left_arrow && (level_code == "re" || level_code == "gre")) re_pa(e);
-        else if(event.which == left_arrow && (level_code == "rm" || level_code == "grm")) rm_pa(e);
-        else if(event.which == left_arrow && (level_code == "rh" || level_code == "grh")) rh_pa(e);
+        else if(e.which  == left_arrow && (level_code == "re" || level_code == "gre")) re_pa(e);
+        else if(e.which  == left_arrow && (level_code == "rm" || level_code == "grm")) rm_pa(e);
+        else if(e.which  == left_arrow && (level_code == "rh" || level_code == "grh")) rh_pa(e);
         
         // [CHECK]
-        else if (event.which == enter && level_code == "wm" ) wm_c(e);
-        else if(event.which == enter && level_code == "wh" ) wh_c(e);
-        else if(event.which == enter && level_code == "gwh" ) cg(e);
+        else if (e.which  == enter && level_code == "wm" ) wm_c(e);
+        else if(e.which  == enter && level_code == "wh" ) wh_c(e);
+        else if(e.which  == enter && level_code == "gwh" ) cg(e);
         
         // [INPUT]
         else if(level_code=="rm" || level_code=="grm")li(e);
         
-        if(event.which == esc) $("#myModal").css("display", "none");
+        if(e.which  == esc) $("#myModal").css("display", "none");
+
     });
     
     $(document).click(function(event) {
@@ -2265,6 +2266,7 @@ function dropInTrash(ev){
 
 // Write-hard next-arrow-generic
 var wh_nag = function(e) {
+    e.preventDefault();
     if ($("#next-arrow-generic").attr("href") === "next") {
         histPtr++;
         if(histPtr == ansHist.length){  // New seq
@@ -2314,6 +2316,7 @@ var wh_nag = function(e) {
 
 // Write-hard prev-arrow-generic   
 var wh_pag = function(e){
+    e.preventDefault();
     if ($("#prew-arrow-generic").attr("href") === "prew") {
         histPtr--;
         $("#checkGeneric img").attr("src", imageGeneralDir + "check_correct.png");
@@ -2328,6 +2331,7 @@ var wh_pag = function(e){
 }
     
 var wm_pag = function(e){
+    e.preventDefault();
     if ($("#prew-arrow-generic").attr("href") === "prew") {
         histPtr--;
         restoreHistoryWriteMediumGeneric();
@@ -2335,6 +2339,7 @@ var wm_pag = function(e){
 }
     
 var wm_nag = function(e){
+    e.preventDefault();
     if ($("#next-arrow-generic").attr("href") === "next") {
         histPtr++;
         if(histPtr == ansHist.length){  // New letter
@@ -2360,6 +2365,7 @@ var wm_nag = function(e){
 }
     
 var re_na = function(e){
+    e.preventDefault();
     if ($("#next-arrow").attr("href") === "next") {
         histPtr++;
         if(histPtr == ansHist.length){  // New letter
@@ -2386,6 +2392,7 @@ var re_na = function(e){
 }
     
 var re_pa = function(e){
+    e.preventDefault();
     if ($("#prew-arrow").attr("href") === "prew") {
         histPtr--;
         restoreHistoryEasy();
@@ -2393,6 +2400,7 @@ var re_pa = function(e){
 }
 
 var rm_na = function(e){
+    e.preventDefault();
     if ($("#next-arrow").attr("href") === "next") {
         histPtr++;
         if(histPtr == ansHist.length){  // New letter
@@ -2422,6 +2430,7 @@ var rm_na = function(e){
 }
 
 var rm_pa = function(e){
+    e.preventDefault();
 	if ($("#prew-arrow").attr("href") === "prew") {
 		histPtr--;
 		restoreHistoryMedium();
@@ -2429,6 +2438,7 @@ var rm_pa = function(e){
 }
 
 var rh_na = function(e){
+    e.preventDefault();
 	if ($("#next-arrow").attr("href") === "next") {
 		histPtr++;
 		//console.log("next-arrow");
@@ -2467,6 +2477,7 @@ var rh_na = function(e){
 }
 
 var rh_pa = function(e){
+    e.preventDefault();
 	if ($("#prew-arrow").attr("href") === "prew") {
 		histPtr--;
 		restoreHistoryReadHard();
@@ -2480,6 +2491,7 @@ var rh_pa = function(e){
 }
 
 var we_na = function(e){
+    e.preventDefault();
 	if ($("#next-arrow").attr("href") === "next") {
 		histPtr++;
 		if(histPtr == ansHist.length){  // New letter
@@ -2506,6 +2518,7 @@ var we_na = function(e){
 }
 
 var we_pa = function(e){
+    e.preventDefault();
 	if ($("#prew-arrow").attr("href") === "prew") {
 		histPtr--;
 		restoreHistoryWriteEasy();
@@ -2513,6 +2526,7 @@ var we_pa = function(e){
 }
 
 var wm_c = function(e){
+    e.preventDefault();
 	if($("#check").attr("href") === "enabled"){
 		var letter = $(".level-write-medium #letterToGuess span").text().toLowerCase();
 		if(checkIfCorrWrite()){
@@ -2544,6 +2558,7 @@ var wm_c = function(e){
 
 
 var wm_pa = function(e){
+    e.preventDefault();
 	if ($("#prew-arrow").attr("href") === "prew") {
 		disableFlags("both");
 		histPtr--;
@@ -2556,6 +2571,7 @@ var wm_pa = function(e){
 }
 
 var wm_na = function(e){
+    e.preventDefault();
 if ($("#next-arrow").attr("href") === "next") {
 		histPtr++;
 		if(histPtr == ansHist.length){  // New letter
@@ -2583,6 +2599,7 @@ if ($("#next-arrow").attr("href") === "next") {
 }
 
 var wh_c = function(e){
+    e.preventDefault();
 	if($("#check").attr("href") === "enabled"){
 		var letter = $(".level-write-hard #letterToGuess span").text().toLowerCase();
 		if(checkIfCorrWrite()){ 
@@ -2621,6 +2638,7 @@ var wh_c = function(e){
 }
 
 var wh_pa = function(e){
+    e.preventDefault();
 	if ($("#prew-arrow").attr("href") === "prew") {
 		disableFlags("both");
 		histPtr--;
@@ -2633,6 +2651,7 @@ var wh_pa = function(e){
 }
 
 var wh_na = function(e){
+    e.preventDefault();
 	if ($("#next-arrow").attr("href") === "next") {
 		histPtr++;
 		if(histPtr == ansHist.length){  // New letter
@@ -2698,7 +2717,7 @@ var li = function(e){
             } else {
                 $("#letterInput").addClass("wrongInput");
                 $("#letterInput").removeClass("correctInput");
-                $("#letterInput").focus().select();
+                //$("#letterInput").focus().select();
                 moveToNotLearnt(letter,1);
                 if(histPtr == 0 && ansHist.length < 1 ){
                     addHistoryMedium(0,0);
@@ -2717,6 +2736,7 @@ var li = function(e){
     }
     
 var cg = function(e){
+    e.preventDefault();
     if($("#checkGeneric").attr("href")=="enabled"){
        //pridobi vsa polja in poglej kaj je gor
         
