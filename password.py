@@ -74,7 +74,7 @@ def check():
     else:
         try:
             tm, unit = est_time.split(" ")
-            digit = int(tm[-1])
+            digit = int(tm[-2:])
             if digit == 4:
                 digit = 3
             elif digit > 4:
