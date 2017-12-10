@@ -55,9 +55,9 @@ def index():
 
     return render_template("passwordmeter.html", nav="password")
 
-@app.route("/check")
+@app.route("/check", methods=['POST'])
 def check():
-    pwd = request.args.get('pass', '', type=str)
+    pwd = request.form.get('pass', '', type=str)
     results = zxcvbn(pwd)
 
     score = results['score']
