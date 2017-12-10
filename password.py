@@ -53,7 +53,7 @@ def index():
     if request.method == 'POST':
         print(request.form['pass'])
 
-    return render_template("passwordmeter.html", nav="password")
+    return render_template("password.meter.html", nav="password")
 
 @app.route("/check", methods=['POST'])
 def check():
@@ -61,7 +61,7 @@ def check():
     results = zxcvbn(pwd)
 
     score = results['score']
-    est_gues = results['guesses']
+    est_gues = int(results['guesses'])
     est_time = results['crack_times_display']['offline_fast_hashing_1e10_per_second']
 
     warn = results['feedback']['warning']
