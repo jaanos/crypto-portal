@@ -70,7 +70,11 @@
                 <li><a href="{{url_for('timestamp.index')}}">Kaj je časovni žig?</a></li>
                 <li><a href="{{url_for('timestamp.signature')}}">Časovno žigosanje dokumenta</a></li>
                 <li><a href="{{url_for('timestamp.checking')}}">Preverjanje časovnega žiga</a></li>
+                <li><a href="{{url_for('timestamp.pubkey')}}">Javni ključ strežnika</a></li>
             </ul>
+        </li>
+        <li class="{% if nav == "password" %}active{% endif %}">
+            <a href="{{url_for('password.index')}}">Geslo</a>
         </li>
     </ul>
 </nav>
