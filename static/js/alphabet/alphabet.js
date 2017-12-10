@@ -399,13 +399,12 @@ function newTaskWriteMediumGeneric(){
 
 $( document ).ready(function() {
     
-    console.log("POT: " +window.location.pathname);
-    
     // Listeners for key-navigation
     $( document ).keydown(function(e) {
         var next_arrow = 39;
         var left_arrow = 37;
         var enter = 13;
+        var esc = 27;
         
         var level_code = getLevelCode(window.location.pathname);
         
@@ -442,6 +441,8 @@ $( document ).ready(function() {
         
         // [INPUT]
         else if(level_code=="rm" || level_code=="grm")li(e);
+        
+        if(event.which == esc) $("#myModal").css("display", "none");
     });
     
     $(document).click(function(event) {
