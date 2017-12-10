@@ -115,7 +115,7 @@ function write_medium_generic(){
     //izbere 9 + 1 prava crk iz abecede
     var choices = selectNewChoiceBundle(window.alphabet, taskCharacter);
     
-    var spacing = ($(".multipleImageContainer").width())/11;
+    //var spacing = ($(".multipleImageContainer").width())/22;
     //console.log("spacing: "+spacing);
     
     //pripravi izbiro slik
