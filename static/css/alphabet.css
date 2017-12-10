@@ -817,7 +817,7 @@
   text-align: center;
   
   float: left;
-  width:120px;
+  width:100px;
   
   border: 1px solid #aaa;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
@@ -846,4 +846,5 @@
 
 .multipleImageContainerWrapper{
   margin-top: 30px;
+  padding-left: 10px;
 }
