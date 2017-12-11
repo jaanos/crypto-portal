@@ -2125,18 +2125,17 @@ function getLevelCode(path){
         return "index";
     }
     
-    // Remove first and last element as they are empty
-    params.shift();
+    // Remove last element as it is empty
     params.pop();
     
     var code = "";
     
-    if(params[1] != "flags")code+="g";
+    if(params[params.length-3] != "flags")code+="g";
     
-    if(params[2] == "read")code+="r";
+    if(params[params.length-2] == "read")code+="r";
     else code+="w";
     
-    code += params[3].charAt(0);
+    code += params[params.length-1].charAt(0);
     
     return code;
 }
