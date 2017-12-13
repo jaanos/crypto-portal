@@ -1,6 +1,5 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import StringIO
 import base64
 
 from flask import request, redirect, url_for, render_template, Blueprint
@@ -11,6 +10,15 @@ from uuid import uuid4
 import random
 from PIL import Image
 import os
+
+try:
+    from StringIO import StringIO
+    decode = unicode.decode
+    b64enc = lambda x: x.getvalue().encode("base64")
+except ImportError:
+    from io import BytesIO as StringIO
+    decode = lambda x: bytes(x, "UTF-8")
+    b64enc = lambda x: base64.encodestring(x.getvalue()).decode()
 
 app = Blueprint('steganography', __name__, static_folder='static')
 
@@ -39,7 +47,7 @@ def upload_image():
 
     file = request.form['file']
     print(file)
-    file_like = StringIO.StringIO(base64.decodestring(file.split(',')[1].decode()))
+    file_like = StringIO(base64.decodestring(decode(file.split(',')[1])))
     image_file = Image.open(file_like)
     image = image_file.convert('1', dither=Image.NONE)  # pretvori v crno-belo
 
@@ -128,30 +136,29 @@ def upload_image():
     # outfile1.save(target + '/out1.png')  # prvo delno sliko shrani kot out1.png
     # outfile2.save(target + '/out2.png')  # drugo delno sliko shrani kot out2.png
 
-    infile1 = outfile1 #Image.open(target + '/out1.png')  # odpri obe
-    infile2 = outfile2 #Image.open(target + '/out2.png')
-
     # PREKRIVANJE SLIK
-    outfile = Image.new("1", infile1.size)  # transparency maska
+    outfile = Image.new("1", outfile1.size)  # transparency maska
 
-    for x in range(infile1.width):
-        for y in range(infile1.height):
-            outfile.putpixel((x, y), min(infile1.getpixel((x, y)),
-                                         infile2.getpixel((x,
-                                                           y))))  # prekrij istoloežne piksle obeh slik
+    for x in range(outfile1.width):
+        for y in range(outfile1.height):
+            # prekrij istoloežne piksle obeh slik
+            outfile.putpixel((x, y), min(outfile1.getpixel((x, y)),
+                                         outfile2.getpixel((x, y))))
 
     # outfile.save(target + '/result.png')  # shrani kot result.png
-    output = StringIO.StringIO()
+    output = StringIO()
     outfile.save(output, "PNG")
-    result = output.getvalue().encode("base64")
+    result = b64enc(output)
+    output.close()
 
-    output.truncate(0)
-    infile1.save(output, "PNG")
-    out1 = output.getvalue().encode("base64")
+    output = StringIO()
+    outfile1.save(output, "PNG")
+    out1 = b64enc(output)
+    output.close()
 
-    output.truncate(0)
-    infile2.save(output, "PNG")
-    out2 = output.getvalue().encode("base64")
+    output = StringIO()
+    outfile2.save(output, "PNG")
+    out2 = b64enc(output)
     output.close()
     return json.dumps({'result': result, 'out1': out1, 'out2': out2})
 

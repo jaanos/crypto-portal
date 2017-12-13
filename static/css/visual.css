@@ -189,6 +189,8 @@
     margin: auto;
     display: block;
     height: 0px;
+    position: absolute;
+    margin-left: 210px;
 }
 #img-result {
     display: none;

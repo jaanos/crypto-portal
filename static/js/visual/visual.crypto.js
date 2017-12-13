@@ -24,23 +24,35 @@ $(document).ready(function () {
         $(this).closest('form').find('input[type=submit]').prop('disabled', hasNoFiles);
     });
 
+    animation = false;
 
     // animacija slik (1. upload)
-
-    $('#noise-btn').click(function () {
-        $("#img-right").css("display", "inline-block");
+    function showNoise() {
+        if (animation) return;
+        $('#img-container').css("height", "0%");
+        $('#img-container').css("height", "0px");
+        $('#img-result').css("display", "none");
+        $("#img-left").css("margin", "auto");
+        $("#img-right").css("marginLeft", "20px");
         $("#img-left").css("display", "inline-block");
-    });
+        $("#img-right").css("display", "inline-block");
+    }
+
+    function revealMerged() {
+        $('#img-container').animate({"height": "100%"}, 6400, "linear");
+        $('#img-result').css("display", "block");
+    }
+
+    $('#noise-btn').click(showNoise);
 
     $('#animation-btn').click(function () {
+        if (animation) return;
+        showNoise()
+        animation = true;
+        setTimeout(function() animation = false, 9000);
         $("#img-left").animate({marginLeft: "210px"}, 2000, "linear");
         $("#img-right").animate({marginLeft: "-400px"}, 2000, "linear");
-        $("#img-container").delay(2600).show(0);
-        $('#img-container').animate({"height": "100%"}, 9000, "linear");
-        $('#img-result').css("display", "block");
-        $('#img-container').css("position", "absolute");
-        $('#img-container').css("margin-left", "210px");
-
+        setTimeout(revealMerged, 2600);
     });
 
 
@@ -209,7 +221,7 @@ $(document).ready(function () {
             }, false);
             modal3.style.display = "block";
         }
-        console.log(picture.src);
+        //console.log(picture.src);
 
         close1.onclick = function () {
             modal1.style.display = "none";
@@ -229,8 +241,13 @@ $(document).ready(function () {
         };
 
         var fileInput = picture.src;
-        console.log(fileInput);
-
+        //console.log(fileInput);
+        $('#buttons').css("visibility", "visible");
+        $('#img-container').css("height", "0%");
+        $('#img-container').css("height", "0px");
+        $('#img-result').css("display", "none");
+        $("#img-left").css("display", "none");
+        $("#img-right").css("display", "none");
     });
 
     function uploadImage(fileInput) {
