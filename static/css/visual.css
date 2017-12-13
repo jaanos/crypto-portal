@@ -196,6 +196,7 @@
     display: none;
     width: 400px;
 }
+
 #img-1{
     height:100%;
 }
@@ -309,14 +310,17 @@
     margin-top: 50px;
 }
 #dropbox-container {
-    width: 800px;
     display: block;
-    margin: 0 auto;
+    margin: auto;
+    width: 828px;
+    height: auto;
+    margin-top: 10px;
 }
 #dropbox-1, #dropbox-2 {
     border: 2px dashed #467892;
-    padding: 40px 10px 40px 10px;
-    width: 48%;
+    padding: 0px;
+    width: 404px;
+    height: 80px;
     max-width: none;
     float: left;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
@@ -325,8 +329,9 @@
 }
 
 #dropbox-2 {
-    float: right;
+    margin-left: 20px;
 }
+
 #dropbox-1.active, #dropbox-2.active {
     border: 2px dashed #FA6B5C;
 }
@@ -345,8 +350,8 @@
     margin-bottom: 20px;
     margin-left: 150px;
 }
-#animation-btn-2 {
-    display: block;
+#animation-btn-2, #noise-btn-2 {
+    display: none;
     margin: 0 auto;
     border-radius: 4px;
     height: 35px;
@@ -371,14 +376,32 @@
     background-color: #fff;
 }
 #uploaded-img-1, #uploaded-img-2 {
-    width: 350px;
+    width: 400px;
     float: left;
-    margin-right: 30px;
+    margin: 0px;
+    display: none;
 }
-#uploaded-img-2 {
+
+#uploaded-img-1 {
     opacity: 0.5;
 }
 
+#dropbox-result {
+    overflow: hidden;
+    /*max-height:400px;*/
+    width: 400px;
+    margin: auto;
+    display: block;
+    height: 0px;
+    position: absolute;
+    margin-left: 212px;
+    margin-top: 2px;
+}
+
+#downloaded-img {
+    display: none;
+    width: 400px;
+}
 .custom-file-upload {
     margin-bottom: 30px;
 }

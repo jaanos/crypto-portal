@@ -10,26 +10,17 @@ $(document).ready(function () {
         $("#myModal").css("display", "none");
     })
 
-    // animacija (2. upload)
-
-    $("#animation-btn-2").click(function () {
-        $("#dropbox-1").animate({marginLeft: "210px"}, 2000, "linear");
-        $("#dropbox-2").animate({marginLeft: "-430px"}, 2000, "linear");
-    });
-
-
     // upload gumb disabled dokler slika ni izbrana
     $('input[type=file][name="file"]').change(function () {
         var hasNoFiles = this.files.length == 0;
         $(this).closest('form').find('input[type=submit]').prop('disabled', hasNoFiles);
     });
 
-    animation = false;
+    var animation = false;
 
     // animacija slik (1. upload)
     function showNoise() {
         if (animation) return;
-        $('#img-container').css("height", "0%");
         $('#img-container').css("height", "0px");
         $('#img-result').css("display", "none");
         $("#img-left").css("margin", "auto");
@@ -39,7 +30,7 @@ $(document).ready(function () {
     }
 
     function revealMerged() {
-        $('#img-container').animate({"height": "100%"}, 6400, "linear");
+        $('#img-container').animate({"height": $("#img-result").height()}, 2000, "linear");
         $('#img-result').css("display", "block");
     }
 
@@ -49,10 +40,10 @@ $(document).ready(function () {
         if (animation) return;
         showNoise()
         animation = true;
-        setTimeout(function() animation = false, 9000);
+        setTimeout(function() animation = false, 4500);
         $("#img-left").animate({marginLeft: "210px"}, 2000, "linear");
         $("#img-right").animate({marginLeft: "-400px"}, 2000, "linear");
-        setTimeout(revealMerged, 2600);
+        setTimeout(revealMerged, 2500);
     });
 
 
@@ -253,7 +244,7 @@ $(document).ready(function () {
     function uploadImage(fileInput) {
         $(function() {
             $.ajax({
-                url: '/steganography/visual',
+                url: imageURL,
                 data: {
                     'file': fileInput
                     },
@@ -270,6 +261,4 @@ $(document).ready(function () {
             });
         });
     }
-
 });
-        
