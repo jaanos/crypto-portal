@@ -6,5 +6,4 @@ $( document ).ready(function() {
             $(this).css("display", "none");
         });
     });
-
 });
