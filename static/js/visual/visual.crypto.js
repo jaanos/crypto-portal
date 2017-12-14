@@ -64,7 +64,7 @@ $(document).ready(function () {
                     // Button that will be used in non-IE browsers
                     $button = $('<button type="button" class="file-upload-button">Izberi sliko</button>'),
                     // Hack for IE
-                    $label = $('<label class="file-upload-button" for="' + $file[0].id + '">Izberi</label>');
+                    $label = $('<label class="file-upload-button" for="' + $file[0].id + '">Izberi sliko</label>');
 
                 // Hide by shifting to the left so we
                 // can still trigger events
