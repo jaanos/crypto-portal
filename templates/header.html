@@ -14,6 +14,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="{{url_for('static', filename='js/modal.js')}}"></script>
     {% block head %}
     {% endblock %}
 </head>
@@ -21,7 +22,7 @@
 <nav id="top">
     <h1>Kriptogram</h1>
     <a href="{{url_for('index')}}">
-        <img src={{url_for('static', filename='images/logo.png')}} />
+        <img src="{{url_for('static', filename='images/logo.png')}}" />
     </a>
 </nav>
 
@@ -54,6 +55,7 @@
             <ul class="dropdown-menu" role="menu">
                 {# <li><a href="{{url_for('steganography.colors')}}">Mešanje barv</a></li> #}
                 <li><a href="{{url_for('steganography.images')}}">Skrivanje sporočila v sliko</a></li>
+                <li><a href="{{url_for('visual.index')}}">Vizualna kriptografija</a></li>
             </ul>
         </li>
         <li class="dropdown">
