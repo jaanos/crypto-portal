@@ -1,11 +1,12 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
-from flask import *
+from flask import redirect, render_template, Blueprint
 
-app = Blueprint('steganography', __name__)
+app = Blueprint('steganography', __name__, static_folder='static')
 
 @app.route('/')
 def index():
-	return redirect("steganography/images")
+    return redirect("steganography/images")
 
 @app.route('/images')
 def images():
