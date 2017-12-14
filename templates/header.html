@@ -14,7 +14,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <script src="{{url_for('static', filename='js/modal.js')}}"></script>
+    <script src="{{url_for('static', filename='js/crypto.js')}}"></script>
     {% block head %}
     {% endblock %}
 </head>
@@ -30,12 +30,12 @@
 <nav id="nav-bar">
     <ul>
         <li>
-            <a href="{{url_for('index')}}">
+            <a class="btn btn-secondary" role="button" href="{{url_for('index')}}">
                 <img src="{{url_for('static', filename='images/home-icon.png')}}" id='home'>
             </a>
         </li>
         <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="{{url_for('substitution.index')}}">Zamenjalka <span class="caret"></span></a>
+            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('substitution.index')}}">Zamenjalka <span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a>Težavnosti</a></li>
                 <li class="divider"></li>
@@ -51,7 +51,7 @@
             </ul>
         </li>
         <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="{{url_for('steganography.index')}}">Steganografija <span class="caret"></span></a>
+            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('steganography.index')}}">Steganografija <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
                 {# <li><a href="{{url_for('steganography.colors')}}">Mešanje barv</a></li> #}
                 <li><a href="{{url_for('steganography.images')}}">Skrivanje sporočila v sliko</a></li>
@@ -59,7 +59,7 @@
             </ul>
         </li>
         <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="{{url_for('alphabet.index')}}">Abeceda <span class="caret"></span></a>
+            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('alphabet.index')}}">Abeceda <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
                 <li><a href="{{url_for('alphabet.flags')}}">Semafor</a></li>
                 <li><a href="{{url_for('alphabet.sign')}}">Znakovna abeceda</a></li>
@@ -67,7 +67,7 @@
             </ul>
         </li>
         <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="{{url_for('timestamp.index')}}">Časovni žig <span class="caret"></span></a>
+            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('timestamp.index')}}">Časovni žig <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
                 <li><a href="{{url_for('timestamp.index')}}">Kaj je časovni žig?</a></li>
                 <li><a href="{{url_for('timestamp.signature')}}">Časovno žigosanje dokumenta</a></li>
@@ -75,8 +75,8 @@
                 <li><a href="{{url_for('timestamp.pubkey')}}">Javni ključ strežnika</a></li>
             </ul>
         </li>
-        <li class="{% if nav == "password" %}active{% endif %}">
-            <a href="{{url_for('password.index')}}">Geslo</a>
+        <li>
+            <a class="btn btn-secondary" role="button" href="{{url_for('password.index')}}">Geslo</a>
         </li>
     </ul>
 </nav>

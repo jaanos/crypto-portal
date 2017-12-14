@@ -63,7 +63,6 @@ ul {
 #nav-bar > ul > li {
     height: 70px;
     width: 150px;
-    padding-top: 22px;
     float: left;
     text-align: center;
 }
@@ -73,9 +72,16 @@ ul {
     text-decoration:none;
     color: #eee;
 }
+#nav-bar > ul > li a.btn {
+    display: block;
+    padding-top: 22px;
+    border-radius: 0px;
+}
 #nav-bar > ul > li:nth-child(1){
     width: 70px;
     height: 70px;
+}
+#nav-bar > ul > li:nth-child(1) a {
     padding-top: 18px;
 }
 
@@ -103,7 +109,7 @@ ul.dropdown-menu {
 
 ul.dropdown-menu li {
     height: 30px;
-    padding: 5px 2px 0px 5px;
+    padding: 5px 5px 0px 5px;
     min-width: 200px;
     background-color: #374148;
     text-align: center;
