@@ -165,8 +165,9 @@ def noise():
 def merge(file1, file2):
     outfile = Image.new("1", file1.size)  # transparency maska
 
-    for x in range(file1.width):
-        for y in range(file1.height):
+    w, h = file1.size
+    for x in range(w):
+        for y in range(h):
             # prekrij istoležne piksle obeh slik
             outfile.putpixel((x, y), min(file1.getpixel((x, y)),
                                          file2.getpixel((x, y))))
