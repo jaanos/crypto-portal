@@ -514,6 +514,7 @@
 .dropdown {
     position: relative;
     display: inline-block;
+    height: 55px;
 }
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
