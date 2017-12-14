@@ -110,29 +110,29 @@
                     <div class="splitHead">
                         <div class="menu-nav">
                             <div id="col-1" class="menu-nav-item">
-                                <a href="{{url_for('alphabet.index', selected_alphabet=alphabetForLearning, )}}"><img src="{{url_for('static', filename='images/home-icon.png')}}"></a>
+                                <a class="btn btn-secondary" role="button" href="{{url_for('alphabet.index', selected_alphabet=alphabetForLearning, )}}"><img src="{{url_for('static', filename='images/home-icon.png')}}"></a>
                             </div>
                             <div id="col-2" class="menu-nav-item">
-                                <div class="dropdown {% if mode == "write" %}active{% endif %}">
-    							  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Pisanje<span class="caret"></span></a>
-    							  <ul class="dropdown-menu" role="menu">
-    							  	<li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='easy')}}">Lahko</a></li>
-    							  	<li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='medium')}}">Srednje</a></li>
-    							  	<li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='hard')}}">Težko</a></li>
-    							  </ul>
-    							</div>
+                                <div class="dropdown">
+                                  <a href="" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Pisanje <span class="caret"></span></a>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='easy')}}">Lahko</a></li>
+                                    <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='medium')}}">Srednje</a></li>
+                                    <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='hard')}}">Težko</a></li>
+                                  </ul>
+                                </div>
                             </div>
                             <div id="col-3" class="menu-nav-item">
-                                <div class="dropdown {% if mode == "read" %}active{% endif %}">
-    							  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Branje<span class="caret"></span></a>
-    							  <ul class="dropdown-menu" role="menu">
-    							  	<li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='easy')}}">Lahko</a></li>
-    							  	<li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='medium')}}">Srednje</a></li>
-    							  	<li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='hard')}}">Težko</a></li>
-    							  </ul>
-    							</div>
+                                <div class="dropdown">
+                                  <a href="" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Branje <span class="caret"></span></a>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='easy')}}">Lahko</a></li>
+                                    <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='medium')}}">Srednje</a></li>
+                                    <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='hard')}}">Težko</a></li>
+                                  </ul>
+                                </div>
                             </div>
-                        </div>   
+                        </div>
                     </div>
                 </div>
             </div>
