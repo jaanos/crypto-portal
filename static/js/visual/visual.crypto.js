@@ -40,7 +40,7 @@ $(document).ready(function () {
         if (animation) return;
         showNoise()
         animation = true;
-        setTimeout(function() animation = false, 4500);
+        setTimeout(function() { animation = false; }, 4500);
         $("#img-left").animate({marginLeft: "210px"}, 2000, "linear");
         $("#img-right").animate({marginLeft: "-400px"}, 2000, "linear");
         setTimeout(revealMerged, 2500);
