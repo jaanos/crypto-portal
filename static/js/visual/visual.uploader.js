@@ -109,7 +109,7 @@ $(document).ready(function() {
         animation2 = true;
         uploadNoise();
         showNoise2();
-        setTimeout(function() animation2 = false, 4500);
+        setTimeout(function() { animation2 = false; }, 4500);
         $("#dropbox-1").animate({marginLeft: "210px"}, 2000, "linear");
         $("#dropbox-2").animate({marginLeft: "-404px"}, 2000, "linear");
         setTimeout(revealMerged2, 2500);
