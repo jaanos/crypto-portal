@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from flask import *
+from flask import render_template,redirect, Flask
 from auth import sesskey, debug
 from githook import app as githook_app
 from substitution import app as substitution_app
@@ -10,8 +10,16 @@ from alphabet import app as alphabet_app
 from timestamp import app as timestamp_app
 from password import app as password_app
 import os # DODANO ZA POTREBE CLOUD9
+from flask_babel import Babel, _
 
 app = Flask(__name__)
+
+babel = Babel(app)
+@babel.localeselector
+def get_locale():
+    # return request.accept_languages.best_match(app.config['LANGUAGES'])
+    return 'en'
+
 app.debug = debug
 app.register_blueprint(githook_app)
 app.register_blueprint(substitution_app, url_prefix = '/substitution')
