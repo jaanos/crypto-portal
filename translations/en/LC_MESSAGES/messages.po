@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-09-07 22:38+0200\n"
+"POT-Creation-Date: 2018-09-09 00:26+0200\n"
 "PO-Revision-Date: 2018-09-07 22:38+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,9 +18,222 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
+#: templates/header.html:5 templates/header.html:23 templates/index.html:19
+msgid "Kriptogram"
+msgstr "Cryptogram"
+
+#: templates/header.html:38
+msgid "Zamenjalka"
+msgstr "Supstitution cipher"
+
+#: templates/header.html:40
+msgid "Težavnosti"
+msgstr "Level"
+
+#: templates/header.html:42
+msgid "Lahko"
+msgstr "Easy"
+
+#: templates/header.html:43
+msgid "Srednje"
+msgstr "Medium"
+
+#: templates/header.html:44
+msgid "Težko"
+msgstr "Hard"
+
+#: templates/header.html:46
+msgid "Cezarjeva šifra"
+msgstr "Cesar chiper"
+
+#: templates/header.html:48
+msgid "Lestvice"
+msgstr "Scoreboard"
+
+#: templates/header.html:50
+msgid "Pripravljene zamenjalke"
+msgstr "Supstitution puzzles"
+
+#: templates/header.html:54
+msgid "Steganografija"
+msgstr "Steganography"
+
+#: templates/header.html:57
+msgid "Skrivanje sporočila v sliko"
+msgstr "Hide a message within a picture"
+
+#: templates/header.html:58
+msgid "Vizualna kriptografija"
+msgstr "Visual cryptography"
+
+#: templates/header.html:62
+msgid "Abeceda"
+msgstr "Alphabet"
+
+#: templates/header.html:64
+msgid "Semafor"
+msgstr "Semaphor"
+
+#: templates/header.html:65
+msgid "Znakovna abeceda"
+msgstr ""
+
+#: templates/header.html:66
+msgid "Grška abeceda"
+msgstr "Greek alphabet"
+
+#: templates/header.html:70
+msgid "Časovni žig "
+msgstr "Timestamp"
+
+#: templates/header.html:72
+msgid "Kaj je časovni žig?"
+msgstr What is a timestamp?"
+
+#: templates/header.html:73
+msgid "Časovno žigosanje dokumenta"
+msgstr "DPcument timestamping"
+
+#: templates/header.html:74
+msgid "Preverjanje časovnega žiga"
+msgstr "Check a timestamp"
+
+#: templates/header.html:75
+msgid "Javni ključ strežnika"
+msgstr "Server's public key"
+
+#: templates/header.html:79
+msgid "Geslo"
+msgstr "Password"
+
 #: templates/index.html:12
 msgid "Dobrodošli na portalu Kriptogram!"
 msgstr "Welcome to cryptogram"
+
+#: templates/index.html:19
+msgid "Dobrodošli na spletnem portalu"
+msgstr "Welcome to web-portal"
+
+#: templates/index.html:19
+msgid ""
+",\n"
+"                ki je namenjen vsem vedoželjnim,\n"
+"                še posebej tistim, ki radi rešujete kriptografske uganke."
+msgstr ""
+",\n"
+"                which is aimed to everyone to use,\n"
+"                especially those who want to solve cryptographic puzzles."
+
+#: templates/index.html:23
+msgid "Sprehodite se v svet"
+msgstr ""
+
+#: templates/index.html:23
+msgid "zamenjalk"
+msgstr ""
+
+#: templates/index.html:24
+msgid ""
+"in z reševanjem odkrivajte lepe pregovore in besedila.\n"
+"                Poglejte si, kako lahko"
+msgstr ""
+
+#: templates/index.html:25
+msgid "skrivate"
+msgstr ""
+
+#: templates/index.html:26
+msgid ""
+"sporočila v slike in jih nato spet razberete.\n"
+"                Naučite se novih"
+msgstr ""
+
+#: templates/index.html:27
+msgid "abeced"
+msgstr ""
+
+#: templates/index.html:28
+msgid "s katerimi se lahko sporazumevate tudi, kadar ne morete govoriti."
+msgstr ""
+
+#: templates/index.html:30
+msgid "Kaj je kriptogram?"
+msgstr ""
+
+#: templates/index.html:32
+msgid ""
+"Kriptogram je načeloma vsako zašifrirano sporočilo.\n"
+"                Če je šifra, ki je uporabljena v takem besedilu,\n"
+"                dovolj enostavna, lahko besedilo razkrijemo sami.\n"
+"                Pogosto se uporabljajo zamenjalne šifre,\n"
+"                pri kateri se vsaka črka zamenja z drugo črko ali "
+"številko."
+msgstr ""
+
+#: templates/index.html:38
+msgid ""
+"Za rešitev uganke je potrebno tako poiskati prvotno sporočilo.\n"
+"                Čeprav so včasih zamenjalne šifre uporabljali v resne "
+"namene,\n"
+"                jih danes večinoma najdemo v zabavnem tisku,\n"
+"                v časopisih ali revijah."
+msgstr ""
+
+#: templates/index.html:44
+msgid "O projektu"
+msgstr ""
+
+#: templates/index.html:46
+msgid ""
+"Spletni portal Kriptogram so študenti FRI skupaj s člani\n"
+"                Društva kriptologov Slovenije (DKS) razvili v sklopu\n"
+"                Študentskih inovativnih projektov za družbeno korist "
+"(2017)."
+msgstr ""
+
+#: templates/index.html:53
+msgid "Uganka tedna"
+msgstr ""
+
+#: templates/index.html:57
+msgid ""
+" Pajkova mreža povezuje štiri enako oddaljena vozlišča\n"
+"                    na vseh šest načinov\n"
+"                    (mimogrede: zato telesu,\n"
+"                    ki nastane kot konveksna ogrinjača,\n"
+"                    matematiki rečejo četverec).\n"
+"                    V različnih vozliščih se nahajata muha in slepi "
+"pajek.\n"
+"                    Muha se ne more premakniti,\n"
+"                    pajek pa se premika naključno iz enega vozlišča v "
+"drugega."
+msgstr ""
+
+#: templates/index.html:69
+msgid ""
+"Koliko je pričakovano število obratov,\n"
+"                    preden pajek doseže muho?"
+msgstr ""
+
+#: templates/index.html:72
+msgid "Kaj pa, če četverec nadomestimo z"
+msgstr ""
+
+#: templates/index.html:74
+msgid "kocko,"
+msgstr ""
+
+#: templates/index.html:75
+msgid "oktaedrom,"
+msgstr ""
+
+#: templates/index.html:76
+msgid "dodekaedrom, ali"
+msgstr ""
+
+#: templates/index.html:77
+msgid "ikozaedrom?"
+msgstr ""
 
 #: templates/index.html:81
 msgid "Tedensko uganko najdete na"
@@ -29,4 +242,22 @@ msgstr "This week's puzzle can be found at"
 #: templates/index.html:82
 msgid "spletni učilnici FRI"
 msgstr "FRI web-classroom."
+
+#: templates/index.html:96
+msgid "Aplikacija Kvizko"
+msgstr ""
+
+#: templates/index.html:98
+msgid ""
+"Aplikacija je namenjena prenosu naravoslovnih ved izza pisalne\n"
+"                mize, preobremenjene s kupi knjig in zvezkov v vsakdanje\n"
+"                življenje. Omogočimo miselno zabavo kjerkoli in "
+"kadarkoli. <br><br>40\n"
+"                let skrbno izbranih problemov (z izpeljanimi rešitvami)\n"
+"                približa široki množici mladih in starejših. Vsebuje "
+"odprti\n"
+"                skupini Bober in Presek, preko katerih lahko vsakdo "
+"rešuje\n"
+"                naloge za tekmovanja ali za krajšanje prostega časa. "
+msgstr ""
 

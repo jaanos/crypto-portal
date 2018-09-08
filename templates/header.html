@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Kriptogram</title>
+    <title>{{_("Kriptogram")}}</title>
     <link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.ico')}}"/>
     <!-- CSS -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
@@ -20,7 +20,7 @@
 </head>
 <body>
 <nav id="top">
-    <h1>Kriptogram</h1>
+    <h1>{{_("Kriptogram")}}</h1>
     <a href="{{url_for('index')}}">
         <img src="{{url_for('static', filename='images/logo.png')}}" />
     </a>
@@ -35,48 +35,48 @@
             </a>
         </li>
         <li class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('substitution.index')}}">Zamenjalka <span class="caret"></span></a>
+            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('substitution.index')}}">{{_("Zamenjalka")}} <span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a>Težavnosti</a></li>
+                <li><a>{{_("Težavnosti")}}</a></li>
                 <li class="divider"></li>
-                <li><a href="{{url_for('substitution.play', difficulty='easy')}}">Lahko</a></li>
-                <li><a href="{{url_for('substitution.play', difficulty='medium')}}">Srednje</a></li>
-                <li><a href="{{url_for('substitution.play', difficulty='hard')}}">Težko</a></li>
+                <li><a href="{{url_for('substitution.play', difficulty='easy')}}">{{_("Lahko")}}</a></li>
+                <li><a href="{{url_for('substitution.play', difficulty='medium')}}">{{_("Srednje")}}</a></li>
+                <li><a href="{{url_for('substitution.play', difficulty='hard')}}">{{_("Težko")}}</a></li>
                 <li class="divider"></li>
-                <li><a href="{{url_for('substitution.play', difficulty='caesar')}}">Cezarjeva šifra</a></li>
+                <li><a href="{{url_for('substitution.play', difficulty='caesar')}}">{{_("Cezarjeva šifra")}}</a></li>
                  <li class="divider"></li>
-                <li><a href="{{url_for('substitution.leaderboard', difficulty='easy')}}">Lestvice</a></li>
+                <li><a href="{{url_for('substitution.leaderboard', difficulty='easy')}}">{{_("Lestvice")}}</a></li>
                 <li class="divider"></li>
-                <li><a href="{{url_for('substitution.play', difficulty='ready')}}">Pripravljene zamenjalke</a></li>
+                <li><a href="{{url_for('substitution.play', difficulty='ready')}}">{{_("Pripravljene zamenjalke")}}</a></li>
             </ul>
         </li>
         <li class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('steganography.index')}}">Steganografija <span class="caret"></span></a>
+            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('steganography.index')}}">{{_("Steganografija")}} <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
                 {# <li><a href="{{url_for('steganography.colors')}}">Mešanje barv</a></li> #}
-                <li><a href="{{url_for('steganography.images')}}">Skrivanje sporočila v sliko</a></li>
-                <li><a href="{{url_for('visual.index')}}">Vizualna kriptografija</a></li>
+                <li><a href="{{url_for('steganography.images')}}">{{_("Skrivanje sporočila v sliko")}}</a></li>
+                <li><a href="{{url_for('visual.index')}}">{{_("Vizualna kriptografija")}}</a></li>
             </ul>
         </li>
         <li class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('alphabet.index')}}">Abeceda <span class="caret"></span></a>
+            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('alphabet.index')}}">{{_("Abeceda")}} <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="{{url_for('alphabet.flags')}}">Semafor</a></li>
-                <li><a href="{{url_for('alphabet.sign')}}">Znakovna abeceda</a></li>
-                <li><a href="{{url_for('alphabet.greek')}}">Grška abeceda</a></li>
+                <li><a href="{{url_for('alphabet.flags')}}">{{_("Semafor")}}</a></li>
+                <li><a href="{{url_for('alphabet.sign')}}">{{_("Znakovna abeceda")}}</a></li>
+                <li><a href="{{url_for('alphabet.greek')}}">{{_("Grška abeceda")}}</a></li>
             </ul>
         </li>
         <li class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('timestamp.index')}}">Časovni žig <span class="caret"></span></a>
+            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('timestamp.index')}}">{{_("Časovni žig ")}}<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="{{url_for('timestamp.index')}}">Kaj je časovni žig?</a></li>
-                <li><a href="{{url_for('timestamp.signature')}}">Časovno žigosanje dokumenta</a></li>
-                <li><a href="{{url_for('timestamp.checking')}}">Preverjanje časovnega žiga</a></li>
-                <li><a href="{{url_for('timestamp.pubkey')}}">Javni ključ strežnika</a></li>
+                <li><a href="{{url_for('timestamp.index')}}">{{_("Kaj je časovni žig?")}}</a></li>
+                <li><a href="{{url_for('timestamp.signature')}}">{{_("Časovno žigosanje dokumenta")}}</a></li>
+                <li><a href="{{url_for('timestamp.checking')}}">{{_("Preverjanje časovnega žiga")}}</a></li>
+                <li><a href="{{url_for('timestamp.pubkey')}}">{{_("Javni ključ strežnika")}}</a></li>
             </ul>
         </li>
         <li>
-            <a class="btn btn-secondary" role="button" href="{{url_for('password.index')}}">Geslo</a>
+            <a class="btn btn-secondary" role="button" href="{{url_for('password.index')}}">{{_("Geslo")}}</a>
         </li>
     </ul>
 </nav>
