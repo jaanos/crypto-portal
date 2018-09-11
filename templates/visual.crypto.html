@@ -1,6 +1,6 @@
 {% extends "header.html" %}
 {% block head %}
-    <title>Vizualna kriptografija</title>
+    <title>{{_("Vizualna kriptografija")}}</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700"
           rel="stylesheet">
     <link rel="stylesheet" type="text/css"
@@ -14,11 +14,11 @@
         <div class="modal-content">
             <div id="header">
                 <span id="cl" class="close">&times;</span>
-                <h2>Navodila</h2>
+                <h2>{{_("Navodila")}}</h2>
             </div>
             <div class="modal-body" id="body-navodila">
                 <p>
-                    <strong>1.</strong> Izberi sliko in klikni gumb
+                    {{_("<strong>1.</strong> Izberi sliko in klikni gumb
                     "Potrdi".<br><br>
                     <strong>2.</strong> Klikni gumb "Prikaži delni sliki".
                     Izvede se algoritem, ki izbrano sliko razstavi na dve enako
@@ -28,7 +28,7 @@
                     Prikaže se postopek prekrivanja obeh delnih slik - ko sta
                     delni sliki prekriti, vidimo prvotno informacijo, ki pa se
                     od originalne razlikuje po slabšem kontrastu. Kljub izgubi
-                    kontrasta pa so enostavne slike še vedno prepoznavne.<br>
+                    kontrasta pa so enostavne slike še vedno prepoznavne.<br>")}}
                 </p>
             </div>
         </div>
@@ -40,10 +40,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span id="cl1" class="close1">&times;</span>
-                <h2>Opozorilo</h2>
+                <h2>{{_("Opozorilo")}}</h2>
             </div>
             <div class="modal-body">
-                <p>Izberite slikovno datoteko!</p>
+                <p>{{_("Izberite slikovno datoteko!")}}</p>
             </div>
         </div>
     </div>
@@ -52,10 +52,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span id="cl2" class="close2">&times;</span>
-                <h2>Opozorilo</h2>
+                <h2>{{_("Opozorilo")}}</h2>
             </div>
             <div class="modal-body">
-                <p>Datoteka je prevelika!</p>
+                <p>{{_("Datoteka je prevelika!")}}</p>
             </div>
         </div>
     </div>
@@ -64,11 +64,11 @@
         <div class="modal-content">
             <div id="header-3">
                 <span id="cl3" class="close3">&times;</span>
-                <h2>Namig</h2>
+                <h2>{{_("Namig")}}</h2>
             </div>
             <div class="modal-body">
-                <p>Najboljši rezultat boste dosegli z izbiro dvobarvne
-                    slike</p>
+                <p>{{_("Najboljši rezultat boste dosegli z izbiro dvobarvne
+                    slike")}}</p>
             </div>
         </div>
     </div>
@@ -82,10 +82,10 @@
                     <div class="splitHead">
                         <b>
                             <span class="pozdrav1">
-                            Vizualna kriptografija
+                            {{_("Vizualna kriptografija")}}
                             </span>
                         </b>
-                        <button id="pop-up">Navodila</button>
+                        <button id="pop-up">{{_("Navodila")}}</button>
                     </div>
                 </div>
             </div>
@@ -109,10 +109,10 @@
         <div id="buttons" style="visibility: hidden">
 
             <button id="noise-btn" class="open-sans-font">
-              Prikaži delni sliki
+              {{_("Prikaži delni sliki")}}
             </button>
             <button id="animation-btn" class="open-sans-font">
-              Prikaži animacijo
+              {{_("Prikaži animacijo")}}
             </button>
 
         </div>
@@ -131,9 +131,9 @@
 
         <div id="border-top"></div>
 
-        <h4 id="both">Če že imaš obe delni sliki, povleci vsako v svoj okvir,
+        <h4 id="both">{{_("Če že imaš obe delni sliki, povleci vsako v svoj okvir,
             klikni gumb "Prikaži animacijo" in si oglej animacijo.<br>
-            Opozorilo: Sliki morata biti enakih dimenzij!</h4><br><br>
+            Opozorilo: Sliki morata biti enakih dimenzij!")}}</h4><br><br>
 
 
         <div id="dropbox-container">
@@ -150,8 +150,8 @@
             <div class="clear"></div>
         </div>
 
-        <button id="animation-btn-2">Prikaži animacijo</button>
-        <button id="noise-btn-2">Prikaži delni sliki</button>
+        <button id="animation-btn-2">{{_("Prikaži animacijo")}}</button>
+        <button id="noise-btn-2">{{_("Prikaži delni sliki")}}</button>
 
         <div class="clear"></div>
             </div>

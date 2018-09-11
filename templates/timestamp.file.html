@@ -40,15 +40,15 @@ $(document).ready(function(){
 				<div class="container2">
 					<h2 id="rcorners1" style="padding-top: 10px;padding-bottom: 10px;text-align: center;">Žigosanje uspešno!</h4>
 					<div id="custom">
-						<p>Algoritem: Sha256</p>
-						<p>Žigosal: portal Kriptogram</p>
-						<p>Zgoščevalna funkcija datoteke: {{ hash }} </p>
-						<p>Čas žigosanja: {{ time }}</p>
+						<p>{{_("Algoritem: Sha256")}}</p>
+						<p>{{_("Žigosal: portal Kriptogram")}}</p>
+						<p>{{_("Zgoščevalna funkcija datoteke: %(hash)s%",hash=hash)}}</p>
+						<p>{{_("Čas žigosanja: %(time)s ",time=time)}}</p>
 						<br>
 						<form action="downloadCert" method="post">
 							<input type="hidden" name="data" value="{{ text }}">
 							<div id="buttons" style="padding-bottom: 70px">
-								<button id="hide" class="open-sans-font" type="submit">Prenesi potrdilo</button>
+								<button id="hide" class="open-sans-font" type="submit">{{_("Prenesi potrdilo")}}</button>
 							</div>
 						</form>
 					</div>
@@ -58,12 +58,12 @@ $(document).ready(function(){
 					<div id="custom" style="padding-bottom: 50px">
 						<p>{{ check }}</p> <br>
 						<div id="first">
-							<p>Želite preveriti zgoščevalno funkcijo Vaše datoteke?</p>
-							<button id="hide" class="open-sans-font">Preveri</button>
+							<p>{{_("Želite preveriti zgoščevalno funkcijo Vaše datoteke?")}}</p>
+							<button id="hide" class="open-sans-font">{{_("Preveri")}}</button>
 						</div>
 						<div class="custom-file-upload" id="second" style="display:none;" >
 							<form action="check_hash" method="post" enctype="multipart/form-data">
-								<p>Izberite datoteko za preverjanje zgoščevalne funkcije:</p>
+								<p>{{_("Izberite datoteko za preverjanje zgoščevalne funkcije:")}}</p>
 								<input type="file" id="file" name="fname">
 							</form>
 						</div>
@@ -76,15 +76,15 @@ $(document).ready(function(){
 					<div id="custom" style="padding-bottom: 50px">
 						<p>{{ error }}</p><br>
 						<div id="buttons" >
-							<button id="hide" class="open-sans-font" onclick="window.location.href='{{url_for('timestamp.checking')}}'">Nazaj</button>
+							<button id="hide" class="open-sans-font" onclick="window.location.href='{{url_for('timestamp.checking')}}'">{{_("Nazaj")}}</button>
 						</div>
 					</div>
 				</div>
 			{% else %}
 				<div class="container2">
-					<h2 id="rcorners2" style="padding-top:10px;padding-bottom:10px">Žigosanje neuspešno. Poskusite ponovno.</h4> <br>
+					<h2 id="rcorners2" style="padding-top:10px;padding-bottom:10px">{{_("Žigosanje neuspešno. Poskusite ponovno.")}}</h4> <br>
 					<div id="custom" style="padding-bottom: 50px">
-						<input id="hide" class="open-sans-font" onclick="window.location.href='{{url_for('timestamp.signture')}}'">Osveži</button>
+						<input id="hide" class="open-sans-font" onclick="window.location.href='{{url_for('timestamp.signture')}}'">{{_("Osveži")}}</button>
 					</div>
 				</div>
 			{% endif %}

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-09-09 00:26+0200\n"
+"POT-Creation-Date: 2018-09-11 23:02+0200\n"
 "PO-Revision-Date: 2018-09-07 22:38+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -22,45 +22,46 @@ msgstr ""
 msgid "Kriptogram"
 msgstr "Cryptogram"
 
-#: templates/header.html:38
+#: templates/header.html:38 templates/substitution.play.html:52
+#: templates/substitution.ready.html:23
 msgid "Zamenjalka"
-msgstr "Supstitution cipher"
+msgstr "Supstitution<br> cipher"
 
 #: templates/header.html:40
 msgid "Težavnosti"
 msgstr "Level"
 
-#: templates/header.html:42
+#: templates/header.html:42 templates/substitution.leaderboard.html:25
 msgid "Lahko"
 msgstr "Easy"
 
-#: templates/header.html:43
+#: templates/header.html:43 templates/substitution.leaderboard.html:26
 msgid "Srednje"
 msgstr "Medium"
 
-#: templates/header.html:44
+#: templates/header.html:44 templates/substitution.leaderboard.html:27
 msgid "Težko"
 msgstr "Hard"
 
 #: templates/header.html:46
 msgid "Cezarjeva šifra"
-msgstr "Cesar chiper"
+msgstr "Caesar cipher"
 
-#: templates/header.html:48
+#: templates/header.html:48 templates/substitution.leaderboard.html:16
 msgid "Lestvice"
 msgstr "Scoreboard"
 
-#: templates/header.html:50
+#: templates/header.html:50 templates/substitution.ready.html:12
 msgid "Pripravljene zamenjalke"
-msgstr "Supstitution puzzles"
+msgstr "Substitution puzzles"
 
 #: templates/header.html:54
 msgid "Steganografija"
 msgstr "Steganography"
 
-#: templates/header.html:57
+#: templates/header.html:57 templates/steganography.images.html:100
 msgid "Skrivanje sporočila v sliko"
-msgstr "Hide a message within a picture"
+msgstr "Hide a message in a image"
 
 #: templates/header.html:58
 msgid "Vizualna kriptografija"
@@ -76,7 +77,7 @@ msgstr "Semaphor"
 
 #: templates/header.html:65
 msgid "Znakovna abeceda"
-msgstr ""
+msgstr "Finger alphabet"
 
 #: templates/header.html:66
 msgid "Grška abeceda"
@@ -88,17 +89,17 @@ msgstr "Timestamp"
 
 #: templates/header.html:72
 msgid "Kaj je časovni žig?"
-msgstr What is a timestamp?"
+msgstr "What is a timestamp?"
 
 #: templates/header.html:73
 msgid "Časovno žigosanje dokumenta"
-msgstr "DPcument timestamping"
+msgstr "Timestamp a document"
 
-#: templates/header.html:74
+#: templates/header.html:74 templates/timestamp.checking.html:14
 msgid "Preverjanje časovnega žiga"
 msgstr "Check a timestamp"
 
-#: templates/header.html:75
+#: templates/header.html:75 templates/timestamp.publickey.html:12
 msgid "Javni ključ strežnika"
 msgstr "Server's public key"
 
@@ -108,7 +109,7 @@ msgstr "Password"
 
 #: templates/index.html:12
 msgid "Dobrodošli na portalu Kriptogram!"
-msgstr "Welcome to cryptogram"
+msgstr "Welcome to Cryptogram"
 
 #: templates/index.html:19
 msgid "Dobrodošli na spletnem portalu"
@@ -120,45 +121,44 @@ msgid ""
 "                ki je namenjen vsem vedoželjnim,\n"
 "                še posebej tistim, ki radi rešujete kriptografske uganke."
 msgstr ""
-",\n"
-"                which is aimed to everyone to use,\n"
-"                especially those who want to solve cryptographic puzzles."
+"Cryptogram is intended for all curious, especially for those who want to "
+"solve cryptographic puzzles."
 
 #: templates/index.html:23
 msgid "Sprehodite se v svet"
-msgstr ""
+msgstr "Take your chances against several"
 
 #: templates/index.html:23
 msgid "zamenjalk"
-msgstr ""
+msgstr "substitution ciphers"
 
 #: templates/index.html:24
 msgid ""
 "in z reševanjem odkrivajte lepe pregovore in besedila.\n"
 "                Poglejte si, kako lahko"
-msgstr ""
+msgstr "and discover secret conversations and texts. Lern how "
 
 #: templates/index.html:25
 msgid "skrivate"
-msgstr ""
+msgstr "to hide"
 
 #: templates/index.html:26
 msgid ""
 "sporočila v slike in jih nato spet razberete.\n"
 "                Naučite se novih"
-msgstr ""
+msgstr "hide and rediscover secret messages in a image. Learn new"
 
 #: templates/index.html:27
 msgid "abeced"
-msgstr ""
+msgstr "alphabets"
 
 #: templates/index.html:28
 msgid "s katerimi se lahko sporazumevate tudi, kadar ne morete govoriti."
-msgstr ""
+msgstr ". They can talk for you, when you can not."
 
 #: templates/index.html:30
 msgid "Kaj je kriptogram?"
-msgstr ""
+msgstr "WHat is the Cryptogram?"
 
 #: templates/index.html:32
 msgid ""
@@ -169,6 +169,11 @@ msgid ""
 "                pri kateri se vsaka črka zamenja z drugo črko ali "
 "številko."
 msgstr ""
+"In general, a cryptogram denotes any encrypted text. If the cipher used "
+"is simple enough,the cryptogram can be deciphered by hand. Ciphers which "
+"are used the most, are substitution ciphers. Substitution ciphercipher a "
+"text by changing every letter of the text with a different letter or a "
+"number.  "
 
 #: templates/index.html:38
 msgid ""
@@ -178,10 +183,14 @@ msgid ""
 "                jih danes večinoma najdemo v zabavnem tisku,\n"
 "                v časopisih ali revijah."
 msgstr ""
+"Although, substitution ciphers were once used for more serious purposes, "
+"nowdays they are mostly used for entertainment, i.e. puzzels in "
+"newspapers or magazines where, to solve a puzzle, onceneeds to "
+"reconstruct an intial text from a cryptogram."
 
 #: templates/index.html:44
 msgid "O projektu"
-msgstr ""
+msgstr "About the Cryptogram project"
 
 #: templates/index.html:46
 msgid ""
@@ -190,10 +199,14 @@ msgid ""
 "                Študentskih inovativnih projektov za družbeno korist "
 "(2017)."
 msgstr ""
+"Web portal Cryptogram is developed as a part of the Innovative Projectfor"
+" Social Benefit (2017). It is a product of the collaboration of students "
+"fromthe Faculty of Computer and Information Science, University of "
+"Ljubljana, and members of the Slovenian Society of Cryptology."
 
 #: templates/index.html:53
 msgid "Uganka tedna"
-msgstr ""
+msgstr "Week's riddle"
 
 #: templates/index.html:57
 msgid ""
@@ -208,32 +221,39 @@ msgid ""
 "                    pajek pa se premika naključno iz enega vozlišča v "
 "drugega."
 msgstr ""
+"Let assume we have a fly, blank spider and four (distant) nodes. The "
+"spider makes a net which fully connects all four nodes. The fly and the "
+"spider are placed in distant nodes. The fly cannot move and the spider "
+"moves randomly between nodes. Find the answers to following "
+"(interesting)questions:"
 
 #: templates/index.html:69
 msgid ""
 "Koliko je pričakovano število obratov,\n"
 "                    preden pajek doseže muho?"
 msgstr ""
+"What is the expected number of moves (between nodes) that the spider will"
+" makebefore it meets the fly?"
 
 #: templates/index.html:72
 msgid "Kaj pa, če četverec nadomestimo z"
-msgstr ""
+msgstr "What if the quadruple is replaced by"
 
 #: templates/index.html:74
 msgid "kocko,"
-msgstr ""
+msgstr "the cube"
 
 #: templates/index.html:75
 msgid "oktaedrom,"
-msgstr ""
+msgstr "the octahedar,"
 
 #: templates/index.html:76
 msgid "dodekaedrom, ali"
-msgstr ""
+msgstr "dodecahedron, or"
 
 #: templates/index.html:77
 msgid "ikozaedrom?"
-msgstr ""
+msgstr "icosahedron?"
 
 #: templates/index.html:81
 msgid "Tedensko uganko najdete na"
@@ -245,7 +265,7 @@ msgstr "FRI web-classroom."
 
 #: templates/index.html:96
 msgid "Aplikacija Kvizko"
-msgstr ""
+msgstr "Kvizko app"
 
 #: templates/index.html:98
 msgid ""
@@ -260,4 +280,416 @@ msgid ""
 "rešuje\n"
 "                naloge za tekmovanja ali za krajšanje prostega časa. "
 msgstr ""
+"The application is aimed for testing(and improving) your knowledge of "
+"various subject you have learned. Furthermore, it provides you thoughtful"
+" entertainment anywhere and anytime. <br><br>This app brings you various "
+"problems, i.e. form Bober and Presek over 40-year period.Solving "
+"problems, one can compete with others or use it as a free time "
+"preoccupation."
+
+#: templates/password.meter.html:26
+msgid "MERJENJE MOČI GESLA"
+msgstr "Measure the strength of your password"
+
+#: templates/password.meter.html:30
+msgid "GESLO"
+msgstr "PASSWORD"
+
+#: templates/password.meter.html:35
+msgid "Vpisati morate geslo"
+msgstr "Enter the password first"
+
+#: templates/password.meter.html:35
+msgid "Vpišite geslo"
+msgstr "Enter the password"
+
+#: templates/password.meter.html:44
+msgid "INFORMACIJE O GESLU"
+msgstr "Password analysis results"
+
+#: templates/password.meter.html:49
+msgid "Približek števila ugibanj za razbitje gesla:"
+msgstr "Approximate number of opperations to break the password:"
+
+#: templates/password.meter.html:53
+msgid "Časovna ocena razbijanja gesla:"
+msgstr "Approximate time to break the password:"
+
+#: templates/password.meter.html:57
+msgid " Priporočila za geslo: "
+msgstr "Recommendations:"
+
+#: templates/password.meter.html:61
+msgid "Opozorilo za geslo:"
+msgstr "Additional notes:"
+
+#: templates/steganography.images.html:14
+#: templates/steganography.images.html:103
+msgid "Navodila"
+msgstr "Instructions:"
+
+#: templates/steganography.images.html:17
+msgid ""
+"Steganografija je veda o skrivanju podatkov npr. v sporočilo, sliko ali "
+"video. Za razliko od kriptografije oziroma šifriranja podatkov, katere "
+"cilj je narediti podatke neberljive, steganografija poskuša prikriti "
+"obstoj podatkov. Cilj je onemogočiti zaznavo podatkov, ki so skriti v "
+"navidez nepomembnih podatkih. Spletna stran omogoča skrivanje sporočila v"
+" sliko. Na spletno stran lahko naložite svojo sliko, vanjo pa lahko "
+"zakodirate sporočilo, ali pa ga razberete, če se sporočilo v sliki že "
+"nahaja. Razlik med originalno sliko in sliko s sporočilom ni mogoče "
+"videti s prostim očesom, zato stran omogoča tudi vizualni prikaz nastale "
+"razlike."
+msgstr ""
+"Steganography is the practice of concealing data, i.e. file, message, "
+"image, withing another data. The goal is to hide data so that the secret "
+"message do not attract attention. Unlike cryptography, which primaly "
+"tries to protect the content of the message, steganography is primaly "
+"concerned with hidding the track of the message being sent. This site "
+"provides youwith an oracle for hiding (secret) messages in a picture. "
+"After hidding the message, you can observethe difference between initial "
+"and the resulted image. The difference is (almost) imposible to "
+"detectwith a naked eye. Therefore, it is colored in red. <br> An "
+"extension of the oracle allows you to check if your picture contains a "
+"secret message."
+
+#: templates/steganography.images.html:28
+#: templates/steganography.images.html:39
+#: templates/steganography.images.html:50
+#: templates/steganography.images.html:61
+#: templates/steganography.images.html:72
+#: templates/steganography.images.html:84
+msgid "Opozorilo"
+msgstr "Warning"
+
+#: templates/steganography.images.html:31
+msgid "Izberite slikovno datoteko!"
+msgstr "Choose an image!"
+
+#: templates/steganography.images.html:42
+msgid "Datoteka je prevelika! Največja dovoljena 2 MB."
+msgstr "The document is oversized. Document size upload limit is 2BM."
+
+#: templates/steganography.images.html:53
+msgid "V sliko poskušate zakodirati preveč besedila!"
+msgstr "The message is too big to be hidden!"
+
+#: templates/steganography.images.html:64
+msgid "V tekstovno polje niste vnesli besedila, ki ga želite zakodirati!"
+msgstr "here is no message to be coded.\""
+
+#: templates/steganography.images.html:75
+msgid "Prosim naložite sliko!"
+msgstr "Choose an image!"
+
+#: templates/steganography.images.html:87
+msgid ""
+"Datoteka je prevelikih dimenzij. Maksimalna dovoljena dimenzija je 1000 x"
+" 1000 px."
+msgstr ""
+"The document is oversized in dimensions. Document dimensions upload limit"
+" is 1000 x 1000px. "
+
+#: templates/steganography.images.html:118
+msgid "Število kodiranih znakov "
+msgstr "Number of characters"
+
+#: templates/steganography.images.html:123
+msgid "Skrij sporočilo"
+msgstr "Hide"
+
+#: templates/steganography.images.html:124
+msgid "Razkrij sporočilo"
+msgstr "Rediscover"
+
+#: templates/steganography.images.html:132
+msgid "Slika s sporočilom:"
+msgstr "The image with the message"
+
+#: templates/steganography.images.html:135
+msgid "Prenos"
+msgstr "Upload"
+
+#: templates/steganography.images.html:139
+msgid "Razlika med slikama:"
+msgstr "The difference between images:"
+
+#: templates/steganography.images.html:143
+msgid "Prikaži razliko"
+msgstr "Show the difference"
+
+#: templates/substitution.leaderboard.html:28
+msgid "Caesar"
+msgstr "Caesar"
+
+#: templates/substitution.leaderboard.html:40
+#: templates/substitution.leaderboard.html:56
+msgid "Težavnost"
+msgstr "Level"
+
+#: templates/substitution.modal.html:8
+msgid "Čestitke uspelo vam je rešiti uganko v"
+msgstr "Congrads, you managed to solve the riddle in"
+
+#: templates/substitution.modal.html:10
+msgid "minutah in"
+msgstr "minutes and"
+
+#: templates/substitution.modal.html:10
+msgid "sekundah!"
+msgstr "seconds!"
+
+#: templates/substitution.modal.html:17
+msgid "Potrdi"
+msgstr "Confirm"
+
+#: templates/substitution.modal.html:18
+msgid "Prekliči"
+msgstr "Click"
+
+#: templates/substitution.modal.html:19
+msgid "Preverite svoj vnos!"
+msgstr "Check the input!"
+
+#: templates/substitution.stats.en.html:3
+msgid "Most common two-letter words:"
+msgstr "Most common two-letter words (Eng) :"
+
+#: templates/substitution.stats.en.html:3
+msgid ""
+" of, to, in, it, is, be, as, at,\n"
+"        so, we, etc."
+msgstr ""
+" of, to, in, it, is, be, as, at,\n"
+"        so, we, etc."
+
+#: templates/substitution.stats.en.html:7
+msgid "Most common three-letter words:"
+msgstr "Most common three-letter words (Eng) :"
+
+#: templates/substitution.stats.en.html:7
+msgid " the, and, for, are, but, etc."
+msgstr " the, and, for, are, but, etc."
+
+#: templates/substitution.stats.sl.html:3
+msgid "Najpogostejše dvočrkovne besede:"
+msgstr "Most common two-letter words (Slo) :"
+
+#: templates/substitution.stats.sl.html:3
+msgid ""
+" in, na, je, za, ki, da, se, so,\n"
+"        pa, po, itd."
+msgstr ""
+" in, na, je, za, ki, da, se, so,\n"
+"        pa, po, itd."
+
+#: templates/substitution.stats.sl.html:7
+msgid "Najpogostejše tročrkovne besede:"
+msgstr ""
+
+#: templates/substitution.stats.sl.html:7
+msgid " kot, med, ter, pri, saj, itd."
+msgstr " kot, med, ter, pri, saj, itd."
+
+#: templates/timestamp.checking.html:22
+msgid "Izberite potrdilo za preverjanje časovnega žiga:"
+msgstr "Choose a certificate to check the timestamp:"
+
+#: templates/timestamp.desc.html:10 templates/timestamp.signature.html:13
+msgid "Časovni žig"
+msgstr "Timestamp"
+
+#: templates/timestamp.desc.html:16
+msgid ""
+"V splošnem je varni časovni žig digitalni zapis, ki zagotavlja podpis "
+"dokumenta z veljavnim digitalnim potrdilom v\n"
+"\t\t\t\t\tdoločenem časovnem trenutku in sicer na način, da povezuje "
+"datum in čas podpisa ter podatke v elektronski obliki na kriptografsko "
+"varen način.\n"
+"\t\t\t\t\tPreden pa si pogledamo natančneje namen in delovanje varnih "
+"časovnih žigov, pa je dobro, če si še na kratko pogledamo, kaj je to "
+"koncept javnih ključev."
+msgstr "In general, a timestamp is a time mark which ensures that a certain information"
+"existed at certain time. A trusted timestamp is a digital record that ensures the signature "
+"of a document with a valid digital certificate at a specific time point. It connects the date"
+"and the time of the signature, with the data itself. The process of producing a (trusted)"
+"timestamp is called timestamping, and it is done in cryptographically secure manner."
+"\n Timestamping is closely related to public key infrastructure (PKI)."
+"Thus, to explain timestamping, we first explain the concept of the PKI with the mailbox example."
+
+
+#: templates/timestamp.desc.html:20
+msgid ""
+"Koncept javnih ključev si lahko predstavljamo kot pošiljanje pisem med "
+"dvema osebama. Če želimo nekomu poslati pismo, ga moramo poslati\n"
+"\t\t\t\t\tseveda naslovniku v njegov poštni nabiralnik. Ta lahko, ko "
+"pismo dobi, s svojim ključem odpre poštni nabiralnik, odpre pismo in ga "
+"prebere.\n"
+"\t\t\t\t\tPodobno deluje tudi sistem javnih in zasebnih ključev. Ko "
+"pošiljamo neko sporočilo naslovniku uporabimo njegov javni ključ, da "
+"sporočilo zašifriramo,\n"
+"\t\t\t\t\tnaslovnik pa s svojim zasebnim ključem sporočilo odšifrira in "
+"prebere naše sporočilo. S tem zagotovimo, da naše sporočilo lahko prebere"
+" le oseba, ki ji\n"
+"\t\t\t\t\tje namenjeno in njegova vsebina ni javno dostopna vsem "
+"poslušalcem. Par javnih in zasebnih ključev sta neki izbrani števili, ki "
+"ju ni možno izračunati,\n"
+"\t\t\t\t\tče poznamo le enega od njiju, in ju uporabljamo v formulah za "
+"šifriranje. Javni ključ je dostopen komurkoli, zasebni ključ pa zgolj "
+"lastniku. Zakaj je to pomembno za\n"
+"\t\t\t\t\tčasovno žigosanje malo kasneje."
+msgstr "When ones wants to send a letter to someone (recipient), it need to obtain "
+"recipient's address. After the letter has been sent and delivered to the address (public key), "
+"the letter is stored in the recipient's mailbox. To read the letter, recipient "
+"need to open its mailbox with the key (private key). Main elements of this example are: (1) two"
+"parties (sender and receiver), (2) reveicers's address, and mailbox key, (3) the letter, "
+"(4) a will of two parties (of a party) to communicate or send data. "
+"The PKI has the same main elements (compounding parts). It enables transver of the data "
+"between parties.\n When exchanging data, the sender encipher a message with reciever's "
+"public key (address).The receiver, after receiving the message, deciphers the "
+"message with its private key (the mailbox's key). Let observe few things: (1) To send a message, the sender needs "
+" to put the mark on the message, to leave a trace for who is it for (like an address). It is done by enciphering "
+" the message with receiver's public key. This way, only receiver, holder of the corresponding "
+"private key can read the message., (2) If someone gets the message that is not itended for it, "
+"by deciphering it with its private key (tries to open someone else's mailbox) it gets "
+"giberish and can not rediscover (cannnot open the mailbox) data that has been sent. "
+"In PKI, every public-private key pair is choosen in a way that one can not "
+"be derived from the other. Each receiver is attached to one public-private pair. "
+"Private key is hold private to a receiver and public key is accessible to everyone. "
+"And how is this all connected with timestamping? This is going to be answer a bit later. "
+
+#: templates/timestamp.desc.html:28
+msgid ""
+"Namen varnega časovnega žiga je zagotavljanje, da je nek določen dokument"
+" obstajal v trenutku žigosanja in se od takrat naprej ni spreminjal.\n"
+"\t\t\t\t\tKot vsakdanji primer le-tega si lahko vzamemo prodajo mobitela."
+" Na splet postavimo oglas, da prodajamo nov, še neuporabljen mobilni "
+"telefon.\n"
+"\t\t\t\t\tPotencialni kupec ta oglas vidi, vendar ne verjame, da telefon "
+"še ni bil uporabljen, zato še ni povsem prepričan, ali bi ga kupil.\n"
+"\t\t\t\t\tKo nam to sporoči, se spomnimo, da mu lahko pošljemo sliko, "
+"kjer je neodprta škatla slikana z današnjo izdajo našega najljubšega "
+"časopisa, da mu zagotovimo,\n"
+"\t\t\t\t\tda zares prodajamo to, kar obljubljamo. Ker se za nakup odloči,"
+" mu ga še isti dan pošljemo. Če dobi kupec drugačno vsebino, kot mu je "
+"bila obljubljena, lahko s tem\n"
+"\t\t\t\t\tposnetkom dokažemo, da nismo mi krivi za to, ker je na dan "
+"oddaje bil izdelek še cel."
+msgstr "Now, let's give an everyday example of a trusted timestamping. "
+"Let's consider the situation in which one wants to sell a cellphone "
+"The person in want to sell an unused phone, puts and ad on the web. "
+"When a potential buyer sees the ad, it gets a bit suspicious. "
+"It is wondering if the phone is really unused or the seller is a fraud. "
+"Thus, the buyer contacts the seller, telling it about its suspition. "
+"Now, the seller needs to find the way to prove the condition (that is is unused) of the cell. "
+"The seller remembers that it can send a picture of an unopened cell's box "
+"and today's edition of its favourite newspapers. "
+"By doing so, it (can) convinces the buyer that the phone is unused at today's time point. "
+"So, the buyer buys the phone (today). If the buyer later claims that the phone come in a different shape, the picture tells"
+" it is is not seller's fault. "
+"So, what is the timestamp in this example? The picture, ofcourse. It tells us that the phone was unused at the time"
+"of the purchase."
+
+#: templates/timestamp.desc.html:34
+msgid ""
+"Ko želimo v neki aplikaciji časovno žigosati nek elektronski dokument "
+"oziroma podatke, pošljemo strežniku TSA\n"
+"\t\t\t\t\t(Time Stamping Authority oz. izdajatelj časovnih žigov za "
+"elektronske dokumente) z zgostitveno funkcijo narejen povzetek (hash)\n"
+"\t\t\t\t\tdokumenta oziroma podatkov. To je niz bitov fiksne dolžine "
+"(običajno 160 bitov), ki enolično določa dokument. Strežnik temu povzetku"
+" dopiše čas\n"
+"\t\t\t\t\tin vse skupaj podpiše s svojim zasebnim ključem - to je časovni"
+" žig. S tem je dokazano, da je elektronski dokument obstajal pred časom,"
+"\n"
+"\t\t\t\t\tnavedenim v časovnem žigu, poleg tega pa se da preveriti, da se"
+" od časa žigosanja ni spremenil (naredimo ponovni povzetek dokumenta, ki "
+"se mora ujemati s\n"
+"\t\t\t\t\ttistim, ki je del časovnega žiga). Postopek je opisan v RFC "
+"3161: Internet X.509 Public Key Infrastructure - Time-Stamp Protocol "
+"(TSP)."
+msgstr "Getting back to the digital world. When we want to prove a condicion "
+"of a certain document at certain time, it is sent to a TSA (Time Stamping Authority) "
+"together with its hash value (the summary of the document). The hash is 160-bit "
+"long sequence. It uniquely determines the document. The TSA puts together the current "
+"time and the hash, and signs it with its private key. The product is timestamp. "
+"It proves that (this version of) the document existed before the time indicated "
+"in the timestamp. In addition, it can be verified. Thus, proving that the document "
+"hasn't been changed since the timestamping time. Verification can be done by preserving "
+"the current document hash, and checking it against the hash in the timestamp (when needed). "
+"The exact procedure is explained in RFC 3161: Internet X.509 Public Key Infrastructure - Time-Stamp Protocol (TSP)."
+
+#: templates/timestamp.file.html:43
+msgid "Algoritem: Sha256"
+msgstr "Algorithm: Sha256"
+
+#: templates/timestamp.file.html:44
+msgid "Žigosal: portal Kriptogram"
+msgstr "Timestamped by: Cryptogram portal"
+
+#: templates/timestamp.file.html:45
+#, python-format
+msgid "Zgoščevalna funkcija datoteke: %(hash)s%"
+msgstr "Hash function used: %(hash)s%"
+
+#: templates/timestamp.file.html:46
+#, python-format
+msgid "Čas žigosanja: %(time)s "
+msgstr "Timestamping time: %(time)s "
+
+#: templates/timestamp.file.html:51
+msgid "Prenesi potrdilo"
+msgstr "Upload certificate"
+
+#: templates/timestamp.file.html:61
+msgid "Želite preveriti zgoščevalno funkcijo Vaše datoteke?"
+msgstr "Do you want to check the hash of the document?"
+
+#: templates/timestamp.file.html:62
+msgid "Preveri"
+msgstr "Check"
+
+#: templates/timestamp.file.html:66
+msgid "Izberite datoteko za preverjanje zgoščevalne funkcije:"
+msgstr "Choose a document:"
+
+#: templates/timestamp.file.html:79
+msgid "Nazaj"
+msgstr "Return"
+
+#: templates/timestamp.file.html:85
+msgid "Žigosanje neuspešno. Poskusite ponovno."
+msgstr "Timestamping was unsuccessful. Try again."
+
+#: templates/timestamp.file.html:87
+msgid "Osveži"
+msgstr "Refresh"
+
+#: templates/timestamp.publickey.html:22
+msgid "Prenesi ključ"
+msgstr "Upload the key"
+
+#: templates/timestamp.signature.html:21
+msgid "Izberite datoteko za časovno žigosanje:"
+msgstr "Choose a document"
+
+#~ msgid "Najpogostejše tročrkovne besede (Slo) :"
+#~ msgstr "Most common three-letter words:"
+
+#~ msgid ""
+#~ "V splošnem je varni časovni žig "
+#~ "digitalni zapis, ki zagotavlja podpis "
+#~ "dokumenta z veljavnim digitalnim potrdilom "
+#~ "v\n"
+#~ "\t\t\t\t\tdoločenem časovnem trenutku in "
+#~ "sicer na način, da povezuje datum "
+#~ "in čas podpisa ter podatke v "
+#~ "elektronski obliki na kriptografsko varen "
+#~ "način.\n"
+#~ "\t\t\t\t\tPreden pa si pogledamo "
+#~ "natančneje namen in delovanje varnih "
+#~ "časovnih žigov, pa je dobro, če si"
+#~ " še na kratko pogledamo, kaj je "
+#~ "to koncept javnih ključev.<"
+#~ msgstr ""
 
