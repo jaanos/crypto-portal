@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-09-11 23:02+0200\n"
+"POT-Creation-Date: 2018-09-12 18:05+0200\n"
 "PO-Revision-Date: 2018-09-07 22:38+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -17,6 +17,374 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
+
+#: templates/alphabet.flags.html:20 templates/alphabet.flags.html:111
+#: templates/alphabet.generic.html:27 templates/alphabet.generic.html:128
+#: templates/steganography.images.html:14
+#: templates/steganography.images.html:103 templates/visual.crypto.html:17
+#: templates/visual.crypto.html:88
+msgid "Navodila"
+msgstr "Instructions:"
+
+#: templates/alphabet.flags.html:26 templates/alphabet.flags.html:66
+#: templates/alphabet.generic.html:33 templates/alphabet.generic.html:73
+#: templates/alphabet.generic.html:84
+msgid ""
+"Izmed ponujenih slik <strong>izberite</strong> tisto, ki jo "
+"<strong>predstavlja</strong> prikazana črka.</br></br>\n"
+"                    Če bo izbrana slika "
+msgstr ""
+"From displayed images, <strong> choose </ strong> the one that <strong> "
+"represents </ strong> the letter shown. </ br> </ br> \\ nIf the choice "
+"is"
+
+#: templates/alphabet.flags.html:27 templates/alphabet.flags.html:67
+#: templates/alphabet.generic.html:34 templates/alphabet.generic.html:74
+#: templates/alphabet.generic.html:85
+msgid "pravilna"
+msgstr "correct"
+
+#: templates/alphabet.flags.html:27 templates/alphabet.flags.html:67
+#: templates/alphabet.generic.html:34 templates/alphabet.generic.html:74
+#: templates/alphabet.generic.html:85
+msgid ""
+", se bo gumb obarval zeleno in po kliku na \n"
+"                    desno puščico se vam bo prikazala nova "
+"naloga.</br></br>\n"
+"                    Če bo izbira "
+msgstr ""
+", the button will turn green and click on \\ nthe right arrow will show "
+"you a newtask.\" / br> </ br> \\ n If the choice is"
+
+#: templates/alphabet.flags.html:29 templates/alphabet.flags.html:31
+#: templates/alphabet.flags.html:69 templates/alphabet.flags.html:71
+#: templates/alphabet.generic.html:36 templates/alphabet.generic.html:38
+#: templates/alphabet.generic.html:76 templates/alphabet.generic.html:78
+#: templates/alphabet.generic.html:87 templates/alphabet.generic.html:89
+msgid "napačna"
+msgstr "wrong"
+
+#: templates/alphabet.flags.html:29 templates/alphabet.flags.html:69
+#: templates/alphabet.generic.html:36 templates/alphabet.generic.html:76
+#: templates/alphabet.generic.html:87
+msgid ""
+", se bo gumb obarval rdeče. V tem \n"
+"                    primeru lahko poskusite <strong>ponovno</strong>, "
+"dokler ne izberete\n"
+"                    pravilne rešitve. Vsaka "
+msgstr ""
+", the button will turn red. In this case you can try <strong> again </ "
+"strong>, until you choose the correct one. Every"
+
+#: templates/alphabet.flags.html:31 templates/alphabet.flags.html:71
+#: templates/alphabet.generic.html:38 templates/alphabet.generic.html:78
+#: templates/alphabet.generic.html:89
+msgid " izbira se "
+msgstr "choice"
+
+#: templates/alphabet.flags.html:31 templates/alphabet.flags.html:71
+#: templates/alphabet.generic.html:38 templates/alphabet.generic.html:78
+#: templates/alphabet.generic.html:89
+msgid "kaznuje"
+msgstr "is punished"
+
+#: templates/alphabet.flags.html:32 templates/alphabet.flags.html:72
+#: templates/alphabet.generic.html:39 templates/alphabet.generic.html:79
+#: templates/alphabet.generic.html:90
+msgid " z negativno točko."
+msgstr "with a negative point."
+
+#: templates/alphabet.flags.html:33 templates/alphabet.flags.html:45
+#: templates/alphabet.flags.html:60 templates/alphabet.flags.html:73
+#: templates/alphabet.flags.html:84 templates/alphabet.flags.html:96
+#: templates/alphabet.generic.html:40 templates/alphabet.generic.html:52
+#: templates/alphabet.generic.html:67 templates/alphabet.generic.html:80
+#: templates/alphabet.generic.html:91 templates/alphabet.generic.html:103
+msgid "S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov."
+msgstr "By clicking on the left arrow, you can see the history of your answers."
+
+#: templates/alphabet.flags.html:37 templates/alphabet.generic.html:44
+msgid "V polje pod sliko "
+msgstr "In the box below the image"
+
+#: templates/alphabet.flags.html:37 templates/alphabet.generic.html:44
+msgid "vnesite črko"
+msgstr "enter the letter"
+
+#: templates/alphabet.flags.html:37 templates/alphabet.generic.html:44
+msgid ""
+", ki jo slika predstavlja, in <strong>pritisnite enter\n"
+"                    </strong>.</br></br>\n"
+"                    Če je vaš odgovor "
+msgstr ""
+"represented by the image, and click <strong>ente</strong>. </br> </br>If "
+"your answer is"
+
+#: templates/alphabet.flags.html:39 templates/alphabet.flags.html:79
+#: templates/alphabet.flags.html:90 templates/alphabet.generic.html:46
+msgid "pravilen"
+msgstr "correct"
+
+#: templates/alphabet.flags.html:39 templates/alphabet.generic.html:46
+msgid ""
+", se bo spodnji rob polja obarval zeleno, sicer rdeče.\n"
+"                    </br></br> \n"
+"                    V primeru "
+msgstr ""
+", the lower edge of the field will turn green, otherwise red. \\ n</ br> "
+"</ br> \\ n In the case of "
+
+#: templates/alphabet.flags.html:41 templates/alphabet.generic.html:48
+msgid "pravilnega"
+msgstr "correct"
+
+#: templates/alphabet.flags.html:41 templates/alphabet.generic.html:48
+msgid ""
+" odgovora se vam ob kliku na desno puščico prikaže \n"
+"                    nova naloga, v primeru "
+msgstr ""
+" answer, when you click on the right arrow you will see a new task. In "
+"the case of"
+
+#: templates/alphabet.flags.html:42 templates/alphabet.generic.html:49
+msgid "napačnega"
+msgstr "wrong"
+
+#: templates/alphabet.flags.html:42 templates/alphabet.generic.html:49
+msgid ""
+" odgovora pa lahko poskusite znova.</br></br> \n"
+"                    Če ste s prejšnjimi nalogami zbrali dovolj točk, "
+"lahko s klikom na gumb <strong>Rešitev</strong> \n"
+"                    izveste, katero črko predstavlja slika (s tem "
+"izgubite nekaj svojih točk)."
+msgstr ""
+" answer, you can try again.\" \\ n If you have earned enough points with "
+"previous tasks,by clicking on the <strong> Solve </strong> button, you "
+"canfind the correct answer. By doing so, you lose some points."
+
+#: templates/alphabet.flags.html:49 templates/alphabet.generic.html:56
+msgid ""
+"S klikom na gumb <strong>Začni</strong> sprožite animacijo.</br></br>\n"
+"                    Prikazalo se vam bo zaporedje slik, od katerih bo "
+"vsaka prikazovala eno črko. Črke vnesite v polja pod sliko in \n"
+"                    <strong>pritisnite enter</strong>.\n"
+"                    Polja, kamor ste vnesli pravilno črko, se bodo "
+"obarvala"
+msgstr ""
+"Click on the <strong> Start </ strong> button to launch the animation. "
+"</br> </br>You will be presented with a sequence of images, of whicheach "
+"showing one letter. Enter the letter shown on the image below each image "
+"and click <strong> Enter </ strong>.The field to which you have entered "
+"the correct letter will turn"
+
+#: templates/alphabet.flags.html:53 templates/alphabet.generic.html:60
+msgid "zeleno"
+msgstr "green"
+
+#: templates/alphabet.flags.html:53 templates/alphabet.generic.html:60
+msgid ", polja z napačno črko "
+msgstr ", and with the incorrect letter will turn "
+
+#: templates/alphabet.flags.html:53 templates/alphabet.generic.html:60
+msgid "rdeče"
+msgstr "red"
+
+#: templates/alphabet.flags.html:54 templates/alphabet.generic.html:61
+msgid ""
+", prazna polja pa bodo ostala <strong>nespremenjena</strong>.</br></br>\n"
+"                    Za vsako pravilno vnešeno črko "
+"<strong>dobite</strong> eno točko, medtem ko za vsako napačno vnešeno "
+"črko\n"
+"                     eno točko <strong>izgubite</strong>.\n"
+"                    Prazno polje točk ne spreminja.</br></br>\n"
+"                    Če ste s prejšnjimi nalogami zbrali <strong>dovolj "
+"točk</strong>, lahko s klikom na gumb \n"
+"                    <strong>Začni znova</strong> animacijo sprožite še "
+"enkrat (s tem izgubite nekaj svojih točk)."
+msgstr ""
+"Blank fields will remain <strong> unchanged </strong>. </br> </br> For "
+"each correctly entered letter you <strong> get </ strong> one point. For "
+"each incorrectly entered letter you <strong> lose </ strong> one point."
+" \n"
+"If you have collected enough points with previous tasks,, you can click "
+"on the button <strong> Start </ strong> to change the presented sequence "
+"of images.By doing so, you lose some points."
+
+#: templates/alphabet.flags.html:77 templates/alphabet.flags.html:88
+msgid ""
+"Kliknite in <strong>zavrtite</strong> neosenčeno zastavico v pravilen "
+"položaj in kliknite \n"
+"                    <strong>kjukico</strong> pod sliko.</br></br>\n"
+"                    Če je vaš odgovor "
+msgstr ""
+"Click and <strong>Rotate</strong> an unmarked flag into the "
+"correctposition. Then check<strong> the mark </ strong> below the image. "
+"</ br> </ br>If your answer is"
+
+#: templates/alphabet.flags.html:80 templates/alphabet.flags.html:91
+msgid ""
+", se kljukica obarva zeleno in s klikom na desno puščico se vam prikaže "
+"naslednja naloga.</br></br>\n"
+"                    Če pa je vaš odgovor "
+msgstr ""
+", the check mark turns green and a click on the right arrow showsthe next"
+" task.</br>But, if your answer is"
+
+#: templates/alphabet.flags.html:81 templates/alphabet.flags.html:92
+msgid "napačen"
+msgstr "wrong"
+
+#: templates/alphabet.flags.html:81 templates/alphabet.flags.html:92
+msgid ""
+", se kjukica obarva rdeče, v polju s črko pa se za \n"
+"                    <strong>trenutek prikaže črka</strong>, \n"
+"                    ki jo predstavlja trenutna postavitev rok."
+msgstr ""
+", the check mark turns red, and the field shows the the letter \n"
+"represented by the current layout of the hands (with flags)."
+
+#: templates/alphabet.flags.html:95
+msgid "Če pravilno postavite le eno zastavico, se onemogoči njeno premikanje."
+msgstr ""
+"When you place a flag in the correct layout, you can not move it any "
+"further."
+
+#: templates/alphabet.flags.html:110 templates/alphabet.flags.html:145
+#: templates/header.html:64
+msgid "Semafor"
+msgstr "Semaphor"
+
+#: templates/alphabet.flags.html:119 templates/alphabet.flags.html:175
+#: templates/alphabet.generic.html:138 templates/alphabet.generic.html:203
+msgid "Pisanje"
+msgstr "Writing"
+
+#: templates/alphabet.flags.html:121 templates/alphabet.flags.html:131
+#: templates/alphabet.generic.html:140 templates/alphabet.generic.html:150
+#: templates/header.html:42 templates/substitution.leaderboard.html:25
+msgid "Lahko"
+msgstr "Easy"
+
+#: templates/alphabet.flags.html:123 templates/alphabet.flags.html:133
+#: templates/alphabet.generic.html:142 templates/alphabet.generic.html:152
+#: templates/header.html:44 templates/substitution.leaderboard.html:27
+msgid "Težko"
+msgstr "Hard"
+
+#: templates/alphabet.flags.html:129 templates/alphabet.flags.html:174
+#: templates/alphabet.generic.html:148 templates/alphabet.generic.html:202
+msgid "Branje"
+msgstr "Choosing"
+
+#: templates/alphabet.flags.html:132 templates/alphabet.generic.html:141
+#: templates/alphabet.generic.html:151 templates/header.html:43
+#: templates/substitution.leaderboard.html:26
+msgid "Srednje"
+msgstr "Medium"
+
+#: templates/alphabet.flags.html:146 templates/alphabet.generic.html:174
+msgid "Dobrodošli na strani za učenje komuniciranje s pomočjo tujih abeced."
+msgstr ""
+"Welcome to pages which learn you how to communicate using different "
+"alphabets."
+
+#: templates/alphabet.flags.html:147 templates/alphabet.generic.html:175
+msgid "Na kratko o izbrani abecedi:"
+msgstr "About the alphabet:"
+
+#: templates/alphabet.flags.html:149
+msgid ""
+"Ta abeceda je uporabna za prenašanje sporočil na daljavo, ko sta "
+"sogovornika predaleč narazen, da bi se slišala, se pa še lahko vidita."
+msgstr ""
+"This alphabet is useful when transmitting messages between two parties "
+"which are too far to hear, but they can still see each other."
+
+#: templates/alphabet.flags.html:152 templates/alphabet.generic.html:180
+msgid ""
+"Spodaj si lahko ogledate seznam vseh črk, ki se jih lahko naučite s "
+"pomočjo te aplikacije. Za ogled posameznega simbola kliknite na ustrezno "
+"kartico."
+msgstr ""
+"Below, you can see a list of letters, which correspond to the alphabetand"
+" can be learnedusing this pages. To view a single symbol click on the "
+"appropriatecard."
+
+#: templates/alphabet.flags.html:173 templates/alphabet.generic.html:201
+msgid "Pripravljeni, da začnete?"
+msgstr "Ready to start?"
+
+#: templates/alphabet.flags.html:190 templates/alphabet.flags.html:220
+#: templates/alphabet.flags.html:251 templates/alphabet.flags.html:280
+#: templates/alphabet.flags.html:321 templates/alphabet.flags.html:367
+#: templates/alphabet.generic.html:218 templates/alphabet.generic.html:248
+#: templates/alphabet.generic.html:279 templates/alphabet.generic.html:308
+#: templates/alphabet.generic.html:350 templates/alphabet.generic.html:385
+msgid "Število pravilnih odgovorov"
+msgstr "Correctly answered"
+
+#: templates/alphabet.flags.html:227 templates/alphabet.generic.html:255
+msgid "Rešitev"
+msgstr "Solve"
+
+#: templates/alphabet.flags.html:258
+msgid "Začni"
+msgstr "Start"
+
+#: templates/alphabet.generic.html:95
+msgid ""
+"Izmed vseh ponujenih slik <strong>izberite</strong> tisto, ki jo "
+"<strong>predstavlja</strong> posamezna \n"
+"                    črka ter jo povlecite in spustite v pripadajoče "
+"polje.</br></br> \n"
+"                    Za vse "
+msgstr ""
+"<strong> Choose </ strong> the image that <strong> represents </ strong> "
+"the individual letter and drag and drop it to the correspondingfield. "
+"</br> </br>If your choice is "
+
+#: templates/alphabet.generic.html:97
+msgid "pravilne"
+msgstr "correct"
+
+#: templates/alphabet.generic.html:97
+msgid ""
+" izbire se pripadajoča polja obarvajo zeleno, \n"
+"                    za vse "
+msgstr "the field turns green, and if it is incorrect the field turns"
+
+#: templates/alphabet.generic.html:98
+msgid "napačne rdeče"
+msgstr "red"
+
+#: templates/alphabet.generic.html:98
+msgid ""
+". Pravilni odgovori so nagrajeni, napačni\n"
+"                    pa kaznovani, z eno točko. </br></br>\n"
+"                    Če želite <strong>počistiti</strong> svojo izbiro, "
+"željeno sliko iz polja prenesite v <strong>smeti</strong>. \n"
+"                    S klikom na kljukico preverite svojo izbiro.\n"
+"                    Ko bodo vsa polja pravilno izbrana se lahko pomaknete"
+" na naslednjo nalogo."
+msgstr ""
+"You get one point for every correct answer, and lose one for every "
+"incorrect.To <strong> clean </ strong> your choice,transfer the desired "
+"image from the field to the <strong> trash </ strong>. <\\br>When all the"
+" fields are selected correctly, you can moveto the next task."
+
+#: templates/alphabet.generic.html:120 templates/alphabet.generic.html:167
+#: templates/header.html:65
+msgid "Znakovna abeceda"
+msgstr "Finger alphabet"
+
+#: templates/alphabet.generic.html:122 templates/alphabet.generic.html:169
+#: templates/header.html:66
+msgid "Grška abeceda"
+msgstr "Greek alphabet"
+
+#: templates/alphabet.generic.html:286
+msgid "Začni!"
+msgstr "Start"
 
 #: templates/header.html:5 templates/header.html:23 templates/index.html:19
 msgid "Kriptogram"
@@ -30,18 +398,6 @@ msgstr "Supstitution<br> cipher"
 #: templates/header.html:40
 msgid "Težavnosti"
 msgstr "Level"
-
-#: templates/header.html:42 templates/substitution.leaderboard.html:25
-msgid "Lahko"
-msgstr "Easy"
-
-#: templates/header.html:43 templates/substitution.leaderboard.html:26
-msgid "Srednje"
-msgstr "Medium"
-
-#: templates/header.html:44 templates/substitution.leaderboard.html:27
-msgid "Težko"
-msgstr "Hard"
 
 #: templates/header.html:46
 msgid "Cezarjeva šifra"
@@ -63,25 +419,14 @@ msgstr "Steganography"
 msgid "Skrivanje sporočila v sliko"
 msgstr "Hide a message in a image"
 
-#: templates/header.html:58
+#: templates/header.html:58 templates/visual.crypto.html:3
+#: templates/visual.crypto.html:85
 msgid "Vizualna kriptografija"
 msgstr "Visual cryptography"
 
 #: templates/header.html:62
 msgid "Abeceda"
 msgstr "Alphabet"
-
-#: templates/header.html:64
-msgid "Semafor"
-msgstr "Semaphor"
-
-#: templates/header.html:65
-msgid "Znakovna abeceda"
-msgstr "Finger alphabet"
-
-#: templates/header.html:66
-msgid "Grška abeceda"
-msgstr "Greek alphabet"
 
 #: templates/header.html:70
 msgid "Časovni žig "
@@ -323,11 +668,6 @@ msgstr "Recommendations:"
 msgid "Opozorilo za geslo:"
 msgstr "Additional notes:"
 
-#: templates/steganography.images.html:14
-#: templates/steganography.images.html:103
-msgid "Navodila"
-msgstr "Instructions:"
-
 #: templates/steganography.images.html:17
 msgid ""
 "Steganografija je veda o skrivanju podatkov npr. v sporočilo, sliko ali "
@@ -358,11 +698,12 @@ msgstr ""
 #: templates/steganography.images.html:50
 #: templates/steganography.images.html:61
 #: templates/steganography.images.html:72
-#: templates/steganography.images.html:84
+#: templates/steganography.images.html:84 templates/visual.crypto.html:43
+#: templates/visual.crypto.html:55
 msgid "Opozorilo"
 msgstr "Warning"
 
-#: templates/steganography.images.html:31
+#: templates/steganography.images.html:31 templates/visual.crypto.html:46
 msgid "Izberite slikovno datoteko!"
 msgstr "Choose an image!"
 
@@ -485,7 +826,7 @@ msgstr ""
 
 #: templates/substitution.stats.sl.html:7
 msgid "Najpogostejše tročrkovne besede:"
-msgstr ""
+msgstr "Most common three-letter words (Slo) :"
 
 #: templates/substitution.stats.sl.html:7
 msgid " kot, med, ter, pri, saj, itd."
@@ -509,14 +850,17 @@ msgid ""
 "\t\t\t\t\tPreden pa si pogledamo natančneje namen in delovanje varnih "
 "časovnih žigov, pa je dobro, če si še na kratko pogledamo, kaj je to "
 "koncept javnih ključev."
-msgstr "In general, a timestamp is a time mark which ensures that a certain information"
-"existed at certain time. A trusted timestamp is a digital record that ensures the signature "
-"of a document with a valid digital certificate at a specific time point. It connects the date"
-"and the time of the signature, with the data itself. The process of producing a (trusted)"
-"timestamp is called timestamping, and it is done in cryptographically secure manner."
-"\n Timestamping is closely related to public key infrastructure (PKI)."
-"Thus, to explain timestamping, we first explain the concept of the PKI with the mailbox example."
-
+msgstr ""
+"In general, a timestamp is a time mark which ensures that a certain "
+"informationexisted at certain time. A trusted timestamp is a digital "
+"record that ensures the signature of a document with a valid digital "
+"certificate at a specific time point. It connects the dateand the time of"
+" the signature, with the data itself. The process of producing a "
+"(trusted)timestamp is called timestamping, and it is done in "
+"cryptographically secure manner.\n"
+" Timestamping is closely related to public key infrastructure (PKI).Thus,"
+" to explain timestamping, we first explain the concept of the PKI with "
+"the mailbox example."
 
 #: templates/timestamp.desc.html:20
 msgid ""
@@ -538,25 +882,32 @@ msgid ""
 "šifriranje. Javni ključ je dostopen komurkoli, zasebni ključ pa zgolj "
 "lastniku. Zakaj je to pomembno za\n"
 "\t\t\t\t\tčasovno žigosanje malo kasneje."
-msgstr "When ones wants to send a letter to someone (recipient), it need to obtain "
-"recipient's address. After the letter has been sent and delivered to the address (public key), "
-"the letter is stored in the recipient's mailbox. To read the letter, recipient "
-"need to open its mailbox with the key (private key). Main elements of this example are: (1) two"
-"parties (sender and receiver), (2) reveicers's address, and mailbox key, (3) the letter, "
-"(4) a will of two parties (of a party) to communicate or send data. "
-"The PKI has the same main elements (compounding parts). It enables transver of the data "
-"between parties.\n When exchanging data, the sender encipher a message with reciever's "
-"public key (address).The receiver, after receiving the message, deciphers the "
-"message with its private key (the mailbox's key). Let observe few things: (1) To send a message, the sender needs "
-" to put the mark on the message, to leave a trace for who is it for (like an address). It is done by enciphering "
-" the message with receiver's public key. This way, only receiver, holder of the corresponding "
-"private key can read the message., (2) If someone gets the message that is not itended for it, "
-"by deciphering it with its private key (tries to open someone else's mailbox) it gets "
-"giberish and can not rediscover (cannnot open the mailbox) data that has been sent. "
-"In PKI, every public-private key pair is choosen in a way that one can not "
-"be derived from the other. Each receiver is attached to one public-private pair. "
-"Private key is hold private to a receiver and public key is accessible to everyone. "
-"And how is this all connected with timestamping? This is going to be answer a bit later. "
+msgstr ""
+"When ones wants to send a letter to someone (recipient), it need to "
+"obtain recipient's address. After the letter has been sent and delivered "
+"to the address (public key), the letter is stored in the recipient's "
+"mailbox. To read the letter, recipient need to open its mailbox with the "
+"key (private key). Main elements of this example are: (1) twoparties "
+"(sender and receiver), (2) reveicers's address, and mailbox key, (3) the "
+"letter, (4) a will of two parties (of a party) to communicate or send "
+"data. The PKI has the same main elements (compounding parts). It enables "
+"transver of the data between parties.\n"
+" When exchanging data, the sender encipher a message with reciever's "
+"public key (address).The receiver, after receiving the message, deciphers"
+" the message with its private key (the mailbox's key). Let observe few "
+"things: (1) To send a message, the sender needs  to put the mark on the "
+"message, to leave a trace for who is it for (like an address). It is done"
+" by enciphering  the message with receiver's public key. This way, only "
+"receiver, holder of the corresponding private key can read the message., "
+"(2) If someone gets the message that is not itended for it, by "
+"deciphering it with its private key (tries to open someone else's "
+"mailbox) it gets giberish and can not rediscover (cannnot open the "
+"mailbox) data that has been sent. In PKI, every public-private key pair "
+"is choosen in a way that one can not be derived from the other. Each "
+"receiver is attached to one public-private pair. Private key is hold "
+"private to a receiver and public key is accessible to everyone. And how "
+"is this all connected with timestamping? This is going to be answer a bit"
+" later. "
 
 #: templates/timestamp.desc.html:28
 msgid ""
@@ -575,20 +926,21 @@ msgid ""
 "bila obljubljena, lahko s tem\n"
 "\t\t\t\t\tposnetkom dokažemo, da nismo mi krivi za to, ker je na dan "
 "oddaje bil izdelek še cel."
-msgstr "Now, let's give an everyday example of a trusted timestamping. "
-"Let's consider the situation in which one wants to sell a cellphone "
-"The person in want to sell an unused phone, puts and ad on the web. "
-"When a potential buyer sees the ad, it gets a bit suspicious. "
-"It is wondering if the phone is really unused or the seller is a fraud. "
-"Thus, the buyer contacts the seller, telling it about its suspition. "
-"Now, the seller needs to find the way to prove the condition (that is is unused) of the cell. "
-"The seller remembers that it can send a picture of an unopened cell's box "
-"and today's edition of its favourite newspapers. "
-"By doing so, it (can) convinces the buyer that the phone is unused at today's time point. "
-"So, the buyer buys the phone (today). If the buyer later claims that the phone come in a different shape, the picture tells"
-" it is is not seller's fault. "
-"So, what is the timestamp in this example? The picture, ofcourse. It tells us that the phone was unused at the time"
-"of the purchase."
+msgstr ""
+"Now, let's give an everyday example of a trusted timestamping. Let's "
+"consider the situation in which one wants to sell a cellphone The person "
+"in want to sell an unused phone, puts and ad on the web. When a potential"
+" buyer sees the ad, it gets a bit suspicious. It is wondering if the "
+"phone is really unused or the seller is a fraud. Thus, the buyer contacts"
+" the seller, telling it about its suspition. Now, the seller needs to "
+"find the way to prove the condition (that is is unused) of the cell. The "
+"seller remembers that it can send a picture of an unopened cell's box and"
+" today's edition of its favourite newspapers. By doing so, it (can) "
+"convinces the buyer that the phone is unused at today's time point. So, "
+"the buyer buys the phone (today). If the buyer later claims that the "
+"phone come in a different shape, the picture tells it is is not seller's "
+"fault. So, what is the timestamp in this example? The picture, ofcourse. "
+"It tells us that the phone was unused at the timeof the purchase."
 
 #: templates/timestamp.desc.html:34
 msgid ""
@@ -608,16 +960,24 @@ msgid ""
 "\t\t\t\t\ttistim, ki je del časovnega žiga). Postopek je opisan v RFC "
 "3161: Internet X.509 Public Key Infrastructure - Time-Stamp Protocol "
 "(TSP)."
-msgstr "Getting back to the digital world. When we want to prove a condicion "
-"of a certain document at certain time, it is sent to a TSA (Time Stamping Authority) "
-"together with its hash value (the summary of the document). The hash is 160-bit "
-"long sequence. It uniquely determines the document. The TSA puts together the current "
-"time and the hash, and signs it with its private key. The product is timestamp. "
-"It proves that (this version of) the document existed before the time indicated "
-"in the timestamp. In addition, it can be verified. Thus, proving that the document "
-"hasn't been changed since the timestamping time. Verification can be done by preserving "
-"the current document hash, and checking it against the hash in the timestamp (when needed). "
-"The exact procedure is explained in RFC 3161: Internet X.509 Public Key Infrastructure - Time-Stamp Protocol (TSP)."
+msgstr ""
+"Getting back to the digital world. When we want to prove a condicion of a"
+" certain document at certain time, it is sent to a TSA (Time Stamping "
+"Authority) together with its hash value (the summary of the document). "
+"The hash is 160-bit long sequence. It uniquely determines the document. "
+"The TSA puts together the current time and the hash, and signs it with "
+"its private key. The product is timestamp. It proves that (this version "
+"of) the document existed before the time indicated in the timestamp. In "
+"addition, it can be verified. Thus, proving that the document hasn't been"
+" changed since the timestamping time. Verification can be done by "
+"preserving the current document hash, and checking it against the hash in"
+" the timestamp (when needed). The exact procedure is explained in RFC "
+"3161: Internet X.509 Public Key Infrastructure - Time-Stamp Protocol "
+"(TSP)."
+
+#: templates/timestamp.file.html:41
+msgid "Žigosanje uspešno!"
+msgstr "Timestamp was successfully created!"
 
 #: templates/timestamp.file.html:43
 msgid "Algoritem: Sha256"
@@ -673,23 +1033,70 @@ msgstr "Upload the key"
 msgid "Izberite datoteko za časovno žigosanje:"
 msgstr "Choose a document"
 
-#~ msgid "Najpogostejše tročrkovne besede (Slo) :"
-#~ msgstr "Most common three-letter words:"
+#: templates/visual.crypto.html:21
+msgid ""
+"<strong>1.</strong> Izberi sliko in klikni gumb\n"
+"                    Potrdi.<br><br>\n"
+"                    <strong>2.</strong> Klikni gumb <strong>Prikaži delni"
+" sliki</strong>.\n"
+"                    Izvede se algoritem, ki izbrano sliko razstavi na dve"
+" enako\n"
+"                    veliki delni sliki, na katerih je vsaka točka "
+"naključno\n"
+"                    bela ali črna - torej šum.<br><br>\n"
+"                    <strong>3.</strong> Klikni gumb <strong>Prikaži "
+"animacijo</strong>.\n"
+"                    Prikaže se postopek prekrivanja obeh delnih slik - ko"
+" sta\n"
+"                    delni sliki prekriti, vidimo prvotno informacijo, ki "
+"pa se\n"
+"                    od originalne razlikuje po slabšem kontrastu. Kljub "
+"izgubi\n"
+"                    kontrasta pa so enostavne slike še vedno "
+"prepoznavne.<br>"
+msgstr ""
+"<strong> 1. </strong> Choose an image and then click"
+"<strong> Confirm </strong>. <br> <br>"
+"<strong> 2. </strong> Click the <strong> Show images <strong> button."
+"Then, the algorithm that separates one image into two, equally sized images, is run. "
+"Derived images are black and white, with each pixel (seems to be) selected at random.</br>"
+"<strong> 3. </ strong> Click on the <strong> Show"
+"animation </strong>. <br>"
+"It starts the animation of overlapping two derived images. At the point of complete overlap, "
+"the initial image can be recognised."
 
-#~ msgid ""
-#~ "V splošnem je varni časovni žig "
-#~ "digitalni zapis, ki zagotavlja podpis "
-#~ "dokumenta z veljavnim digitalnim potrdilom "
-#~ "v\n"
-#~ "\t\t\t\t\tdoločenem časovnem trenutku in "
-#~ "sicer na način, da povezuje datum "
-#~ "in čas podpisa ter podatke v "
-#~ "elektronski obliki na kriptografsko varen "
-#~ "način.\n"
-#~ "\t\t\t\t\tPreden pa si pogledamo "
-#~ "natančneje namen in delovanje varnih "
-#~ "časovnih žigov, pa je dobro, če si"
-#~ " še na kratko pogledamo, kaj je "
-#~ "to koncept javnih ključev.<"
+#: templates/visual.crypto.html:58
+msgid "Datoteka je prevelika!"
+msgstr "The document is oversized!"
+
+#: templates/visual.crypto.html:67
+msgid "Namig"
+msgstr "A hint"
+
+#: templates/visual.crypto.html:70
+msgid ""
+"Najboljši rezultat boste dosegli z izbiro dvobarvne\n"
+"                    slike"
+msgstr "The best result is achieved with two-color image."
+
+#: templates/visual.crypto.html:112 templates/visual.crypto.html:154
+msgid "Prikaži delni sliki"
+msgstr "Show pictures"
+
+#: templates/visual.crypto.html:115 templates/visual.crypto.html:153
+msgid "Prikaži animacijo"
+msgstr "Show animation"
+
+#: templates/visual.crypto.html:134
+msgid ""
+"Če že imaš obe delni sliki, povleci vsako v svoj okvir,\n"
+"            klikni gumb <strong>Prikaži animacijo</strong> in si oglej "
+"animacijo.<br>\n"
+"            Opozorilo: Sliki morata biti enakih dimenzij!"
+msgstr "If having (two) derived images, drag and drop each in its squere below. Then click"
+"on <strong>Show animation</strong>. <br>"
+"Note: Pictures need to be of equal dimensions."
+
+#~ msgid " blok test alphabet.generic"
 #~ msgstr ""
 
