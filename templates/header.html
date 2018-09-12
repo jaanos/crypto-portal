@@ -50,6 +50,17 @@
                 <li><a href="{{url_for('substitution.play', difficulty='ready')}}">Pripravljene zamenjalke</a></li>
             </ul>
         </li>
+        
+        
+        <li class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('transposition.index')}}">Premešalka <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="{{url_for('transposition.description')}}">Kaj so transpozicijske šifre?</a></li>
+                <li><a href="{{url_for('transposition.play')}}">Naloge (lahko/srednje/težko)</a></li>
+            </ul>
+        </li>
+        
+        
         <li class="dropdown">
             <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('steganography.index')}}">Steganografija <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
