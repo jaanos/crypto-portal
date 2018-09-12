@@ -1,0 +1,348 @@
+{% extends "index.html" %}
+{% block body %}
+
+<div class="row">
+   <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading" id="head">
+                <div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<b><span class="pozdrav1">Transpozicijska šifra</span></b>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="container-fluid">
+					<p>V transpozicijski šifri ostanejo črke originalnega sporočila nespremenjene, njihova mesta pa so pomešana na nek sistematičen način.</p>
+					<br>
+					<p><li><a href="#railfence">Rail fence cipher</a></li></p>
+					<p><li><a href=" ">Route cipher</a></li></p>
+					<p><li><a href=" ">Transpozicija stolpcev</a></li></p>
+					<br>
+					<p><h2><b><a name="railfence">RAIL FENCE CIPHER</a></b></h2></p>
+					<br>
+					<p>Šifriranje rail fence deluje tako, da cik-cakasto napišeš sporočilo od leve proti desni, nato prebereš besedilo po vrsticah.</p>
+					<p><u>ŠIFRIRANJE</u></p>
+					<p>Recimo, da bi radi zašifrirali sporočilo »TUKAJ NI SKRIVNOSTI« čez tri vrstice. Napisali bi ga takole:</p>
+					<table id="kakoNapisemoRail" style="border: 1px solid black; border-collapse: collapse; width:50%;">
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">J</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">U</th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">A</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">S</th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">R</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">V</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">O</th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					  </tr>
+					</table>
+					<p>Šifrirano sporočilo pa dobimo tako, da to sporočilo preberemo po vrsticah, od leve proti desni:</p>
+					<table id="kakoPreberemoRail" style="border: 1px solid black; border-collapse: collapse; width:50%;">
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">J</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">U</th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">A</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">S</th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">R</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">V</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">O</th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					  </tr>
+					</table>					
+					<p>Tajnopis se tako glasi »TJKNIUANSRVOTKUUS«.</p>
+					<p><h2><b>ROUTE CIPHER</b></h2></p>
+					<p>Pri šifriranju z route cipher se sporočilo napiše v mrežo poljubne velikosti. Ključ nam pove, kako to sporočilo beremo, da dobimo tajnopis.</p>
+					<p><u>ŠIFRIRANJE</u></p>
+					<p>Dajmo ponovno vzeti sporočilo »TUKAJ NI SKRIVNOSTI«, ki ga zapišemo v mrežo. Naj bo ta velikosti 6x3.</p>
+					<table id="kakoNapisemoRoute" style="border: 1px solid black; border-collapse: collapse; width:50%;">
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px">A</th> 
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">R</th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">U</th>
+					    <th style="border: 1px solid black; padding: 5px">J</th> 
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">O</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">N</th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">V</th>
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					  </tr>
+					</table>
+					<p>Opazimo, da ostane eno polje v mreži prazno. V tem primeru lahko dodamo poljubno črko, da jo zapolnimo. Dodajmo črko »D«.</p>
+					<table style="border: 1px solid black; border-collapse: collapse; width:50%;">
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px">A</th> 
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">R</th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">U</th>
+					    <th style="border: 1px solid black; padding: 5px">J</th> 
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">O</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">N</th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">V</th>
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px">D</th>
+					  </tr>
+					</table>
+					<p>Zdaj si moramo izmisliti ključ, po katerem bomo brali. Recimo »Beri od desne proti levi, od zadnje vrstice proti prvi«.</p>
+					<table id="kakoPreberemoRoute" style="border: 1px solid black; border-collapse: collapse; width:50%;">
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px">A</th> 
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">R</th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">U</th>
+					    <th style="border: 1px solid black; padding: 5px">J</th> 
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">O</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">N</th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">V</th>
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px">D</th>
+					  </tr>
+					</table>
+					<p>Dobimo tajnopis »DSVKNKIOISJUTNRIAT«.</p>
+					<p><h2><b>TRANSPOZICIJA STOLPCEV</b></h2></p>
+					<p>Tako kot pri route cipher se tu sporočilo najprej vpiše v neko mrežo. Šifrirano sporočilo nato dobimo tako, da v nekem vrstnem redu preberemo stolpce.</p>
+					<p><u>ŠIFRIRANJE</u></p>
+					<p>Ponovno vzemimo sporočilo »TUKAJ NI SKRIVNOSTI« in ga vpišimo v mrežo 6x3, ampak tokrat zapišemo besedilo po vrsticah (s tem da prazno mesto spet zapolnimo s črko »D«).</p>
+					<table id="kakoNapisemoStolpce" style="border: 1px solid black; border-collapse: collapse; width:50%;">
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px">U</th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">A</th>
+					    <th style="border: 1px solid black; padding: 5px">J</th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">S</th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">R</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">V</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px">O</th> 
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">D</th>
+					  </tr>
+					</table>
+					<p>Izmislimo si neko besedo, katere dolžina je enaka številu stolpcev mreže (v našem primeru je to 6). Ta beseda bo predstavljala ključ. Izberimo besedo »ZABAVA« in jo zapišimo nad našo mrežo.</p>
+					<table style="border: 1px solid black; border-collapse: collapse; width:50%;">
+					  <tr>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">Z</th>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">A</th> 
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">B</th>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">A</th>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">V</th>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">A</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px">U</th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">A</th>
+					    <th style="border: 1px solid black; padding: 5px">J</th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">S</th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">R</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">V</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px">O</th> 
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">D</th>
+					  </tr>
+					</table>
+					<p>Črke bomo označili s števili od 1 do 6 tako, kot si črke sledilo v abecedi. Če je v ključu več enakih črk, jih s števili označimo po vrsti tako, kot se nahajajo v besedi.</p>
+					<table style="border: 1px solid black; border-collapse: collapse; width:50%;">
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">Z</th>
+					    <th style="border: 1px solid black; padding: 5px">A</th> 
+					    <th style="border: 1px solid black; padding: 5px">B</th>
+					    <th style="border: 1px solid black; padding: 5px">A</th>
+					    <th style="border: 1px solid black; padding: 5px">V</th>
+					    <th style="border: 1px solid black; padding: 5px">A</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">6</th>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">1</th> 
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">4</th>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">2</th>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">5</th>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">3</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px">U</th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">A</th>
+					    <th style="border: 1px solid black; padding: 5px">J</th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">S</th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">R</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">V</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px">O</th> 
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">D</th>
+					  </tr>
+					</table>
+					<p>Stolpce preberemo po vrsti, tako kot so označeni s števili. Naš tajnopis se tako glasi »USOARTNVDKKSJIITIN«.</p>
+				</div>	
+			</div>	
+			<div id="swatch" class="ui-widget-content ui-corner-all"></div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

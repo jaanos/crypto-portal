@@ -1,0 +1,93 @@
+{% extends "index.html" %}
+{% block body %}
+
+<div class="row">
+   <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading" id="head">
+                <div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<b><span class="pozdrav1">Naloge (lahko/srednje/težko)</span></b>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="container-fluid">
+					
+					<p style="border: 3px solid #467892; width:50%; border-radius: 10px; background-color: #eeeeee; margin-top: 20px; padding: 10px;">Tukaj bo tajnopis.</p>
+					<p>Originalno sporočilo je:</p>
+					<input type="text" id="vnosOdgovora" placeholder="VNESI SVOJ ODGOVOR V VELIKIH TISKANIH ČRKAH, BREZ LOČIL" style="border: 2px solid black; width:50%; border-radius: 10px; background-color: #eeeeee; margin-top: 20px; padding: 10px;">
+					<button type="button" onclick="pravilenOdgovor()" style="border: 2px solid black; border-radius: 5px; background-color: #eeeeee; font-size: 15px; margin-top: 20px; padding: 5px 10px;">Potrdi</button>
+					<p id="pravilnost"></p>
+					<br>
+					<button type="button" id="namig" onclick="prikaziNamig()" style="border: 2px solid black; border-radius: 5px; background-color: #eeeeee; font-size: 15px; margin-top: 20px; padding: 5px 10px;">Namig</button> <b id="opozorilo">Pozor: ob kliku na gumb "Namig" se ti bo od končnega rezultata odbilo X točk!</b>
+					<p id="prvi"></p>
+					<p id="drugi"></p>
+					<p id="tretji"></p>
+					<p id="cetrti"></p>
+					
+					<script>
+						var steviloKlikov=0;
+						function prikaziNamig() {
+							if(steviloKlikov==0) {
+								document.getElementById("prvi").innerHTML="Vrsta transpozicije";
+								steviloKlikov++;
+							}
+							else if (steviloKlikov==1) {
+								document.getElementById("drugi").innerHTML="Ključ";
+								steviloKlikov++;
+							}
+							else if (steviloKlikov==2) {
+								document.getElementById("tretji").innerHTML="Ni več namigov";
+								steviloKlikov++;
+							}
+							else if (steviloKlikov==3) {
+								document.getElementById("cetrti").innerHTML="Nice try ;)";
+							}
+						}
+						
+						function pravilenOdgovor() {
+							var ena=1;
+							if(ena==1) {
+								//document.getElementById("opozorilo").style.display="none";
+								document.getElementById("namig").style.display="none";
+								document.getElementById("prvi").style.display="none";
+								document.getElementById("drugi").style.display="none";
+								document.getElementById("tretji").style.display="none";
+								document.getElementById("cetrti").style.display="none";
+								
+								document.getElementById("opozorilo").innerHTML="Čestitam! Odgovor je pravilen.";
+								document.getElementById("opozorilo").style.color="green";
+							}
+							/*	kasneje, ko bo implementirano
+							if(document.getElementById("field2").value == cistopisCaps) {
+							
+								document.getElementById("opozorilo").style.display="none";
+								document.getElementById("namig").style.display="none";
+								document.getElementById("prvi").style.display="none";
+								document.getElementById("drugi").style.display="none";
+								document.getElementById("tretji").style.display="none";
+								document.getElementById("cetrti").style.display="none";
+								
+								document.getElementById("opozorilo").innerHTML="Čestitam! Odgovor je pravilen.";
+								document.getElementById("opozorilo").style.color="green";
+								
+							}
+							else {
+								document.getElementById("opozorilo").innerHTML="Napačen odgovor!";
+								document.getElementById("opozorilo").style.color="red";
+							}
+							
+							
+							*/
+						}
+					</script>
+					
+				</div>	
+			</div>	
+			<div id="swatch" class="ui-widget-content ui-corner-all"></div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

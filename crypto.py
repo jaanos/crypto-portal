@@ -4,6 +4,7 @@ from flask import *
 from auth import sesskey, debug
 from githook import app as githook_app
 from substitution import app as substitution_app
+from transposition import app as transposition_app
 from steganography import app as steganography_app
 from visual import app as visual_app
 from alphabet import app as alphabet_app
@@ -15,6 +16,7 @@ app = Flask(__name__)
 app.debug = debug
 app.register_blueprint(githook_app)
 app.register_blueprint(substitution_app, url_prefix = '/substitution')
+app.register_blueprint(transposition_app, url_prefix = '/transposition')
 app.register_blueprint(steganography_app, url_prefix = '/steganography')
 app.register_blueprint(visual_app, url_prefix = '/visual')
 app.register_blueprint(alphabet_app, url_prefix = '/alphabet')
@@ -33,4 +35,4 @@ def favicon():
     return redirect('static/images/favicon.ico')
 
 if __name__ == '__main__':
-    app.run(debug=True) # DODANO ZA POTREBE CLOUD9
+    app.run(debug=True, host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 8080))) # DODANO ZA POTREBE CLOUD9
