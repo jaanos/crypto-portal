@@ -1,3 +1,8 @@
+#Requirements
+To run the portal enabling localization, one needs to install all python moduls
+from requirements_localization.txt file. After the installation, follow 
+the general running instructions.
+
 # Adding new locale (link: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xiii-i18n-and-l10n)
 1. Run pybabel init -i messages.pot -d translations -l LANG
 (where LANG is changed with the short of the locale to be added)

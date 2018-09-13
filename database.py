@@ -25,6 +25,9 @@ class DummyDB:
 
     def close(self):
         return
+    
+    def commit(self):
+        return
 
 class Database:
     db = None

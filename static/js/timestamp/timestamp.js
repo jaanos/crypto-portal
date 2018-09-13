@@ -41,13 +41,16 @@ $(document).ready(function() {
 
 		    return this.each(function() {
 
-		      var $file = $(this).addClass('custom-file-upload-hidden'), // the original file input
+					var $buttonLabel = $('#buttonLabel').text();
+					$( "#buttonLabel" ).hide();
+
+					var $file = $(this).addClass('custom-file-upload-hidden'), // the original file input
 		          $wrap = $('<div class="file-upload-wrapper">'),
 		          $input = $('<input type="text" class="file-upload-input" />'),
 		          // Button that will be used in non-IE browsers
-		          $button = $('<button type="button" class="file-upload-button">Izberi</button>'),
+		          $button = $('<button type="button" class="file-upload-button">'+$buttonLabel+'</button>'),
 		          // Hack for IE
-		          $label = $('<label class="file-upload-button" for="'+ $file[0].id +'">Izberi</label>');
+		          $label = $('<label class="file-upload-button" for="'+ $file[0].id +">"+$buttonLabel+"</label>");
 
 		      // Hide by shifting to the left so we
 		      // can still trigger events

@@ -1,4 +1,4 @@
-from flask import *
+from flask import render_template,redirect, Flask,request,url_for, session, Blueprint, jsonify
 from zxcvbn import zxcvbn
 
 app = Blueprint('password', __name__)
@@ -47,6 +47,9 @@ time_dic = {
     'year': ["let", "leto", "leti", "leta"],
 }
 
+strenght_dic = {'sl':['Zelo šibko geslo', 'Šibko geslo', 'V redu geslo', 'Dobro geslo', 'Zelo dobro geslo'],
+                'en': ['Very weak password', 'Weak password', 'Medium password', 'Strong password', 'Very strong password'] }
+
 @app.route("/", methods=['GET', 'POST'])
 def index():
     # print("INDEX")
@@ -66,6 +69,10 @@ def check():
 
     warn = results['feedback']['warning']
     sugg = results['feedback']['suggestions']
+    lang = session['language']
+
+    if lang == 'en':
+        return jsonify(result=[score, est_gues, est_time, warn, sugg, strenght_dic[lang][score]])
 
     if est_time == 'less than a second':
         est_time = 'manj kot sekunda'
@@ -81,6 +88,7 @@ def check():
                 digit = 0
             if unit[-1] == 's':
                 unit = unit[:-1]
+
             est_time = "%s %s" % (tm, time_dic[unit][digit])
         except:
             pass
@@ -99,4 +107,4 @@ def check():
         for s in sugg:
             suglist.append(sugg_dic[s])
 
-    return jsonify(result=[score, est_gues, est_time, warnlist, suglist])
+    return jsonify(result=[score, est_gues, est_time, warnlist, suglist, strenght_dic[lang][score]])

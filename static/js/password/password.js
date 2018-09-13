@@ -20,8 +20,8 @@ $(document).ready(function(){
                         console.log(data.result[0]);
                         var progress = (data.result[0] + 1) * 20;
                         var COLORS = ['#d13131', '#fa9819', '#ffcc00', '#467892', '#26ae90']
-                        var STRENGTH = ['Zelo šibko geslo', 'Šibko geslo', 'V redu geslo', 'Dobro geslo', 'Zelo dobro geslo']
-                        $("#progress-bar").css({width:  progress + '%', backgroundColor: COLORS[data.result[0]], fontWeight: 'bold'}).text(STRENGTH[data.result[0]]);
+                        var STRENGTH = data.result[5]
+                        $("#progress-bar").css({width:  progress + '%', backgroundColor: COLORS[data.result[0]], fontWeight: 'bold'}).text(STRENGTH);
                         $("#est-gues").text(data.result[1]);
                         $("#est-time").text(data.result[2]);
                         $("#opozorilo").text(data.result[3]);

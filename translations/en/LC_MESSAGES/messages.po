@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-09-12 18:05+0200\n"
+"POT-Creation-Date: 2018-09-13 23:11+0200\n"
 "PO-Revision-Date: 2018-09-07 22:38+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -17,6 +17,25 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
+
+#: timestamp.py:139
+msgid "Z danim certifikatom ni bil potrjen noben dokument na tej strani."
+msgstr "No document has been found with a certificate given."
+
+#: timestamp.py:141
+#, python-format
+msgid "Dokument z zgoščevalno funkcijo %(items0)s je bil potrjen %(items2)s "
+msgstr ""
+"The document with the hash %(items0)s , has been verified %(items2)s "
+"times."
+
+#: timestamp.py:145
+msgid ""
+"Prišlo je do napake pri preverjanju certifikata ali pa je certifikat "
+"neveljaven, poskusite ponovno."
+msgstr ""
+"The error occured when checking the certificate, or the certificate is "
+"invalid. Try again."
 
 #: templates/alphabet.flags.html:20 templates/alphabet.flags.html:111
 #: templates/alphabet.generic.html:27 templates/alphabet.generic.html:128
@@ -250,7 +269,7 @@ msgstr ""
 "further."
 
 #: templates/alphabet.flags.html:110 templates/alphabet.flags.html:145
-#: templates/header.html:64
+#: templates/header.html:94
 msgid "Semafor"
 msgstr "Semaphor"
 
@@ -261,13 +280,13 @@ msgstr "Writing"
 
 #: templates/alphabet.flags.html:121 templates/alphabet.flags.html:131
 #: templates/alphabet.generic.html:140 templates/alphabet.generic.html:150
-#: templates/header.html:42 templates/substitution.leaderboard.html:25
+#: templates/header.html:72 templates/substitution.leaderboard.html:25
 msgid "Lahko"
 msgstr "Easy"
 
 #: templates/alphabet.flags.html:123 templates/alphabet.flags.html:133
 #: templates/alphabet.generic.html:142 templates/alphabet.generic.html:152
-#: templates/header.html:44 templates/substitution.leaderboard.html:27
+#: templates/header.html:74 templates/substitution.leaderboard.html:27
 msgid "Težko"
 msgstr "Hard"
 
@@ -277,7 +296,7 @@ msgid "Branje"
 msgstr "Choosing"
 
 #: templates/alphabet.flags.html:132 templates/alphabet.generic.html:141
-#: templates/alphabet.generic.html:151 templates/header.html:43
+#: templates/alphabet.generic.html:151 templates/header.html:73
 #: templates/substitution.leaderboard.html:26
 msgid "Srednje"
 msgstr "Medium"
@@ -373,12 +392,12 @@ msgstr ""
 " fields are selected correctly, you can moveto the next task."
 
 #: templates/alphabet.generic.html:120 templates/alphabet.generic.html:167
-#: templates/header.html:65
+#: templates/header.html:95
 msgid "Znakovna abeceda"
 msgstr "Finger alphabet"
 
 #: templates/alphabet.generic.html:122 templates/alphabet.generic.html:169
-#: templates/header.html:66
+#: templates/header.html:96
 msgid "Grška abeceda"
 msgstr "Greek alphabet"
 
@@ -386,69 +405,73 @@ msgstr "Greek alphabet"
 msgid "Začni!"
 msgstr "Start"
 
-#: templates/header.html:5 templates/header.html:23 templates/index.html:19
+#: templates/header.html:5 templates/header.html:27 templates/index.html:19
 msgid "Kriptogram"
 msgstr "Cryptogram"
 
-#: templates/header.html:38 templates/substitution.play.html:52
+#: templates/header.html:48
+msgid "Izberi jezik "
+msgstr "Change locale"
+
+#: templates/header.html:68 templates/substitution.play.html:52
 #: templates/substitution.ready.html:23
 msgid "Zamenjalka"
 msgstr "Supstitution<br> cipher"
 
-#: templates/header.html:40
+#: templates/header.html:70
 msgid "Težavnosti"
 msgstr "Level"
 
-#: templates/header.html:46
+#: templates/header.html:76
 msgid "Cezarjeva šifra"
 msgstr "Caesar cipher"
 
-#: templates/header.html:48 templates/substitution.leaderboard.html:16
+#: templates/header.html:78 templates/substitution.leaderboard.html:16
 msgid "Lestvice"
 msgstr "Scoreboard"
 
-#: templates/header.html:50 templates/substitution.ready.html:12
+#: templates/header.html:80 templates/substitution.ready.html:12
 msgid "Pripravljene zamenjalke"
 msgstr "Substitution puzzles"
 
-#: templates/header.html:54
+#: templates/header.html:84
 msgid "Steganografija"
 msgstr "Steganography"
 
-#: templates/header.html:57 templates/steganography.images.html:100
+#: templates/header.html:87 templates/steganography.images.html:100
 msgid "Skrivanje sporočila v sliko"
 msgstr "Hide a message in a image"
 
-#: templates/header.html:58 templates/visual.crypto.html:3
+#: templates/header.html:88 templates/visual.crypto.html:3
 #: templates/visual.crypto.html:85
 msgid "Vizualna kriptografija"
 msgstr "Visual cryptography"
 
-#: templates/header.html:62
+#: templates/header.html:92
 msgid "Abeceda"
 msgstr "Alphabet"
 
-#: templates/header.html:70
+#: templates/header.html:100
 msgid "Časovni žig "
 msgstr "Timestamp"
 
-#: templates/header.html:72
+#: templates/header.html:102
 msgid "Kaj je časovni žig?"
 msgstr "What is a timestamp?"
 
-#: templates/header.html:73
+#: templates/header.html:103
 msgid "Časovno žigosanje dokumenta"
 msgstr "Timestamp a document"
 
-#: templates/header.html:74 templates/timestamp.checking.html:14
+#: templates/header.html:104 templates/timestamp.checking.html:14
 msgid "Preverjanje časovnega žiga"
 msgstr "Check a timestamp"
 
-#: templates/header.html:75 templates/timestamp.publickey.html:12
+#: templates/header.html:105 templates/timestamp.publickey.html:12
 msgid "Javni ključ strežnika"
 msgstr "Server's public key"
 
-#: templates/header.html:79
+#: templates/header.html:109
 msgid "Geslo"
 msgstr "Password"
 
@@ -466,8 +489,8 @@ msgid ""
 "                ki je namenjen vsem vedoželjnim,\n"
 "                še posebej tistim, ki radi rešujete kriptografske uganke."
 msgstr ""
-"Cryptogram is intended for all curious, especially for those who want to "
-"solve cryptographic puzzles."
+" is intended for all curious, especially for those who want to solve "
+"cryptographic puzzles."
 
 #: templates/index.html:23
 msgid "Sprehodite se v svet"
@@ -503,7 +526,7 @@ msgstr ". They can talk for you, when you can not."
 
 #: templates/index.html:30
 msgid "Kaj je kriptogram?"
-msgstr "WHat is the Cryptogram?"
+msgstr "What is CRYPTOGRAM?"
 
 #: templates/index.html:32
 msgid ""
@@ -625,7 +648,7 @@ msgid ""
 "rešuje\n"
 "                naloge za tekmovanja ali za krajšanje prostega časa. "
 msgstr ""
-"The application is aimed for testing(and improving) your knowledge of "
+"The application is aimed for testing (and improving) your knowledge of "
 "various subject you have learned. Furthermore, it provides you thoughtful"
 " entertainment anywhere and anytime. <br><br>This app brings you various "
 "problems, i.e. form Bober and Presek over 40-year period.Solving "
@@ -731,31 +754,40 @@ msgstr ""
 "The document is oversized in dimensions. Document dimensions upload limit"
 " is 1000 x 1000px. "
 
-#: templates/steganography.images.html:118
+#: templates/steganography.images.html:113 templates/visual.crypto.html:101
+msgid "Izberi sliko:"
+msgstr "Choose a picture:"
+
+#: templates/steganography.images.html:115
+#: templates/timestamp.signature.html:23 templates/visual.crypto.html:103
+msgid "Naloži"
+msgstr "Upload"
+
+#: templates/steganography.images.html:120
 msgid "Število kodiranih znakov "
 msgstr "Number of characters"
 
-#: templates/steganography.images.html:123
+#: templates/steganography.images.html:125
 msgid "Skrij sporočilo"
 msgstr "Hide"
 
-#: templates/steganography.images.html:124
+#: templates/steganography.images.html:126
 msgid "Razkrij sporočilo"
 msgstr "Rediscover"
 
-#: templates/steganography.images.html:132
+#: templates/steganography.images.html:134
 msgid "Slika s sporočilom:"
 msgstr "The image with the message"
 
-#: templates/steganography.images.html:135
+#: templates/steganography.images.html:137
 msgid "Prenos"
-msgstr "Upload"
+msgstr "Download"
 
-#: templates/steganography.images.html:139
+#: templates/steganography.images.html:141
 msgid "Razlika med slikama:"
 msgstr "The difference between images:"
 
-#: templates/steganography.images.html:143
+#: templates/steganography.images.html:145
 msgid "Prikaži razliko"
 msgstr "Show the difference"
 
@@ -835,6 +867,11 @@ msgstr " kot, med, ter, pri, saj, itd."
 #: templates/timestamp.checking.html:22
 msgid "Izberite potrdilo za preverjanje časovnega žiga:"
 msgstr "Choose a certificate to check the timestamp:"
+
+#: templates/timestamp.checking.html:24 templates/timestamp.file.html:62
+#: templates/timestamp.file.html:69
+msgid "Preveri"
+msgstr "Check"
 
 #: templates/timestamp.desc.html:10 templates/timestamp.signature.html:13
 msgid "Časovni žig"
@@ -989,8 +1026,8 @@ msgstr "Timestamped by: Cryptogram portal"
 
 #: templates/timestamp.file.html:45
 #, python-format
-msgid "Zgoščevalna funkcija datoteke: %(hash)s%"
-msgstr "Hash function used: %(hash)s%"
+msgid "Zgoščevalna funkcija datoteke: %(hash)s "
+msgstr "Hash function used: %(hash)s "
 
 #: templates/timestamp.file.html:46
 #, python-format
@@ -1005,29 +1042,25 @@ msgstr "Upload certificate"
 msgid "Želite preveriti zgoščevalno funkcijo Vaše datoteke?"
 msgstr "Do you want to check the hash of the document?"
 
-#: templates/timestamp.file.html:62
-msgid "Preveri"
-msgstr "Check"
-
-#: templates/timestamp.file.html:66
+#: templates/timestamp.file.html:67
 msgid "Izberite datoteko za preverjanje zgoščevalne funkcije:"
 msgstr "Choose a document:"
 
-#: templates/timestamp.file.html:79
+#: templates/timestamp.file.html:81
 msgid "Nazaj"
 msgstr "Return"
 
-#: templates/timestamp.file.html:85
+#: templates/timestamp.file.html:87
 msgid "Žigosanje neuspešno. Poskusite ponovno."
 msgstr "Timestamping was unsuccessful. Try again."
 
-#: templates/timestamp.file.html:87
+#: templates/timestamp.file.html:89
 msgid "Osveži"
 msgstr "Refresh"
 
 #: templates/timestamp.publickey.html:22
 msgid "Prenesi ključ"
-msgstr "Upload the key"
+msgstr "Download the key"
 
 #: templates/timestamp.signature.html:21
 msgid "Izberite datoteko za časovno žigosanje:"
@@ -1055,15 +1088,14 @@ msgid ""
 "                    kontrasta pa so enostavne slike še vedno "
 "prepoznavne.<br>"
 msgstr ""
-"<strong> 1. </strong> Choose an image and then click"
-"<strong> Confirm </strong>. <br> <br>"
-"<strong> 2. </strong> Click the <strong> Show images <strong> button."
-"Then, the algorithm that separates one image into two, equally sized images, is run. "
-"Derived images are black and white, with each pixel (seems to be) selected at random.</br>"
-"<strong> 3. </ strong> Click on the <strong> Show"
-"animation </strong>. <br>"
-"It starts the animation of overlapping two derived images. At the point of complete overlap, "
-"the initial image can be recognised."
+"<strong> 1. </strong> Choose an image and then click<strong> Confirm "
+"</strong>. <br> <br><strong> 2. </strong> Click the <strong> Show images "
+"</strong> button.Then, the algorithm that separates one image into two, "
+"equally sized images, is run. Derived images are black and white, with "
+"each pixel (seems to be) selected at random.</br><strong> 3. </strong> "
+"Click on the <strong> Show animation </strong>. <br>It starts the "
+"animation of overlapping two derived images. At the point of complete "
+"overlap, the initial image can be recognised."
 
 #: templates/visual.crypto.html:58
 msgid "Datoteka je prevelika!"
@@ -1079,23 +1111,24 @@ msgid ""
 "                    slike"
 msgstr "The best result is achieved with two-color image."
 
-#: templates/visual.crypto.html:112 templates/visual.crypto.html:154
+#: templates/visual.crypto.html:114 templates/visual.crypto.html:156
 msgid "Prikaži delni sliki"
-msgstr "Show pictures"
+msgstr "Show images"
 
-#: templates/visual.crypto.html:115 templates/visual.crypto.html:153
+#: templates/visual.crypto.html:117 templates/visual.crypto.html:155
 msgid "Prikaži animacijo"
 msgstr "Show animation"
 
-#: templates/visual.crypto.html:134
+#: templates/visual.crypto.html:136
 msgid ""
 "Če že imaš obe delni sliki, povleci vsako v svoj okvir,\n"
 "            klikni gumb <strong>Prikaži animacijo</strong> in si oglej "
 "animacijo.<br>\n"
 "            Opozorilo: Sliki morata biti enakih dimenzij!"
-msgstr "If having (two) derived images, drag and drop each in its squere below. Then click"
-"on <strong>Show animation</strong>. <br>"
-"Note: Pictures need to be of equal dimensions."
+msgstr ""
+"If having two (derived) images, drag and drop each in its square below. "
+"Then clickon <strong>Show animation</strong>. <br>Note: Pictures need to "
+"be of equal dimensions."
 
 #~ msgid " blok test alphabet.generic"
 #~ msgstr ""

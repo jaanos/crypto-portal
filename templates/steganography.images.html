@@ -110,7 +110,9 @@
                 <!-- Upload in prikaz slik -->
 
                 <div id="custom"><div class="custom-file-upload">
+                    <p style="padding-left: 20px">{{_("Izberi sliko:")}}</p>
                     <input type="file" id="file" name="file"/>
+                    <p id="buttonLabel">{{_("Naloži")}}</p>
                 </div></div>
                 
                 <img id="img" src="{{url_for('static', filename='images/generic-pic1.png')}}">

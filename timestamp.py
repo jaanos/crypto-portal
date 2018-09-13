@@ -11,6 +11,7 @@ from Crypto.Hash import SHA256
 from base64 import b64encode, b64decode
 from auth import timestamp_public as public
 from auth import timestamp_private as private
+from flask_babel import Babel, _, lazy_gettext as _l
 
 app = Blueprint('timestamp', __name__)
 
@@ -18,7 +19,9 @@ TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 
 def encrypt(message, pub_key):
     cipher = PKCS1_OAEP.new(pub_key)
-    return b64encode(cipher.encrypt(message))
+    ciphertext = cipher.encrypt(message)
+
+    return b64encode(ciphertext)
 
 def decrypt(ciphertext, priv_key):
     cipher = PKCS1_OAEP.new(priv_key)
@@ -87,8 +90,17 @@ def file():
 def downloadCert():
     text = request.form['data']
     plaintext_bytes = text.encode('utf-8')
-    with open(public, "r") as myfile:
-        pub_key = RSA.importKey(myfile.read())
+    pub_key = False
+    try:
+        with open(public, "r") as myfile:
+            pub_key = RSA.importKey(myfile.read())
+    except:
+        key = RSA.generate(2048)
+        f = open('cert.pem','wb')
+        f.write(key.exportKey('PEM'))
+        f.close()
+        pub_key = key
+    print(len(plaintext_bytes))
     encrypted = encrypt(plaintext_bytes,  pub_key )
     return Response(encrypted , mimetype="text/plain", headers={"Content-Disposition":"attachment;filename=Certificate.tsr"})
 
@@ -124,13 +136,13 @@ def check_file():
         cur.close()
         if n == 0:
             return render_template('timestamp.file.html',
-                                   error="Z danim certifikatom ni bil potrjen noben dokument na tej strani.")
+                                   error=_l('Z danim certifikatom ni bil potrjen noben dokument na tej strani.'))
         else:
-            return render_template('timestamp.file.html', check="Dokument z zgoščevalno funkcijo " + items[0] + " je bil potrjen " + items[2])
+            return render_template('timestamp.file.html', check=_l('Dokument z zgoščevalno funkcijo %(items0)s je bil potrjen %(items2)s ',items[0], items[2]))
     except:
         pass
     return render_template('timestamp.file.html',
-                           error="Prišlo je do napake pri preverjanju certifikata ali pa je certifikat neveljaven, poskusite ponovno.")
+                           error=_l('Prišlo je do napake pri preverjanju certifikata ali pa je certifikat neveljaven, poskusite ponovno.'))
 
 @app.route('/check_hash', methods=['POST'])
 def check_hash():
