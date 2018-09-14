@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-09-13 23:11+0200\n"
+"POT-Creation-Date: 2018-09-15 00:20+0200\n"
 "PO-Revision-Date: 2018-09-07 22:38+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,18 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: timestamp.py:139
+#: timestamp.py:152
 msgid "Z danim certifikatom ni bil potrjen noben dokument na tej strani."
 msgstr "No document has been found with a certificate given."
 
-#: timestamp.py:141
-#, python-format
-msgid "Dokument z zgoščevalno funkcijo %(items0)s je bil potrjen %(items2)s "
-msgstr ""
-"The document with the hash %(items0)s , has been verified %(items2)s "
-"times."
+#: timestamp.py:154
+msgid "Dokument z zgoščevalno funkcijo "
+msgstr "The document with the hash "
 
-#: timestamp.py:145
+#: timestamp.py:155
+msgid " je bil potrjen "
+msgstr " has been signed at "
+
+#: timestamp.py:160
 msgid ""
 "Prišlo je do napake pri preverjanju certifikata ali pa je certifikat "
 "neveljaven, poskusite ponovno."
@@ -758,8 +759,7 @@ msgstr ""
 msgid "Izberi sliko:"
 msgstr "Choose a picture:"
 
-#: templates/steganography.images.html:115
-#: templates/timestamp.signature.html:23 templates/visual.crypto.html:103
+#: templates/steganography.images.html:115 templates/visual.crypto.html:103
 msgid "Naloži"
 msgstr "Upload"
 
@@ -869,9 +869,9 @@ msgid "Izberite potrdilo za preverjanje časovnega žiga:"
 msgstr "Choose a certificate to check the timestamp:"
 
 #: templates/timestamp.checking.html:24 templates/timestamp.file.html:62
-#: templates/timestamp.file.html:69
-msgid "Preveri"
-msgstr "Check"
+#: templates/timestamp.file.html:69 templates/timestamp.signature.html:23
+msgid "Izberi"
+msgstr "Choose"
 
 #: templates/timestamp.desc.html:10 templates/timestamp.signature.html:13
 msgid "Časovni žig"
@@ -1036,7 +1036,7 @@ msgstr "Timestamping time: %(time)s "
 
 #: templates/timestamp.file.html:51
 msgid "Prenesi potrdilo"
-msgstr "Upload certificate"
+msgstr "Download certificate"
 
 #: templates/timestamp.file.html:61
 msgid "Želite preveriti zgoščevalno funkcijo Vaše datoteke?"
@@ -1132,4 +1132,10 @@ msgstr ""
 
 #~ msgid " blok test alphabet.generic"
 #~ msgstr ""
+
+#~ msgid "Dokument z zgoščevalno funkcijo %(items0)s je bil potrjen %(items2)s "
+#~ msgstr ""
+#~ "The document with the hash %(items0)s"
+#~ " , has been verified %(items2)s "
+#~ "times."
 

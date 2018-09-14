@@ -59,14 +59,14 @@ $(document).ready(function(){
 						<p>{{ check }}</p> <br>
 						<div id="first">
 							<p>{{_("Želite preveriti zgoščevalno funkcijo Vaše datoteke?")}}</p>
-							<button id="hide" class="open-sans-font">{{_("Preveri")}}</button>
+							<button id="hide" class="open-sans-font">{{_("Izberi")}}</button>
 						</div>
 						<div class="custom-file-upload" id="second" style="display:none;" >
 							
 							<form action="check_hash" method="post" enctype="multipart/form-data">
 								<p>{{_("Izberite datoteko za preverjanje zgoščevalne funkcije:")}}</p>
 								<input type="file" id="file" name="fname">
-								<p id="buttonLabel">{{_("Preveri")}}</p>
+								<p id="buttonLabel">{{_("Izberi")}}</p>
 							</form>
 						</div>
 						<div id="third" style="display:none;" >
