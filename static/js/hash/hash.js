@@ -4,16 +4,16 @@ $(document).ready(function(){
     var stringToHash = $('#stringToHash')[0];
     var result = $('#hashedString')[0];
 
-    var delay = (function(){
-        var timer = 0;
-        return function(callback, ms){
-            clearTimeout (timer);
-            timer = setTimeout(callback, ms);
-        };
-    })();
     $('input').keyup(function() {
-        delay(function(){
-            if (stringToHash != null && stringToHash.value.length > 0) {
+        GenerateHash();;
+    });
+
+    $('select').on('change', function(event) {
+        GenerateHash();
+    });	
+
+    function GenerateHash(){
+	if (stringToHash != null && stringToHash.value.length > 0) {
 		var hashAlgorithm = selHashAlgorithm.options[selHashAlgorithm.selectedIndex].text;
 		switch(hashAlgorithm)
 		{
@@ -45,14 +45,6 @@ $(document).ready(function(){
 		
 		result.innerHTML = hashed;
             } else {}
-        }, 1000 );
-    });
-
-    $('input').on('keydown', function(event) {
-        var x = event.which;
-        if (x === 13) {
-            event.preventDefault();
-        }
-    });
+}
 
 });
