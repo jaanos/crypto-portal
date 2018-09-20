@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-09-20 16:02+0200\n"
+"POT-Creation-Date: 2018-09-20 22:27+0200\n"
 "PO-Revision-Date: 2018-09-07 22:38+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -568,10 +568,10 @@ msgid ""
 "                Študentskih inovativnih projektov za družbeno korist "
 "(2017)."
 msgstr ""
-"Web portal Cryptogram is developed as a part of the Innovative Projectfor"
-" Social Benefit (2017). It is a product of the collaboration of students "
-"fromthe Faculty of Computer and Information Science, University of "
-"Ljubljana, and members of the Slovenian Society of Cryptology."
+"Web portal Cryptogram is developed as a part of the Innovative Project "
+"for Social Benefit (2017). It is a product of the collaboration of "
+"students fromthe Faculty of Computer and Information Science, University "
+"of Ljubljana, and members of the Slovenian Society of Cryptology."
 
 #: templates/index.html:53
 msgid "Uganka tedna"
@@ -593,8 +593,8 @@ msgstr ""
 "Let assume we have a fly, blank spider and four (distant) nodes. The "
 "spider makes a net which fully connects all four nodes. The fly and the "
 "spider are placed in distant nodes. The fly cannot move and the spider "
-"moves randomly between nodes. Find the answers to following "
-"(interesting)questions:"
+"moves randomly between nodes. Find the answers to following (interesting)"
+" questions:"
 
 #: templates/index.html:69
 msgid ""
@@ -602,7 +602,7 @@ msgid ""
 "                    preden pajek doseže muho?"
 msgstr ""
 "What is the expected number of moves (between nodes) that the spider will"
-" makebefore it meets the fly?"
+" make before it meets the fly?"
 
 #: templates/index.html:72
 msgid "Kaj pa, če četverec nadomestimo z"
@@ -831,6 +831,14 @@ msgstr "Click"
 #: templates/substitution.modal.html:19
 msgid "Preverite svoj vnos!"
 msgstr "Check the input!"
+
+#: templates/substitution.play.html:69
+msgid "Sortiraj po frekvenci"
+msgstr "Sort by frequency"
+
+#: templates/substitution.play.html:70
+msgid "Sortiraj po abecedi"
+msgstr "Sort alphabetically"
 
 #: templates/substitution.stats.en.html:3
 msgid "Most common two-letter words:"

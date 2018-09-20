@@ -1,0 +1,4 @@
+#!/bin/bash
+# My first script
+flask run
+export FLASK_APP=crypto.py

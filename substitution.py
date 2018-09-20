@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import *
+from flask import Blueprint, request, redirect, render_template, session
 from database import database
 from datetime import datetime, tzinfo
 import random
@@ -29,16 +29,21 @@ def indices(level, language=None):
     db = database.dbcon()
     cur = db.cursor()
     if language == None:
-        print(level_trans.get(level, level))
+        language = session['language']
+
+    cur.execute("SELECT id FROM substitution WHERE level = %s AND language = %s ORDER BY id",[level_trans.get(level, level), language])
+    ids = [x[0] for x in cur.fetchall()]
+
+    if (len(ids) < 1):
         cur.execute("SELECT id FROM substitution WHERE level = %s ORDER BY id",[level_trans.get(level, level)])
-    else:
-        cur.execute("SELECT id FROM substitution WHERE level = %s AND language = %s ORDER BY id",[level_trans.get(level, level), language])
+    
     ids = [x[0] for x in cur.fetchall()]
     cur.close()
     if level in level_trans:
         random.seed("Random seed:)%d" % level)
         random.shuffle(ids)
         random.seed()
+    print(ids)
     return ids
 
 def getText(id):

@@ -52,7 +52,6 @@ class Database:
                 cursor.execute("SELECT VERSION()") 
                 row = cursor.fetchone() 
                 print("server version:", row[0] )
-                print("DATABASE")
         except MySQLdb.Error as e:
             print ("Error %d: %s" % (e.args[0], e.args[1]))
             return self.dummy

@@ -33,7 +33,7 @@ app.config['LANGUAGES'] = {
 }
 
 #LOCALIZATION
-@app.route('/language/<language>')
+@app.route('/<language>')
 def set_language(language=None):
     session['language'] = language
     return redirect(url_for('index'))
@@ -66,30 +66,6 @@ def index():
 @app.route("/favicon.ico")
 def favicon():
     return redirect('static/images/favicon.ico')
-
-
-"""#DELETE AFTER TESTING
-@app.route("/greek")
-@app.route("/alphabet/greek")
-def greek(selected_alphabet = "greek", mode = "easy", level = "easy"):
-    # check if folder with images exists
-    return render_template("alphabet.generic.html", nav = "alphabet", alphabet = {'a','b','d','z'}, intro = "1",introText = " Grški alfabet (po prvih dveh črkah alfa, beta) je nabor črk, ki ga uporablja grška pisava."
-    +" Grki so jo verjetno prevzeli od Feničanov že v 8. stoletju pr.n.št., pisava pa je vplivala tudi na razvoj latinice in cirilice.", alphabetForLearning="greek")
-    #if (alphabet_exists(selected_alphabet)):
-    #    return render_template("alphabet.generic.html", nav = "alphabet", alphabet = getValidLetters(selected_alphabet), intro = "1",introText = getIntro(selected_alphabet), alphabetForLearning="greek")
-    #else:
-     #   return "Te abecede pa (se) ne poznam!"
-
-@app.route("/alphabet/flags")
-def flag(selected_alphabet = "greek", mode = "easy", level = "easy"):
-    # check if folder with images exists
-    return render_template("alphabet.generic.html", nav = "alphabet", alphabet = {'a','b','d','z'}, intro = "1",introText = " Grški alfabet (po prvih dveh črkah alfa, beta) je nabor črk, ki ga uporablja grška pisava."
-    +" Grki so jo verjetno prevzeli od Feničanov že v 8. stoletju pr.n.št., pisava pa je vplivala tudi na razvoj latinice in cirilice.", alphabetForLearning="flags")
-    #if (alphabet_exists(selected_alphabet)):
-    #    return render_template("alphabet.generic.html", nav = "alphabet", alphabet = getValidLetters(selected_alphabet), intro = "1",introText = getIntro(selected_alphabet), alphabetForLearning="greek")
-    #else:
-     #   return "Te abecede pa (se) ne poznam!"
-#DELETE UP TO HERE"""
 
 if __name__ == '__main__':
     app.run(debug=True) # DODANO ZA POTREBE CLOUD9
