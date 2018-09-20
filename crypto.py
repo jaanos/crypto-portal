@@ -68,7 +68,7 @@ def favicon():
     return redirect('static/images/favicon.ico')
 
 
-#DELETE AFTER TESTING
+"""#DELETE AFTER TESTING
 @app.route("/greek")
 @app.route("/alphabet/greek")
 def greek(selected_alphabet = "greek", mode = "easy", level = "easy"):
@@ -89,7 +89,7 @@ def flag(selected_alphabet = "greek", mode = "easy", level = "easy"):
     #    return render_template("alphabet.generic.html", nav = "alphabet", alphabet = getValidLetters(selected_alphabet), intro = "1",introText = getIntro(selected_alphabet), alphabetForLearning="greek")
     #else:
      #   return "Te abecede pa (se) ne poznam!"
-#DELETE UP TO HERE
+#DELETE UP TO HERE"""
 
 if __name__ == '__main__':
     app.run(debug=True) # DODANO ZA POTREBE CLOUD9

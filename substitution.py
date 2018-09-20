@@ -29,11 +29,10 @@ def indices(level, language=None):
     db = database.dbcon()
     cur = db.cursor()
     if language == None:
-        cur.execute("SELECT id FROM substitution WHERE level = %s ORDER BY id",
-                    [level_trans.get(level, level)])
+        print(level_trans.get(level, level))
+        cur.execute("SELECT id FROM substitution WHERE level = %s ORDER BY id",[level_trans.get(level, level)])
     else:
-        cur.execute("SELECT id FROM substitution WHERE level = %s AND language = %s ORDER BY id",
-                    [level_trans.get(level, level), language])
+        cur.execute("SELECT id FROM substitution WHERE level = %s AND language = %s ORDER BY id",[level_trans.get(level, level), language])
     ids = [x[0] for x in cur.fetchall()]
     cur.close()
     if level in level_trans:

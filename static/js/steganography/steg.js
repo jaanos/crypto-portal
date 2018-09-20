@@ -360,7 +360,9 @@ function updateCapacity() {
     var img = document.getElementById('img'),
         textarea = document.getElementById('text');
     if(img && text)
-        document.getElementById('capacity').innerHTML='('+textarea.value.length + '/' + steg.getHidingCapacity(img) +' znakov)';
+        var $znakovLabel = $('#znakovLabel').text();
+        $( "#znakovLabel" ).hide();
+        document.getElementById('capacity').innerHTML='('+textarea.value.length + '/' + steg.getHidingCapacity(img) +$znakovLabel+")";
 }
 
 

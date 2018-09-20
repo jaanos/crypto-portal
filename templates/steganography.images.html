@@ -118,7 +118,8 @@
                 <img id="img" src="{{url_for('static', filename='images/generic-pic1.png')}}">
 
                 <div id="coded"><p>{{_("Število kodiranih znakov ")}}</p><span id="capacity"></span></h2> </div>
-                <textarea id="text" class="common" placeholder="Vpiši sporočilo..."></textarea><br>
+                <p id="znakovLabel">{{_("znakov")}}</p>
+                <textarea id="text" class="common" placeholder={{_("Vpiši sporočilo...")}}></textarea><br>
                 
                 <div id="buttons">
                    

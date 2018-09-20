@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-09-15 00:20+0200\n"
+"POT-Creation-Date: 2018-09-20 16:02+0200\n"
 "PO-Revision-Date: 2018-09-07 22:38+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -767,27 +767,35 @@ msgstr "Upload"
 msgid "Število kodiranih znakov "
 msgstr "Number of characters"
 
-#: templates/steganography.images.html:125
+#: templates/steganography.images.html:121
+msgid "znakov"
+msgstr " characters"
+
+#: templates/steganography.images.html:122
+msgid "Vpiši sporočilo..."
+msgstr "Message"
+
+#: templates/steganography.images.html:126
 msgid "Skrij sporočilo"
 msgstr "Hide"
 
-#: templates/steganography.images.html:126
+#: templates/steganography.images.html:127
 msgid "Razkrij sporočilo"
 msgstr "Rediscover"
 
-#: templates/steganography.images.html:134
+#: templates/steganography.images.html:135
 msgid "Slika s sporočilom:"
 msgstr "The image with the message"
 
-#: templates/steganography.images.html:137
+#: templates/steganography.images.html:138
 msgid "Prenos"
 msgstr "Download"
 
-#: templates/steganography.images.html:141
+#: templates/steganography.images.html:142
 msgid "Razlika med slikama:"
 msgstr "The difference between images:"
 
-#: templates/steganography.images.html:145
+#: templates/steganography.images.html:146
 msgid "Prikaži razliko"
 msgstr "Show the difference"
 
