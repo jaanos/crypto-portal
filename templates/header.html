@@ -33,9 +33,9 @@
 <!-- nav-bar -->
 <nav id="nav-bar">
     <ul>
-         <li class="dropdown">
+         <li class="locale dropdown">
             <a class="locale-btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{ request.path }}">
-                    <img src="{{url_for('static', filename='images/locale/lang.png')}}" class="locale">
+                    <img src="{{url_for('static', filename='images/locale/'+CURRENT_LANGUAGE+'.svg')}}">
             </a>
             <ul class="dropdown-menu">
                 {% for language in AVAILABLE_LANGUAGES %}
