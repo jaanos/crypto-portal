@@ -33,17 +33,24 @@
 <!-- nav-bar -->
 <nav id="nav-bar">
     <ul>
-        {% for language in AVAILABLE_LANGUAGES %}
-                {% if CURRENT_LANGUAGE == language %}
-                    
-                {% else %}
-                    <li class="locale">
-                    <a href="{{ request.path|replace("/"+session['language']+"/", "/"+language+"/") }}">
-                        <img src="{{url_for('static', filename='images/locale/'+language+'.svg')}}" class="locale">
-                        </a>
-                    </li>
-                {% endif %}
-        {% endfor %}
+         <li class="dropdown">
+            <a class="locale-btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{ request.path }}">
+                    <img src="{{url_for('static', filename='images/locale/lang.png')}}" class="locale">
+            </a>
+            <ul class="dropdown-menu">
+                {% for language in AVAILABLE_LANGUAGES %}
+                    {% if CURRENT_LANGUAGE == language %}
+                        
+                    {% else %}
+                        <li class="locale">
+                        <a href="{{ request.path|replace("/"+session['language']+"/", "/"+language+"/") }}">
+                            <img src="{{url_for('static', filename='images/locale/'+language+'.svg')}}" class="locale">
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </li>
        
         <li class="home">
             <a class="btn btn-secondary" role="button" href="{{url_for('index')}}">

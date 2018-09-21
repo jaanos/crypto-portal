@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-09-21 11:56+0200\n"
+"POT-Creation-Date: 2018-09-21 12:31+0200\n"
 "PO-Revision-Date: 2018-09-07 22:38+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: alphabet.py:84 alphabet.py:92 alphabet.py:100 alphabet.py:108
-#: alphabet.py:134
+#: alphabet.py:89 alphabet.py:97 alphabet.py:105 alphabet.py:113
+#: alphabet.py:139
 msgid "Te abecede pa (se) ne poznam!"
 msgstr "Unknown alphabet!"
 
@@ -166,8 +166,8 @@ msgid ""
 " odgovora se vam ob kliku na desno puščico prikaže \n"
 "                    nova naloga, v primeru "
 msgstr ""
-" answer, click on the right arrow will lead you to the new task. In "
-"the case of "
+" answer, click on the right arrow will lead you to the new task. In the "
+"case of "
 
 #: templates/alphabet.flags.html:42 templates/alphabet.generic.html:49
 msgid "napačnega"
@@ -181,10 +181,10 @@ msgid ""
 "                    izveste, katero črko predstavlja slika (s tem "
 "izgubite nekaj svojih točk)."
 msgstr ""
-" answer, you are able to try again. </br></br> "
-"Note: If you have earned enough points (with "
-"previous tasks), click on the <strong> Solve </strong>button, will show you the correct answer "
-" for the cost of (losing) few points."
+" answer, you are able to try again. </br></br> Note: If you have earned "
+"enough points (with previous tasks), click on the <strong> Solve "
+"</strong>button, will show you the correct answer  for the cost of "
+"(losing) few points."
 
 #: templates/alphabet.flags.html:49 templates/alphabet.generic.html:56
 msgid ""
@@ -285,7 +285,7 @@ msgstr ""
 "can not move it any further. \n"
 
 #: templates/alphabet.flags.html:110 templates/alphabet.flags.html:145
-#: templates/header.html:80
+#: templates/header.html:85
 msgid "Semafor"
 msgstr "Semaphor"
 
@@ -296,13 +296,13 @@ msgstr "Convert from Latin"
 
 #: templates/alphabet.flags.html:121 templates/alphabet.flags.html:131
 #: templates/alphabet.generic.html:140 templates/alphabet.generic.html:150
-#: templates/header.html:58 templates/substitution.leaderboard.html:25
+#: templates/header.html:63 templates/substitution.leaderboard.html:25
 msgid "Lahko"
 msgstr "Easy"
 
 #: templates/alphabet.flags.html:123 templates/alphabet.flags.html:133
 #: templates/alphabet.generic.html:142 templates/alphabet.generic.html:152
-#: templates/header.html:60 templates/substitution.leaderboard.html:27
+#: templates/header.html:65 templates/substitution.leaderboard.html:27
 msgid "Težko"
 msgstr "Hard"
 
@@ -312,7 +312,7 @@ msgid "Branje"
 msgstr "Convert to Latin"
 
 #: templates/alphabet.flags.html:132 templates/alphabet.generic.html:141
-#: templates/alphabet.generic.html:151 templates/header.html:59
+#: templates/alphabet.generic.html:151 templates/header.html:64
 #: templates/substitution.leaderboard.html:26
 msgid "Srednje"
 msgstr "Medium"
@@ -409,12 +409,12 @@ msgstr ""
 "correctly."
 
 #: templates/alphabet.generic.html:120 templates/alphabet.generic.html:167
-#: templates/header.html:81
+#: templates/header.html:86
 msgid "Znakovna abeceda"
 msgstr "Finger alphabet"
 
 #: templates/alphabet.generic.html:122 templates/alphabet.generic.html:169
-#: templates/header.html:82
+#: templates/header.html:87
 msgid "Grška abeceda"
 msgstr "Greek alphabet"
 
@@ -426,65 +426,69 @@ msgstr "Start"
 msgid "Kriptogram"
 msgstr "Cryptogram"
 
-#: templates/header.html:54 templates/substitution.play.html:52
+#: templates/header.html:37
+msgid "Jezik"
+msgstr "Lang"
+
+#: templates/header.html:59 templates/substitution.play.html:52
 #: templates/substitution.ready.html:23
 msgid "Zamenjalka"
 msgstr "Supstitution<br> cipher"
 
-#: templates/header.html:56
+#: templates/header.html:61
 msgid "Težavnosti"
 msgstr "Level"
 
-#: templates/header.html:62
+#: templates/header.html:67
 msgid "Cezarjeva šifra"
 msgstr "Caesar cipher"
 
-#: templates/header.html:64 templates/substitution.leaderboard.html:16
+#: templates/header.html:69 templates/substitution.leaderboard.html:16
 msgid "Lestvice"
 msgstr "Scoreboard"
 
-#: templates/header.html:66 templates/substitution.ready.html:12
+#: templates/header.html:71 templates/substitution.ready.html:12
 msgid "Pripravljene zamenjalke"
 msgstr "Substitution puzzles"
 
-#: templates/header.html:70
+#: templates/header.html:75
 msgid "Steganografija"
 msgstr "Steganography"
 
-#: templates/header.html:73 templates/steganography.images.html:100
+#: templates/header.html:78 templates/steganography.images.html:100
 msgid "Skrivanje sporočila v sliko"
 msgstr "Hide a message in a image"
 
-#: templates/header.html:74 templates/visual.crypto.html:3
+#: templates/header.html:79 templates/visual.crypto.html:3
 #: templates/visual.crypto.html:85
 msgid "Vizualna kriptografija"
 msgstr "Visual cryptography"
 
-#: templates/header.html:78
+#: templates/header.html:83
 msgid "Abeceda"
 msgstr "Alphabet"
 
-#: templates/header.html:86
+#: templates/header.html:91
 msgid "Časovni žig "
 msgstr "Timestamp"
 
-#: templates/header.html:88
+#: templates/header.html:93
 msgid "Kaj je časovni žig?"
 msgstr "What is a timestamp?"
 
-#: templates/header.html:89
+#: templates/header.html:94
 msgid "Časovno žigosanje dokumenta"
 msgstr "Timestamp a document"
 
-#: templates/header.html:90 templates/timestamp.checking.html:14
+#: templates/header.html:95 templates/timestamp.checking.html:14
 msgid "Preverjanje časovnega žiga"
 msgstr "Check a timestamp"
 
-#: templates/header.html:91 templates/timestamp.publickey.html:12
+#: templates/header.html:96 templates/timestamp.publickey.html:12
 msgid "Javni ključ strežnika"
 msgstr "Server's public key"
 
-#: templates/header.html:95
+#: templates/header.html:100
 msgid "Geslo"
 msgstr "Password"
 
