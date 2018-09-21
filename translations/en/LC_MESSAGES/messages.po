@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-09-20 22:27+0200\n"
+"POT-Creation-Date: 2018-09-21 11:56+0200\n"
 "PO-Revision-Date: 2018-09-07 22:38+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -17,6 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
+
+#: alphabet.py:84 alphabet.py:92 alphabet.py:100 alphabet.py:108
+#: alphabet.py:134
+msgid "Te abecede pa (se) ne poznam!"
+msgstr "Unknown alphabet!"
 
 #: timestamp.py:152
 msgid "Z danim certifikatom ni bil potrjen noben dokument na tej strani."
@@ -46,23 +51,21 @@ msgstr ""
 msgid "Navodila"
 msgstr "Instructions:"
 
-#: templates/alphabet.flags.html:26 templates/alphabet.flags.html:66
-#: templates/alphabet.generic.html:33 templates/alphabet.generic.html:73
-#: templates/alphabet.generic.html:84
+#: templates/alphabet.flags.html:26
 msgid ""
-"Izmed ponujenih slik <strong>izberite</strong> tisto, ki jo "
+"Izmed ponujenih <strong>izberite</strong> tisto, ki jo "
 "<strong>predstavlja</strong> prikazana črka.</br></br>\n"
 "                    Če bo izbrana slika "
 msgstr ""
-"From displayed images, <strong> choose </ strong> the one that <strong> "
-"represents </ strong> the letter shown. </ br> </ br> \\ nIf the choice "
-"is"
+"From displayed (latin) letters, <strong> choose </strong> the one that is"
+" represented by <strong> the picture </strong>. </br> </br> If the choice"
+" is "
 
 #: templates/alphabet.flags.html:27 templates/alphabet.flags.html:67
 #: templates/alphabet.generic.html:34 templates/alphabet.generic.html:74
 #: templates/alphabet.generic.html:85
 msgid "pravilna"
-msgstr "correct"
+msgstr "correct "
 
 #: templates/alphabet.flags.html:27 templates/alphabet.flags.html:67
 #: templates/alphabet.generic.html:34 templates/alphabet.generic.html:74
@@ -73,8 +76,8 @@ msgid ""
 "naloga.</br></br>\n"
 "                    Če bo izbira "
 msgstr ""
-", the button will turn green and click on \\ nthe right arrow will show "
-"you a newtask.\" / br> </ br> \\ n If the choice is"
+", the button will turn green and click on the right arrow will show you a"
+" new task. </br> </br> If the choice is "
 
 #: templates/alphabet.flags.html:29 templates/alphabet.flags.html:31
 #: templates/alphabet.flags.html:69 templates/alphabet.flags.html:71
@@ -82,7 +85,7 @@ msgstr ""
 #: templates/alphabet.generic.html:76 templates/alphabet.generic.html:78
 #: templates/alphabet.generic.html:87 templates/alphabet.generic.html:89
 msgid "napačna"
-msgstr "wrong"
+msgstr "wrong "
 
 #: templates/alphabet.flags.html:29 templates/alphabet.flags.html:69
 #: templates/alphabet.generic.html:36 templates/alphabet.generic.html:76
@@ -93,20 +96,20 @@ msgid ""
 "dokler ne izberete\n"
 "                    pravilne rešitve. Vsaka "
 msgstr ""
-", the button will turn red. In this case you can try <strong> again </ "
-"strong>, until you choose the correct one. Every"
+", the button will turn red. In this case you can <strong> try again "
+"</strong>, until you choose the correct one. Every "
 
 #: templates/alphabet.flags.html:31 templates/alphabet.flags.html:71
 #: templates/alphabet.generic.html:38 templates/alphabet.generic.html:78
 #: templates/alphabet.generic.html:89
 msgid " izbira se "
-msgstr "choice"
+msgstr "choice "
 
 #: templates/alphabet.flags.html:31 templates/alphabet.flags.html:71
 #: templates/alphabet.generic.html:38 templates/alphabet.generic.html:78
 #: templates/alphabet.generic.html:89
 msgid "kaznuje"
-msgstr "is punished"
+msgstr "is punished "
 
 #: templates/alphabet.flags.html:32 templates/alphabet.flags.html:72
 #: templates/alphabet.generic.html:39 templates/alphabet.generic.html:79
@@ -125,11 +128,11 @@ msgstr "By clicking on the left arrow, you can see the history of your answers."
 
 #: templates/alphabet.flags.html:37 templates/alphabet.generic.html:44
 msgid "V polje pod sliko "
-msgstr "In the box below the image"
+msgstr "In the box below the image "
 
 #: templates/alphabet.flags.html:37 templates/alphabet.generic.html:44
 msgid "vnesite črko"
-msgstr "enter the letter"
+msgstr "enter the letter "
 
 #: templates/alphabet.flags.html:37 templates/alphabet.generic.html:44
 msgid ""
@@ -137,13 +140,13 @@ msgid ""
 "                    </strong>.</br></br>\n"
 "                    Če je vaš odgovor "
 msgstr ""
-"represented by the image, and click <strong>ente</strong>. </br> </br>If "
-"your answer is"
+"represented by the image, and click <strong>enter</strong>. </br> </br>If"
+" your answer is "
 
 #: templates/alphabet.flags.html:39 templates/alphabet.flags.html:79
 #: templates/alphabet.flags.html:90 templates/alphabet.generic.html:46
 msgid "pravilen"
-msgstr "correct"
+msgstr "correct "
 
 #: templates/alphabet.flags.html:39 templates/alphabet.generic.html:46
 msgid ""
@@ -151,24 +154,24 @@ msgid ""
 "                    </br></br> \n"
 "                    V primeru "
 msgstr ""
-", the lower edge of the field will turn green, otherwise red. \\ n</ br> "
-"</ br> \\ n In the case of "
+", the lower edge of the field will turn green, otherwise red.</ br> </ "
+"br> In the case of "
 
 #: templates/alphabet.flags.html:41 templates/alphabet.generic.html:48
 msgid "pravilnega"
-msgstr "correct"
+msgstr "correct "
 
 #: templates/alphabet.flags.html:41 templates/alphabet.generic.html:48
 msgid ""
 " odgovora se vam ob kliku na desno puščico prikaže \n"
 "                    nova naloga, v primeru "
 msgstr ""
-" answer, when you click on the right arrow you will see a new task. In "
-"the case of"
+" answer, click on the right arrow will lead you to the new task. In "
+"the case of "
 
 #: templates/alphabet.flags.html:42 templates/alphabet.generic.html:49
 msgid "napačnega"
-msgstr "wrong"
+msgstr "wrong "
 
 #: templates/alphabet.flags.html:42 templates/alphabet.generic.html:49
 msgid ""
@@ -178,9 +181,10 @@ msgid ""
 "                    izveste, katero črko predstavlja slika (s tem "
 "izgubite nekaj svojih točk)."
 msgstr ""
-" answer, you can try again.\" \\ n If you have earned enough points with "
-"previous tasks,by clicking on the <strong> Solve </strong> button, you "
-"canfind the correct answer. By doing so, you lose some points."
+" answer, you are able to try again. </br></br> "
+"Note: If you have earned enough points (with "
+"previous tasks), click on the <strong> Solve </strong>button, will show you the correct answer "
+" for the cost of (losing) few points."
 
 #: templates/alphabet.flags.html:49 templates/alphabet.generic.html:56
 msgid ""
@@ -191,15 +195,15 @@ msgid ""
 "                    Polja, kamor ste vnesli pravilno črko, se bodo "
 "obarvala"
 msgstr ""
-"Click on the <strong> Start </ strong> button to launch the animation. "
-"</br> </br>You will be presented with a sequence of images, of whicheach "
-"showing one letter. Enter the letter shown on the image below each image "
-"and click <strong> Enter </ strong>.The field to which you have entered "
-"the correct letter will turn"
+"Click on the <strong> Start </strong> button to launch the animation. "
+"</br> </br> You will be presented with a sequence of images, of whicheach"
+" showing one letter. Enter the letter shown on the image below each image"
+" and click <strong> Enter </strong>.The field to which you have entered "
+"the correct letter will turn "
 
 #: templates/alphabet.flags.html:53 templates/alphabet.generic.html:60
 msgid "zeleno"
-msgstr "green"
+msgstr "green "
 
 #: templates/alphabet.flags.html:53 templates/alphabet.generic.html:60
 msgid ", polja z napačno črko "
@@ -207,7 +211,7 @@ msgstr ", and with the incorrect letter will turn "
 
 #: templates/alphabet.flags.html:53 templates/alphabet.generic.html:60
 msgid "rdeče"
-msgstr "red"
+msgstr "red "
 
 #: templates/alphabet.flags.html:54 templates/alphabet.generic.html:61
 msgid ""
@@ -222,13 +226,22 @@ msgid ""
 "                    <strong>Začni znova</strong> animacijo sprožite še "
 "enkrat (s tem izgubite nekaj svojih točk)."
 msgstr ""
-"Blank fields will remain <strong> unchanged </strong>. </br> </br> For "
-"each correctly entered letter you <strong> get </ strong> one point. For "
-"each incorrectly entered letter you <strong> lose </ strong> one point."
-" \n"
-"If you have collected enough points with previous tasks,, you can click "
-"on the button <strong> Start </ strong> to change the presented sequence "
-"of images.By doing so, you lose some points."
+". Blank fields will remain <strong> unchanged </strong>. </br> </br> For "
+"each correctly entered letter you <strong> get one point </strong>. For "
+"each incorrectly entered letter you <strong> lose one point.</strong> If "
+"you have collected enough points with previous tasks, you can click on "
+"<strong> the button Start </strong> to change the presented sequence of "
+"images. By doing so, you lose some points. "
+
+#: templates/alphabet.flags.html:66 templates/alphabet.generic.html:33
+#: templates/alphabet.generic.html:73 templates/alphabet.generic.html:84
+msgid ""
+"Izmed ponujenih slik <strong>izberite</strong> tisto, ki jo "
+"<strong>predstavlja</strong> prikazana črka.</br></br>\n"
+"                    Če bo izbrana slika "
+msgstr ""
+"From displayed images, <strong> choose </strong> the one representing "
+"<strong> the letter shown </strong>. </br> </br> If the choice is "
 
 #: templates/alphabet.flags.html:77 templates/alphabet.flags.html:88
 msgid ""
@@ -237,9 +250,9 @@ msgid ""
 "                    <strong>kjukico</strong> pod sliko.</br></br>\n"
 "                    Če je vaš odgovor "
 msgstr ""
-"Click and <strong>Rotate</strong> an unmarked flag into the "
-"correctposition. Then check<strong> the mark </ strong> below the image. "
-"</ br> </ br>If your answer is"
+"Click and <strong>rotate</strong> each flag until you get  the layout "
+"that represents the (latin) letter above. Then click <strong> the check "
+"mark </strong> below the image. </br> </br> If the layout is correct "
 
 #: templates/alphabet.flags.html:80 templates/alphabet.flags.html:91
 msgid ""
@@ -247,12 +260,13 @@ msgid ""
 "naslednja naloga.</br></br>\n"
 "                    Če pa je vaš odgovor "
 msgstr ""
-", the check mark turns green and a click on the right arrow showsthe next"
-" task.</br>But, if your answer is"
+", the check mark will turn green and a click on the right arrow will show"
+" the next task.</br>\n"
+" But, if your answer is "
 
 #: templates/alphabet.flags.html:81 templates/alphabet.flags.html:92
 msgid "napačen"
-msgstr "wrong"
+msgstr "wrong "
 
 #: templates/alphabet.flags.html:81 templates/alphabet.flags.html:92
 msgid ""
@@ -260,44 +274,45 @@ msgid ""
 "                    <strong>trenutek prikaže črka</strong>, \n"
 "                    ki jo predstavlja trenutna postavitev rok."
 msgstr ""
-", the check mark turns red, and the field shows the the letter \n"
-"represented by the current layout of the hands (with flags)."
+", the check mark will turn red, and the field above will (shortly) show "
+"the letter presented by the current layout of flags.<br> "
 
 #: templates/alphabet.flags.html:95
 msgid "Če pravilno postavite le eno zastavico, se onemogoči njeno premikanje."
 msgstr ""
-"When you place a flag in the correct layout, you can not move it any "
-"further."
+"Notation:\n"
+" When placing a flag in the correct layout, it will get dimmed and you "
+"can not move it any further. \n"
 
 #: templates/alphabet.flags.html:110 templates/alphabet.flags.html:145
-#: templates/header.html:94
+#: templates/header.html:80
 msgid "Semafor"
 msgstr "Semaphor"
 
 #: templates/alphabet.flags.html:119 templates/alphabet.flags.html:175
 #: templates/alphabet.generic.html:138 templates/alphabet.generic.html:203
 msgid "Pisanje"
-msgstr "Writing"
+msgstr "Convert from Latin"
 
 #: templates/alphabet.flags.html:121 templates/alphabet.flags.html:131
 #: templates/alphabet.generic.html:140 templates/alphabet.generic.html:150
-#: templates/header.html:72 templates/substitution.leaderboard.html:25
+#: templates/header.html:58 templates/substitution.leaderboard.html:25
 msgid "Lahko"
 msgstr "Easy"
 
 #: templates/alphabet.flags.html:123 templates/alphabet.flags.html:133
 #: templates/alphabet.generic.html:142 templates/alphabet.generic.html:152
-#: templates/header.html:74 templates/substitution.leaderboard.html:27
+#: templates/header.html:60 templates/substitution.leaderboard.html:27
 msgid "Težko"
 msgstr "Hard"
 
 #: templates/alphabet.flags.html:129 templates/alphabet.flags.html:174
 #: templates/alphabet.generic.html:148 templates/alphabet.generic.html:202
 msgid "Branje"
-msgstr "Choosing"
+msgstr "Convert to Latin"
 
 #: templates/alphabet.flags.html:132 templates/alphabet.generic.html:141
-#: templates/alphabet.generic.html:151 templates/header.html:73
+#: templates/alphabet.generic.html:151 templates/header.html:59
 #: templates/substitution.leaderboard.html:26
 msgid "Srednje"
 msgstr "Medium"
@@ -345,11 +360,11 @@ msgstr "Correctly answered"
 
 #: templates/alphabet.flags.html:227 templates/alphabet.generic.html:255
 msgid "Rešitev"
-msgstr "Solve"
+msgstr "Solve "
 
 #: templates/alphabet.flags.html:258
 msgid "Začni"
-msgstr "Start"
+msgstr "Start "
 
 #: templates/alphabet.generic.html:95
 msgid ""
@@ -359,23 +374,23 @@ msgid ""
 "polje.</br></br> \n"
 "                    Za vse "
 msgstr ""
-"<strong> Choose </ strong> the image that <strong> represents </ strong> "
-"the individual letter and drag and drop it to the correspondingfield. "
+"<strong> Choose </strong> the image that <strong> represents </strong> "
+"the individual letter and drag and drop it to the corresponding field. "
 "</br> </br>If your choice is "
 
 #: templates/alphabet.generic.html:97
 msgid "pravilne"
-msgstr "correct"
+msgstr "correct "
 
 #: templates/alphabet.generic.html:97
 msgid ""
 " izbire se pripadajoča polja obarvajo zeleno, \n"
 "                    za vse "
-msgstr "the field turns green, and if it is incorrect the field turns"
+msgstr "the field will turn green. If the choice is incorrect the field will turn "
 
 #: templates/alphabet.generic.html:98
 msgid "napačne rdeče"
-msgstr "red"
+msgstr "red "
 
 #: templates/alphabet.generic.html:98
 msgid ""
@@ -387,18 +402,19 @@ msgid ""
 "                    Ko bodo vsa polja pravilno izbrana se lahko pomaknete"
 " na naslednjo nalogo."
 msgstr ""
-"You get one point for every correct answer, and lose one for every "
-"incorrect.To <strong> clean </ strong> your choice,transfer the desired "
-"image from the field to the <strong> trash </ strong>. <\\br>When all the"
-" fields are selected correctly, you can moveto the next task."
+". Every correct answer is valued one point, and every incorrect answer, "
+"minus one point. To <strong> clear </strong> the choice, transfer the "
+"desired image from the field to <strong> the trash </strong>. <br> You "
+"can move to the next task, only if all  the images are selected "
+"correctly."
 
 #: templates/alphabet.generic.html:120 templates/alphabet.generic.html:167
-#: templates/header.html:95
+#: templates/header.html:81
 msgid "Znakovna abeceda"
 msgstr "Finger alphabet"
 
 #: templates/alphabet.generic.html:122 templates/alphabet.generic.html:169
-#: templates/header.html:96
+#: templates/header.html:82
 msgid "Grška abeceda"
 msgstr "Greek alphabet"
 
@@ -410,69 +426,65 @@ msgstr "Start"
 msgid "Kriptogram"
 msgstr "Cryptogram"
 
-#: templates/header.html:48
-msgid "Izberi jezik "
-msgstr "Change locale"
-
-#: templates/header.html:68 templates/substitution.play.html:52
+#: templates/header.html:54 templates/substitution.play.html:52
 #: templates/substitution.ready.html:23
 msgid "Zamenjalka"
 msgstr "Supstitution<br> cipher"
 
-#: templates/header.html:70
+#: templates/header.html:56
 msgid "Težavnosti"
 msgstr "Level"
 
-#: templates/header.html:76
+#: templates/header.html:62
 msgid "Cezarjeva šifra"
 msgstr "Caesar cipher"
 
-#: templates/header.html:78 templates/substitution.leaderboard.html:16
+#: templates/header.html:64 templates/substitution.leaderboard.html:16
 msgid "Lestvice"
 msgstr "Scoreboard"
 
-#: templates/header.html:80 templates/substitution.ready.html:12
+#: templates/header.html:66 templates/substitution.ready.html:12
 msgid "Pripravljene zamenjalke"
 msgstr "Substitution puzzles"
 
-#: templates/header.html:84
+#: templates/header.html:70
 msgid "Steganografija"
 msgstr "Steganography"
 
-#: templates/header.html:87 templates/steganography.images.html:100
+#: templates/header.html:73 templates/steganography.images.html:100
 msgid "Skrivanje sporočila v sliko"
 msgstr "Hide a message in a image"
 
-#: templates/header.html:88 templates/visual.crypto.html:3
+#: templates/header.html:74 templates/visual.crypto.html:3
 #: templates/visual.crypto.html:85
 msgid "Vizualna kriptografija"
 msgstr "Visual cryptography"
 
-#: templates/header.html:92
+#: templates/header.html:78
 msgid "Abeceda"
 msgstr "Alphabet"
 
-#: templates/header.html:100
+#: templates/header.html:86
 msgid "Časovni žig "
 msgstr "Timestamp"
 
-#: templates/header.html:102
+#: templates/header.html:88
 msgid "Kaj je časovni žig?"
 msgstr "What is a timestamp?"
 
-#: templates/header.html:103
+#: templates/header.html:89
 msgid "Časovno žigosanje dokumenta"
 msgstr "Timestamp a document"
 
-#: templates/header.html:104 templates/timestamp.checking.html:14
+#: templates/header.html:90 templates/timestamp.checking.html:14
 msgid "Preverjanje časovnega žiga"
 msgstr "Check a timestamp"
 
-#: templates/header.html:105 templates/timestamp.publickey.html:12
+#: templates/header.html:91 templates/timestamp.publickey.html:12
 msgid "Javni ključ strežnika"
 msgstr "Server's public key"
 
-#: templates/header.html:109
+#: templates/header.html:95
 msgid "Geslo"
 msgstr "Password"
 
@@ -1154,4 +1166,7 @@ msgstr ""
 #~ "The document with the hash %(items0)s"
 #~ " , has been verified %(items2)s "
 #~ "times."
+
+#~ msgid "Izberi jezik "
+#~ msgstr "Change locale"
 

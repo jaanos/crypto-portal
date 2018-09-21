@@ -25,19 +25,19 @@ level_trans = {2: 0, -1: 1}
 translation = {'caesar': 'cezar', 'easy': 'lahko', 'medium': 'srednje',
                'hard': 'težko'}
 
-def indices(level, language=None):
+def indices(level, lang_code=None):
     db = database.dbcon()
     cur = db.cursor()
-    if language == None:
-        language = session['language']
+    if lang_code == None:
+        lang_code = session['language']
 
-    cur.execute("SELECT id FROM substitution WHERE level = %s AND language = %s ORDER BY id",[level_trans.get(level, level), language])
+    cur.execute("SELECT id FROM substitution WHERE level = %s AND language = %s ORDER BY id",[level_trans.get(level, level), lang_code])
     ids = [x[0] for x in cur.fetchall()]
 
     if (len(ids) < 1):
         cur.execute("SELECT id FROM substitution WHERE level = %s ORDER BY id",[level_trans.get(level, level)])
-    
-    ids = [x[0] for x in cur.fetchall()]
+        ids = [x[0] for x in cur.fetchall()]
+
     cur.close()
     if level in level_trans:
         random.seed("Random seed:)%d" % level)
@@ -69,9 +69,9 @@ def index():
 
 @app.route("/<difficulty>")
 @app.route("/<difficulty>/<int:idx>")
-@app.route("/<difficulty>/<language>/<int:idx>")
-@app.route("/<difficulty>/<language>")
-def play(difficulty, idx=-1, language=None):
+@app.route("/<difficulty>/<lang_code>/<int:idx>")
+@app.route("/<difficulty>/<lang_code>")
+def play(difficulty, idx=-1, lang_code=None):
     if (difficulty == "ready"):
         level = 3
     elif (difficulty == "hard"):
@@ -82,7 +82,7 @@ def play(difficulty, idx=-1, language=None):
         level = -1
     else:
         level = 0
-    texts = indices(level, language)
+    texts = indices(level, lang_code)
     if idx < 0 and level == 3:
         return render_template("substitution.ready.html", num=len(texts))
     if idx < 0 or idx >= len(texts):

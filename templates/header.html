@@ -37,28 +37,14 @@
                 {% if CURRENT_LANGUAGE == language %}
                     
                 {% else %}
-                    <li class="locale"><a href="{{ url_for('set_language', language=language) }}" >
+                    <li class="locale">
+                    <a href="{{ request.path|replace("/"+session['language']+"/", "/"+language+"/") }}">
                         <img src="{{url_for('static', filename='images/locale/'+language+'.svg')}}" class="locale">
                         </a>
                     </li>
                 {% endif %}
         {% endfor %}
-        <!-- ili -->
-        <!-- <li class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('index')}}">{{_("Izberi jezik ")}}<span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-                {% for language in AVAILABLE_LANGUAGES %}
-                    {% if CURRENT_LANGUAGE == language %}
-                        <li>{{ language }}</li>
-                    {% else %}
-                        <li><a href="{{ url_for('set_language', language=language) }}" >
-                            <img src="{{url_for('static', filename='images/locale/'+language+'.svg')}}" id='home'>
-                            </a>
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </li> -->
+       
         <li class="home">
             <a class="btn btn-secondary" role="button" href="{{url_for('index')}}">
                 <img src="{{url_for('static', filename='images/home-icon.png')}}" id='home'>

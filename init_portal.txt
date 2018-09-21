@@ -1,4 +1,5 @@
 #!/bin/bash
 # My first script
-flask run
+source activate crypto-portal-env
 export FLASK_APP=crypto.py
+flask run
