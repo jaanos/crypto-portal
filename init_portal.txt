@@ -1,5 +1,16 @@
 #!/bin/bash
 # My first script
+#sudo apt-get install code
+#sudo apt install curl
+#curl -O https://repo.anaconda.com/archive/Anaconda3-5.1.0-Linux-x86_64.sh
+#source ~/.bashrc
+#ext install donjayamanne.python-extension-pack
+#add-apt-repository ppa:git-core/ppa # apt update; apt install git
+#sudo -H apt-get install git
+#sudo apt-get install apt-transport-https
+
+#sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+#bash Anaconda3-5.1.0-Linux-x86_64.sh
 source activate crypto-portal-env
 export FLASK_APP=crypto.py
 flask run
