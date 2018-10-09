@@ -1,5 +1,11 @@
 #!/bin/bash
 # My first script
+##MAC
+#DOwnload from: https://conda.io/docs/user-guide/install/macos.html
+#bash Miniconda3-latest-MacOSX-x86_64.sh
+#
+
+##LINUX
 #sudo apt-get install code
 #sudo apt install curl
 #curl -O https://repo.anaconda.com/archive/Anaconda3-5.1.0-Linux-x86_64.sh
@@ -11,6 +17,11 @@
 
 #sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 #bash Anaconda3-5.1.0-Linux-x86_64.sh
+
+#ALL OS:
+#conda create --name crypto-portal-env
+#pip install -r requirements.txt
+
 source activate crypto-portal-env
 export FLASK_APP=crypto.py
 flask run

@@ -1,7 +1,4 @@
 alabaster==0.7.10
-anaconda-client==1.6.9
-anaconda-navigator==1.7.0
-anaconda-project==0.8.2
 asn1crypto==0.24.0
 astroid==1.6.1
 astropy==2.0.3
@@ -23,9 +20,6 @@ click==6.7
 cloudpickle==0.5.2
 clyent==1.2.2
 colorama==0.3.9
-conda==4.4.10
-conda-build==3.4.1
-conda-verify==2.0.0
 contextlib2==0.5.5
 cryptography==2.1.4
 cycler==0.10.0
@@ -82,7 +76,6 @@ mpmath==1.0.0
 msgpack-python==0.5.1
 multipledispatch==0.4.9
 mysqlclient==1.3.13
-navigator-updater==0.1.0
 nbconvert==5.3.1
 nbformat==4.4.0
 networkx==2.1
@@ -129,13 +122,6 @@ pyparsing==2.2.0
 PySocks==1.6.7
 pytest==3.3.2
 python-dateutil==2.6.1
-pytz==2017.3
-PyWavelets==0.5.2
-PyYAML==3.12
-pyzmq==16.0.3
-QtAwesome==0.4.4
-qtconsole==4.3.1
-QtPy==1.3.1
 requests==2.18.4
 rope==0.10.7
 ruamel-yaml==0.15.35
@@ -172,7 +158,6 @@ Werkzeug==0.14.1
 widgetsnbextension==3.1.0
 wrapt==1.10.11
 xlrd==1.1.0
-XlsxWriter==1.0.2
 xlwt==1.3.0
 zict==0.1.3
 zxcvbn==4.4.27
