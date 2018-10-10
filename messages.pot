@@ -1,0 +1,987 @@
+# Translations template for PROJECT.
+# Copyright (C) 2018 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-09-21 12:31+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.5.3\n"
+
+#: alphabet.py:89 alphabet.py:97 alphabet.py:105 alphabet.py:113
+#: alphabet.py:139
+msgid "Te abecede pa (se) ne poznam!"
+msgstr ""
+
+#: timestamp.py:152
+msgid "Z danim certifikatom ni bil potrjen noben dokument na tej strani."
+msgstr ""
+
+#: timestamp.py:154
+msgid "Dokument z zgoščevalno funkcijo "
+msgstr ""
+
+#: timestamp.py:155
+msgid " je bil potrjen "
+msgstr ""
+
+#: timestamp.py:160
+msgid ""
+"Prišlo je do napake pri preverjanju certifikata ali pa je certifikat "
+"neveljaven, poskusite ponovno."
+msgstr ""
+
+#: templates/alphabet.flags.html:20 templates/alphabet.flags.html:111
+#: templates/alphabet.generic.html:27 templates/alphabet.generic.html:128
+#: templates/steganography.images.html:14
+#: templates/steganography.images.html:103 templates/visual.crypto.html:17
+#: templates/visual.crypto.html:88
+msgid "Navodila"
+msgstr ""
+
+#: templates/alphabet.flags.html:26
+msgid ""
+"Izmed ponujenih <strong>izberite</strong> tisto, ki jo "
+"<strong>predstavlja</strong> prikazana črka.</br></br>\n"
+"                    Če bo izbrana slika "
+msgstr ""
+
+#: templates/alphabet.flags.html:27 templates/alphabet.flags.html:67
+#: templates/alphabet.generic.html:34 templates/alphabet.generic.html:74
+#: templates/alphabet.generic.html:85
+msgid "pravilna"
+msgstr ""
+
+#: templates/alphabet.flags.html:27 templates/alphabet.flags.html:67
+#: templates/alphabet.generic.html:34 templates/alphabet.generic.html:74
+#: templates/alphabet.generic.html:85
+msgid ""
+", se bo gumb obarval zeleno in po kliku na \n"
+"                    desno puščico se vam bo prikazala nova "
+"naloga.</br></br>\n"
+"                    Če bo izbira "
+msgstr ""
+
+#: templates/alphabet.flags.html:29 templates/alphabet.flags.html:31
+#: templates/alphabet.flags.html:69 templates/alphabet.flags.html:71
+#: templates/alphabet.generic.html:36 templates/alphabet.generic.html:38
+#: templates/alphabet.generic.html:76 templates/alphabet.generic.html:78
+#: templates/alphabet.generic.html:87 templates/alphabet.generic.html:89
+msgid "napačna"
+msgstr ""
+
+#: templates/alphabet.flags.html:29 templates/alphabet.flags.html:69
+#: templates/alphabet.generic.html:36 templates/alphabet.generic.html:76
+#: templates/alphabet.generic.html:87
+msgid ""
+", se bo gumb obarval rdeče. V tem \n"
+"                    primeru lahko poskusite <strong>ponovno</strong>, "
+"dokler ne izberete\n"
+"                    pravilne rešitve. Vsaka "
+msgstr ""
+
+#: templates/alphabet.flags.html:31 templates/alphabet.flags.html:71
+#: templates/alphabet.generic.html:38 templates/alphabet.generic.html:78
+#: templates/alphabet.generic.html:89
+msgid " izbira se "
+msgstr ""
+
+#: templates/alphabet.flags.html:31 templates/alphabet.flags.html:71
+#: templates/alphabet.generic.html:38 templates/alphabet.generic.html:78
+#: templates/alphabet.generic.html:89
+msgid "kaznuje"
+msgstr ""
+
+#: templates/alphabet.flags.html:32 templates/alphabet.flags.html:72
+#: templates/alphabet.generic.html:39 templates/alphabet.generic.html:79
+#: templates/alphabet.generic.html:90
+msgid " z negativno točko."
+msgstr ""
+
+#: templates/alphabet.flags.html:33 templates/alphabet.flags.html:45
+#: templates/alphabet.flags.html:60 templates/alphabet.flags.html:73
+#: templates/alphabet.flags.html:84 templates/alphabet.flags.html:96
+#: templates/alphabet.generic.html:40 templates/alphabet.generic.html:52
+#: templates/alphabet.generic.html:67 templates/alphabet.generic.html:80
+#: templates/alphabet.generic.html:91 templates/alphabet.generic.html:103
+msgid "S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov."
+msgstr ""
+
+#: templates/alphabet.flags.html:37 templates/alphabet.generic.html:44
+msgid "V polje pod sliko "
+msgstr ""
+
+#: templates/alphabet.flags.html:37 templates/alphabet.generic.html:44
+msgid "vnesite črko"
+msgstr ""
+
+#: templates/alphabet.flags.html:37 templates/alphabet.generic.html:44
+msgid ""
+", ki jo slika predstavlja, in <strong>pritisnite enter\n"
+"                    </strong>.</br></br>\n"
+"                    Če je vaš odgovor "
+msgstr ""
+
+#: templates/alphabet.flags.html:39 templates/alphabet.flags.html:79
+#: templates/alphabet.flags.html:90 templates/alphabet.generic.html:46
+msgid "pravilen"
+msgstr ""
+
+#: templates/alphabet.flags.html:39 templates/alphabet.generic.html:46
+msgid ""
+", se bo spodnji rob polja obarval zeleno, sicer rdeče.\n"
+"                    </br></br> \n"
+"                    V primeru "
+msgstr ""
+
+#: templates/alphabet.flags.html:41 templates/alphabet.generic.html:48
+msgid "pravilnega"
+msgstr ""
+
+#: templates/alphabet.flags.html:41 templates/alphabet.generic.html:48
+msgid ""
+" odgovora se vam ob kliku na desno puščico prikaže \n"
+"                    nova naloga, v primeru "
+msgstr ""
+
+#: templates/alphabet.flags.html:42 templates/alphabet.generic.html:49
+msgid "napačnega"
+msgstr ""
+
+#: templates/alphabet.flags.html:42 templates/alphabet.generic.html:49
+msgid ""
+" odgovora pa lahko poskusite znova.</br></br> \n"
+"                    Če ste s prejšnjimi nalogami zbrali dovolj točk, "
+"lahko s klikom na gumb <strong>Rešitev</strong> \n"
+"                    izveste, katero črko predstavlja slika (s tem "
+"izgubite nekaj svojih točk)."
+msgstr ""
+
+#: templates/alphabet.flags.html:49 templates/alphabet.generic.html:56
+msgid ""
+"S klikom na gumb <strong>Začni</strong> sprožite animacijo.</br></br>\n"
+"                    Prikazalo se vam bo zaporedje slik, od katerih bo "
+"vsaka prikazovala eno črko. Črke vnesite v polja pod sliko in \n"
+"                    <strong>pritisnite enter</strong>.\n"
+"                    Polja, kamor ste vnesli pravilno črko, se bodo "
+"obarvala"
+msgstr ""
+
+#: templates/alphabet.flags.html:53 templates/alphabet.generic.html:60
+msgid "zeleno"
+msgstr ""
+
+#: templates/alphabet.flags.html:53 templates/alphabet.generic.html:60
+msgid ", polja z napačno črko "
+msgstr ""
+
+#: templates/alphabet.flags.html:53 templates/alphabet.generic.html:60
+msgid "rdeče"
+msgstr ""
+
+#: templates/alphabet.flags.html:54 templates/alphabet.generic.html:61
+msgid ""
+", prazna polja pa bodo ostala <strong>nespremenjena</strong>.</br></br>\n"
+"                    Za vsako pravilno vnešeno črko "
+"<strong>dobite</strong> eno točko, medtem ko za vsako napačno vnešeno "
+"črko\n"
+"                     eno točko <strong>izgubite</strong>.\n"
+"                    Prazno polje točk ne spreminja.</br></br>\n"
+"                    Če ste s prejšnjimi nalogami zbrali <strong>dovolj "
+"točk</strong>, lahko s klikom na gumb \n"
+"                    <strong>Začni znova</strong> animacijo sprožite še "
+"enkrat (s tem izgubite nekaj svojih točk)."
+msgstr ""
+
+#: templates/alphabet.flags.html:66 templates/alphabet.generic.html:33
+#: templates/alphabet.generic.html:73 templates/alphabet.generic.html:84
+msgid ""
+"Izmed ponujenih slik <strong>izberite</strong> tisto, ki jo "
+"<strong>predstavlja</strong> prikazana črka.</br></br>\n"
+"                    Če bo izbrana slika "
+msgstr ""
+
+#: templates/alphabet.flags.html:77 templates/alphabet.flags.html:88
+msgid ""
+"Kliknite in <strong>zavrtite</strong> neosenčeno zastavico v pravilen "
+"položaj in kliknite \n"
+"                    <strong>kjukico</strong> pod sliko.</br></br>\n"
+"                    Če je vaš odgovor "
+msgstr ""
+
+#: templates/alphabet.flags.html:80 templates/alphabet.flags.html:91
+msgid ""
+", se kljukica obarva zeleno in s klikom na desno puščico se vam prikaže "
+"naslednja naloga.</br></br>\n"
+"                    Če pa je vaš odgovor "
+msgstr ""
+
+#: templates/alphabet.flags.html:81 templates/alphabet.flags.html:92
+msgid "napačen"
+msgstr ""
+
+#: templates/alphabet.flags.html:81 templates/alphabet.flags.html:92
+msgid ""
+", se kjukica obarva rdeče, v polju s črko pa se za \n"
+"                    <strong>trenutek prikaže črka</strong>, \n"
+"                    ki jo predstavlja trenutna postavitev rok."
+msgstr ""
+
+#: templates/alphabet.flags.html:95
+msgid "Če pravilno postavite le eno zastavico, se onemogoči njeno premikanje."
+msgstr ""
+
+#: templates/alphabet.flags.html:110 templates/alphabet.flags.html:145
+#: templates/header.html:85
+msgid "Semafor"
+msgstr ""
+
+#: templates/alphabet.flags.html:119 templates/alphabet.flags.html:175
+#: templates/alphabet.generic.html:138 templates/alphabet.generic.html:203
+msgid "Pisanje"
+msgstr ""
+
+#: templates/alphabet.flags.html:121 templates/alphabet.flags.html:131
+#: templates/alphabet.generic.html:140 templates/alphabet.generic.html:150
+#: templates/header.html:63 templates/substitution.leaderboard.html:25
+msgid "Lahko"
+msgstr ""
+
+#: templates/alphabet.flags.html:123 templates/alphabet.flags.html:133
+#: templates/alphabet.generic.html:142 templates/alphabet.generic.html:152
+#: templates/header.html:65 templates/substitution.leaderboard.html:27
+msgid "Težko"
+msgstr ""
+
+#: templates/alphabet.flags.html:129 templates/alphabet.flags.html:174
+#: templates/alphabet.generic.html:148 templates/alphabet.generic.html:202
+msgid "Branje"
+msgstr ""
+
+#: templates/alphabet.flags.html:132 templates/alphabet.generic.html:141
+#: templates/alphabet.generic.html:151 templates/header.html:64
+#: templates/substitution.leaderboard.html:26
+msgid "Srednje"
+msgstr ""
+
+#: templates/alphabet.flags.html:146 templates/alphabet.generic.html:174
+msgid "Dobrodošli na strani za učenje komuniciranje s pomočjo tujih abeced."
+msgstr ""
+
+#: templates/alphabet.flags.html:147 templates/alphabet.generic.html:175
+msgid "Na kratko o izbrani abecedi:"
+msgstr ""
+
+#: templates/alphabet.flags.html:149
+msgid ""
+"Ta abeceda je uporabna za prenašanje sporočil na daljavo, ko sta "
+"sogovornika predaleč narazen, da bi se slišala, se pa še lahko vidita."
+msgstr ""
+
+#: templates/alphabet.flags.html:152 templates/alphabet.generic.html:180
+msgid ""
+"Spodaj si lahko ogledate seznam vseh črk, ki se jih lahko naučite s "
+"pomočjo te aplikacije. Za ogled posameznega simbola kliknite na ustrezno "
+"kartico."
+msgstr ""
+
+#: templates/alphabet.flags.html:173 templates/alphabet.generic.html:201
+msgid "Pripravljeni, da začnete?"
+msgstr ""
+
+#: templates/alphabet.flags.html:190 templates/alphabet.flags.html:220
+#: templates/alphabet.flags.html:251 templates/alphabet.flags.html:280
+#: templates/alphabet.flags.html:321 templates/alphabet.flags.html:367
+#: templates/alphabet.generic.html:218 templates/alphabet.generic.html:248
+#: templates/alphabet.generic.html:279 templates/alphabet.generic.html:308
+#: templates/alphabet.generic.html:350 templates/alphabet.generic.html:385
+msgid "Število pravilnih odgovorov"
+msgstr ""
+
+#: templates/alphabet.flags.html:227 templates/alphabet.generic.html:255
+msgid "Rešitev"
+msgstr ""
+
+#: templates/alphabet.flags.html:258
+msgid "Začni"
+msgstr ""
+
+#: templates/alphabet.generic.html:95
+msgid ""
+"Izmed vseh ponujenih slik <strong>izberite</strong> tisto, ki jo "
+"<strong>predstavlja</strong> posamezna \n"
+"                    črka ter jo povlecite in spustite v pripadajoče "
+"polje.</br></br> \n"
+"                    Za vse "
+msgstr ""
+
+#: templates/alphabet.generic.html:97
+msgid "pravilne"
+msgstr ""
+
+#: templates/alphabet.generic.html:97
+msgid ""
+" izbire se pripadajoča polja obarvajo zeleno, \n"
+"                    za vse "
+msgstr ""
+
+#: templates/alphabet.generic.html:98
+msgid "napačne rdeče"
+msgstr ""
+
+#: templates/alphabet.generic.html:98
+msgid ""
+". Pravilni odgovori so nagrajeni, napačni\n"
+"                    pa kaznovani, z eno točko. </br></br>\n"
+"                    Če želite <strong>počistiti</strong> svojo izbiro, "
+"željeno sliko iz polja prenesite v <strong>smeti</strong>. \n"
+"                    S klikom na kljukico preverite svojo izbiro.\n"
+"                    Ko bodo vsa polja pravilno izbrana se lahko pomaknete"
+" na naslednjo nalogo."
+msgstr ""
+
+#: templates/alphabet.generic.html:120 templates/alphabet.generic.html:167
+#: templates/header.html:86
+msgid "Znakovna abeceda"
+msgstr ""
+
+#: templates/alphabet.generic.html:122 templates/alphabet.generic.html:169
+#: templates/header.html:87
+msgid "Grška abeceda"
+msgstr ""
+
+#: templates/alphabet.generic.html:286
+msgid "Začni!"
+msgstr ""
+
+#: templates/header.html:5 templates/header.html:27 templates/index.html:19
+msgid "Kriptogram"
+msgstr ""
+
+#: templates/header.html:37
+msgid "Jezik"
+msgstr ""
+
+#: templates/header.html:59 templates/substitution.play.html:52
+#: templates/substitution.ready.html:23
+msgid "Zamenjalka"
+msgstr ""
+
+#: templates/header.html:61
+msgid "Težavnosti"
+msgstr ""
+
+#: templates/header.html:67
+msgid "Cezarjeva šifra"
+msgstr ""
+
+#: templates/header.html:69 templates/substitution.leaderboard.html:16
+msgid "Lestvice"
+msgstr ""
+
+#: templates/header.html:71 templates/substitution.ready.html:12
+msgid "Pripravljene zamenjalke"
+msgstr ""
+
+#: templates/header.html:75
+msgid "Steganografija"
+msgstr ""
+
+#: templates/header.html:78 templates/steganography.images.html:100
+msgid "Skrivanje sporočila v sliko"
+msgstr ""
+
+#: templates/header.html:79 templates/visual.crypto.html:3
+#: templates/visual.crypto.html:85
+msgid "Vizualna kriptografija"
+msgstr ""
+
+#: templates/header.html:83
+msgid "Abeceda"
+msgstr ""
+
+#: templates/header.html:91
+msgid "Časovni žig "
+msgstr ""
+
+#: templates/header.html:93
+msgid "Kaj je časovni žig?"
+msgstr ""
+
+#: templates/header.html:94
+msgid "Časovno žigosanje dokumenta"
+msgstr ""
+
+#: templates/header.html:95 templates/timestamp.checking.html:14
+msgid "Preverjanje časovnega žiga"
+msgstr ""
+
+#: templates/header.html:96 templates/timestamp.publickey.html:12
+msgid "Javni ključ strežnika"
+msgstr ""
+
+#: templates/header.html:100
+msgid "Geslo"
+msgstr ""
+
+#: templates/index.html:12
+msgid "Dobrodošli na portalu Kriptogram!"
+msgstr ""
+
+#: templates/index.html:19
+msgid "Dobrodošli na spletnem portalu"
+msgstr ""
+
+#: templates/index.html:19
+msgid ""
+",\n"
+"                ki je namenjen vsem vedoželjnim,\n"
+"                še posebej tistim, ki radi rešujete kriptografske uganke."
+msgstr ""
+
+#: templates/index.html:23
+msgid "Sprehodite se v svet"
+msgstr ""
+
+#: templates/index.html:23
+msgid "zamenjalk"
+msgstr ""
+
+#: templates/index.html:24
+msgid ""
+"in z reševanjem odkrivajte lepe pregovore in besedila.\n"
+"                Poglejte si, kako lahko"
+msgstr ""
+
+#: templates/index.html:25
+msgid "skrivate"
+msgstr ""
+
+#: templates/index.html:26
+msgid ""
+"sporočila v slike in jih nato spet razberete.\n"
+"                Naučite se novih"
+msgstr ""
+
+#: templates/index.html:27
+msgid "abeced"
+msgstr ""
+
+#: templates/index.html:28
+msgid "s katerimi se lahko sporazumevate tudi, kadar ne morete govoriti."
+msgstr ""
+
+#: templates/index.html:30
+msgid "Kaj je kriptogram?"
+msgstr ""
+
+#: templates/index.html:32
+msgid ""
+"Kriptogram je načeloma vsako zašifrirano sporočilo.\n"
+"                Če je šifra, ki je uporabljena v takem besedilu,\n"
+"                dovolj enostavna, lahko besedilo razkrijemo sami.\n"
+"                Pogosto se uporabljajo zamenjalne šifre,\n"
+"                pri kateri se vsaka črka zamenja z drugo črko ali "
+"številko."
+msgstr ""
+
+#: templates/index.html:38
+msgid ""
+"Za rešitev uganke je potrebno tako poiskati prvotno sporočilo.\n"
+"                Čeprav so včasih zamenjalne šifre uporabljali v resne "
+"namene,\n"
+"                jih danes večinoma najdemo v zabavnem tisku,\n"
+"                v časopisih ali revijah."
+msgstr ""
+
+#: templates/index.html:44
+msgid "O projektu"
+msgstr ""
+
+#: templates/index.html:46
+msgid ""
+"Spletni portal Kriptogram so študenti FRI skupaj s člani\n"
+"                Društva kriptologov Slovenije (DKS) razvili v sklopu\n"
+"                Študentskih inovativnih projektov za družbeno korist "
+"(2017)."
+msgstr ""
+
+#: templates/index.html:53
+msgid "Uganka tedna"
+msgstr ""
+
+#: templates/index.html:57
+msgid ""
+" Pajkova mreža povezuje štiri enako oddaljena vozlišča\n"
+"                    na vseh šest načinov\n"
+"                    (mimogrede: zato telesu,\n"
+"                    ki nastane kot konveksna ogrinjača,\n"
+"                    matematiki rečejo četverec).\n"
+"                    V različnih vozliščih se nahajata muha in slepi "
+"pajek.\n"
+"                    Muha se ne more premakniti,\n"
+"                    pajek pa se premika naključno iz enega vozlišča v "
+"drugega."
+msgstr ""
+
+#: templates/index.html:69
+msgid ""
+"Koliko je pričakovano število obratov,\n"
+"                    preden pajek doseže muho?"
+msgstr ""
+
+#: templates/index.html:72
+msgid "Kaj pa, če četverec nadomestimo z"
+msgstr ""
+
+#: templates/index.html:74
+msgid "kocko,"
+msgstr ""
+
+#: templates/index.html:75
+msgid "oktaedrom,"
+msgstr ""
+
+#: templates/index.html:76
+msgid "dodekaedrom, ali"
+msgstr ""
+
+#: templates/index.html:77
+msgid "ikozaedrom?"
+msgstr ""
+
+#: templates/index.html:81
+msgid "Tedensko uganko najdete na"
+msgstr ""
+
+#: templates/index.html:82
+msgid "spletni učilnici FRI"
+msgstr ""
+
+#: templates/index.html:96
+msgid "Aplikacija Kvizko"
+msgstr ""
+
+#: templates/index.html:98
+msgid ""
+"Aplikacija je namenjena prenosu naravoslovnih ved izza pisalne\n"
+"                mize, preobremenjene s kupi knjig in zvezkov v vsakdanje\n"
+"                življenje. Omogočimo miselno zabavo kjerkoli in "
+"kadarkoli. <br><br>40\n"
+"                let skrbno izbranih problemov (z izpeljanimi rešitvami)\n"
+"                približa široki množici mladih in starejših. Vsebuje "
+"odprti\n"
+"                skupini Bober in Presek, preko katerih lahko vsakdo "
+"rešuje\n"
+"                naloge za tekmovanja ali za krajšanje prostega časa. "
+msgstr ""
+
+#: templates/password.meter.html:26
+msgid "MERJENJE MOČI GESLA"
+msgstr ""
+
+#: templates/password.meter.html:30
+msgid "GESLO"
+msgstr ""
+
+#: templates/password.meter.html:35
+msgid "Vpisati morate geslo"
+msgstr ""
+
+#: templates/password.meter.html:35
+msgid "Vpišite geslo"
+msgstr ""
+
+#: templates/password.meter.html:44
+msgid "INFORMACIJE O GESLU"
+msgstr ""
+
+#: templates/password.meter.html:49
+msgid "Približek števila ugibanj za razbitje gesla:"
+msgstr ""
+
+#: templates/password.meter.html:53
+msgid "Časovna ocena razbijanja gesla:"
+msgstr ""
+
+#: templates/password.meter.html:57
+msgid " Priporočila za geslo: "
+msgstr ""
+
+#: templates/password.meter.html:61
+msgid "Opozorilo za geslo:"
+msgstr ""
+
+#: templates/steganography.images.html:17
+msgid ""
+"Steganografija je veda o skrivanju podatkov npr. v sporočilo, sliko ali "
+"video. Za razliko od kriptografije oziroma šifriranja podatkov, katere "
+"cilj je narediti podatke neberljive, steganografija poskuša prikriti "
+"obstoj podatkov. Cilj je onemogočiti zaznavo podatkov, ki so skriti v "
+"navidez nepomembnih podatkih. Spletna stran omogoča skrivanje sporočila v"
+" sliko. Na spletno stran lahko naložite svojo sliko, vanjo pa lahko "
+"zakodirate sporočilo, ali pa ga razberete, če se sporočilo v sliki že "
+"nahaja. Razlik med originalno sliko in sliko s sporočilom ni mogoče "
+"videti s prostim očesom, zato stran omogoča tudi vizualni prikaz nastale "
+"razlike."
+msgstr ""
+
+#: templates/steganography.images.html:28
+#: templates/steganography.images.html:39
+#: templates/steganography.images.html:50
+#: templates/steganography.images.html:61
+#: templates/steganography.images.html:72
+#: templates/steganography.images.html:84 templates/visual.crypto.html:43
+#: templates/visual.crypto.html:55
+msgid "Opozorilo"
+msgstr ""
+
+#: templates/steganography.images.html:31 templates/visual.crypto.html:46
+msgid "Izberite slikovno datoteko!"
+msgstr ""
+
+#: templates/steganography.images.html:42
+msgid "Datoteka je prevelika! Največja dovoljena 2 MB."
+msgstr ""
+
+#: templates/steganography.images.html:53
+msgid "V sliko poskušate zakodirati preveč besedila!"
+msgstr ""
+
+#: templates/steganography.images.html:64
+msgid "V tekstovno polje niste vnesli besedila, ki ga želite zakodirati!"
+msgstr ""
+
+#: templates/steganography.images.html:75
+msgid "Prosim naložite sliko!"
+msgstr ""
+
+#: templates/steganography.images.html:87
+msgid ""
+"Datoteka je prevelikih dimenzij. Maksimalna dovoljena dimenzija je 1000 x"
+" 1000 px."
+msgstr ""
+
+#: templates/steganography.images.html:113 templates/visual.crypto.html:101
+msgid "Izberi sliko:"
+msgstr ""
+
+#: templates/steganography.images.html:115 templates/visual.crypto.html:103
+msgid "Naloži"
+msgstr ""
+
+#: templates/steganography.images.html:120
+msgid "Število kodiranih znakov "
+msgstr ""
+
+#: templates/steganography.images.html:121
+msgid "znakov"
+msgstr ""
+
+#: templates/steganography.images.html:122
+msgid "Vpiši sporočilo..."
+msgstr ""
+
+#: templates/steganography.images.html:126
+msgid "Skrij sporočilo"
+msgstr ""
+
+#: templates/steganography.images.html:127
+msgid "Razkrij sporočilo"
+msgstr ""
+
+#: templates/steganography.images.html:135
+msgid "Slika s sporočilom:"
+msgstr ""
+
+#: templates/steganography.images.html:138
+msgid "Prenos"
+msgstr ""
+
+#: templates/steganography.images.html:142
+msgid "Razlika med slikama:"
+msgstr ""
+
+#: templates/steganography.images.html:146
+msgid "Prikaži razliko"
+msgstr ""
+
+#: templates/substitution.leaderboard.html:28
+msgid "Caesar"
+msgstr ""
+
+#: templates/substitution.leaderboard.html:40
+#: templates/substitution.leaderboard.html:56
+msgid "Težavnost"
+msgstr ""
+
+#: templates/substitution.modal.html:8
+msgid "Čestitke uspelo vam je rešiti uganko v"
+msgstr ""
+
+#: templates/substitution.modal.html:10
+msgid "minutah in"
+msgstr ""
+
+#: templates/substitution.modal.html:10
+msgid "sekundah!"
+msgstr ""
+
+#: templates/substitution.modal.html:17
+msgid "Potrdi"
+msgstr ""
+
+#: templates/substitution.modal.html:18
+msgid "Prekliči"
+msgstr ""
+
+#: templates/substitution.modal.html:19
+msgid "Preverite svoj vnos!"
+msgstr ""
+
+#: templates/substitution.play.html:69
+msgid "Sortiraj po frekvenci"
+msgstr ""
+
+#: templates/substitution.play.html:70
+msgid "Sortiraj po abecedi"
+msgstr ""
+
+#: templates/substitution.stats.en.html:3
+msgid "Most common two-letter words:"
+msgstr ""
+
+#: templates/substitution.stats.en.html:3
+msgid ""
+" of, to, in, it, is, be, as, at,\n"
+"        so, we, etc."
+msgstr ""
+
+#: templates/substitution.stats.en.html:7
+msgid "Most common three-letter words:"
+msgstr ""
+
+#: templates/substitution.stats.en.html:7
+msgid " the, and, for, are, but, etc."
+msgstr ""
+
+#: templates/substitution.stats.sl.html:3
+msgid "Najpogostejše dvočrkovne besede:"
+msgstr ""
+
+#: templates/substitution.stats.sl.html:3
+msgid ""
+" in, na, je, za, ki, da, se, so,\n"
+"        pa, po, itd."
+msgstr ""
+
+#: templates/substitution.stats.sl.html:7
+msgid "Najpogostejše tročrkovne besede:"
+msgstr ""
+
+#: templates/substitution.stats.sl.html:7
+msgid " kot, med, ter, pri, saj, itd."
+msgstr ""
+
+#: templates/timestamp.checking.html:22
+msgid "Izberite potrdilo za preverjanje časovnega žiga:"
+msgstr ""
+
+#: templates/timestamp.checking.html:24 templates/timestamp.file.html:62
+#: templates/timestamp.file.html:69 templates/timestamp.signature.html:23
+msgid "Izberi"
+msgstr ""
+
+#: templates/timestamp.desc.html:10 templates/timestamp.signature.html:13
+msgid "Časovni žig"
+msgstr ""
+
+#: templates/timestamp.desc.html:16
+msgid ""
+"V splošnem je varni časovni žig digitalni zapis, ki zagotavlja podpis "
+"dokumenta z veljavnim digitalnim potrdilom v\n"
+"\t\t\t\t\tdoločenem časovnem trenutku in sicer na način, da povezuje "
+"datum in čas podpisa ter podatke v elektronski obliki na kriptografsko "
+"varen način.\n"
+"\t\t\t\t\tPreden pa si pogledamo natančneje namen in delovanje varnih "
+"časovnih žigov, pa je dobro, če si še na kratko pogledamo, kaj je to "
+"koncept javnih ključev."
+msgstr ""
+
+#: templates/timestamp.desc.html:20
+msgid ""
+"Koncept javnih ključev si lahko predstavljamo kot pošiljanje pisem med "
+"dvema osebama. Če želimo nekomu poslati pismo, ga moramo poslati\n"
+"\t\t\t\t\tseveda naslovniku v njegov poštni nabiralnik. Ta lahko, ko "
+"pismo dobi, s svojim ključem odpre poštni nabiralnik, odpre pismo in ga "
+"prebere.\n"
+"\t\t\t\t\tPodobno deluje tudi sistem javnih in zasebnih ključev. Ko "
+"pošiljamo neko sporočilo naslovniku uporabimo njegov javni ključ, da "
+"sporočilo zašifriramo,\n"
+"\t\t\t\t\tnaslovnik pa s svojim zasebnim ključem sporočilo odšifrira in "
+"prebere naše sporočilo. S tem zagotovimo, da naše sporočilo lahko prebere"
+" le oseba, ki ji\n"
+"\t\t\t\t\tje namenjeno in njegova vsebina ni javno dostopna vsem "
+"poslušalcem. Par javnih in zasebnih ključev sta neki izbrani števili, ki "
+"ju ni možno izračunati,\n"
+"\t\t\t\t\tče poznamo le enega od njiju, in ju uporabljamo v formulah za "
+"šifriranje. Javni ključ je dostopen komurkoli, zasebni ključ pa zgolj "
+"lastniku. Zakaj je to pomembno za\n"
+"\t\t\t\t\tčasovno žigosanje malo kasneje."
+msgstr ""
+
+#: templates/timestamp.desc.html:28
+msgid ""
+"Namen varnega časovnega žiga je zagotavljanje, da je nek določen dokument"
+" obstajal v trenutku žigosanja in se od takrat naprej ni spreminjal.\n"
+"\t\t\t\t\tKot vsakdanji primer le-tega si lahko vzamemo prodajo mobitela."
+" Na splet postavimo oglas, da prodajamo nov, še neuporabljen mobilni "
+"telefon.\n"
+"\t\t\t\t\tPotencialni kupec ta oglas vidi, vendar ne verjame, da telefon "
+"še ni bil uporabljen, zato še ni povsem prepričan, ali bi ga kupil.\n"
+"\t\t\t\t\tKo nam to sporoči, se spomnimo, da mu lahko pošljemo sliko, "
+"kjer je neodprta škatla slikana z današnjo izdajo našega najljubšega "
+"časopisa, da mu zagotovimo,\n"
+"\t\t\t\t\tda zares prodajamo to, kar obljubljamo. Ker se za nakup odloči,"
+" mu ga še isti dan pošljemo. Če dobi kupec drugačno vsebino, kot mu je "
+"bila obljubljena, lahko s tem\n"
+"\t\t\t\t\tposnetkom dokažemo, da nismo mi krivi za to, ker je na dan "
+"oddaje bil izdelek še cel."
+msgstr ""
+
+#: templates/timestamp.desc.html:34
+msgid ""
+"Ko želimo v neki aplikaciji časovno žigosati nek elektronski dokument "
+"oziroma podatke, pošljemo strežniku TSA\n"
+"\t\t\t\t\t(Time Stamping Authority oz. izdajatelj časovnih žigov za "
+"elektronske dokumente) z zgostitveno funkcijo narejen povzetek (hash)\n"
+"\t\t\t\t\tdokumenta oziroma podatkov. To je niz bitov fiksne dolžine "
+"(običajno 160 bitov), ki enolično določa dokument. Strežnik temu povzetku"
+" dopiše čas\n"
+"\t\t\t\t\tin vse skupaj podpiše s svojim zasebnim ključem - to je časovni"
+" žig. S tem je dokazano, da je elektronski dokument obstajal pred časom,"
+"\n"
+"\t\t\t\t\tnavedenim v časovnem žigu, poleg tega pa se da preveriti, da se"
+" od časa žigosanja ni spremenil (naredimo ponovni povzetek dokumenta, ki "
+"se mora ujemati s\n"
+"\t\t\t\t\ttistim, ki je del časovnega žiga). Postopek je opisan v RFC "
+"3161: Internet X.509 Public Key Infrastructure - Time-Stamp Protocol "
+"(TSP)."
+msgstr ""
+
+#: templates/timestamp.file.html:41
+msgid "Žigosanje uspešno!"
+msgstr ""
+
+#: templates/timestamp.file.html:43
+msgid "Algoritem: Sha256"
+msgstr ""
+
+#: templates/timestamp.file.html:44
+msgid "Žigosal: portal Kriptogram"
+msgstr ""
+
+#: templates/timestamp.file.html:45
+#, python-format
+msgid "Zgoščevalna funkcija datoteke: %(hash)s "
+msgstr ""
+
+#: templates/timestamp.file.html:46
+#, python-format
+msgid "Čas žigosanja: %(time)s "
+msgstr ""
+
+#: templates/timestamp.file.html:51
+msgid "Prenesi potrdilo"
+msgstr ""
+
+#: templates/timestamp.file.html:61
+msgid "Želite preveriti zgoščevalno funkcijo Vaše datoteke?"
+msgstr ""
+
+#: templates/timestamp.file.html:67
+msgid "Izberite datoteko za preverjanje zgoščevalne funkcije:"
+msgstr ""
+
+#: templates/timestamp.file.html:81
+msgid "Nazaj"
+msgstr ""
+
+#: templates/timestamp.file.html:87
+msgid "Žigosanje neuspešno. Poskusite ponovno."
+msgstr ""
+
+#: templates/timestamp.file.html:89
+msgid "Osveži"
+msgstr ""
+
+#: templates/timestamp.publickey.html:22
+msgid "Prenesi ključ"
+msgstr ""
+
+#: templates/timestamp.signature.html:21
+msgid "Izberite datoteko za časovno žigosanje:"
+msgstr ""
+
+#: templates/visual.crypto.html:21
+msgid ""
+"<strong>1.</strong> Izberi sliko in klikni gumb\n"
+"                    Potrdi.<br><br>\n"
+"                    <strong>2.</strong> Klikni gumb <strong>Prikaži delni"
+" sliki</strong>.\n"
+"                    Izvede se algoritem, ki izbrano sliko razstavi na dve"
+" enako\n"
+"                    veliki delni sliki, na katerih je vsaka točka "
+"naključno\n"
+"                    bela ali črna - torej šum.<br><br>\n"
+"                    <strong>3.</strong> Klikni gumb <strong>Prikaži "
+"animacijo</strong>.\n"
+"                    Prikaže se postopek prekrivanja obeh delnih slik - ko"
+" sta\n"
+"                    delni sliki prekriti, vidimo prvotno informacijo, ki "
+"pa se\n"
+"                    od originalne razlikuje po slabšem kontrastu. Kljub "
+"izgubi\n"
+"                    kontrasta pa so enostavne slike še vedno "
+"prepoznavne.<br>"
+msgstr ""
+
+#: templates/visual.crypto.html:58
+msgid "Datoteka je prevelika!"
+msgstr ""
+
+#: templates/visual.crypto.html:67
+msgid "Namig"
+msgstr ""
+
+#: templates/visual.crypto.html:70
+msgid ""
+"Najboljši rezultat boste dosegli z izbiro dvobarvne\n"
+"                    slike"
+msgstr ""
+
+#: templates/visual.crypto.html:114 templates/visual.crypto.html:156
+msgid "Prikaži delni sliki"
+msgstr ""
+
+#: templates/visual.crypto.html:117 templates/visual.crypto.html:155
+msgid "Prikaži animacijo"
+msgstr ""
+
+#: templates/visual.crypto.html:136
+msgid ""
+"Če že imaš obe delni sliki, povleci vsako v svoj okvir,\n"
+"            klikni gumb <strong>Prikaži animacijo</strong> in si oglej "
+"animacijo.<br>\n"
+"            Opozorilo: Sliki morata biti enakih dimenzij!"
+msgstr ""
+

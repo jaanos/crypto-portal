@@ -20,7 +20,7 @@
 
 #ALL OS:
 #conda create --name crypto-portal-env
-#pip install -r requirements_localization.txt
+#pip install -r requirements.txt
 
 source activate crypto-portal-env
 export FLASK_APP=crypto.py

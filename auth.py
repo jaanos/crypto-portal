@@ -2,7 +2,7 @@
 # This sample data should be enough to test the parts of the site
 # which do not require a database connection
 
-dbase = 'database'
+dbase = 'psola'
 dbuser = 'username'
 dbpass = 'password'
 dbhost = 'localhost'
