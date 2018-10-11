@@ -1,5 +1,4 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/
 *.py[cod]
 
 # C extensions
@@ -67,4 +66,4 @@ target/
 auth.py
 *.pem
 static/uploads
-crypto.py
+*.mo
