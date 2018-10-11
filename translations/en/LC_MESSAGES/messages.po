@@ -860,41 +860,17 @@ msgstr "Sort alphabetically"
 msgid "Most common two-letter words:"
 msgstr "Most common two-letter words (Eng) :"
 
-#: templates/substitution.stats.en.html:3
-msgid ""
-" of, to, in, it, is, be, as, at,\n"
-"        so, we, etc."
-msgstr ""
-" of, to, in, it, is, be, as, at,\n"
-"        so, we, etc."
-
 #: templates/substitution.stats.en.html:7
 msgid "Most common three-letter words:"
 msgstr "Most common three-letter words (Eng) :"
-
-#: templates/substitution.stats.en.html:7
-msgid " the, and, for, are, but, etc."
-msgstr " the, and, for, are, but, etc."
 
 #: templates/substitution.stats.sl.html:3
 msgid "Najpogostejše dvočrkovne besede:"
 msgstr "Most common two-letter words (Slo) :"
 
-#: templates/substitution.stats.sl.html:3
-msgid ""
-" in, na, je, za, ki, da, se, so,\n"
-"        pa, po, itd."
-msgstr ""
-" in, na, je, za, ki, da, se, so,\n"
-"        pa, po, itd."
-
 #: templates/substitution.stats.sl.html:7
 msgid "Najpogostejše tročrkovne besede:"
 msgstr "Most common three-letter words (Slo) :"
-
-#: templates/substitution.stats.sl.html:7
-msgid " kot, med, ter, pri, saj, itd."
-msgstr " kot, med, ter, pri, saj, itd."
 
 #: templates/timestamp.checking.html:22
 msgid "Izberite potrdilo za preverjanje časovnega žiga:"
