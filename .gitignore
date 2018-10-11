@@ -65,6 +65,5 @@ target/
 .~*
 .htaccess
 auth.py
-*.pem
 static/uploads
 *.mo
