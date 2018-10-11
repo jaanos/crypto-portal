@@ -21,6 +21,13 @@
 #ALL OS:
 #conda create --name crypto-portal-env
 #pip install -r requirements.txt
+#populate the database:
+
+##MAC#
+#brew services start mysql
+#Follow the link bellow, but grant all privilages to root user first!!
+#https://www.digitalocean.com/community/questions/how-to-import-sql-file-into-mysql
+#ALTER USER 'username'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 
 source activate crypto-portal-env
 export FLASK_APP=crypto.py
