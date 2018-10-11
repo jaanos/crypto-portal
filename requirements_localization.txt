@@ -1,5 +1,0 @@
-brew install mysql-connector-c
-mysqlclient
-Pillow
-requests
-pycrypto
