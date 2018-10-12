@@ -73,6 +73,17 @@
                 <li><a href="{{url_for('substitution.play', difficulty='ready')}}">{{_("Pripravljene zamenjalke")}}</a></li>
             </ul>
         </li>
+        
+        
+        <li class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('transposition.index')}}">Premešalka <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="{{url_for('transposition.description')}}">Kaj so transpozicijske šifre?</a></li>
+                <li><a href="{{url_for('transposition.play')}}">Naloge (lahko/srednje/težko)</a></li>
+            </ul>
+        </li>
+        
+        
         <li class="dropdown">
             <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('steganography.index')}}">{{_("Steganografija")}} <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
@@ -100,6 +111,13 @@
         </li>
         <li>
             <a class="btn btn-secondary" role="button" href="{{url_for('password.index')}}">{{_("Geslo")}}</a>
+        </li>
+	<li class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('hash.index')}}">Zgoščevanje <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="{{url_for('hash.index')}}">Zgoščevalne funkcije</a></li>
+		<li><a href="{{url_for('hash.examples')}}">Poizkusite sami</a></li>
+            </ul>
         </li>
     </ul>
 </nav>
