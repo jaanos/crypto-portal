@@ -13,7 +13,7 @@ the general running instructions.
 # Adding any content to the portal that will (eventually) be shown to the user
 1. If the content is static HTML, surround it with `{{_(" ... ")}}`.
 
-EXAMPLE 1: 
+* EXAMPLE 1: 
 ```html
 <input class="form-control" autocomplete="off" data-val-length-max="60" data-val-length-min="1" data-val-required="Vpisati morate geslo" name="pass" id="pass" placeholder="Vpišite geslo" rows="12" type="text" />
 ```
@@ -22,8 +22,7 @@ change to
 <input class="form-control" autocomplete="off" data-val-length-max="60" data-val-length-min="1" data-val-required="{{_("Vpisati morate geslo")}}" name="pass" id="pass" placeholder="{{_("Vpišite geslo")}}" rows="12" type="text" />
 ```
 
-
-EXAMPLE 2:
+* EXAMPLE 2:
 ```html
 <li><a href="{{url_for('timestamp.index')}}">Kaj je časovni žig?</a></li>
 ```
@@ -32,7 +31,7 @@ change to
 <li><a href="{{url_for('timestamp.index')}}">{{_("Kaj je časovni žig?")}}</a></li>
 ```
 
-EXAMPLE 3:
+* EXAMPLE 3:
 
 ```html
 <h1>Hi, {{current_user.username}}</h1>
@@ -42,7 +41,7 @@ change to
 <h1>{{ _('Hi, %(username)s!', username=current_user.username) }}</h1>
 ```
 
-2. Run `pybabel extract -F babel.cfg -k _l -o messages.pot`
+2. Run `pybabel extract -F babel.cfg -k _l -o messages.pot .`
 3. Run `pybabel update -i messages.pot -d translations`
 4. Make the translation changes/additions in `translations/LANG/LC_MESSAGES/messages.po`
 5. Run `pybabel compile -d translations`
