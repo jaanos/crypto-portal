@@ -34,8 +34,8 @@
 <nav id="nav-bar">
     <ul>
          <li class="locale dropdown">
-            <a class="locale-btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{ request.path }}">
-                    <img src="{{url_for('static', filename='images/locale/'+CURRENT_LANGUAGE+'.svg')}}">
+            <a class="locale-btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for(request.endpoint, **request.view_args)}}">
+                    <img src="{{url_for('static', filename='images/locale/'+CURRENT_LANGUAGE+'.svg')}}" class="locale">
             </a>
             <ul class="dropdown-menu">
                 {% for language in AVAILABLE_LANGUAGES %}
@@ -43,7 +43,7 @@
                         
                     {% else %}
                         <li class="locale">
-                        <a href="{{ request.path|replace("/"+session['language']+"/", "/"+language+"/") }}">
+                        <a href="{{url_for(request.endpoint, language=language, **request.view_args)}}">
                             <img src="{{url_for('static', filename='images/locale/'+language+'.svg')}}" class="locale">
                             </a>
                         </li>
