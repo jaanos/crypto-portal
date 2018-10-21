@@ -2,5 +2,5 @@
 
 cd $1
 git pull -q
-pybabel compile -d translations
+/usr/local/bin/pybabel/pybabel compile -d translations
 touch crypto.wsgi
