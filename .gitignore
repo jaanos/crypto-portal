@@ -8,6 +8,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+dev/
 build/
 develop-eggs/
 dist/
@@ -66,3 +67,4 @@ target/
 auth.py
 *.pem
 static/uploads
+*.mo

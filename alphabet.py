@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-from flask import *
+from flask import Blueprint, session, render_template, redirect
 import random
 from random import randint
 from database import database
+import MySQLdb
+from flask_babel import _, lazy_gettext as _l
 
 app = Blueprint('alphabet', __name__)
 
@@ -39,10 +41,21 @@ def getValidLetters(selectedAlphabet):
     return alphabet
 
 def getIntro(selectedAlphabet):
+    introText = ""
     db = database.dbcon()
     cur = db.cursor()
-    cur.execute("SELECT intro FROM alphabet WHERE name = %s", [selectedAlphabet])
-    introText = cur.fetchone()[0]
+
+    if session.get("language"):
+        try:
+            cur.execute("SELECT intro FROM alphabet WHERE name = %s AND language = %s", [selectedAlphabet,session["language"]])
+            introText = cur.fetchone()[0]
+        except MySQLdb.Error as e:
+            try:
+                cur.execute("SELECT intro FROM alphabet WHERE name = %s", [selectedAlphabet])
+                introText = cur.fetchone()[0]
+            except MySQLdb.Error as e:
+                    introText = ""
+    
     return introText
     
 def select_word(list_words):
@@ -73,7 +86,7 @@ def index(selected_alphabet = "flags", mode = "easy", level = "easy"):
         if(selected_alphabet=="flags"): return render_template("alphabet.flags.html", nav = "alphabet", alphabet = abc, intro = "1", alphabetForLearning="flags")
         else: return render_template("alphabet.generic.html", nav = "alphabet", alphabet = abc, intro = "1", introText = getIntro(selected_alphabet), alphabetForLearning=selected_alphabet)
     else:
-        return "Te abecede pa (se) ne poznam!"
+        return _("Te abecede pa (se) ne poznam!")
 
 @app.route("/flags")
 def flags(selected_alphabet = "flags", mode = "easy", level = "easy"):
@@ -81,7 +94,7 @@ def flags(selected_alphabet = "flags", mode = "easy", level = "easy"):
     if (alphabet_exists(selected_alphabet)):
         return render_template("alphabet.flags.html", nav = "alphabet", alphabet = getValidLetters(selected_alphabet), intro = "1", alphabetForLearning="flags")
     else:
-        return "Te abecede pa (se) ne poznam!"
+        return _("Te abecede pa (se) ne poznam!")
         
 @app.route("/sign")
 def sign(selected_alphabet = "sign", mode = "easy", level = "easy"):
@@ -89,7 +102,7 @@ def sign(selected_alphabet = "sign", mode = "easy", level = "easy"):
     if (alphabet_exists(selected_alphabet)):
         return render_template("alphabet.generic.html", nav = "alphabet", alphabet = getValidLetters(selected_alphabet), intro = "1",introText = getIntro(selected_alphabet), alphabetForLearning="sign")
     else:
-        return "Te abecede pa (se) ne poznam!"
+        return _("Te abecede pa (se) ne poznam!")
 
 @app.route("/greek")
 def greek(selected_alphabet = "greek", mode = "easy", level = "easy"):
@@ -97,7 +110,7 @@ def greek(selected_alphabet = "greek", mode = "easy", level = "easy"):
     if (alphabet_exists(selected_alphabet)):
         return render_template("alphabet.generic.html", nav = "alphabet", alphabet = getValidLetters(selected_alphabet), intro = "1",introText = getIntro(selected_alphabet), alphabetForLearning="greek")
     else:
-        return "Te abecede pa (se) ne poznam!"
+        return _("Te abecede pa (se) ne poznam!")
 
 
 @app.route("/<selected_alphabet>/<mode>/")
@@ -123,4 +136,4 @@ def display_excercise(selected_alphabet = "flags", mode = "read", level = "easy"
             choices = return_choices(letter, abc), word=select_word(words),
             alphabet = abc, words = words, alphabetForLearning=selected_alphabet )
     else:
-        return "Te abecede pa (se) ne poznam!"
+        return _("Te abecede pa (se) ne poznam!")

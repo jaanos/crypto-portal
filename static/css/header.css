@@ -98,6 +98,31 @@ ul {
     cursor: pointer;
 }
 
+#nav-bar ul li.home,
+#nav-bar ul li.locale {
+    height: 70px;
+    width: auto;
+    float: left;
+}
+
+#nav-bar ul li.locale > a {
+    text-align: center;
+    display: block;
+}
+
+#nav-bar ul li.locale > a > img {
+    height: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.locale-btn-secondary > img.locale{
+    height: 70%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 li.dropdown > ul {
     margin-left: -1px;
 }

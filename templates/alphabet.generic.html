@@ -24,62 +24,83 @@
     <div class="modal-content">
         <div id="header">
             <span id="cl" class="close">&times;</span>
-            <h2>Navodila</h2>
+            <h2>{{_("Navodila")}}</h2>
         </div>
         <div class="modal-body">
             {% if mode == "read" %}
                 {% if level == "easy" %}
                 <p>
-                    Izmed ponujenih črk <strong>izberite</strong> tisto, ki jo <strong>predstavlja</strong> prikazana slika.</br></br> 
-                    Če bo izbrana črka <strong style="color:green;">pravilna</strong>, se bo gumb obarval zeleno in po kliku na desno puščico se vam bo prikazala nova naloga.</br></br>
-                    Če bo izbira <strong style="color:red;">napačna</strong>, se bo gumb obarval rdeče. V tem primeru lahko poskusite <strong>ponovno</strong>, dokler ne izberete
-                    pravilne rešitve. Vsaka <strong style="color:red;">napačna</strong> izbira se <strong>kaznuje</strong> z negativno točko.</br></br>
-                    S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.
+                    {{_("Izmed ponujenih slik <strong>izberite</strong> tisto, ki jo <strong>predstavlja</strong> prikazana črka.</br></br>
+                    Če bo izbrana slika ")}}<strong style="color:green;">{{_("pravilna")}}</strong>{{_(", se bo gumb obarval zeleno in po kliku na 
+                    desno puščico se vam bo prikazala nova naloga.</br></br>
+                    Če bo izbira ")}}<strong style="color:red;">{{_("napačna")}}</strong>{{_(", se bo gumb obarval rdeče. V tem 
+                    primeru lahko poskusite <strong>ponovno</strong>, dokler ne izberete
+                    pravilne rešitve. Vsaka ")}}<strong style="color:red;">{{_("napačna")}}</strong>{{_(" izbira se ")}}<strong>{{_("kaznuje")}}</strong>
+                    {{_(" z negativno točko.")}}</br></br>
+                    {{_("S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.")}}
                 </p>
                 {% elif level == "medium" %}
                 <p>
-                    V polje pod sliko <strong>vnesite črko</strong>, ki jo slika predstavlja, in <strong>pritisnite enter</strong>.</br></br>
-                    Če je vaš odgovor <strong style="color:green;">pravilen</strong>, se bo spodnji rob polja obarval zeleno, sicer rdeče.</br></br> 
-                    V primeru <strong style="color:green;">pravilnega</strong> odgovora se vam ob kliku na desno puščico prikaže nova naloga, v primeru <strong style="color:red;">napačnega</strong> odgovora pa lahko poskusite znova.</br></br> 
-                    Če ste s prejšnjimi nalogami zbrali dovolj točk, lahko s klikom na gumb <strong>"Rešitev"</strong> izveste, katero črko predstavlja slika (s tem izgubite nekaj svojih točk).</br></br> 
-                    S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.
+                   {{_("V polje pod sliko ")}}<strong>{{_("vnesite črko")}}</strong>{{_(", ki jo slika predstavlja, in <strong>pritisnite enter
+                    </strong>.</br></br>
+                    Če je vaš odgovor ")}}<strong style="color:green;">{{_("pravilen")}}</strong>{{_(", se bo spodnji rob polja obarval zeleno, sicer rdeče.
+                    </br></br> 
+                    V primeru ")}}<strong style="color:green;">{{_("pravilnega")}}</strong>{{_(" odgovora se vam ob kliku na desno puščico prikaže 
+                    nova naloga, v primeru ")}}<strong style="color:red;">{{_("napačnega")}}</strong>{{_(" odgovora pa lahko poskusite znova.</br></br> 
+                    Če ste s prejšnjimi nalogami zbrali dovolj točk, lahko s klikom na gumb <strong>Rešitev</strong> 
+                    izveste, katero črko predstavlja slika (s tem izgubite nekaj svojih točk).")}}</br></br>
+                    {{_("S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.")}}
                 </p>
                 {% elif level == "hard" %}
                 <p>
-                    S klikom na gumb <strong>"Začni"</strong> sprožite animacijo.</br></br>
-                    Prikazalo se vam bo zaporedje slik, od katerih bo vsaka prikazovala eno črko. Črke vnesite v polja pod sliko in <strong>pritisnite enter</strong>.
-                    Polja, kamor ste vnesli pravilno črko, se bodo obarvala <strong style="color:green;">zeleno</strong>, polja z napačno črko <strong style="color:red;">rdeče</strong>, prazna polja pa bodo ostala <strong>nespremenjena</strong>.</br></br>
-                    Za vsako pravilno vnešeno črko <strong>dobite</strong> eno točko, medtem ko za vsako napačno vnešeno črko eno točko <strong>izgubite</strong>.
+                    {{_("S klikom na gumb <strong>Začni</strong> sprožite animacijo.</br></br>
+                    Prikazalo se vam bo zaporedje slik, od katerih bo vsaka prikazovala eno črko. Črke vnesite v polja pod sliko in 
+                    <strong>pritisnite enter</strong>.
+                    Polja, kamor ste vnesli pravilno črko, se bodo obarvala")}} 
+                    <strong style="color:green;">{{_("zeleno")}}</strong>{{_(", polja z napačno črko ")}}<strong style="color:red;">{{_("rdeče")}}</strong>
+                    {{_(", prazna polja pa bodo ostala <strong>nespremenjena</strong>.</br></br>
+                    Za vsako pravilno vnešeno črko <strong>dobite</strong> eno točko, medtem ko za vsako napačno vnešeno črko
+                     eno točko <strong>izgubite</strong>.
                     Prazno polje točk ne spreminja.</br></br>
-                    Če ste s prejšnjimi nalogami zbrali <strong>dovolj točk</strong>, lahko s klikom na gumb <strong>"Začni znova"</strong> animacijo sprožite še enkrat (s tem izgubite nekaj svojih točk). </br></br>
-                    S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.
+                    Če ste s prejšnjimi nalogami zbrali <strong>dovolj točk</strong>, lahko s klikom na gumb 
+                    <strong>Začni znova</strong> animacijo sprožite še enkrat (s tem izgubite nekaj svojih točk).")}}</br></br>
+                    {{_("S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.")}}
                 </p>
                 {% endif %}
             {% elif mode == "write" %}
                 {% if level == "easy" %}
                 <p>
-                    Izmed ponujenih slik <strong>izberite</strong> tisto, ki jo <strong>predstavlja</strong> prikazana črka.</br></br>
-                    Če bo izbrana slika <strong style="color:green;">pravilna</strong>, se bo gumb obarval zeleno in po kliku na desno puščico se vam bo prikazala nova naloga.</br></br>
-                    Če bo izbira <strong style="color:red;">napačna</strong>, se bo gumb obarval rdeče. V tem primeru lahko poskusite <strong>ponovno</strong>, dokler ne izberete
-                    pravilne rešitve. Vsaka <strong style="color:red;">napačna</strong> izbira se <strong>kaznuje</strong> z negativno točko.</br></br>
-                    S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.
+                    {{_("Izmed ponujenih slik <strong>izberite</strong> tisto, ki jo <strong>predstavlja</strong> prikazana črka.</br></br>
+                    Če bo izbrana slika ")}}<strong style="color:green;">{{_("pravilna")}}</strong>{{_(", se bo gumb obarval zeleno in po kliku na 
+                    desno puščico se vam bo prikazala nova naloga.</br></br>
+                    Če bo izbira ")}}<strong style="color:red;">{{_("napačna")}}</strong>{{_(", se bo gumb obarval rdeče. V tem 
+                    primeru lahko poskusite <strong>ponovno</strong>, dokler ne izberete
+                    pravilne rešitve. Vsaka ")}}<strong style="color:red;">{{_("napačna")}}</strong>{{_(" izbira se ")}}<strong>{{_("kaznuje")}}</strong>
+                    {{_(" z negativno točko.")}}</br></br>
+                    {{_("S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.")}}
                 </p>
                 {% elif level == "medium" %}
                 <p>
-                    Izmed ponujenih slik <strong>izberite</strong> tisto, ki jo <strong>predstavlja</strong> prikazana črka.</br></br> 
-                    Če bo izbrana slika <strong style="color:green;">pravilna</strong>, se bo gumb obarval zeleno in po kliku na desno puščico se vam bo prikazala nova naloga.</br></br>
-                    Če bo izbira <strong style="color:red;">napačna</strong>, se bo gumb obarval rdeče. V tem primeru lahko poskusite <strong>ponovno</strong>, dokler ne izberete
-                    pravilne rešitve. Vsaka <strong style="color:red;">napačna</strong> izbira se <strong>kaznuje</strong> z negativno točko.</br></br>
-                    S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.
+                    {{_("Izmed ponujenih slik <strong>izberite</strong> tisto, ki jo <strong>predstavlja</strong> prikazana črka.</br></br>
+                    Če bo izbrana slika ")}}<strong style="color:green;">{{_("pravilna")}}</strong>{{_(", se bo gumb obarval zeleno in po kliku na 
+                    desno puščico se vam bo prikazala nova naloga.</br></br>
+                    Če bo izbira ")}}<strong style="color:red;">{{_("napačna")}}</strong>{{_(", se bo gumb obarval rdeče. V tem 
+                    primeru lahko poskusite <strong>ponovno</strong>, dokler ne izberete
+                    pravilne rešitve. Vsaka ")}}<strong style="color:red;">{{_("napačna")}}</strong>{{_(" izbira se ")}}<strong>{{_("kaznuje")}}</strong>
+                    {{_(" z negativno točko.")}}</br></br>
+                    {{_("S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.")}}
                 </p>
                 {% elif level == "hard" %}
                 <p> 
-                    Izmed vseh ponujenih slik <strong>izberite</strong> tisto, ki jo <strong>predstavlja</strong> posamezna črka ter jo povlecite in spustite v pripadajoče polje.</br></br> 
-                    Za vse <strong style="color:green;">pravilne</strong> izbire se pripadajoča polja obarvajo zeleno, za vse <strong style="color:red;">napačne rdeče</strong>. Pravilni odgovori so nagrajeni, napačni
+                    {{_("Izmed vseh ponujenih slik <strong>izberite</strong> tisto, ki jo <strong>predstavlja</strong> posamezna 
+                    črka ter jo povlecite in spustite v pripadajoče polje.</br></br> 
+                    Za vse ")}}<strong style="color:green;">{{_("pravilne")}}</strong>{{_(" izbire se pripadajoča polja obarvajo zeleno, 
+                    za vse ")}}<strong style="color:red;">{{_("napačne rdeče")}}</strong>{{_(". Pravilni odgovori so nagrajeni, napačni
                     pa kaznovani, z eno točko. </br></br>
-                    Če želite <strong>počistiti</strong> svojo izbiro, željeno sliko iz polja prenesite v <strong>smeti</strong>. S klikom na kljukico preverite svojo izbiro.
-                    Ko bodo vsa polja pravilno izbrana se lahko pomaknete na naslednjo nalogo.</br></br>
-                    S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.
+                    Če želite <strong>počistiti</strong> svojo izbiro, željeno sliko iz polja prenesite v <strong>smeti</strong>. 
+                    S klikom na kljukico preverite svojo izbiro.
+                    Ko bodo vsa polja pravilno izbrana se lahko pomaknete na naslednjo nalogo.")}}</br></br>
+                    {{_("S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.")}}
                 </p>
                 {% endif %}
             {% endif %}
@@ -96,15 +117,15 @@
                         <b>
                             <span class="pozdrav1"> 
                             {%if (alphabetForLearning == "sign"): %}
-                                Znakovna abeceda
+                                {{_("Znakovna abeceda")}}
                             {%elif (alphabetForLearning == "greek")%}
-                                Grška abeceda
+                                {{_("Grška abeceda")}}
                             {%else:%}
                                 {{alphabetForLearning}}
                             {%endif%}
                             </span>
                         </b>
-                        {% if intro != "1" %}<button id="pop-up" class="popUpButton">Navodila</button>{% endif %}
+                        {% if intro != "1" %}<button id="pop-up" class="popUpButton">{{_("Navodila")}}</button>{% endif %}
                     </div>
                     
                     <div class="splitHead">
@@ -114,21 +135,21 @@
                             </div>
                             <div id="col-2" class="menu-nav-item">
                                 <div class="dropdown">
-                                  <a href="" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Pisanje <span class="caret"></span></a>
+                                  <a href="" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{_("Pisanje")}} <span class="caret"></span></a>
                                   <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='easy')}}">Lahko</a></li>
-                                    <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='medium')}}">Srednje</a></li>
-                                    <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='hard')}}">Težko</a></li>
+                                    <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='easy')}}">{{_("Lahko")}}</a></li>
+                                    <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='medium')}}">{{_("Srednje")}}</a></li>
+                                    <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='hard')}}">{{_("Težko")}}</a></li>
                                   </ul>
                                 </div>
                             </div>
                             <div id="col-3" class="menu-nav-item">
                                 <div class="dropdown">
-                                  <a href="" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Branje <span class="caret"></span></a>
+                                  <a href="" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{_("Branje")}} <span class="caret"></span></a>
                                   <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='easy')}}">Lahko</a></li>
-                                    <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='medium')}}">Srednje</a></li>
-                                    <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='hard')}}">Težko</a></li>
+                                    <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='easy')}}">{{_("Lahko")}}</a></li>
+                                    <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='medium')}}">{{_("Srednje")}}</a></li>
+                                    <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='hard')}}">{{_("Težko")}}</a></li>
                                   </ul>
                                 </div>
                             </div>
@@ -143,20 +164,20 @@
                             <div class="">
                                 <h1>
                                     {%if (alphabetForLearning == "sign"): %}
-                                        Znakovna abeceda
+                                        {{_("Znakovna abeceda")}}
                                     {%elif (alphabetForLearning == "greek")%}
-                                        Grška abeceda
+                                        {{_("Grška abeceda")}}
                                     {%else:%}
                                         {{alphabetForLearning}}
                                     {%endif%}
                                 </h1>
-                                <p>Dobrodošli na strani za učenje komuniciranje s pomočjo tujih abeced.</p>
-                                <p><strong>Na kratko o izbrani abecedi:</strong></p>
+                                <p>{{_("Dobrodošli na strani za učenje komuniciranje s pomočjo tujih abeced.")}}</p>
+                                <p><strong>{{_("Na kratko o izbrani abecedi:")}}</strong></p>
                                 <p>
                                     {{introText}}
                                 </p>
                                 </br>
-                                <p>Spodaj si lahko ogledate seznam vseh črk, ki se jih lahko naučite s pomočjo te aplikacije. Za ogled posameznega simbola kliknite na ustrezno kartico.</p>
+                                <p>{{_("Spodaj si lahko ogledate seznam vseh črk, ki se jih lahko naučite s pomočjo te aplikacije. Za ogled posameznega simbola kliknite na ustrezno kartico.")}}</p>
                             </div>
                                 <div class="show-all-flags">
                                 {% for letter in alphabet %}
@@ -177,9 +198,9 @@
                                 {% endfor %}    
                             </div>
                             <div class="">
-                                <p>Pripravljeni, da začnete?</p>
-                                <a value = "Read" class="btn btn-default btn-bg {% if mode == "read" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='easy')}}">Branje</a>
-                                <a value = "Write" class="btn btn-default btn-bg {% if mode == "write" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='easy')}}">Pisanje</a>
+                                <p>{{_("Pripravljeni, da začnete?")}}</p>
+                                <a value = "Read" class="btn btn-default btn-bg {% if mode == "read" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='easy')}}">{{_("Branje")}}</a>
+                                <a value = "Write" class="btn btn-default btn-bg {% if mode == "write" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='easy')}}">{{_("Pisanje")}}</a>
                             </div>
                         </div>
                     </div>
@@ -194,7 +215,7 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center">
                                         <b>
-                                            <span id="num-points-text">Število pravilnih odgovorov</span>
+                                            <span id="num-points-text">{{_("Število pravilnih odgovorov")}}</span>
                                         </b>
                                         <div id="points"><span id="points-display">0</span></div>
                                     </div>
@@ -224,14 +245,14 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center">
                                         <b>
-                                            <span id="num-points-text">Število pravilnih odgovorov</span>
+                                            <span id="num-points-text">{{_("Število pravilnih odgovorov")}}</span>
                                         </b>
                                         <div id="points"><span id="points-display">0</span></div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center solutionButtonContainer">
-                                        <a id="read_medium_solution" class="btn btn-default btn-bg btn-solution">Rešitev</a>
+                                        <a id="read_medium_solution" class="btn btn-default btn-bg btn-solution">{{_("Rešitev")}}</a>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -255,14 +276,14 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center">
                                         <b>
-                                            <span id="num-points-text">Število pravilnih odgovorov</span>
+                                            <span id="num-points-text">{{_("Število pravilnih odgovorov")}}</span>
                                         </b>
                                         <div id="points"><span id="points-display">0</span></div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center solutionButtonContainer">
-                                        <a id="start-animation" class="btn btn-default btn-bg btn-solution">Začni!</a>
+                                        <a id="start-animation" class="btn btn-default btn-bg btn-solution">{{_("Začni!")}}</a>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -284,7 +305,7 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center">
                                         <b>
-                                            <span id="num-points-text">Število pravilnih odgovorov</span>
+                                            <span id="num-points-text">{{_("Število pravilnih odgovorov")}}</span>
                                         </b>
                                         <div id="points"><span id="points-display">0</span></div>
                                     </div>
@@ -326,7 +347,7 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center">
                                         <b>
-                                            <span id="num-points-text">Število pravilnih odgovorov</span>
+                                            <span id="num-points-text">{{_("Število pravilnih odgovorov")}}</span>
                                         </b>
                                         <div id="points"><span id="points-display">0</span></div>
                                     </div>
@@ -361,7 +382,7 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center">
                                         <b>
-                                            <span id="num-points-text">Število pravilnih odgovorov</span>
+                                            <span id="num-points-text">{{_("Število pravilnih odgovorov")}}</span>
                                         </b>
                                         <div id="points"><span id="points-display">0</span></div>
                                     </div>

@@ -254,12 +254,16 @@ function addSortButton(info_btn_id, chart_id) {
  */
 function createSortButton(button_id, chart_id, function_name) {
         var button = document.createElement("button");
+        var buttonLabelAlph = document.getElementById("buttonLabelAlph").textContent;
+        document.getElementById("buttonLabelFq").style.visibility = "hidden";
+        document.getElementById("buttonLabelAlph").style.visibility = "hidden";
+
         button.setAttribute("value", "0");
         button.setAttribute("id", button_id);
         button.setAttribute("data-chart-id", chart_id);
         button.setAttribute("class","btn btn-default btn-sm");
         button.setAttribute("onclick", function_name);
-        button.textContent = "Sortiraj po abecedi";
+        button.textContent = buttonLabelAlph;
         return button;
 }
 
@@ -279,13 +283,18 @@ function sortChart(button_id) {
         data = sortChartData(chartData.plot2_data[0], chartData.plot2_data[1], btn.value);
     }
 
+    var buttonLabelFq = document.getElementById("buttonLabelFq").textContent;
+    var buttonLabelAlph = document.getElementById("buttonLabelAlph").textContent;
+    document.getElementById("buttonLabelFq").style.visibility = "hidden";
+    document.getElementById("buttonLabelAlph").style.visibility = "hidden";
+
     if (btn.value === '0' ) {
         btn.setAttribute('value', '1');
-        btn.textContent = "Sortiraj po frekvenci";
+        btn.textContent = buttonLabelFq;
     }
     else {
         btn.setAttribute('value', '0');
-        btn.textContent = "Sortiraj po abecedi";
+        btn.textContent = buttonLabelAlph;
     }
 
     updateChart(chart_id, data);

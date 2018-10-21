@@ -11,10 +11,10 @@
     <div class="modal-content">
         <div id="header">
             <span id="cl" class="close">&times;</span>
-            <h2>Navodila</h2>
+            <h2>{{_("Navodila")}}</h2>
         </div>
         <div class="modal-body" id="body-navodila">
-            <p>Steganografija je veda o skrivanju podatkov npr. v sporočilo, sliko ali video. Za razliko od kriptografije oziroma šifriranja podatkov, katere cilj je narediti podatke neberljive, steganografija poskuša prikriti obstoj podatkov. Cilj je onemogočiti zaznavo podatkov, ki so skriti v navidez nepomembnih podatkih. Spletna stran omogoča skrivanje sporočila v sliko. Na spletno stran lahko naložite svojo sliko, vanjo pa lahko zakodirate sporočilo, ali pa ga razberete, če se sporočilo v sliki že nahaja. Razlik med originalno sliko in sliko s sporočilom ni mogoče videti s prostim očesom, zato stran omogoča tudi vizualni prikaz nastale razlike.</p>
+            <p>{{_("Steganografija je veda o skrivanju podatkov npr. v sporočilo, sliko ali video. Za razliko od kriptografije oziroma šifriranja podatkov, katere cilj je narediti podatke neberljive, steganografija poskuša prikriti obstoj podatkov. Cilj je onemogočiti zaznavo podatkov, ki so skriti v navidez nepomembnih podatkih. Spletna stran omogoča skrivanje sporočila v sliko. Na spletno stran lahko naložite svojo sliko, vanjo pa lahko zakodirate sporočilo, ali pa ga razberete, če se sporočilo v sliki že nahaja. Razlik med originalno sliko in sliko s sporočilom ni mogoče videti s prostim očesom, zato stran omogoča tudi vizualni prikaz nastale razlike.")}}</p>
         </div>
     </div>
 </div>
@@ -25,10 +25,10 @@
     <div class="modal-content">
         <div class="modal-header">
             <span id="cl1" class="close1">&times;</span>
-            <h2>Opozorilo</h2>
+            <h2>{{_("Opozorilo")}}</h2>
         </div>
         <div class="modal-body">
-            <p>Izberite slikovno datoteko!</p>
+            <p>{{_("Izberite slikovno datoteko!")}}</p>
         </div>
     </div>
 </div>
@@ -36,10 +36,10 @@
     <div class="modal-content">
         <div class="modal-header">
             <span id="cl2" class="close2">&times;</span>
-            <h2>Opozorilo</h2>
+            <h2>{{_("Opozorilo")}}</h2>
         </div>
         <div class="modal-body">
-            <p>Datoteka je prevelika! Največja dovoljena 2 MB.</p>
+            <p>{{_("Datoteka je prevelika! Največja dovoljena 2 MB.")}}</p>
         </div>
     </div>
 </div>
@@ -47,10 +47,10 @@
     <div class="modal-content">
         <div class="modal-header">
             <span id="cl3" class="close2">&times;</span>
-            <h2>Opozorilo</h2>
+            <h2>{{_("Opozorilo")}}</h2>
         </div>
         <div class="modal-body">
-            <p>V sliko poskušate zakodirati preveč besedila!</p>
+            <p>{{_("V sliko poskušate zakodirati preveč besedila!")}}</p>
         </div>
     </div>
 </div>
@@ -58,10 +58,10 @@
     <div class="modal-content">
         <div class="modal-header">
             <span id="cl4" class="close2">&times;</span>
-            <h2>Opozorilo</h2>
+            <h2>{{_("Opozorilo")}}</h2>
         </div>
         <div class="modal-body">
-            <p>V tekstovno polje niste vnesli besedila, ki ga želite zakodirati!</p>
+            <p>{{_("V tekstovno polje niste vnesli besedila, ki ga želite zakodirati!")}}</p>
         </div>
     </div>
 </div>
@@ -69,10 +69,10 @@
     <div class="modal-content">
         <div class="modal-header">
             <span id="cl5" class="close2">&times;</span>
-            <h2>Opozorilo</h2>
+            <h2>{{_("Opozorilo")}}</h2>
         </div>
         <div class="modal-body">
-            <p>Prosim naložite sliko!</p>
+            <p>{{_("Prosim naložite sliko!")}}</p>
         </div>
     </div>
 </div>
@@ -81,10 +81,10 @@
     <div class="modal-content">
         <div class="modal-header">
             <span id="cl6" class="close2">&times;</span>
-            <h2>Opozorilo</h2>
+            <h2>{{_("Opozorilo")}}</h2>
         </div>
         <div class="modal-body">
-            <p>Datoteka je prevelikih dimenzij. Maksimalna dovoljena dimenzija je 1000 x 1000 px.</p>
+            <p>{{_("Datoteka je prevelikih dimenzij. Maksimalna dovoljena dimenzija je 1000 x 1000 px.")}}</p>
         </div>
     </div>
 </div>
@@ -97,10 +97,10 @@
                     <div class="splitHead">   
                         <b>
                             <span class="pozdrav1"> 
-                            Skrivanje sporočila v sliko
+                            {{_("Skrivanje sporočila v sliko")}}
                             </span>
                         </b>
-                        <button id="pop-up">Navodila</button>
+                        <button id="pop-up">{{_("Navodila")}}</button>
                     </div>
                 </div>
             </div>
@@ -110,18 +110,21 @@
                 <!-- Upload in prikaz slik -->
 
                 <div id="custom"><div class="custom-file-upload">
+                    <p style="padding-left: 20px">{{_("Izberi sliko:")}}</p>
                     <input type="file" id="file" name="file"/>
+                    <p id="buttonLabel">{{_("Naloži")}}</p>
                 </div></div>
                 
                 <img id="img" src="{{url_for('static', filename='images/generic-pic1.png')}}">
 
-                <div id="coded"><p>Število kodiranih znakov </p><span id="capacity"></span></h2> </div>
-                <textarea id="text" class="common" placeholder="Vpiši sporočilo..."></textarea><br>
+                <div id="coded"><p>{{_("Število kodiranih znakov ")}}</p><span id="capacity"></span></h2> </div>
+                <p id="znakovLabel">{{_("znakov")}}</p>
+                <textarea id="text" class="common" placeholder={{_("Vpiši sporočilo...")}}></textarea><br>
                 
                 <div id="buttons">
                    
-                    <button id="hide" class="open-sans-font">Skrij sporočilo</button>
-                    <button id="read" class="open-sans-font">Razkrij sporočilo</button>
+                    <button id="hide" class="open-sans-font">{{_("Skrij sporočilo")}}</button>
+                    <button id="read" class="open-sans-font">{{_("Razkrij sporočilo")}}</button>
                            
                 </div>
                 
@@ -129,18 +132,18 @@
                 <div id="hidden" style="display: none;">
                     <div id="result">
 
-                        <h4>Slika s sporočilom:</h4>
+                        <h4>{{_("Slika s sporočilom:")}}</h4>
                         <img id="cover" src=""/>
                         <div class="btn-center">
-                            <button style="display: none;" id="download" onclick="document.getElementById('dlink').click()"><a id="dlink" download="prenos.png" rel="nofollow">Prenos</a></button>
+                            <button style="display: none;" id="download" onclick="document.getElementById('dlink').click()"><a id="dlink" download="prenos.png" rel="nofollow">{{_("Prenos")}}</a></button>
                         </div>
 
                         <div id="diffH" style="display: none;">
-                            <h4>Razlika med slikama:</h4>
+                            <h4>{{_("Razlika med slikama:")}}</h4>
                             <canvas id="myCanvas3"> </canvas>
                         </div>
                         <div class="btn-center">
-                            <button id="diff">Prikaži razliko</button>
+                            <button id="diff">{{_("Prikaži razliko")}}</button>
                         </div>
                     </div>
                 </div>

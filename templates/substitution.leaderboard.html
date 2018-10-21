@@ -13,7 +13,7 @@
                     <div class="splitHead">   
                         <b>
                             <span class="pozdrav1"> 
-                            Lestvice
+                            {{_("Lestvice")}}
                             </span>
                         </b>
                     </div>
@@ -22,10 +22,10 @@
 <div id="leaderboard-container">
 
     <div class="tab">
-        <a class="tablinks" href="{{url_for('substitution.leaderboard', difficulty='easy')}}">Lahko</a>
-        <a class="tablinks" href="{{url_for('substitution.leaderboard', difficulty='medium')}}">Srednje</a>
-        <a class="tablinks" href="{{url_for('substitution.leaderboard', difficulty='hard')}}">Težko</a>
-        <a class="tablinks" href="{{url_for('substitution.leaderboard', difficulty='caesar')}}">Caesar</a>
+        <a class="tablinks" href="{{url_for('substitution.leaderboard', difficulty='easy')}}">{{_("Lahko")}}</a>
+        <a class="tablinks" href="{{url_for('substitution.leaderboard', difficulty='medium')}}">{{_("Srednje")}}</a>
+        <a class="tablinks" href="{{url_for('substitution.leaderboard', difficulty='hard')}}">{{_("Težko")}}</a>
+        <a class="tablinks" href="{{url_for('substitution.leaderboard', difficulty='caesar')}}">{{_("Caesar")}}</a>
     </div>
     {% for user in users %}
         <div class="row">
@@ -37,7 +37,7 @@
                     <span id="top-name">{{ user[0] }}</span>
                 </div>
                 <div id="col-2">
-                    <span id="top-diff">Težavnost</span>
+                    <span id="top-diff">{{_("Težavnost")}}</span>
                     <span id="top-value">{{ user[1] }}</span>
                 </div>
                 <div id="col-3">
@@ -53,7 +53,7 @@
                     <span class="name">{{ user[0] }}</span>
                 </div>
                 <div class="col-2">
-                    <span class="diff">Težavnost</span>
+                    <span class="diff">{{_("Težavnost")}}</span>
                     <span class="value">{{ user[1] }}</span>
                 </div>
                 <div class="col-3">

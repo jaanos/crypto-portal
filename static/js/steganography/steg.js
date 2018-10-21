@@ -40,14 +40,16 @@ $(document).ready(function() {
 		  $.fn.customFile = function() {
 
 		    return this.each(function() {
+              var $buttonLabel = $('#buttonLabel').text();
+              $( "#buttonLabel" ).hide();
 
 		      var $file = $(this).addClass('custom-file-upload-hidden'), // the original file input
 		          $wrap = $('<div class="file-upload-wrapper">'),
 		          $input = $('<input type="text" class="file-upload-input" />'),
 		          // Button that will be used in non-IE browsers
-		          $button = $('<button type="button" class="file-upload-button">Izberi sliko</button>'),
-		          // Hack for IE
-		          $label = $('<label class="file-upload-button" for="'+ $file[0].id +'">Izberi sliko</label>');
+                  $button = $('<button type="button" class="file-upload-button">'+$buttonLabel+'</button>'),
+                  // Hack for IE
+                  $label = $('<label class="file-upload-button" for="' + $file[0].id + '">'+$buttonLabel+'</label>');
 
 		      // Hide by shifting to the left so we
 		      // can still trigger events
@@ -358,7 +360,9 @@ function updateCapacity() {
     var img = document.getElementById('img'),
         textarea = document.getElementById('text');
     if(img && text)
-        document.getElementById('capacity').innerHTML='('+textarea.value.length + '/' + steg.getHidingCapacity(img) +' znakov)';
+        var $znakovLabel = $('#znakovLabel').text();
+        $( "#znakovLabel" ).hide();
+        document.getElementById('capacity').innerHTML='('+textarea.value.length + '/' + steg.getHidingCapacity(img) +$znakovLabel+")";
 }
 
 

@@ -11,6 +11,7 @@ from Crypto.Hash import SHA256
 from base64 import b64encode, b64decode
 from auth import timestamp_public as public
 from auth import timestamp_private as private
+from flask_babel import Babel, _, lazy_gettext as _l
 
 app = Blueprint('timestamp', __name__)
 
@@ -18,11 +19,12 @@ TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 
 def encrypt(message, pub_key):
     cipher = PKCS1_OAEP.new(pub_key)
-    return b64encode(cipher.encrypt(message))
+    ciphertext = cipher.encrypt(message)
+    return ciphertext
 
 def decrypt(ciphertext, priv_key):
     cipher = PKCS1_OAEP.new(priv_key)
-    return cipher.decrypt(b64decode(ciphertext))
+    return cipher.decrypt(ciphertext)
 
 def sign(message, priv_key):
     global hash
@@ -87,9 +89,34 @@ def file():
 def downloadCert():
     text = request.form['data']
     plaintext_bytes = text.encode('utf-8')
-    with open(public, "r") as myfile:
-        pub_key = RSA.importKey(myfile.read())
-    encrypted = encrypt(plaintext_bytes,  pub_key )
+    pub_key = False
+    try:
+        with open(public, "rb") as myfile:
+            private_key = RSA.importKey(myfile.read())
+    except:
+        #Signature, change public and private keys so that
+        #we can encrypt with private and decrypt with public...
+        #It is done due to implementation reasons as the py module does not
+        #allow encryption with (real RSA) private key.
+
+        #We just publish RSA private key insted of public 
+        # #-- It is not good, but works for now.
+        #publish one for verification
+        #key = RSA.generate(2048)
+        #f = open(public,'wb')
+        #f.write(key.exportKey('PEM'))
+        #f.close()
+        #store one for signing
+        #f = open(private,'wb')
+        #f.write(key.publickey().exportKey('PEM'))
+        #f.close()
+        ###########################################
+        #pub_key = key
+        #private_key = key.publickey()
+        pass
+        
+    
+    encrypted = encrypt(plaintext_bytes, private_key)
     return Response(encrypted , mimetype="text/plain", headers={"Content-Disposition":"attachment;filename=Certificate.tsr"})
 
 @app.route('/checking')
@@ -113,24 +140,26 @@ def check_file():
     file = returnFile()
     read = file.read()
     try:
-        with open(private, "r") as myfile:
-            key = RSA.importKey(myfile.read())
+        with open(public, "r") as myfile:
+                key = RSA.importKey(myfile.read())
         decrypted = decrypt(read, key).decode('utf-8')
         items = decrypted.split(",")
         db = database.dbcon()
         cur = db.cursor()
-        #n = cur.execute("SELECT date, hashFile FROM timestamps WHERE hashPortal = %s AND hashFile = %s AND date = %s", (items[1], items[0], datetime.strptime(items[2], TIME_FORMAT)))
+            #n = cur.execute("SELECT date, hashFile FROM timestamps WHERE hashPortal = %s AND hashFile = %s AND date = %s", (items[1], items[0], datetime.strptime(items[2], TIME_FORMAT)))
         n = cur.execute("SELECT date, hashFile FROM timestamps WHERE hashPortal = %s AND hashFile = %s", (items[1], items[0]))
         cur.close()
         if n == 0:
             return render_template('timestamp.file.html',
-                                   error="Z danim certifikatom ni bil potrjen noben dokument na tej strani.")
+                                error=_l("Z danim certifikatom ni bil potrjen noben dokument na tej strani."))
         else:
-            return render_template('timestamp.file.html', check="Dokument z zgoščevalno funkcijo " + items[0] + " je bil potrjen " + items[2])
+            s1 = _l("Dokument z zgoščevalno funkcijo ")
+            s2 = _l(" je bil potrjen ")
+            return render_template('timestamp.file.html', check=s1 + items[0] +s2 +items[2])
     except:
-        pass
+       pass
     return render_template('timestamp.file.html',
-                           error="Prišlo je do napake pri preverjanju certifikata ali pa je certifikat neveljaven, poskusite ponovno.")
+                           error=_l('Prišlo je do napake pri preverjanju certifikata ali pa je certifikat neveljaven, poskusite ponovno.'))
 
 @app.route('/check_hash', methods=['POST'])
 def check_hash():
