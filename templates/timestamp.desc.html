@@ -13,17 +13,19 @@
 			</div>
 			<div class="panel-body">
 				<div class="container-fluid">
+
 					<p>{{_("V splošnem je varni časovni žig digitalni zapis, ki zagotavlja podpis dokumenta z veljavnim digitalnim potrdilom v
 					določenem časovnem trenutku in sicer na način, da povezuje datum in čas podpisa ter podatke v elektronski obliki na kriptografsko varen način.
 					Preden pa si pogledamo natančneje namen in delovanje varnih časovnih žigov, pa je dobro, če si še na kratko pogledamo, kaj je to koncept javnih ključev.")}}</p><br>
 					<p>  <img src="{{url_for('static', filename='images/timestamp/mailbox.jpg')}}" alt="Mailbox" style="float:right;margin:0 20px 20px 0;"/>
 					{{_("Koncept javnih ključev si lahko predstavljamo kot pošiljanje pisem med dvema osebama. Če želimo nekomu poslati pismo, ga moramo poslati
 					seveda naslovniku v njegov poštni nabiralnik. Ta lahko, ko pismo dobi, s svojim ključem odpre poštni nabiralnik, odpre pismo in ga prebere.
-					Podobno deluje tudi sistem javnih in zasebnih ključev. Ko pošiljamo neko sporočilo naslovniku uporabimo njegov javni ključ, da sporočilo zašifriramo,
+					Podobno deluje tudi sistem javnih in zasebnih ključev. Ko pošiljamo neko sporočilo naslovniku, uporabimo njegov javni ključ, da sporočilo zašifriramo,
 					naslovnik pa s svojim zasebnim ključem sporočilo odšifrira in prebere naše sporočilo. S tem zagotovimo, da naše sporočilo lahko prebere le oseba, ki ji
 					je namenjeno in njegova vsebina ni javno dostopna vsem poslušalcem. Par javnih in zasebnih ključev sta neki izbrani števili, ki ju ni možno izračunati,
 					če poznamo le enega od njiju, in ju uporabljamo v formulah za šifriranje. Javni ključ je dostopen komurkoli, zasebni ključ pa zgolj lastniku. Zakaj je to pomembno za
 					časovno žigosanje malo kasneje.")}}</p><br>
+
 					<p> <img src="{{url_for('static', filename='images/timestamp/newspaper.jpg')}}" alt="Newspaper" style="float:left;margin:0 20px 20px 0;"/>
 					{{_("Namen varnega časovnega žiga je zagotavljanje, da je nek določen dokument obstajal v trenutku žigosanja in se od takrat naprej ni spreminjal.
 					Kot vsakdanji primer le-tega si lahko vzamemo prodajo mobitela. Na splet postavimo oglas, da prodajamo nov, še neuporabljen mobilni telefon.

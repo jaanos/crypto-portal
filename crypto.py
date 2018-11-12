@@ -1,14 +1,16 @@
-#!/usr/bin/python
+# !/usr/bin/python
 # -*- coding: utf-8 -*-
 from flask import render_template,redirect, Flask,request,url_for, session, abort
 from auth import sesskey, debug
 from githook import app as githook_app
 from substitution import app as substitution_app
+from transposition import app as transposition_app
 from steganography import app as steganography_app
 from visual import app as visual_app
 from alphabet import app as alphabet_app
 from timestamp import app as timestamp_app
 from password import app as password_app
+from hash import app as hash_app
 import os # DODANO ZA POTREBE CLOUD9
 from flask_babel import Babel, _, lazy_gettext as _l
 
@@ -18,12 +20,16 @@ babel = Babel(app)
 
 app.debug = debug
 app.register_blueprint(githook_app)
+
 app.register_blueprint(substitution_app, url_prefix = '/<language>/substitution')
+app.register_blueprint(transposition_app, url_prefix = '/<language>/transposition')
 app.register_blueprint(steganography_app, url_prefix = '/<language>/steganography')
 app.register_blueprint(visual_app, url_prefix = '/<language>/visual')
 app.register_blueprint(alphabet_app, url_prefix = '/<language>/alphabet')
 app.register_blueprint(timestamp_app, url_prefix = '/<language>/timestamp')
 app.register_blueprint(password_app, url_prefix='/<language>/password')
+app.register_blueprint(hash_app, url_prefix='/<language>/hash')
+
 app.secret_key = sesskey
 
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024   # limit 1 MB
@@ -106,4 +112,4 @@ def favicon():
     return redirect('static/images/favicon.ico')
 
 if __name__ == '__main__':
-    app.run(debug=True) # DODANO ZA POTREBE CLOUD9
+    app.run(debug=True, host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 8080))) # DODANO ZA POTREBE CLOUD9

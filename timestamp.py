@@ -96,23 +96,25 @@ def downloadCert():
     except:
         #Signature, change public and private keys so that
         #we can encrypt with private and decrypt with public...
-        #Due to implementation reasons. In general, modul does not
-        #agree on encrypting with (real RSA) private key.
+        #It is done due to implementation reasons as the py module does not
+        #allow encryption with (real RSA) private key.
 
         #We just publish RSA private key insted of public 
-        # #-- not so goot, but works for now.
+        # #-- It is not good, but works for now.
         #publish one for verification
-        key = RSA.generate(2048)
-        f = open(public,'wb')
-        f.write(key.exportKey('PEM'))
-        f.close()
+        #key = RSA.generate(2048)
+        #f = open(public,'wb')
+        #f.write(key.exportKey('PEM'))
+        #f.close()
         #store one for signing
-        f = open(private,'wb')
-        f.write(key.publickey().exportKey('PEM'))
-        f.close()
+        #f = open(private,'wb')
+        #f.write(key.publickey().exportKey('PEM'))
+        #f.close()
         ###########################################
-        pub_key = key
-        private_key = key.publickey()
+        #pub_key = key
+        #private_key = key.publickey()
+        pass
+        
     
     encrypted = encrypt(plaintext_bytes, private_key)
     return Response(encrypted , mimetype="text/plain", headers={"Content-Disposition":"attachment;filename=Certificate.tsr"})

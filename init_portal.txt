@@ -29,6 +29,6 @@
 #https://www.digitalocean.com/community/questions/how-to-import-sql-file-into-mysql
 #ALTER USER 'username'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 
-source activate crypto-portal-env
+source activate py36
 export FLASK_APP=crypto.py
 flask run

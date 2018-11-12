@@ -8,6 +8,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+dev/
 build/
 develop-eggs/
 dist/
@@ -65,4 +66,4 @@ target/
 .htaccess
 *.pem
 static/uploads
-crypto.py
+*.mo
