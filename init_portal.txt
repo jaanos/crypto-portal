@@ -22,6 +22,6 @@
 #conda create --name crypto-portal-env
 #pip install -r requirements.txt
 
-source activate crypto-portal-env
+source activate py36
 export FLASK_APP=crypto.py
 flask run
