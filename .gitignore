@@ -67,3 +67,6 @@ target/
 *.pem
 static/uploads
 *.mo
+*.sql
+*.DS_Store
+auth.py
