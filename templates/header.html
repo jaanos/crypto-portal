@@ -76,10 +76,10 @@
         
         
         <li class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('transposition.index')}}">Premešalka <span class="caret"></span></a>
+            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('transposition.index')}}">{{_("Premešalka")}} <span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="{{url_for('transposition.description')}}">Kaj so transpozicijske šifre?</a></li>
-                <li><a href="{{url_for('transposition.play')}}">Naloge (lahko/srednje/težko)</a></li>
+                <li><a href="{{url_for('transposition.description')}}">{{_("Kaj so transpozicijske šifre?")}}</a></li>
+                <li><a href="{{url_for('transposition.play')}}">{{_("Naloge (lahko/srednje/težko)")}}</a></li>
             </ul>
         </li>
         
@@ -87,7 +87,7 @@
         <li class="dropdown">
             <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('steganography.index')}}">{{_("Steganografija")}} <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-                {# <li><a href="{{url_for('steganography.colors')}}">Mešanje barv</a></li> #}
+                {# <li><a href="{{url_for('steganography.colors')}}">{{_("Mešanje barv")}}</a></li> #}
                 <li><a href="{{url_for('steganography.images')}}">{{_("Skrivanje sporočila v sliko")}}</a></li>
                 <li><a href="{{url_for('visual.index')}}">{{_("Vizualna kriptografija")}}</a></li>
             </ul>
@@ -113,10 +113,10 @@
             <a class="btn btn-secondary" role="button" href="{{url_for('password.index')}}">{{_("Geslo")}}</a>
         </li>
 	<li class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('hash.index')}}">Zgoščevanje <span class="caret"></span></a>
+            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('hash.index')}}">{{_("Zgoščevanje")}} <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="{{url_for('hash.index')}}">Zgoščevalne funkcije</a></li>
-		<li><a href="{{url_for('hash.examples')}}">Poizkusite sami</a></li>
+                <li><a href="{{url_for('hash.index')}}">{{_("Zgoščevalne funkcije")}}</a></li>
+		<li><a href="{{url_for('hash.examples')}}">{{_("Poizkusite sami")}}</a></li>
             </ul>
         </li>
     </ul>

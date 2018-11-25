@@ -20,11 +20,11 @@
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                     <div class="text-center">
-                                        <h2 class="text-center">Zgoščevanje niza</h2>
+                                        <h2 class="text-center">{{_("Zgoščevanje niza")}}</h2>
                                         <div class="panel-body">
                                             <form class="form" method="POST" name="pass_form">
                                                 <div class="form-group">
-						<label for="selHashAlgorithm">Izberite zgoščevalno funkcijo:</label>
+						<label for="selHashAlgorithm">{{_("Izberite zgoščevalno funkcijo:")}}</label>
 						<select style="margin-bottom: 10px; " id="selHashAlgorithm">
 							<option>md5</option>
 							<option>sha1</option>
@@ -38,13 +38,13 @@
                                                         <div class="input-group-addon">
                                                             <i class="glyphicon glyphicon-pencil" ></i>
                                                         </div>
-                                                        <input class="form-control" autocomplete="off" data-val-length-max="60" data-val-length-min="1" data-val-required="Vpisati morate geslo" name="stringToHash" id="stringToHash" placeholder="Vpišite poljuben niz" rows="12" type="text" />
+                                                        <input class="form-control" autocomplete="off" data-val-length-max="60" data-val-length-min="1" name="stringToHash" id="stringToHash" placeholder="Vpišite poljuben niz" rows="12" type="text" />
                                                     </div>
                                                 </div>
                                                 <table class="table">
                                                     <tbody style="text-align: left;">
                                                     <tr>
-                                                        <td>Zgoščen niz:</td>
+                                                        <td>{{_("Zgoščen niz:")}}</td>
                                                         <td style="word-break: break-all;" id="hashedString"></td>
                                                     </tr>
                                                 </table>

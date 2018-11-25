@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-09-21 12:31+0200\n"
+"POT-Creation-Date: 2018-11-25 01:21+0100\n"
 "PO-Revision-Date: 2018-09-07 22:38+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -16,26 +16,26 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.5.3\n"
+"Generated-By: Babel 2.6.0\n"
 
 #: alphabet.py:89 alphabet.py:97 alphabet.py:105 alphabet.py:113
 #: alphabet.py:139
 msgid "Te abecede pa (se) ne poznam!"
 msgstr "Unknown alphabet!"
 
-#: timestamp.py:152
+#: timestamp.py:154
 msgid "Z danim certifikatom ni bil potrjen noben dokument na tej strani."
 msgstr "No document has been found with a certificate given."
 
-#: timestamp.py:154
+#: timestamp.py:156
 msgid "Dokument z zgoščevalno funkcijo "
 msgstr "The document with the hash "
 
-#: timestamp.py:155
+#: timestamp.py:157
 msgid " je bil potrjen "
 msgstr " has been signed at "
 
-#: timestamp.py:160
+#: timestamp.py:162
 msgid ""
 "Prišlo je do napake pri preverjanju certifikata ali pa je certifikat "
 "neveljaven, poskusite ponovno."
@@ -285,7 +285,7 @@ msgstr ""
 "can not move it any further. \n"
 
 #: templates/alphabet.flags.html:110 templates/alphabet.flags.html:145
-#: templates/header.html:85
+#: templates/header.html:98
 msgid "Semafor"
 msgstr "Semaphor"
 
@@ -296,13 +296,13 @@ msgstr "Convert from Latin"
 
 #: templates/alphabet.flags.html:121 templates/alphabet.flags.html:131
 #: templates/alphabet.generic.html:140 templates/alphabet.generic.html:150
-#: templates/header.html:63 templates/substitution.leaderboard.html:25
+#: templates/header.html:65 templates/substitution.leaderboard.html:25
 msgid "Lahko"
 msgstr "Easy"
 
 #: templates/alphabet.flags.html:123 templates/alphabet.flags.html:133
 #: templates/alphabet.generic.html:142 templates/alphabet.generic.html:152
-#: templates/header.html:65 templates/substitution.leaderboard.html:27
+#: templates/header.html:67 templates/substitution.leaderboard.html:27
 msgid "Težko"
 msgstr "Hard"
 
@@ -312,7 +312,7 @@ msgid "Branje"
 msgstr "Convert to Latin"
 
 #: templates/alphabet.flags.html:132 templates/alphabet.generic.html:141
-#: templates/alphabet.generic.html:151 templates/header.html:64
+#: templates/alphabet.generic.html:151 templates/header.html:66
 #: templates/substitution.leaderboard.html:26
 msgid "Srednje"
 msgstr "Medium"
@@ -409,12 +409,12 @@ msgstr ""
 "correctly."
 
 #: templates/alphabet.generic.html:120 templates/alphabet.generic.html:167
-#: templates/header.html:86
+#: templates/header.html:99
 msgid "Znakovna abeceda"
 msgstr "Finger alphabet"
 
 #: templates/alphabet.generic.html:122 templates/alphabet.generic.html:169
-#: templates/header.html:87
+#: templates/header.html:100
 msgid "Grška abeceda"
 msgstr "Greek alphabet"
 
@@ -422,75 +422,304 @@ msgstr "Greek alphabet"
 msgid "Začni!"
 msgstr "Start"
 
+#: templates/hash.description.html:10 templates/header.html:118
+msgid "Zgoščevalne funkcije"
+msgstr "Hash functions"
+
+#: templates/hash.description.html:16
+msgid ""
+"Zgoščevanje je generiranje neke vrednosti iz poljubnega niza znakov s "
+"pomočjo matematične funkcije. Zgoščevalna funkcija pa je funkcija, ki "
+"vzame nek vhodni niz in generira drugačen niz, za\n"
+"njo pa morajo veljati pravila."
+msgstr ""
+"Hashing is the transformation of a string of characters into a usually "
+"shorter fixed-length value or key that represents the original string. "
+"The representation is choosen within a fixed-range. The transformation is"
+" mainly done using a function of a special kind,  namely, mathematical "
+"hash functions. A function mush have following properties. "
+
+#: templates/hash.description.html:19
+msgid ""
+"\n"
+"<li>Zgoščevalne funkcijo morajo biti deterministične, kar pomeni, da "
+"morajo za določen vhod\n"
+"vedno vrniti enak izhod.</li>\n"
+"<li>Zgoščevalne funkcije morajo stremeti k temu, da so uniformne, torej "
+"da dva različna vhoda ne\n"
+"moreta tvoriti enakega izhoda. To je v praksi zelo težko doseči in so "
+"ponavadi zadovoljive\n"
+"zgoščevalne funkcije, kjer je verjetnost sovpadanja dovolj majhna.</li>\n"
+"<li>Zgoščevalne funkcije vzamejo vhodni niz poljubne dolžine in ga "
+"pretvorijo v niz točno\n"
+"določene dolžine.</li>\n"
+"<li>Zgoščevalne funkcije morajo oz. morajo stremeti k temu, da so "
+"enosmerne, kar pomeni, da iz\n"
+"izhoda ne smemo dobiti vhodnega parametra.</li>"
+msgstr ""
+"<li>It has to be deterministic, e.g. for the same input, it returns the "
+"same output.</li><li>It needs to be deterministic, e.g. the possibility "
+"to get the same output for the same input is smaller that being hit by "
+"the meteor. This really hard to achieve. So, we are satisfied if the "
+"possibility is really close to the possibility of being hit by the "
+"airplane while driving in a black car.</li><li>It accepts strings of "
+"(almost) arbitray size, but the length of the output is fixed.</li><li>It"
+" needs to be one way, e.g. observing an input it is as possible to reveal"
+" the input as being hit by the spaceship. (To be honest, this variates "
+"from an application.)</li>"
+
+#: templates/hash.description.html:32
+msgid ""
+"Recimo, da imamo v razredu 5 učencev.\n"
+"<ul>\n"
+"<li>Janez Korenina</li>\n"
+"<li>Zala Novak</li>\n"
+"<li>Miha Copatar</li>\n"
+"<li>Zvonko Nagode</li>\n"
+"<li>Tone Rastlina</li>\n"
+"</ul>\n"
+"<br>\n"
+"Vzamimo funkcijo F, ki za vhod prejme učenca in ga zapiše kot niz "
+"začetnic imena in priimka.\n"
+"Dobimo torej vrednosti, kot so JK, ZN, itd."
+msgstr ""
+"Isn't is great to have examples? Our is about one gang. The gang has 5 "
+"members:<ul>\n"
+"<li>Janez Korenina</li>\n"
+"<li>Zala Novak</li>\n"
+"<li>Miha Copatar</li>\n"
+"<li>Zvonko Nagode</li>\n"
+"<li>Tone Rastlina</li>\n"
+"</ul><br><br>The gang members never call each other by name! Why? <br> "
+"Well, you know the gang, always in want to hide something... And if there"
+" is no eyes, ears are everywhere. So, they decided to give themself code "
+"names. Imagine, they call each other only by initials (!WOW!). This way, "
+"knowing that ZN did something, does not tell us who really did it. It "
+"could be Zrinka Novakovič or Zvonimir Nikša or Zlata Nikšić, who knows "
+"?!?! <br> <small>Disclamer: No one outside the gang  knows who is in the "
+"gang.</small> <br> <br> Let us now observe the rule that transforms name "
+"of the gang member into the code name. Well, it is actually one example "
+"of the hash function. Let's denote it with "
+"<code>F()</code>.<br><br>Buuut, does it really have all abovementioned "
+"properties? "
+
+#: templates/hash.description.html:44
+msgid ""
+"Bi lahko rekli funkciji F zgoščevalna funkcija?\n"
+"<ul>\n"
+"<li>Pogoj 1 je izpolnjen, saj bo Janez Korenina vsakič zgoščen v JK.</li>"
+"\n"
+"<li>Pogoj 2 ni izpolnjen, saj Zala Novak in Zvonko Nagode tvorita enak "
+"izhod, \n"
+"\ttj. ZN. Verjetnost, da imata izmed petih učencev dva enake začetnice, "
+"je sicer majhna (1,6 posto), a v\n"
+"svetu zgoščevalnih funkcij je to ogromno. Kot primer lahko vzamemo tudi "
+"scenarij, \n"
+"kjer je v razredu 20 učencev. Takrat je verjetnost, da imata dva učenca "
+"enak izhod že 26,5 posto .</li>\n"
+"<li>Pogoj 3 je izpolnjen, saj je izhod vedno dolžine 2 (ignorirajmo za "
+"zdaj primere, ko ima učenec\n"
+"več kot eno ime ali priimek).</li>\n"
+"<li>Pogoj 4 ni izpolnjen, saj iz izhoda lahko vidimo, kakšen je bil vhod."
+" Npr. ZN ne more biti nič\n"
+"drugega kot Zala Novak, saj je edina z začetnicami Z in N. Tudi v "
+"primeru, ko obstajata dva ali\n"
+"več učencev z istimi začetnicami, lahko omejimo možen nabor imen, ki jim "
+"pripada.</li>\n"
+"</ul>"
+msgstr ""
+"Is is really a mathematiacal hash function "
+"<code>F()</code>?<ul><li>Property 1 holds, e.g. Janez Korenina is always "
+"transformed into JK.</li><li>But, property 2 does not, i.e. Zala Novak "
+"and Zvonko Nagode transform into the same code name: ZNThe probability "
+"that the collision happens within the gang of 5 is lower than 1,6 "
+"percentage which is pretty much in a world of hash functions, as to be "
+"hit by the meteor is 0.000001 percentage.Unfortunatelly for the gang, "
+"this probability rises as new people comes to the gang. When the gang is "
+"of size 20, the same probability is 26,5 percentage. </li><li>Property 3 "
+"holds. At least that! The gang should be happy that their code namesare "
+"always of length 2.</li><li>Property 4 does not hold inside the gang, "
+"e.g. when saying ZN,the gang knows that that must be Zala Novak. But "
+"outside the gang it is holds pretty well!! Both suits the gang pretty "
+"well.</ul>"
+
+#: templates/hash.description.html:57
+msgid ""
+"<p><br>\n"
+"Kot vidimo, ta F() ne bi bil kaj preveč prida, zato bi si morali "
+"izmisliti boljšo zgoščevalno funkcijo. Na\n"
+"srečo pa lahko izberemo že kakšno izmed obstoječih, kot so SHA-256, "
+"SHA-512, Bcrypt in mnoge druge.\n"
+"<p><br>\n"
+"Kje se zgoščevanje uporablja?\n"
+"<ul>\n"
+"<li>Shranjevanje podatkov v tabeli - Namesto, da iščemo nek zapis po "
+"tabeli, lahko izračunamo\n"
+"zgostitev in takoj skočimo na mesto v tabeli, ki ga referencira ta "
+"zgostitev. Bolj kot lastnost\n"
+"enosmernosti je tukaj pomembno, da pri zgoščevanju prihaja do čim manj "
+"sovpadanj.</li>\n"
+"<li>Preverjanje enakosti podatkov - Tukaj gre za zgoščevalne funkcije, "
+"kjer si želimo, da tudi\n"
+"najmanjša sprememba v vhodnem nizu vrne čim bolj različno zgoščeno "
+"vrednost. Predvsem\n"
+"se uporablja pri preverjanju pravilnosti oz. enakosti podatkov. Če imamo "
+"na voljo zgostitev\n"
+"nekih podatkov, ki ji zaupamo, da je prava, lahko zgostitev izračunamo "
+"sami in primerjamo.\n"
+"Če je enaka, so podatki najverjetneje identični. Uporablja se pri prenosu"
+" datotek, itd.</li>\n"
+"<li>Shranjevanje gesel - Namesto, da bi shranili gesla v svoji prvotni "
+"obliki, shranimo zgoščene\n"
+"vrednosti gesel v bazo. Tako zagotovimo, da gesla uporabnikov ostanejo "
+"neznana, tudi če\n"
+"napadalec vdre v naš sistem.\n"
+"Pomankljivost takšnega shranjevanje gesel so postale t.i. mavrične "
+"tabele, ki vsebujejo slovar\n"
+"gesel in njihovih zgoščenih vrednosti v različnih algoritmih, ki so jih "
+"nepridipravi odkrili do\n"
+"sedaj. To pa lahko rešimo na enostaven način, in sicer tako, da "
+"uporabnikovemu geslu\n"
+"dodamo t. i. <em>sol</em>. To je naključen niz, ki ga potem skupaj z "
+"geslom zgostimo in shranimo v\n"
+"podatkovno bazo. Ta naključnost zagotovi, da v mavričnih tabelah, tudi če"
+" obstaja zapis za\n"
+"geslo, ne najdemo takšnega zapisa.</li>\n"
+"</ul>"
+msgstr ""
+"<p><br>So, <code>F()</code> suits the purpose for the gang (as long as "
+"they are small gang),  but it is not a real mathemathical hash "
+"function.If Zdravka Najc become member, they get COLLISION. Now, when "
+"talking about ZN, no one knows who they are talking about. Not even them."
+" Pretty bad. A solution? Lucky for them, there is always some solution, "
+"just waiting around the corner. Smart guys invented some pretty MEAN hash"
+" functions, i.e. SHA-512, Bcrypt etc. <br><br>Beside for gang-bussines, "
+"where else can we use hash functions? Are they used at all? Ofcourse. Let"
+" us list JUST some.<ul><li>Saving data in a (hash) table. Now, when "
+"searching the table, we just search for corresponding hash. – Insted for "
+"searching row by row, for some long name or so, calculating the hash of "
+"it provides us with (almost) instant reference to the data we want. This "
+"is explained in 'programming' language. If you do not understand it, it "
+"is fine :) No one does for real.</li><li>Checking if two inputs are the "
+"same. - Imagine having two documents of at least 50 pages. You want to "
+"check if they are not equal, and after a day, two, three, you conclude "
+"that they actually ARE NOT!! The only difference is the last word. What a"
+" wast of time. Expecially when there is an easier way. You could have "
+"done this but only calculating the hash of each. So, if they are not "
+"equal, you have your statement! :).<br> As the smallest change in the "
+"input should have change the output. Furthermore, if two hashes turn out "
+"identical, we usually conclude that the input was the same as well. This "
+"is actually used during the file transfer process.</li><li>Storing "
+"posswords. - In a case of having a portal with a registration, to keep "
+"VERY passwords secret (even to you). You never store actual passwords , "
+"but need to still be able to check it the user name maches the password. "
+"Insted of the password, you only store password-hashes. Ofcourse, each "
+"hash is stored together with corresponding username. <br>This way, if "
+"anyone attacks aour storage, it will not be able to obtain passwords as "
+"there are none. This makes users happy. (At least until they forget their"
+" password).</li> </ul>"
+
+#: templates/hash.examples.html:23
+msgid "Zgoščevanje niza"
+msgstr "Sequence hashing"
+
+#: templates/hash.examples.html:27
+msgid "Izberite zgoščevalno funkcijo:"
+msgstr "Choose the hashing function:"
+
+#: templates/hash.examples.html:41 templates/password.meter.html:35
+msgid "Vpisati morate geslo"
+msgstr "Enter the password first"
+
+#: templates/hash.examples.html:47
+msgid "Zgoščen niz:"
+msgstr "The hash:"
+
 #: templates/header.html:5 templates/header.html:27 templates/index.html:19
 msgid "Kriptogram"
 msgstr "Cryptogram"
 
-#: templates/header.html:37
-msgid "Jezik"
-msgstr "Lang"
-
-#: templates/header.html:59 templates/substitution.play.html:52
+#: templates/header.html:61 templates/substitution.play.html:52
 #: templates/substitution.ready.html:23
 msgid "Zamenjalka"
 msgstr "Supstitution<br> cipher"
 
-#: templates/header.html:61
+#: templates/header.html:63
 msgid "Težavnosti"
 msgstr "Level"
 
-#: templates/header.html:67
+#: templates/header.html:69
 msgid "Cezarjeva šifra"
 msgstr "Caesar cipher"
 
-#: templates/header.html:69 templates/substitution.leaderboard.html:16
+#: templates/header.html:71 templates/substitution.leaderboard.html:16
 msgid "Lestvice"
 msgstr "Scoreboard"
 
-#: templates/header.html:71 templates/substitution.ready.html:12
+#: templates/header.html:73 templates/substitution.ready.html:12
 msgid "Pripravljene zamenjalke"
 msgstr "Substitution puzzles"
 
-#: templates/header.html:75
+#: templates/header.html:79
+msgid "Premešalka"
+msgstr "Trans-chipher"
+
+#: templates/header.html:81
+msgid "Kaj so transpozicijske šifre?"
+msgstr "What are transposition ciphers?"
+
+#: templates/header.html:82
+msgid "Naloge (lahko/srednje/težko)"
+msgstr "TransGAME (by levels)"
+
+#: templates/header.html:88
 msgid "Steganografija"
 msgstr "Steganography"
 
-#: templates/header.html:78 templates/steganography.images.html:100
+#: templates/header.html:91 templates/steganography.images.html:100
 msgid "Skrivanje sporočila v sliko"
 msgstr "Hide a message in a image"
 
-#: templates/header.html:79 templates/visual.crypto.html:3
+#: templates/header.html:92 templates/visual.crypto.html:3
 #: templates/visual.crypto.html:85
 msgid "Vizualna kriptografija"
 msgstr "Visual cryptography"
 
-#: templates/header.html:83
+#: templates/header.html:96
 msgid "Abeceda"
 msgstr "Alphabet"
 
-#: templates/header.html:91
+#: templates/header.html:104
 msgid "Časovni žig "
 msgstr "Timestamp"
 
-#: templates/header.html:93
+#: templates/header.html:106
 msgid "Kaj je časovni žig?"
 msgstr "What is a timestamp?"
 
-#: templates/header.html:94
+#: templates/header.html:107
 msgid "Časovno žigosanje dokumenta"
 msgstr "Timestamp a document"
 
-#: templates/header.html:95 templates/timestamp.checking.html:14
+#: templates/header.html:108 templates/timestamp.checking.html:14
 msgid "Preverjanje časovnega žiga"
 msgstr "Check a timestamp"
 
-#: templates/header.html:96 templates/timestamp.publickey.html:12
+#: templates/header.html:109 templates/timestamp.publickey.html:12
 msgid "Javni ključ strežnika"
 msgstr "Server's public key"
 
-#: templates/header.html:100
+#: templates/header.html:113
 msgid "Geslo"
 msgstr "Password"
+
+#: templates/header.html:116
+msgid "Zgoščevanje"
+msgstr "Hashing"
+
+#: templates/header.html:119
+msgid "Poizkusite sami"
+msgstr "Try yourself!"
 
 #: templates/index.html:12
 msgid "Dobrodošli na portalu Kriptogram!"
@@ -679,10 +908,6 @@ msgstr "Measure the strength of your password"
 #: templates/password.meter.html:30
 msgid "GESLO"
 msgstr "PASSWORD"
-
-#: templates/password.meter.html:35
-msgid "Vpisati morate geslo"
-msgstr "Enter the password first"
 
 #: templates/password.meter.html:35
 msgid "Vpišite geslo"
@@ -885,7 +1110,7 @@ msgstr "Choose"
 msgid "Časovni žig"
 msgstr "Timestamp"
 
-#: templates/timestamp.desc.html:16
+#: templates/timestamp.desc.html:17
 msgid ""
 "V splošnem je varni časovni žig digitalni zapis, ki zagotavlja podpis "
 "dokumenta z veljavnim digitalnim potrdilom v\n"
@@ -907,7 +1132,7 @@ msgstr ""
 " to explain timestamping, we first explain the concept of the PKI with "
 "the mailbox example."
 
-#: templates/timestamp.desc.html:20
+#: templates/timestamp.desc.html:21
 msgid ""
 "Koncept javnih ključev si lahko predstavljamo kot pošiljanje pisem med "
 "dvema osebama. Če želimo nekomu poslati pismo, ga moramo poslati\n"
@@ -915,7 +1140,7 @@ msgid ""
 "pismo dobi, s svojim ključem odpre poštni nabiralnik, odpre pismo in ga "
 "prebere.\n"
 "\t\t\t\t\tPodobno deluje tudi sistem javnih in zasebnih ključev. Ko "
-"pošiljamo neko sporočilo naslovniku uporabimo njegov javni ključ, da "
+"pošiljamo neko sporočilo naslovniku, uporabimo njegov javni ključ, da "
 "sporočilo zašifriramo,\n"
 "\t\t\t\t\tnaslovnik pa s svojim zasebnim ključem sporočilo odšifrira in "
 "prebere naše sporočilo. S tem zagotovimo, da naše sporočilo lahko prebere"
@@ -954,7 +1179,7 @@ msgstr ""
 "is this all connected with timestamping? This is going to be answer a bit"
 " later. "
 
-#: templates/timestamp.desc.html:28
+#: templates/timestamp.desc.html:30
 msgid ""
 "Namen varnega časovnega žiga je zagotavljanje, da je nek določen dokument"
 " obstajal v trenutku žigosanja in se od takrat naprej ni spreminjal.\n"
@@ -987,7 +1212,7 @@ msgstr ""
 "fault. So, what is the timestamp in this example? The picture, ofcourse. "
 "It tells us that the phone was unused at the timeof the purchase."
 
-#: templates/timestamp.desc.html:34
+#: templates/timestamp.desc.html:36
 msgid ""
 "Ko želimo v neki aplikaciji časovno žigosati nek elektronski dokument "
 "oziroma podatke, pošljemo strežniku TSA\n"
@@ -1134,19 +1359,64 @@ msgid ""
 "animacijo.<br>\n"
 "            Opozorilo: Sliki morata biti enakih dimenzij!"
 msgstr ""
-"If having two (derived) images, drag and drop each in its square below. "
-"Then clickon <strong>Show animation</strong>. <br>Note: Pictures need to "
-"be of equal dimensions."
 
-#~ msgid " blok test alphabet.generic"
+#~ msgid ""
+#~ "Bi lahko rekli funkciji F zgoščevalna funkcija?\n"
+#~ "<ul>\n"
+#~ "<li>Pogoj 1 je izpolnjen, saj bo Janez Korenina vsakič zgoščen v JK.\n"
+#~ "<li>Pogoj 2 ni izpolnjen, saj Zala "
+#~ "Novak in Zvonko Nagode tvorita enak "
+#~ "izhod, tj. ZN. Verjetnost, da imata "
+#~ "izmed petih učencev dva enake začetnice,"
+#~ " je sicer majhna (1,6 posto), a "
+#~ "v\n"
+#~ "svetu zgoščevalnih funkcij je to "
+#~ "ogromno. Kot primer lahko vzamemo tudi"
+#~ " scenarij, kjer je v razredu 20 "
+#~ "učencev. Takrat je verjetnost, da imata"
+#~ " dva učenca enak izhod že 26,5 "
+#~ "posto .\n"
+#~ "<li>Pogoj 3 je izpolnjen, saj je "
+#~ "izhod vedno dolžine 2 (ignorirajmo za"
+#~ " zdaj primere, ko ima učenec\n"
+#~ "več kot eno ime ali priimek).\n"
+#~ "<li>Pogoj 4 ni izpolnjen, saj iz "
+#~ "izhoda lahko vidimo, kakšen je bil "
+#~ "vhod. Npr. ZN ne more biti nič"
+#~ "\n"
+#~ "drugega kot Zala Novak, saj je "
+#~ "edina z začetnicami Z in N. Tudi"
+#~ " v primeru, ko obstajata dva ali\n"
+#~ ""
+#~ "več učencev z istimi začetnicami, lahko"
+#~ " omejimo možen nabor imen, ki jim "
+#~ "pripada.\n"
+#~ "</ul>"
 #~ msgstr ""
-
-#~ msgid "Dokument z zgoščevalno funkcijo %(items0)s je bil potrjen %(items2)s "
-#~ msgstr ""
-#~ "The document with the hash %(items0)s"
-#~ " , has been verified %(items2)s "
-#~ "times."
-
-#~ msgid "Izberi jezik "
-#~ msgstr "Change locale"
+#~ "Is is really a mathematiacal hash "
+#~ "function <code>F()</code>?<ul><li>Property 1 holds,"
+#~ " e.g. Janez Korenina is always "
+#~ "transformed into JK.<li>But, property 2 "
+#~ "does not, i.e. Zala Novak and "
+#~ "Zvonko Nagode transform into the same"
+#~ " code name: ZNThe probability that "
+#~ "the collision happens within the gang"
+#~ " of 5 is lower than 1,6 "
+#~ "percentage which is pretty much in "
+#~ "a world of hash functions, as to"
+#~ " be hit by the meteor is "
+#~ "0.000001 percentage.Unfortunatelly for the "
+#~ "gang, this probability rises as new "
+#~ "people comes to the gang. When the"
+#~ " gang is of size 20, the same"
+#~ " probability is 26,5 percentage. "
+#~ "<li>Property 3 holds. At least that! "
+#~ "The gang should be happy that "
+#~ "their code namesare always of length "
+#~ "2.<li>Property 4 does not hold inside"
+#~ " the gang, e.g. when saying ZN,the"
+#~ " gang knows that that must be "
+#~ "Zala Novak. But outside the gang "
+#~ "it is holds pretty well!! Both "
+#~ "suits the gang pretty well.</ul"
 
