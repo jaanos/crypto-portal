@@ -17,83 +17,94 @@
     <div class="modal-content">
         <div id="header">
             <span id="cl" class="close">&times;</span>
-            <h2>{{_("Navodila")}}</h2>
+            <h2>{{_("Instructions:")}}</h2>
         </div>
         <div class="modal-body">
             {% if mode == "read" %}
                 {% if level == "easy" %}
                 <p>
-                    {{_("Izmed ponujenih <strong>izberite</strong> tisto, ki jo <strong>predstavlja</strong> prikazana črka.</br></br>
-                    Če bo izbrana slika ")}}<strong style="color:green;">{{_("pravilna")}}</strong>{{_(", se bo gumb obarval zeleno in po kliku na 
-                    desno puščico se vam bo prikazala nova naloga.</br></br>
-                    Če bo izbira ")}}<strong style="color:red;">{{_("napačna")}}</strong>{{_(", se bo gumb obarval rdeče. V tem 
-                    primeru lahko poskusite <strong>ponovno</strong>, dokler ne izberete
-                    pravilne rešitve. Vsaka ")}}<strong style="color:red;">{{_("napačna")}}</strong>{{_(" izbira se ")}}<strong>{{_("kaznuje")}}</strong>
-                    {{_(" z negativno točko.")}}</br></br>
-                    {{_("S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.")}}
+                    {{_("From displayed (latin) letters, <strong> choose </strong> the one that is
+                     represented by <strong> the picture </strong>. </br> </br> If the choice
+                     is <strong>correct</strong>, the button will 
+                     turn green and click on the right arrow will show you a
+                      new task. </br> </br> If the choice is <strong>wrong
+                    </strong>, the button will turn red. In this case you can <strong> try again 
+                    </strong>, until you choose the correct one. Every<strong>wrong</strong>
+                    selection is <strong>punished</strong> with a negative point.</br></br>
+                    By clicking on the left arrow, you can see the history of your answers.")}}
                 </p>
                 {% elif level == "medium" %}
                 <p>
-                    {{_("V polje pod sliko ")}}<strong>{{_("vnesite črko")}}</strong>{{_(", ki jo slika predstavlja, in <strong>pritisnite enter
-                    </strong>.</br></br>
-                    Če je vaš odgovor ")}}<strong style="color:green;">{{_("pravilen")}}</strong>{{_(", se bo spodnji rob polja obarval zeleno, sicer rdeče.
-                    </br></br> 
-                    V primeru ")}}<strong style="color:green;">{{_("pravilnega")}}</strong>{{_(" odgovora se vam ob kliku na desno puščico prikaže 
-                    nova naloga, v primeru ")}}<strong style="color:red;">{{_("napačnega")}}</strong>{{_(" odgovora pa lahko poskusite znova.</br></br> 
-                    Če ste s prejšnjimi nalogami zbrali dovolj točk, lahko s klikom na gumb <strong>Rešitev</strong> 
-                    izveste, katero črko predstavlja slika (s tem izgubite nekaj svojih točk).")}}</br></br>
-                    {{_("S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.")}}
+                    {{_("In the box below the image <strong>enter the letter </strong>represented by the image, 
+                    and click <strong>enter</strong>. </br> </br>If
+                    your answer is <strong>correct</strong>, the lower edge of the field 
+                    will turn green, otherwise red.
+                    </br> </br> In the case of <strong>correct</strong>
+                    answer, click on the right arrow will lead you to the new task. In the 
+                    case of <strong>wrong</strong> answer, you are able to try again. </br></br> Note: If you have earned 
+                    enough points (with previous tasks), click on the <strong> Solve 
+                    </strong>button, will show you the correct answer  for the cost of 
+                    (losing) few points.</br></br>
+                    By clicking on the left arrow, you can see the history of your answers.")}}
                 </p>
                 {% elif level == "hard" %}
                 <p>
-                    {{_("S klikom na gumb <strong>Začni</strong> sprožite animacijo.</br></br>
-                    Prikazalo se vam bo zaporedje slik, od katerih bo vsaka prikazovala eno črko. Črke vnesite v polja pod sliko in 
-                    <strong>pritisnite enter</strong>.
-                    Polja, kamor ste vnesli pravilno črko, se bodo obarvala")}} 
-                    <strong style="color:green;">{{_("zeleno")}}</strong>{{_(", polja z napačno črko ")}}<strong style="color:red;">{{_("rdeče")}}</strong>
-                    {{_(", prazna polja pa bodo ostala <strong>nespremenjena</strong>.</br></br>
-                    Za vsako pravilno vnešeno črko <strong>dobite</strong> eno točko, medtem ko za vsako napačno vnešeno črko
-                     eno točko <strong>izgubite</strong>.
-                    Prazno polje točk ne spreminja.</br></br>
-                    Če ste s prejšnjimi nalogami zbrali <strong>dovolj točk</strong>, lahko s klikom na gumb 
-                    <strong>Začni znova</strong> animacijo sprožite še enkrat (s tem izgubite nekaj svojih točk).")}}</br></br>
-                    {{_("S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.")}}
+                    {{_("Click on the <strong> Start </strong> button to launch the animation.
+                    </br> </br> You will be presented with a sequence of images, of whicheach
+                     showing one letter. Enter the letter shown on the image below each image
+                     and click <strong> Enter </strong>.The field to which you have entered 
+                    the correct letter will turn 
+                    <strong>green</strong>, and with the incorrect letter will turn
+                    <strong>red</strong>
+                    . Blank fields will remain <strong> unchanged </strong>. </br> </br> For 
+                    each correctly entered letter you <strong> get one point </strong>. For 
+                    each incorrectly entered letter you <strong> lose one point.</strong> If 
+                    you have collected enough points with previous tasks, you can click on 
+                    <strong> the button Start </strong> to change the presented sequence of 
+                    images. By doing so, you lose some points.</br></br>
+                    By clicking on the left arrow, you can see the history of your answers.")}}
                 </p>
                 {% endif %}
             {% elif mode == "write" %}
                 {% if level == "easy" %}
                 <p>
-                    {{_("Izmed ponujenih slik <strong>izberite</strong> tisto, ki jo <strong>predstavlja</strong> prikazana črka.</br></br>
-                    Če bo izbrana slika ")}}<strong style="color:green;">{{_("pravilna")}}</strong>{{_(", se bo gumb obarval zeleno in po kliku na 
-                    desno puščico se vam bo prikazala nova naloga.</br></br>
-                    Če bo izbira ")}}<strong style="color:red;">{{_("napačna")}}</strong>{{_(", se bo gumb obarval rdeče. V tem 
-                    primeru lahko poskusite <strong>ponovno</strong>, dokler ne izberete
-                    pravilne rešitve. Vsaka ")}}<strong style="color:red;">{{_("napačna")}}</strong>{{_(" izbira se ")}}<strong>{{_("kaznuje")}}</strong>
-                    {{_(" z negativno točko.")}}</br></br>
-                    {{_("S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.")}}
+                    {{_("From displayed images, <strong> choose </strong> the one representing 
+                    <strong> the letter shown </strong>. </br> </br> If the choice is 
+                    <strong>correct</strong>, the button will turn green and click on the 
+                    right arrow will show you a
+                    new task. </br> </br> If the choice is <strong>wrong</strong>
+                    , the button will turn red. In this case you can <strong> try again 
+                    </strong>, until you choose the correct one. Every 
+                    <strong>wrong</strong>answer<strong>is punished</strong>
+                    with a negative point</br></br>
+                    By clicking on the left arrow, you can see the history of your answers.")}}
                 </p>
                 {% elif level == "medium" %}
                 <p>
-                    {{_("Kliknite in <strong>zavrtite</strong> neosenčeno zastavico v pravilen položaj in kliknite 
-                    <strong>kjukico</strong> pod sliko.</br></br>
-                    Če je vaš odgovor ")}}<strong style="color:green;">{{_("pravilen")}}</strong>
-                    {{_(", se kljukica obarva zeleno in s klikom na desno puščico se vam prikaže naslednja naloga.</br></br>
-                    Če pa je vaš odgovor ")}}<strong style="color:red;">{{_("napačen")}}</strong>{{_(", se kjukica obarva rdeče, v polju s črko pa se za 
-                    <strong>trenutek prikaže črka</strong>, 
-                    ki jo predstavlja trenutna postavitev rok.")}}</br></br>
-                    {{_("S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.")}}
+                    {{_("Click and <strong>rotate</strong> each flag until you get  the layout 
+                    that represents the (latin) letter above. Then click <strong> the check 
+                    mark </strong> below the image. </br> </br> If the layout is correc 
+                    <strong>correct</strong>
+                    , the check mark will turn green and a click on the right arrow will show
+                    the next task.</br> But, if your answer is 
+                    <strong>wrong</strong>, the check mark will turn red, and the field above will (shortly) show 
+                    the letter presented by the current layout of flags.</br></br>
+                    By clicking on the left arrow, you can see the history of your answers.")}}
                 </p>
                 {% elif level == "hard" %}
                 <p> 
-                   {{_("Kliknite in <strong>zavrtite</strong> neosenčeno zastavico v pravilen položaj in kliknite 
-                    <strong>kjukico</strong> pod sliko.</br></br>
-                    Če je vaš odgovor ")}}<strong style="color:green;">{{_("pravilen")}}</strong>
-                    {{_(", se kljukica obarva zeleno in s klikom na desno puščico se vam prikaže naslednja naloga.</br></br>
-                    Če pa je vaš odgovor ")}}<strong style="color:red;">{{_("napačen")}}</strong>{{_(", se kjukica obarva rdeče, v polju s črko pa se za 
-                    <strong>trenutek prikaže črka</strong>, 
-                    ki jo predstavlja trenutna postavitev rok.")}}</br></br>
-                    {{_("Če pravilno postavite le eno zastavico, se onemogoči njeno premikanje.")}} 
-                    {{_("S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov.")}}
+                   {{_("Click and <strong>rotate</strong> each flag until you get  the layout 
+                   that represents the (latin) letter above. Then click <strong> the check 
+                   mark </strong> below the image. </br> </br> If the layout is correc 
+                   <strong>correct</strong>
+                   , the check mark will turn green and a click on the right arrow will show
+                   the next task.</br> But, if your answer is 
+                   <strong>wrong</strong>, the check mark will turn red, and the field above will (shortly) show 
+                   the letter presented by the current layout of flags.</br></br>
+                   Notation:
+                   <br>When placing a flag in the correct layout, it will get dimmed and you
+                   can not move it any further.
+                    By clicking on the left arrow, you can see the history of your answers.")}}
                 </p>
                 {% endif %}
             {% endif %}
@@ -107,8 +118,8 @@
             <div class="panel-heading" id="head">
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-4 alignVerticalCenter">
-                        <b><span class="pozdrav1">{{_("Semafor")}}</span></b>
-                        {% if intro != "1" %}<button id="pop-up" class="align-middle">{{_("Navodila")}}</button>{% endif %}
+                        <b><span class="pozdrav1">{{_("Semaphor")}}</span></b>
+                        {% if intro != "1" %}<button id="pop-up" class="align-middle">{{_("Instructions")}}</button>{% endif %}
                     </div>
                     <div class="menu-nav">
                         <div id="col-1" class="menu-nav-item">
@@ -116,21 +127,21 @@
                         </div>
                         <div id="col-2" class="menu-nav-item">
                             <div class="dropdown">
-                              <a href="" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{_("Pisanje")}} <span class="caret"></span></a>
+                              <a href="" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{_("Convert from Latin")}} <span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='easy')}}">{{_("Lahko")}}</a></li>
-                                <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='medium')}}">{{_(Srednje)}}</a></li>
-                                <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='hard')}}">{{_("Težko")}}</a></li>
+                                <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='easy')}}">{{_("Easy")}}</a></li>
+                                <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='medium')}}">{{_(Medium)}}</a></li>
+                                <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='write', level='hard')}}">{{_("Hard")}}</a></li>
                               </ul>
                             </div>
                         </div>
                         <div id="col-3" class="menu-nav-item">
                             <div class="dropdown">
-                              <a href="" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{_("Branje")}} <span class="caret"></span></a>
+                              <a href="" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{_("Convert to Latin")}} <span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='easy')}}">{{_("Lahko")}}</a></li>
-                                <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='medium')}}">{{_("Srednje")}}</a></li>
-                                <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='hard')}}">{{_("Težko")}}</a></li>
+                                <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='easy')}}">{{_("Easy")}}</a></li>
+                                <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='medium')}}">{{_("Medium")}}</a></li>
+                                <li><a href="{{url_for('alphabet.display_excercise', selected_alphabet=alphabetForLearning, mode='read', level='hard')}}">{{_("Hard")}}</a></li>
                               </ul>
                             </div>
                         </div>
@@ -142,14 +153,18 @@
                     <div class="container-fluid">
                         <div class="row-fluid">
                             <div class="">
-                                <h1>{{_("Semafor")}}</h1>
-                                <p>{{_("Dobrodošli na strani za učenje komuniciranje s pomočjo tujih abeced.")}}</p>
-                                <p><strong>{{_("Na kratko o izbrani abecedi:")}}</strong></p>
+                                <h1>{{_("Semaphor")}}</h1>
+                                <p>{{_("Welcome to pages which learn you how to communicate using different 
+                                        alphabets.")}}</p>
+                                <p><strong>{{_("About the alphabet:")}}</strong></p>
                                 <p>
-                                    {{_("Ta abeceda je uporabna za prenašanje sporočil na daljavo, ko sta sogovornika predaleč narazen, da bi se slišala, se pa še lahko vidita.")}}
+                                    {{_("This alphabet is useful when transmitting messages between two parties 
+                                     which are too far to hear, but they can still see each other.")}}
                                 </p>
                                 </br>
-                                <p>{{_("Spodaj si lahko ogledate seznam vseh črk, ki se jih lahko naučite s pomočjo te aplikacije. Za ogled posameznega simbola kliknite na ustrezno kartico.")}}</p>
+                                <p>{{_("Below, you can see a list of letters, which correspond to the alphabetand
+                                        can be learnedusing this pages. To view a single symbol click on the 
+                                        appropriate card.")}}</p>
                             </div>
                             <div class="show-all-flags">
                                 {% for letter in alphabet %}
@@ -170,9 +185,9 @@
                                 {% endfor %}
                             </div>
                             <div class="">
-                                <p>{{_("Pripravljeni, da začnete?")}}</p>
-                                <a value = "Read" class="btn btn-default btn-bg {% if mode == "read" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode='read', level='easy')}}">{{_("Branje")}}</a>
-                                <a value = "Write" class="btn btn-default btn-bg {% if mode == "write" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode='write', level='easy')}}">{{_("Pisanje")}}</a>
+                                <p>{{_("Ready to start?")}}</p>
+                                <a value = "Read" class="btn btn-default btn-bg {% if mode == "read" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode='read', level='easy')}}">{{_("Convert to Latin")}}</a>
+                                <a value = "Write" class="btn btn-default btn-bg {% if mode == "write" %}active{% endif %}" href="{{url_for('alphabet.display_excercise', selected_alphabet='flags', mode='write', level='easy')}}">{{_("Convert from Latin")}}</a>
                             </div>
                         </div>
                     </div>
@@ -187,7 +202,7 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center">
                                         <b>
-                                            <span id="num-points-text">{{_("Število pravilnih odgovorov")}}</span>
+                                            <span id="num-points-text">{{_("Correctly answered")}}</span>
                                         </b>
                                         <div id="points"><span id="points-display">0</span></div>
                                     </div>
@@ -217,14 +232,14 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center">
                                         <b>
-                                            <span id="num-points-text">{{_("Število pravilnih odgovorov")}}</span>
+                                            <span id="num-points-text">{{_("Correctly answered")}}</span>
                                         </b>
                                         <div id="points"><span id="points-display">0</span></div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center solutionButtonContainer">
-                                        <a id="read_medium_solution" class="btn btn-default btn-bg btn-solution">{{_("Rešitev")}}</a>
+                                        <a id="read_medium_solution" class="btn btn-default btn-bg btn-solution">{{_("Solve")}}</a>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -248,14 +263,14 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center">
                                         <b>
-                                            <span id="num-points-text">{{_("Število pravilnih odgovorov")}}</span>
+                                            <span id="num-points-text">{{_("Correctly answered")}}</span>
                                         </b>
                                         <div id="points"><span id="points-display">0</span></div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center solutionButtonContainer">
-                                        <a id="start-animation" class="btn btn-default btn-bg btn-solution">{{_("Začni")}}!</a>
+                                        <a id="start-animation" class="btn btn-default btn-bg btn-solution">{{_("Solve")}}!</a>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -277,7 +292,7 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center">
                                         <b>
-                                            <span id="num-points-text">{{_("Število pravilnih odgovorov")}}</span>
+                                            <span id="num-points-text">{{_("Correctly answered")}}</span>
                                         </b>
                                         <div id="points"><span id="points-display">0</span></div>
                                     </div>
@@ -318,7 +333,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-12 col-sm-12 col-lg-offset-4 text-center">
                                             <b>
-                                                <span id="num-points-text">{{_("Število pravilnih odgovorov")}}</span>
+                                                <span id="num-points-text">{{_("Correctly answered")}}</span>
                                             </b>
                                             <div id="points"><span id="points-display">0</span></div>
                                         </div>
@@ -364,7 +379,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-center">
                                             <b>
-                                                <span id="num-points-text">{{_("Število pravilnih odgovorov")}}</span>
+                                                <span id="num-points-text">{{_("Correctly answered")}}</span>
                                             </b>
                                             <div id="points"><span id="points-display">0</span></div>
                                         </div>
