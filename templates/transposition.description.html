@@ -1,0 +1,363 @@
+{% extends "index.html" %}
+{% block body %}
+
+<div class="row">
+   <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading" id="head">
+                <div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<b><span class="pozdrav1">{{_("Transposition chiper")}}</span></b>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="container-fluid">
+					<p>{{_("Using transponder chiper, the letters of the original message remain
+						unchanged, and their places are mixed in a systematic way.")}}</p>
+					<br>
+					<p><li><a href="#railfence">{{_("Rail fence cipher")}}</a></li></p>
+					<p><li><a href=" ">{{_("Route cipher")}}</a></li></p>
+					<p><li><a href=" ">{{_("Trans the columns")}}</a></li></p>
+					<br>
+					<p><h2><b><a name="railfence">{{_("RAIL FENCE CIPHER")}}</a></b></h2></p>
+					<br>
+					<p>{{_("Encoding by the rail fence can be done by zig-zag writing a message from left to right, 
+						then reading it by line.")}}</p>
+					<p><u>ŠIFRIRANJE</u></p>
+					<p>{{_("Let's say you'd like to encrypt the message")}} TUKAJ NI SKRIVNOSTI {{("over three lines. 
+						You would write it like this:")}}</p>
+					<table id="kakoNapisemoRail" style="border: 1px solid black; border-collapse: collapse; width:50%;">
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">J</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">U</th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">A</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">S</th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">R</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">V</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">O</th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					  </tr>
+					</table>
+					<p>{{_("
+							The encrypted message is obtained by reading this message by lines, from left to right:")}}</p>
+					<table id="kakoPreberemoRail" style="border: 1px solid black; border-collapse: collapse; width:50%;">
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">J</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">U</th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">A</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">S</th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">R</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">V</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">O</th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th> 
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					  </tr>
+					</table>					
+					<p>{{_("The secret record is then")}} »TJKNIUANSRVOTKUUS«.</p>
+					<p><h2><b>{{_("ROUTE CIPHER")}}</b></h2></p>
+					<p>{{_("When encrypting with a route cipher, the message is written to a network of any size.
+							The key tells us how to read the message to obtain a secret record.")}}</p>
+					<p><u>ŠIFRIRANJE</u></p>
+					<p>{{_("Let's get the message back")}} »TUKAJ NI SKRIVNOSTI«, 
+						{{_("which we write in the net. It will be of a size")}} 6x3.</p>
+					<table id="kakoNapisemoRoute" style="border: 1px solid black; border-collapse: collapse; width:50%;">
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px">A</th> 
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">R</th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">U</th>
+					    <th style="border: 1px solid black; padding: 5px">J</th> 
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">O</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">N</th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">V</th>
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px"></th>
+					  </tr>
+					</table>
+					<p>{{_("We note that one field in the network remains blank. In this case, you can add any 
+						letter to fill it. Let's add the letter")}}  »D«.</p>
+					<table style="border: 1px solid black; border-collapse: collapse; width:50%;">
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px">A</th> 
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">R</th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">U</th>
+					    <th style="border: 1px solid black; padding: 5px">J</th> 
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">O</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">N</th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">V</th>
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px">D</th>
+					  </tr>
+					</table>
+					<p>{{_("Now we have to invent the key under which we will read. Let's take ")}} »Beri od 
+						desne proti levi, od zadnje vrstice proti prvi«.</p>
+					<table id="kakoPreberemoRoute" style="border: 1px solid black; border-collapse: collapse; width:50%;">
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px">A</th> 
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">R</th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">U</th>
+					    <th style="border: 1px solid black; padding: 5px">J</th> 
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">O</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">N</th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">V</th>
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px">D</th>
+					  </tr>
+					</table>
+					<p>{{_("We get a secret record")}} »DSVKNKIOISJUTNRIAT«.</p>
+					<p><h2><b>{{_("TRANS COLUMNS")}}</b></h2></p>
+					<p>{{_("As with the route cipher, this message is first entered into a network.
+							The encrypted message is then obtained by reading the columns in some order.")}}</p>
+					<p><u>{{_("Encryption")}}</u></p>
+					<p>{{_("Let's take the message")}} »TUKAJ NI SKRIVNOSTI« {{_("and write it in the 6x3 network,
+							but this time we write the text by lines. We again replace the blank with the letter")}} »D«.</p>
+					<table id="kakoNapisemoStolpce" style="border: 1px solid black; border-collapse: collapse; width:50%;">
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px">U</th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">A</th>
+					    <th style="border: 1px solid black; padding: 5px">J</th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">S</th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">R</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">V</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px">O</th> 
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">D</th>
+					  </tr>
+					</table>
+					<p>{{_("Let's think of a word whose length is equal to the number of columns in the network")}}
+							{{_("In our case this is equal to ")}}" 6. {{_("This word will be the key. Let's select the word")}} 
+							»ZABAVA« 
+							{{_("and write it over our network.")}}</p>
+					<table style="border: 1px solid black; border-collapse: collapse; width:50%;">
+					  <tr>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">Z</th>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">A</th> 
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">B</th>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">A</th>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">V</th>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">A</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px">U</th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">A</th>
+					    <th style="border: 1px solid black; padding: 5px">J</th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">S</th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">R</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">V</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px">O</th> 
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">D</th>
+					  </tr>
+					</table>
+					<p>{{_("Let's attach numbers to each letter of the word, in a manner how they appear in the aplhabet.
+							If one letter appears more than once, we number both apperances, in a manner how they appear in the word.")}}</p>
+					<table style="border: 1px solid black; border-collapse: collapse; width:50%;">
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">Z</th>
+					    <th style="border: 1px solid black; padding: 5px">A</th> 
+					    <th style="border: 1px solid black; padding: 5px">B</th>
+					    <th style="border: 1px solid black; padding: 5px">A</th>
+					    <th style="border: 1px solid black; padding: 5px">V</th>
+					    <th style="border: 1px solid black; padding: 5px">A</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">6</th>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">1</th> 
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">4</th>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">2</th>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">5</th>
+					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">3</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px">U</th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">A</th>
+					    <th style="border: 1px solid black; padding: 5px">J</th>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">S</th> 
+					    <th style="border: 1px solid black; padding: 5px">K</th>
+					    <th style="border: 1px solid black; padding: 5px">R</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">V</th>
+					  </tr>
+					  <tr>
+					    <th style="border: 1px solid black; padding: 5px">N</th>
+					    <th style="border: 1px solid black; padding: 5px">O</th> 
+					    <th style="border: 1px solid black; padding: 5px">S</th>
+					    <th style="border: 1px solid black; padding: 5px">T</th>
+					    <th style="border: 1px solid black; padding: 5px">I</th>
+					    <th style="border: 1px solid black; padding: 5px">D</th>
+					  </tr>
+					</table>
+					<p>{{_("The columns are read by rows, as indicated by the numbers.
+							Our secret record is")}} »USOARTNVDKKSJIITIN«.</p>
+				</div>	
+			</div>	
+			<div id="swatch" class="ui-widget-content ui-corner-all"></div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
