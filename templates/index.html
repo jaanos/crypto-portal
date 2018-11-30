@@ -9,77 +9,74 @@
             <div class="panel-heading" id="head">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 alignVerticalCenter">
-                        <b><span class="pozdrav1">{{_("Dobrodošli na portalu Kriptogram!")}}</span></b>
+                        <b><span class="pozdrav1">{{_("Welcome to Cryptogram")}}</span></b>
                     </div>
                 </div>
             </div>
     <section id="left">
         <div id="text">
             <p id="first-p">
-                {{_("Dobrodošli na spletnem portalu")}} <strong>{{_("Kriptogram")}}</strong>{{_(",
-                ki je namenjen vsem vedoželjnim,
-                še posebej tistim, ki radi rešujete kriptografske uganke.")}}
+                {{_("Welcome to web-portal <strong>Cryptogram</strong>,
+                is intended for all curious, especially for those who want to solve cryptographic puzzles.")}}
                 <br><br>
-                {{_("Sprehodite se v svet")}} <a href="{{ url_for('substitution.index') }}">{{_("zamenjalk")}}</a>
-                {{_("in z reševanjem odkrivajte lepe pregovore in besedila.
-                Poglejte si, kako lahko")}} <a href="{{ url_for('steganography.images') }}">{{_("skrivate")}}</a>
-                {{_("sporočila v slike in jih nato spet razberete.
-                Naučite se novih")}} <a href="{{ url_for('alphabet.index') }}">{{_("abeced")}}</a>,
-                {{_("s katerimi se lahko sporazumevate tudi, kadar ne morete govoriti.")}}
+                {{_("Take your chances against several")}} <a href="{{ url_for('substitution.index') }}">{{_("substitution ciphers")}}</a>
+                {{_("and discover secret conversations and texts. Lern how 
+                ")}} <a href="{{ url_for('steganography.images') }}">{{_("to hide")}}</a>
+                {{_("hide and rediscover secret messages in a image. Learn new")}} 
+                <a href="{{ url_for('alphabet.index') }}">{{_("alphabets.")}}</a>,
+                {{_("They can talk for you, when you can not.")}}
             </p>
-            <h3>{{_("Kaj je kriptogram?")}}</h3>
+            <h3>{{_("What is CRYPTOGRAM?")}}</h3>
             <p id="second-p">
-                {{_("Kriptogram je načeloma vsako zašifrirano sporočilo.
-                Če je šifra, ki je uporabljena v takem besedilu,
-                dovolj enostavna, lahko besedilo razkrijemo sami.
-                Pogosto se uporabljajo zamenjalne šifre,
-                pri kateri se vsaka črka zamenja z drugo črko ali številko.")}}
+                {{_("In general, a cryptogram denotes any encrypted text. If the cipher used 
+                is simple enough,the cryptogram can be deciphered by hand. Ciphers which 
+                are used the most, are substitution ciphers. Substitution ciphercipher a 
+                text by changing every letter of the text with a different letter or a 
+                number.")}}
                 <br>
-                {{_("Za rešitev uganke je potrebno tako poiskati prvotno sporočilo.
-                Čeprav so včasih zamenjalne šifre uporabljali v resne namene,
-                jih danes večinoma najdemo v zabavnem tisku,
-                v časopisih ali revijah.")}}
+                {{_("Although, substitution ciphers were once used for more serious purposes,
+                nowdays they are mostly used for entertainment, i.e. puzzels in 
+                newspapers or magazines where, to solve a puzzle, onceneeds to 
+                reconstruct an intial text from a cryptogram.")}}
             </p>
 
-            <h3>{{_("O projektu")}}</h3>
+            <h3>{{_("About the Cryptogram project")}}</h3>
             <p>
-                {{_("Spletni portal Kriptogram so študenti FRI skupaj s člani
-                Društva kriptologov Slovenije (DKS) razvili v sklopu
-                Študentskih inovativnih projektov za družbeno korist (2017).")}}
+                {{_("Web portal Cryptogram is developed as a part of the Innovative Project
+                for Social Benefit (2017). It is a product of the collaboration of
+                students fromthe Faculty of Computer and Information Science, University
+                of Ljubljana, and members of the Slovenian Society of Cryptology.")}}
             </p>
         </div>
         <div id="riddle">
             <img src="{{ url_for('static', filename='images/bell.png') }}">
-            <button id="riddle-btn">{{_("Uganka tedna")}}</button>
+            <button id="riddle-btn">{{_("Week's riddle")}}</button>
             <div id="riddle-txt">
                 <div id="riddle-content">
                     <p>
-                   {{_(" Pajkova mreža povezuje štiri enako oddaljena vozlišča
-                    na vseh šest načinov
-                    (mimogrede: zato telesu,
-                    ki nastane kot konveksna ogrinjača,
-                    matematiki rečejo četverec).
-                    V različnih vozliščih se nahajata muha in slepi pajek.
-                    Muha se ne more premakniti,
-                    pajek pa se premika naključno iz enega vozlišča v drugega.")}}
+                   {{_("Let assume we have a fly, blank spider and four (distant) nodes. The 
+                   spider makes a net which fully connects all four nodes. The fly and the 
+                   spider are placed in distant nodes. The fly cannot move and the spider 
+                   moves randomly between nodes. Find the answers to following (interesting)
+                    questions:")}}
                     </p>
                     <p>
                     <ol type="a">
                     <li>
-                    {{_("Koliko je pričakovano število obratov,
-                    preden pajek doseže muho?")}}
+                    {{_("What is the expected number of moves (between nodes) that the spider will
+                    make before it meets the fly?")}}
                     <br /><br />
-                    {{_("Kaj pa, če četverec nadomestimo z")}}
+                    {{_("What if the quadruple is replaced by
                     </li>
-                    <li>{{_("kocko,")}}</li>
-                    <li>{{_("oktaedrom,")}}</li>
-                    <li>{{_("dodekaedrom, ali")}}</li>
-                    <li>{{_("ikozaedrom?")}}</li>
-                    </ol>
+                    <li>the cube,</li>
+                    <li>the octahedar,</li>
+                    <li>dodecahedron, or</li>
+                    <li>icosahedron?</li>
+                    </ol>")}}
                     </p>
                     <p>
-                    {{_("Tedensko uganko najdete na")}}
-                    <a href="https://ucilnica.fri.uni-lj.si/uganka">{{_("spletni učilnici FRI")}}</a>.
+                    {{_("This week's puzzle can be found at")}}
+                    <a href="https://ucilnica.fri.uni-lj.si/uganka">{{_("FRI web-classroom.")}}</a>.
                     </p>
                 </div>
                 <a id="riddle-img" href="{{ url_for('static', filename='images/riddle/cetverec.png') }}">
@@ -93,23 +90,22 @@
             <img src={{ url_for('static', filename='images/e-kvizko.png') }}>
             <button onclick="document.getElementById('kvizkolink').click()">
                 <a href="https://equiz.fri.uni-lj.si/welcome"
-                   id="kvizkolink" target="_blank">{{_("Aplikacija Kvizko")}}</a>
+                   id="kvizkolink" target="_blank">{{_("Kvizko app")}}</a>
             </button>
-            <p>{{_("Aplikacija je namenjena prenosu naravoslovnih ved izza pisalne
-                mize, preobremenjene s kupi knjig in zvezkov v vsakdanje
-                življenje. Omogočimo miselno zabavo kjerkoli in kadarkoli. <br><br>40
-                let skrbno izbranih problemov (z izpeljanimi rešitvami)
-                približa široki množici mladih in starejših. Vsebuje odprti
-                skupini Bober in Presek, preko katerih lahko vsakdo rešuje
-                naloge za tekmovanja ali za krajšanje prostega časa. ")}}</p>
+            <p>{{_("The application is aimed for testing (and improving) your knowledge of 
+                    various subject you have learned. Furthermore, it provides you thoughtful
+                     entertainment anywhere and anytime. <br><br>This app brings you various 
+                    problems, i.e. form Bober and Presek over 40-year period.Solving 
+                    problems, one can compete with others or use it as a free time 
+                    preoccupation.")}}</p>
         </div>
     </section>
 {#
     <div id="newsletter">
-        <h3>{{_("Kriptografske novice")}}</h3>
-        <p>{{_("Naročite se na kriptografske novice")}}</p>
+        <h3>{{_("CRYPTO news")}}</h3>
+        <p>{{_("Subscribe...")}}</p>
         <input type="email" placeholder="E-mail">
-        <button>{{_("Potrdi")}}</button>
+        <button>{{_("Confirm")}}</button>
     </div>
 #}
     <div id="logos">

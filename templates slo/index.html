@@ -1,0 +1,132 @@
+{% extends "header.html" %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/index.css')}}" />
+{% endblock %}
+{% block body %}
+<div class="row">
+   <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-default level-{{mode}}-{{level}}" >
+            <div class="panel-heading" id="head">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 alignVerticalCenter">
+                        <b><span class="pozdrav1">{{_("Dobrodošli na portalu Kriptogram!")}}</span></b>
+                    </div>
+                </div>
+            </div>
+    <section id="left">
+        <div id="text">
+            <p id="first-p">
+                {{_("Dobrodošli na spletnem portalu")}} <strong>{{_("Kriptogram")}}</strong>{{_(",
+                ki je namenjen vsem vedoželjnim,
+                še posebej tistim, ki radi rešujete kriptografske uganke.")}}
+                <br><br>
+                {{_("Sprehodite se v svet")}} <a href="{{ url_for('substitution.index') }}">{{_("zamenjalk")}}</a>
+                {{_("in z reševanjem odkrivajte lepe pregovore in besedila.
+                Poglejte si, kako lahko")}} <a href="{{ url_for('steganography.images') }}">{{_("skrivate")}}</a>
+                {{_("sporočila v slike in jih nato spet razberete.
+                Naučite se novih")}} <a href="{{ url_for('alphabet.index') }}">{{_("abeced")}}</a>,
+                {{_("s katerimi se lahko sporazumevate tudi, kadar ne morete govoriti.")}}
+            </p>
+            <h3>{{_("Kaj je kriptogram?")}}</h3>
+            <p id="second-p">
+                {{_("Kriptogram je načeloma vsako zašifrirano sporočilo.
+                Če je šifra, ki je uporabljena v takem besedilu,
+                dovolj enostavna, lahko besedilo razkrijemo sami.
+                Pogosto se uporabljajo zamenjalne šifre,
+                pri kateri se vsaka črka zamenja z drugo črko ali številko.")}}
+                <br>
+                {{_("Za rešitev uganke je potrebno tako poiskati prvotno sporočilo.
+                Čeprav so včasih zamenjalne šifre uporabljali v resne namene,
+                jih danes večinoma najdemo v zabavnem tisku,
+                v časopisih ali revijah.")}}
+            </p>
+
+            <h3>{{_("O projektu")}}</h3>
+            <p>
+                {{_("Spletni portal Kriptogram so študenti FRI skupaj s člani
+                Društva kriptologov Slovenije (DKS) razvili v sklopu
+                Študentskih inovativnih projektov za družbeno korist (2017).")}}
+            </p>
+        </div>
+        <div id="riddle">
+            <img src="{{ url_for('static', filename='images/bell.png') }}">
+            <button id="riddle-btn">{{_("Uganka tedna")}}</button>
+            <div id="riddle-txt">
+                <div id="riddle-content">
+                    <p>
+                   {{_(" Pajkova mreža povezuje štiri enako oddaljena vozlišča
+                    na vseh šest načinov
+                    (mimogrede: zato telesu,
+                    ki nastane kot konveksna ogrinjača,
+                    matematiki rečejo četverec).
+                    V različnih vozliščih se nahajata muha in slepi pajek.
+                    Muha se ne more premakniti,
+                    pajek pa se premika naključno iz enega vozlišča v drugega.")}}
+                    </p>
+                    <p>
+                    <ol type="a">
+                    <li>
+                    {{_("Koliko je pričakovano število obratov,
+                    preden pajek doseže muho?")}}
+                    <br /><br />
+                    {{_("Kaj pa, če četverec nadomestimo z")}}
+                    </li>
+                    <li>{{_("kocko,")}}</li>
+                    <li>{{_("oktaedrom,")}}</li>
+                    <li>{{_("dodekaedrom, ali")}}</li>
+                    <li>{{_("ikozaedrom?")}}</li>
+                    </ol>
+                    </p>
+                    <p>
+                    {{_("Tedensko uganko najdete na")}}
+                    <a href="https://ucilnica.fri.uni-lj.si/uganka">{{_("spletni učilnici FRI")}}</a>.
+                    </p>
+                </div>
+                <a id="riddle-img" href="{{ url_for('static', filename='images/riddle/cetverec.png') }}">
+                    <img src="{{ url_for('static', filename='images/riddle/cetverec.png') }}">
+                </a>
+            </div>
+        </div>
+    </section>
+    <section id="right">
+        <div id="kvizko">
+            <img src={{ url_for('static', filename='images/e-kvizko.png') }}>
+            <button onclick="document.getElementById('kvizkolink').click()">
+                <a href="https://equiz.fri.uni-lj.si/welcome"
+                   id="kvizkolink" target="_blank">{{_("Aplikacija Kvizko")}}</a>
+            </button>
+            <p>{{_("Aplikacija je namenjena prenosu naravoslovnih ved izza pisalne
+                mize, preobremenjene s kupi knjig in zvezkov v vsakdanje
+                življenje. Omogočimo miselno zabavo kjerkoli in kadarkoli. <br><br>40
+                let skrbno izbranih problemov (z izpeljanimi rešitvami)
+                približa široki množici mladih in starejših. Vsebuje odprti
+                skupini Bober in Presek, preko katerih lahko vsakdo rešuje
+                naloge za tekmovanja ali za krajšanje prostega časa. ")}}</p>
+        </div>
+    </section>
+{#
+    <div id="newsletter">
+        <h3>{{_("Kriptografske novice")}}</h3>
+        <p>{{_("Naročite se na kriptografske novice")}}</p>
+        <input type="email" placeholder="E-mail">
+        <button>{{_("Potrdi")}}</button>
+    </div>
+#}
+    <div id="logos">
+        <img src={{ url_for('static', filename='images/image002.png') }}>
+        <img src={{ url_for('static', filename='images/image004.jpg') }}>
+        <img src={{ url_for('static', filename='images/image006.jpg') }}>
+        <img src={{ url_for('static', filename='images/image008.jpg') }}>
+    </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        $(document).ready(function () {
+            $("#riddle-btn").click(function () {
+                $("#riddle-txt").toggle();
+            });
+        });
+    </script>
+{% endblock %}
