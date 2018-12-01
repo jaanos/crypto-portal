@@ -1,0 +1,77 @@
+{% extends "header.html" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/hash.css')}}" />
+{% endblock %}
+
+{% block body %}
+
+
+
+    <div class="blank-row" style="height: 25px;"></div>
+
+    <div class="row row-spacing">
+
+        <div class="container">
+            <div class="row">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="text-center">
+                                        <h2 class="text-center">{{_("Zgoščevanje niza")}}</h2>
+                                        <div class="panel-body">
+                                            <form class="form" method="POST" name="pass_form">
+                                                <div class="form-group">
+						<label for="selHashAlgorithm">{{_("Izberite zgoščevalno funkcijo:")}}</label>
+						<select style="margin-bottom: 10px; " id="selHashAlgorithm">
+							<option>md5</option>
+							<option>sha1</option>
+							<option>sha256</option>
+							<option>sha224</option>
+							<option>sha512</option>
+							<option>sha384</option>
+							<option>ripemd160</option>
+						</select>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">
+                                                            <i class="glyphicon glyphicon-pencil" ></i>
+                                                        </div>
+                                                        <input class="form-control" autocomplete="off" data-val-length-max="60" data-val-length-min="1" name="stringToHash" id="stringToHash" placeholder="Vpišite poljuben niz" rows="12" type="text" />
+                                                    </div>
+                                                </div>
+                                                <table class="table">
+                                                    <tbody style="text-align: left;">
+                                                    <tr>
+                                                        <td>{{_("Zgoščen niz:")}}</td>
+                                                        <td style="word-break: break-all;" id="hashedString"></td>
+                                                    </tr>
+                                                </table>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<script type="text/javascript" src="{{url_for('static', filename='js/hash/plugins/core.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/hash/plugins/x64-core.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/hash/plugins/enc-hex.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/hash/plugins/md5.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/hash/plugins/ripemd160.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/hash/plugins/sha1.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/hash/plugins/sha256.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/hash/plugins/sha224.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/hash/plugins/sha512.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/hash/plugins/sha384.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/hash/hash.js')}}"></script>
+
+{% endblock %}
+
