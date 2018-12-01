@@ -7,38 +7,65 @@
             <div class="panel-heading" id="head">
                 <div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
-						<b><span class="pozdrav1">{{_("Časovni žig")}}</span></b>
+						<b><span class="pozdrav1">{{_("Timestamp")}}</span></b>
 					</div>
 				</div>
 			</div>
 			<div class="panel-body">
 				<div class="container-fluid">
 
-					<p>{{_("V splošnem je varni časovni žig digitalni zapis, ki zagotavlja podpis dokumenta z veljavnim digitalnim potrdilom v
-					določenem časovnem trenutku in sicer na način, da povezuje datum in čas podpisa ter podatke v elektronski obliki na kriptografsko varen način.
-					Preden pa si pogledamo natančneje namen in delovanje varnih časovnih žigov, pa je dobro, če si še na kratko pogledamo, kaj je to koncept javnih ključev.")}}</p><br>
+					<p>{{_("In general, a timestamp is a time mark which ensures that a certain 
+						informationexisted at certain time. A trusted timestamp is a digital 
+						record that ensures the signature of a document with a valid digital 
+						certificate at a specific time point. It connects the dateand the time of
+						 the signature, with the data itself. The process of producing a 
+						(trusted)timestamp is called timestamping, and it is done in 
+						cryptographically secure manner.
+						 Timestamping is closely related to public key infrastructure (PKI).Thus,
+						 to explain timestamping, we first explain the concept of the PKI with 
+						the mailbox example.")}}</p><br>
 					<p>  <img src="{{url_for('static', filename='images/timestamp/mailbox.jpg')}}" alt="Mailbox" style="float:right;margin:0 20px 20px 0;"/>
-					{{_("Koncept javnih ključev si lahko predstavljamo kot pošiljanje pisem med dvema osebama. Če želimo nekomu poslati pismo, ga moramo poslati
-					seveda naslovniku v njegov poštni nabiralnik. Ta lahko, ko pismo dobi, s svojim ključem odpre poštni nabiralnik, odpre pismo in ga prebere.
-					Podobno deluje tudi sistem javnih in zasebnih ključev. Ko pošiljamo neko sporočilo naslovniku, uporabimo njegov javni ključ, da sporočilo zašifriramo,
-					naslovnik pa s svojim zasebnim ključem sporočilo odšifrira in prebere naše sporočilo. S tem zagotovimo, da naše sporočilo lahko prebere le oseba, ki ji
-					je namenjeno in njegova vsebina ni javno dostopna vsem poslušalcem. Par javnih in zasebnih ključev sta neki izbrani števili, ki ju ni možno izračunati,
-					če poznamo le enega od njiju, in ju uporabljamo v formulah za šifriranje. Javni ključ je dostopen komurkoli, zasebni ključ pa zgolj lastniku. Zakaj je to pomembno za
-					časovno žigosanje malo kasneje.")}}</p><br>
+					{{_("When ones wants to send a letter to someone (recipient), it need to
+					obtain recipient's address. After the letter has been sent and delivered
+					to the address (public key), the letter is stored in the recipient's
+					mailbox. To read the letter, recipient need to open its mailbox with the
+					key (private key). Main elements of this example are: (1) twoparties
+					(sender and receiver), (2) reveicers's address, and mailbox key, (3) the
+					letter, (4) a will of two parties (of a party) to communicate or send
+					data. The PKI has the same main elements (compounding parts). It enables
+					transver of the data between parties.\n
+					 When exchanging data, the sender encipher a message with reciever's
+					public key (address).The receiver, after receiving the message, deciphers
+					 the message with its private key (the mailbox's key). Let observe few
+					things: (1) To send a message, the sender needs  to put the mark on the
+					message, to leave a trace for who is it for (like an address). It is done
+					 by enciphering  the message with receiver's public key. This way, only
+					receiver, holder of the corresponding private key can read the message.,
+					(2) If someone gets the message that is not itended for it, by
+					deciphering it with its private key (tries to open someone else's
+					mailbox) it gets giberish and can not rediscover (cannnot open the
+					mailbox) data that has been sent. In PKI, every public-private key pair
+					is choosen in a way that one can not be derived from the other. Each
+					receiver is attached to one public-private pair. Private key is hold
+					private to a receiver and public key is accessible to everyone. And how
+					is this all connected with timestamping? This is going to be answer a bit
+					 later. ")}}</p><br>
 
 					<p> <img src="{{url_for('static', filename='images/timestamp/newspaper.jpg')}}" alt="Newspaper" style="float:left;margin:0 20px 20px 0;"/>
-					{{_("Namen varnega časovnega žiga je zagotavljanje, da je nek določen dokument obstajal v trenutku žigosanja in se od takrat naprej ni spreminjal.
-					Kot vsakdanji primer le-tega si lahko vzamemo prodajo mobitela. Na splet postavimo oglas, da prodajamo nov, še neuporabljen mobilni telefon.
-					Potencialni kupec ta oglas vidi, vendar ne verjame, da telefon še ni bil uporabljen, zato še ni povsem prepričan, ali bi ga kupil.
-					Ko nam to sporoči, se spomnimo, da mu lahko pošljemo sliko, kjer je neodprta škatla slikana z današnjo izdajo našega najljubšega časopisa, da mu zagotovimo,
-					da zares prodajamo to, kar obljubljamo. Ker se za nakup odloči, mu ga še isti dan pošljemo. Če dobi kupec drugačno vsebino, kot mu je bila obljubljena, lahko s tem
-					posnetkom dokažemo, da nismo mi krivi za to, ker je na dan oddaje bil izdelek še cel.")}}</p><br>
-					<p>{{_("Ko želimo v neki aplikaciji časovno žigosati nek elektronski dokument oziroma podatke, pošljemo strežniku TSA
-					(Time Stamping Authority oz. izdajatelj časovnih žigov za elektronske dokumente) z zgostitveno funkcijo narejen povzetek (hash)
-					dokumenta oziroma podatkov. To je niz bitov fiksne dolžine (običajno 160 bitov), ki enolično določa dokument. Strežnik temu povzetku dopiše čas
-					in vse skupaj podpiše s svojim zasebnim ključem - to je časovni žig. S tem je dokazano, da je elektronski dokument obstajal pred časom,
-					navedenim v časovnem žigu, poleg tega pa se da preveriti, da se od časa žigosanja ni spremenil (naredimo ponovni povzetek dokumenta, ki se mora ujemati s
-					tistim, ki je del časovnega žiga). Postopek je opisan v RFC 3161: Internet X.509 Public Key Infrastructure - Time-Stamp Protocol (TSP).")}}</p>
+					{{_("Now, let's give an everyday example of a trusted timestamping. Let's
+					consider the situation in which one wants to sell a cellphone The person
+					in want to sell an unused phone, puts and ad on the web. When a potential
+					 buyer sees the ad, it gets a bit suspicious. It is wondering if the
+					phone is really unused or the seller is a fraud. Thus, the buyer contacts
+					 the seller, telling it about its suspition. Now, the seller needs to
+					find the way to prove the condition (that is is unused) of the cell. The
+					seller remembers that it can send a picture of an unopened cell's box and
+					 today's edition of its favourite newspapers. By doing so, it (can)
+					convinces the buyer that the phone is unused at today's time point. So,
+					the buyer buys the phone (today). If the buyer later claims that the
+					phone come in a different shape, the picture tells it is is not seller's
+					fault. So, what is the timestamp in this example? The picture, ofcourse.
+					It tells us that the phone was unused at the timeof the purchase.")}}</p>
 				</div>	
 			</div>	
 			<div id="swatch" class="ui-widget-content ui-corner-all"></div>

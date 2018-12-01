@@ -32,23 +32,23 @@ $(document).ready(function(){
             <div class="panel-heading" id="head">
                 <div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
-						<b><span class="pozdrav1">Časovni žig</span></b>
+						<b><span class="pozdrav1">Timestamp</span></b>
 					</div>
 				</div>
 			</div>
 			{% if text %}
 				<div class="container2">
-					<h2 id="rcorners1" style="padding-top: 10px;padding-bottom: 10px;text-align: center;">{{_("Žigosanje uspešno!")}}</h4>
+					<h2 id="rcorners1" style="padding-top: 10px;padding-bottom: 10px;text-align: center;">{{_("Timestamp was successfully created!")}}</h4>
 					<div id="custom">
-						<p>{{_("Algoritem: Sha256")}}</p>
-						<p>{{_("Žigosal: portal Kriptogram")}}</p>
-						<p>{{_("Zgoščevalna funkcija datoteke: %(hash)s ",hash=hash)}}</p>
-						<p>{{_("Čas žigosanja: %(time)s ",time=time)}}</p>
+						<p>{{_("Algorithm")}}: Sha256</p>
+						<p>{{_("Timestamped by")}}: {{_("Cryptogram portal")}}</p>
+						<p>{{_("Hash function used: %(hash)s ",hash=hash)}}</p>
+						<p>{{_("Timestamping time: %(time)s ",time=time)}}</p>
 						<br>
 						<form action="downloadCert" method="post">
 							<input type="hidden" name="data" value="{{ text }}">
 							<div id="buttons" style="padding-bottom: 70px">
-								<button id="hide" class="open-sans-font" type="submit">{{_("Prenesi potrdilo")}}</button>
+								<button id="hide" class="open-sans-font" type="submit">{{_("Download certificate")}}</button>
 							</div>
 						</form>
 					</div>
@@ -58,15 +58,15 @@ $(document).ready(function(){
 					<div id="custom" style="padding-bottom: 50px">
 						<p>{{ check }}</p> <br>
 						<div id="first">
-							<p>{{_("Želite preveriti zgoščevalno funkcijo Vaše datoteke?")}}</p>
-							<button id="hide" class="open-sans-font">{{_("Izberi")}}</button>
+							<p>{{_("Do you want to check the hash of the document?")}}</p>
+							<button id="hide" class="open-sans-font">{{_("Choose")}}</button>
 						</div>
 						<div class="custom-file-upload" id="second" style="display:none;" >
 							
 							<form action="check_hash" method="post" enctype="multipart/form-data">
-								<p>{{_("Izberite datoteko za preverjanje zgoščevalne funkcije:")}}</p>
+								<p>{{_("Choose a document:")}}</p>
 								<input type="file" id="file" name="fname">
-								<p id="buttonLabel">{{_("Izberi")}}</p>
+								<p id="buttonLabel">{{_("Choose")}}</p>
 							</form>
 						</div>
 						<div id="third" style="display:none;" >
@@ -78,15 +78,15 @@ $(document).ready(function(){
 					<div id="custom" style="padding-bottom: 50px">
 						<p>{{ error }}</p><br>
 						<div id="buttons" >
-							<button id="hide" class="open-sans-font" onclick="window.location.href='{{url_for('timestamp.checking')}}'">{{_("Nazaj")}}</button>
+							<button id="hide" class="open-sans-font" onclick="window.location.href='{{url_for('timestamp.checking')}}'">{{_("Back")}}</button>
 						</div>
 					</div>
 				</div>
 			{% else %}
 				<div class="container2">
-					<h2 id="rcorners2" style="padding-top:10px;padding-bottom:10px">{{_("Žigosanje neuspešno. Poskusite ponovno.")}}</h4> <br>
+					<h2 id="rcorners2" style="padding-top:10px;padding-bottom:10px">{{_("Timestamping was unsuccessful. Try again.")}}</h4> <br>
 					<div id="custom" style="padding-bottom: 50px">
-						<input id="hide" class="open-sans-font" onclick="window.location.href='{{url_for('timestamp.signture')}}'">{{_("Osveži")}}</button>
+						<input id="hide" class="open-sans-font" onclick="window.location.href='{{url_for('timestamp.signture')}}'">{{_("Refresh")}}</button>
 					</div>
 				</div>
 			{% endif %}
