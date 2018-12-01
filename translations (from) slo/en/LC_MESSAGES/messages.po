@@ -20,7 +20,7 @@ msgstr ""
 
 #: alphabet.py:89 alphabet.py:97 alphabet.py:105 alphabet.py:113
 #: alphabet.py:139
-msgid "Te abecede pa (se) ne poznam!"
+msgid "Choosen alphabet unknown"
 msgstr "Unknown alphabet!"
 
 #: timestamp.py:154
