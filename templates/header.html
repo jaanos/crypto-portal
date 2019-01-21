@@ -112,12 +112,15 @@
         <li>
             <a class="btn btn-secondary" role="button" href="{{url_for('password.index')}}">{{_("Password")}}</a>
         </li>
-	<li class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('hash.index')}}">{{_("Hashing")}} <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="{{url_for('hash.index')}}">{{_("Hash functions")}}</a></li>
-		<li><a href="{{url_for('hash.examples')}}">{{_("Try yourself!")}}</a></li>
-            </ul>
+        <li class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" role="button" data-toggle="dropdown" href="{{url_for('hash.index')}}">{{_("Hashing")}} <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{url_for('hash.index')}}">{{_("Hash functions")}}</a></li>
+            <li><a href="{{url_for('hash.examples')}}">{{_("Try yourself!")}}</a></li>
+                </ul>
+        </li>
+        <li>
+            <a class="btn btn-secondary" role="button" href="https://crypto-portal.herokuapp.com/">{{_("Comments")}}</a>
         </li>
     </ul>
 </nav>
