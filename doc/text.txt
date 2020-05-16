@@ -1,0 +1,1633 @@
+#: alphabet.py:89 alphabet.py:97 alphabet.py:105 alphabet.py:113
+#: alphabet.py:139
+msgid "Choosen alphabet unknown!"
+msgstr "Te abacede se ne poznam!"
+
+#: timestamp.py:154
+msgid "No document has been found with a certificate given."
+msgstr "Z danim certifikatom ni bil potrjen noben dokument na tej strani."
+
+#: timestamp.py:156
+msgid "Document with hash "
+msgstr "Dokument z zgoščevalno funkcijo "
+
+#: timestamp.py:157
+msgid " has been signed at "
+msgstr " je bil potrjen "
+
+#: timestamp.py:162
+msgid ""
+"The error occured when checking the certificate, or the certificate is "
+"invalid. Try again."
+msgstr ""
+"The error occured when checking the certificate, or the certificate is "
+"invalid. Try again."
+
+#: templates/alphabet.flags.html:20 templates/steganography.images.html:114
+#: templates/visual.crypto.html:17 templates/visual.crypto.html:84
+msgid "Instructions:"
+msgid "Navodila"
+
+#: templates/alphabet.flags.html:26
+msgid ""
+"From displayed (latin) letters, <strong> choose </strong> the one that is"
+"\n"
+"                     represented by <strong> the picture </strong>. </br>"
+" </br> If the choice\n"
+"                     is <strong>correct</strong>, the button will \n"
+"                     turn green and click on the right arrow will show "
+"you a\n"
+"                      new task. </br> </br> If the choice is "
+"<strong>wrong\n"
+"                    </strong>, the button will turn red. In this case you"
+" can <strong> try again \n"
+"                    </strong>, until you choose the correct one. "
+"Every<strong>wrong</strong>\n"
+"                    selection is <strong>punished</strong> with a "
+"negative point.</br></br>\n"
+"                    By clicking on the left arrow, you can see the "
+"history of your answers."
+msgstr ""
+"Izmed ponujenih <strong>izberite</strong> tisto, ki jo "
+"<strong>predstavlja</strong> prikazana črka.</br></br>\n"
+"                    Če bo izbrana slika <strong>pravilna</strong>"
+", se bo gumb obarval zeleno in po kliku na \n"
+"                    desno puščico se vam bo prikazala nova "
+"naloga.</br></br>\n"
+"                    Če bo izbira <strong>napačna</strong> "
+", se bo gumb obarval rdeče. V tem \n"
+"                    primeru lahko poskusite <strong>ponovno</strong>, "
+"dokler ne izberete\n"
+"                    pravilne rešitve. Vsaka "
+" <strong>napačna</strong> izbira se kaznuje with a negative point."
+"By clicking on the left arrow, you can see the history of your answers."
+
+
+
+#: templates/alphabet.flags.html:38 templates/alphabet.generic.html:45
+msgid ""
+"In the box below the image <strong>enter the letter </strong>represented "
+"by the image, \n"
+"                    and click <strong>enter</strong>. </br> </br>If\n"
+"                    your answer is <strong>correct</strong>, the lower "
+"edge of the field \n"
+"                    will turn green, otherwise red.\n"
+"                    </br> </br> In the case of <strong>correct</strong>\n"
+"                    answer, click on the right arrow will lead you to the"
+" new task. In the \n"
+"                    case of <strong>wrong</strong> answer, you are able "
+"to try again. </br></br> Note: If you have earned \n"
+"                    enough points (with previous tasks), click on the "
+"<strong> Solve \n"
+"                    </strong>button, will show you the correct answer  "
+"for the cost of \n"
+"                    (losing) few points.</br></br>\n"
+"                    By clicking on the left arrow, you can see the "
+"history of your answers."
+msgstr ""
+"V polje pod sliko <strong>vnesite črko</strong>, ki jo slika predstavlja, in <strong>pritisnite enter "
+"</strong>.</br></br>Če je vaš odgovor <strong>pravilen</strong> "
+", se bo spodnji rob polja obarval zeleno, sicer rdeče.</br></br> "
+"V primeru <strong>pravilnega</strong> odgovora se vam ob kliku na desno puščico prikaže "
+"nova naloga, v primeru <strong>napačnega</strong> odgovora pa lahko poskusite znova.</br></br> "
+"Če ste s prejšnjimi nalogami zbrali dovolj točk, lahko s klikom na gumb <strong>Rešitev</strong> "
+"izveste, katero črko predstavlja slika (s tem izgubite nekaj svojih točk).</br></br> "
+"S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov."
+
+#: templates/alphabet.flags.html:52
+msgid ""
+"Click on the <strong> Start </strong> button to launch the animation.\n"
+"                    </br> </br> You will be presented with a sequence of "
+"images, of whicheach\n"
+"                     showing one letter. Enter the letter shown on the "
+"image below each image\n"
+"                     and click <strong> Enter </strong>.The field to "
+"which you have entered \n"
+"                    the correct letter will turn \n"
+"                    <strong>green</strong>, and with the incorrect letter"
+" will turn\n"
+"                    <strong>red</strong>\n"
+"                    . Blank fields will remain <strong> unchanged "
+"</strong>. </br> </br> For \n"
+"                    each correctly entered letter you <strong> get one "
+"point </strong>. For \n"
+"                    each incorrectly entered letter you <strong> lose one"
+" point.</strong> If \n"
+"                    you have collected enough points with previous tasks,"
+" you can click on \n"
+"                    <strong> the button Start </strong> to change the "
+"presented sequence of \n"
+"                    images. By doing so, you lose some points.</br></br>\n"
+"                    By clicking on the left arrow, you can see the "
+"history of your answers."
+msgstr ""
+"S klikom na gumb <strong>Začni</strong> sprožite animacijo.</br></br> "
+"Prikazalo se vam bo zaporedje slik, od katerih bo vsaka prikazovala eno črko. Črke vnesite v polja pod sliko in "
+"<strong>pritisnite enter</strong>. "
+"Polja, kamor ste vnesli pravilno črko, se bodo obarvala " 
+"<strong>zeleno</strong>, polja z napačno črko <strong>rdeče</strong> "
+", prazna polja pa bodo ostala <strong>nespremenjena</strong>.</br></br> "
+"Za vsako pravilno vnešeno črko <strong>dobite</strong> eno točko, medtem ko za vsako napačno vnešeno črko "
+"no točko <strong>izgubite</strong>. "
+"Prazno polje točk ne spreminja.</br></br> "
+"Če ste s prejšnjimi nalogami zbrali <strong>dovolj točk</strong>, lahko s klikom na gumb "
+"<strong>Začni znova</strong> animacijo sprožite še enkrat (s tem izgubite nekaj svojih točk).</br></br> "
+"S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov."
+
+#: templates/alphabet.flags.html:71 templates/alphabet.generic.html:78
+msgid ""
+"From displayed images, <strong> choose </strong> the one representing \n"
+"                    <strong> the letter shown </strong>. </br> </br> If "
+"the choice is \n"
+"                    <strong>correct</strong>, the button will turn green "
+"and click on the \n"
+"                    right arrow will show you a\n"
+"                    new task. </br> </br> If the choice is "
+"<strong>wrong</strong>\n"
+"                    , the button will turn red. In this case you can "
+"<strong> try again \n"
+"                    </strong>, until you choose the correct one. Every \n"
+"                    <strong>wrong</strong>answer<strong>is "
+"punished</strong>\n"
+"                    with a negative point</br></br>\n"
+"                    By clicking on the left arrow, you can see the "
+"history of your answers."
+msgstr ""
+"Izmed ponujenih slik <strong>izberite</strong> tisto, ki jo <strong>predstavlja</strong> prikazana črka.</br></br> "
+"Če bo izbrana slika <strong>pravilna</strong>, se bo gumb obarval zeleno in po kliku na "
+"desno puščico se vam bo prikazala nova naloga.</br></br> "
+"Če bo izbira <strong>napačna</strong>, se bo gumb obarval rdeče. V tem "
+"primeru lahko poskusite <strong>ponovno</strong>, dokler ne izberete "
+"pravilne rešitve. Vsaka <strong>napačna</strong> izbira se <strong>kaznuje</strong> "
+"z negativno točko.</br></br> "
+"S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov. "
+
+#: templates/alphabet.flags.html:84
+msgid ""
+"Click and <strong>rotate</strong> each flag until you get  the layout \n"
+"                    that represents the (latin) letter above. Then click "
+"<strong> the check \n"
+"                    mark </strong> below the image. </br> </br> If the "
+"layout is correc \n"
+"                    <strong>correct</strong>\n"
+"                    , the check mark will turn green and a click on the "
+"right arrow will show\n"
+"                    the next task.</br> But, if your answer is \n"
+"                    <strong>wrong</strong>, the check mark will turn red,"
+" and the field above will (shortly) show \n"
+"                    the letter presented by the current layout of "
+"flags.</br></br>\n"
+"                    By clicking on the left arrow, you can see the "
+"history of your answers."
+msgstr ""
+"Kliknite in <strong>zavrtite</strong> neosenčeno zastavico v pravilen položaj in kliknite "
+"<strong>kjukico</strong> pod sliko.</br></br> "
+"Če je vaš odgovor <strong>pravilen</strong> "
+", se kljukica obarva zeleno in s klikom na desno puščico se vam prikaže naslednja naloga.</br></br> "
+"Če pa je vaš odgovor <strong>napačen</strong>, se kjukica obarva rdeče, v polju s črko pa se za " 
+"<strong>trenutek prikaže črka</strong>, "
+"ki jo predstavlja trenutna postavitev rok.</br></br> "
+"S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov."
+
+#: templates/alphabet.flags.html:96
+msgid ""
+"Click and <strong>rotate</strong> each flag until you get  the layout \n"
+"                   that represents the (latin) letter above. Then click "
+"<strong> the check \n"
+"                   mark </strong> below the image. </br> </br> If the "
+"layout is correc \n"
+"                   <strong>correct</strong>\n"
+"                   , the check mark will turn green and a click on the "
+"right arrow will show\n"
+"                   the next task.</br> But, if your answer is \n"
+"                   <strong>wrong</strong>, the check mark will turn red, "
+"and the field above will (shortly) show \n"
+"                   the letter presented by the current layout of "
+"flags.</br></br>\n"
+"                   Notation:\n"
+"                   <br>When placing a flag in the correct layout, it will"
+" get dimmed and you\n"
+"                   can not move it any further.\n"
+"                    By clicking on the left arrow, you can see the "
+"history of your answers."
+msgstr ""
+"Kliknite in <strong>zavrtite</strong> neosenčeno zastavico v pravilen položaj in kliknite "
+"<strong>kjukico</strong> pod sliko.</br></br> "
+"Če je vaš odgovor <strong>pravilen</strong> "
+", se kljukica obarva zeleno in s klikom na desno puščico se vam prikaže naslednja naloga.</br></br> "
+"Če pa je vaš odgovor <strong>napačen</strong>, se kjukica obarva rdeče, v polju s črko pa se za "
+"<strong>trenutek prikaže črka</strong>, "
+"ki jo predstavlja trenutna postavitev rok.</br></br> "
+"Če pravilno postavite le eno zastavico, se onemogoči njeno premikanje. "
+"S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov."
+
+#: templates/alphabet.flags.html:121 templates/alphabet.flags.html:156
+#: templates/header.html:98
+msgid "Semaphor"
+msgstr "Semafor"
+
+#: templates/alphabet.flags.html:122 templates/alphabet.generic.html:27
+#: templates/alphabet.generic.html:137
+msgid "Instructions"
+msgstr "Navodila"
+
+#: templates/alphabet.flags.html:130 templates/alphabet.flags.html:190
+#: templates/alphabet.generic.html:147 templates/alphabet.generic.html:215
+msgid "Convert from Latin"
+msgstr "Pisanje"
+
+#: templates/alphabet.flags.html:132 templates/alphabet.flags.html:142
+#: templates/alphabet.generic.html:149 templates/alphabet.generic.html:159
+#: templates/header.html:65 templates/substitution.leaderboard.html:25
+msgid "Easy"
+msgstr "Lahko"
+
+#: templates/alphabet.flags.html:134 templates/alphabet.flags.html:144
+#: templates/alphabet.generic.html:161 templates/header.html:67
+#: templates/substitution.leaderboard.html:27
+msgid "Hard"
+msgstr "Težko"
+
+#: templates/alphabet.flags.html:140 templates/alphabet.flags.html:189
+#: templates/alphabet.generic.html:157 templates/alphabet.generic.html:214
+msgid "Convert to Latin"
+msgstr "Branje"
+
+#: templates/alphabet.flags.html:143 templates/alphabet.generic.html:150
+#: templates/alphabet.generic.html:160 templates/header.html:66
+#: templates/substitution.leaderboard.html:26
+msgid "Medium"
+msgstr "Srednje"
+
+#: templates/alphabet.flags.html:157 templates/alphabet.generic.html:183
+msgid ""
+"Welcome to pages which learn you how to communicate using different \n"
+"                                        alphabets."
+msgstr ""
+"Dobrodošli na strani za učenje komuniciranje s pomočjo tujih abeced."
+
+#: templates/alphabet.flags.html:159 templates/alphabet.generic.html:185
+msgid "About the alphabet:"
+msgstr ""
+"Na kratko o izbrani abecedi:"
+
+#: templates/alphabet.flags.html:161
+msgid ""
+"This alphabet is useful when transmitting messages between two parties \n"
+"                                     which are too far to hear, but they "
+"can still see each other."
+msgstr ""
+"Ta abeceda je uporabna za prenašanje sporočil na daljavo, ko sta "
+"sogovornika predaleč narazen, da bi se slišala, se pa še lahko vidita."
+
+#: templates/alphabet.flags.html:165
+msgid ""
+"Below, you can see a list of letters, which correspond to the alphabetand"
+"\n"
+"                                        can be learnedusing this pages. "
+"To view a single symbol click on the \n"
+"                                        appropriate card."
+msgstr ""
+"Spodaj si lahko ogledate seznam vseh črk, ki se jih lahko naučite s "
+"pomočjo te aplikacije. Za ogled posameznega simbola kliknite na ustrezno "
+"kartico."
+
+#: templates/alphabet.flags.html:188 templates/alphabet.generic.html:213
+msgid "Ready to start?"
+msgstr "Pripravljeni, da začnete?"
+
+#: templates/alphabet.flags.html:205 templates/alphabet.flags.html:235
+#: templates/alphabet.flags.html:266 templates/alphabet.flags.html:295
+#: templates/alphabet.flags.html:336 templates/alphabet.flags.html:382
+#: templates/alphabet.generic.html:230 templates/alphabet.generic.html:260
+#: templates/alphabet.generic.html:291 templates/alphabet.generic.html:320
+#: templates/alphabet.generic.html:362 templates/alphabet.generic.html:397
+msgid "Correctly answered"
+msgstr "Število pravilnih odgovorov"
+
+#: templates/alphabet.flags.html:242 templates/alphabet.flags.html:273
+#: templates/alphabet.generic.html:267
+msgid "Solve"
+msgstr "Rešitev"
+
+#: templates/alphabet.generic.html:33
+msgid ""
+"From displayed (latin) letters, <strong> choose </strong> the one that is"
+"\n"
+"                    represented by <strong> the picture </strong>. </br> "
+"</br> If the choice\n"
+"                    is <strong>correct</strong>, the button will \n"
+"                    turn green and click on the right arrow will show you"
+" a\n"
+"                        new task. </br> </br> If the choice is "
+"<strong>wrong\n"
+"                    </strong>, the button will turn red. In this case you"
+" can <strong> try again \n"
+"                    </strong>, until you choose the correct one. "
+"Every<strong>wrong</strong>\n"
+"                    selection is <strong>punished</strong> with a "
+"negative point.</br></br>\n"
+"                    By clicking on the left arrow, you can see the "
+"history of your answers."
+msgstr ""
+"Izmed ponujenih slik <strong>izberite</strong> tisto, ki jo <strong>predstavlja</strong> prikazana črka.</br></br> "
+"Če bo izbrana slika <strong>pravilna</strong>, se bo gumb obarval zeleno in po kliku na "
+"desno puščico se vam bo prikazala nova naloga.</br></br> "
+"Če bo izbira <strong>napačna</strong>, se bo gumb obarval rdeče. V tem "
+"primeru lahko poskusite <strong>ponovno</strong>, dokler ne izberete "
+"pravilne rešitve. Vsaka <strong>napačna</strong> izbira se <strong>kaznuje</strong> "
+"z negativno točko.</br></br> "
+"S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov."
+
+#: templates/alphabet.generic.html:59
+msgid ""
+"Click on the <strong> Start </strong> button to launch the animation.\n"
+"                    </br> </br> You will be presented with a sequence of "
+"images, of whicheach\n"
+"                    showing one letter. Enter the letter shown on the "
+"image below each image\n"
+"                    and click <strong> Enter </strong>.The field to which"
+" you have entered \n"
+"                    the correct letter will turn \n"
+"                    <strong>green</strong>, and with the incorrect letter"
+" will turn\n"
+"                    <strong>red</strong>\n"
+"                    . Blank fields will remain <strong> unchanged "
+"</strong>. </br> </br> For \n"
+"                    each correctly entered letter you <strong> get one "
+"point </strong>. For \n"
+"                    each incorrectly entered letter you <strong> lose one"
+" point.</strong> If \n"
+"                    you have collected enough points with previous tasks,"
+" you can click on \n"
+"                    <strong> the button Start </strong> to change the "
+"presented sequence of \n"
+"                    images. By doing so, you lose some points.</br></br>\n"
+"                    By clicking on the left arrow, you can see the "
+"history of your answers."
+msgstr ""
+"S klikom na gumb <strong>Začni</strong> sprožite animacijo.</br></br> "
+"Prikazalo se vam bo zaporedje slik, od katerih bo vsaka prikazovala eno črko. Črke vnesite v polja pod sliko in " 
+"<strong>pritisnite enter</strong>. "
+"Polja, kamor ste vnesli pravilno črko, se bodo obarvala "
+"<strong>zeleno</strong>, polja z napačno črko <strong>rdeče</strong> "
+", prazna polja pa bodo ostala <strong>nespremenjena</strong>.</br></br> "
+"Za vsako pravilno vnešeno črko <strong>dobite</strong> eno točko, medtem ko za vsako napačno vnešeno črko "
+"eno točko <strong>izgubite</strong>. "
+"Prazno polje točk ne spreminja.</br></br> "
+"Če ste s prejšnjimi nalogami zbrali <strong>dovolj točk</strong>, lahko s klikom na gumb "
+"<strong>Začni znova</strong> animacijo sprožite še enkrat (s tem izgubite nekaj svojih točk).</br></br> "
+"S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov. "
+
+#: templates/alphabet.generic.html:91
+msgid ""
+"From displayed images, <strong> choose </strong> the one representing \n"
+"                    <strong> the letter shown </strong>. </br> </br> If "
+"the choice is <stron>correct</strong>\n"
+"                    , the button will turn green and click on the right "
+"arrow will show you a\n"
+"                     new task. </br> </br> If the choice is "
+"<strong>wrong</strong>\n"
+"                     , the button will turn red. In this case you can "
+"<strong> try again \n"
+"                    </strong>, until you choose the correct one. Every "
+"<strong>wrong</strong>\n"
+"                    selection <strong>is punished</strong>\n"
+"                    with negative point</br></br>\n"
+"                    By clicking on the left arrow, you can see the "
+"history of your answers."
+msgstr ""
+"Izmed ponujenih slik <strong>izberite</strong> tisto, ki jo <strong>predstavlja</strong> prikazana črka.</br></br> "
+"Če bo izbrana slika <strong>pravilna</strong>, se bo gumb obarval zeleno in po kliku na "
+"desno puščico se vam bo prikazala nova naloga.</br></br> "
+"Če bo izbira <strong>napačna</strong>, se bo gumb obarval rdeče. V tem "
+"primeru lahko poskusite <strong>ponovno</strong>, dokler ne izberete "
+"pravilne rešitve. Vsaka <strong>napačna</strong> izbira se <strong>kaznuje</strong> "
+"z negativno točko.</br></br> "
+"S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov."
+
+#: templates/alphabet.generic.html:103
+msgid ""
+"<strong> Choose </strong> the image that <strong> represents </strong>\n"
+"                    the individual letter and drag and drop it to the "
+"corresponding field. \n"
+"                    </br> </br>If your choice is <strong>correct</strong>"
+" the field will turn green. \n"
+"                    If the choice is incorrect the field will turn "
+"<stron>red</strong>. \n"
+"                    Every correct answer is valued one point, and every "
+"incorrect answer, \n"
+"                    minus one point. To <strong> clear </strong> the "
+"choice, transfer the \n"
+"                    desired image from the field to <strong> the trash "
+"</strong>. <br> You \n"
+"                    can move to the next task, only if all  the images "
+"are selected \n"
+"                    correctly.</br></br>\n"
+"                    By clicking on the left arrow, you can see the "
+"history of your answers."
+msgstr ""
+"Izmed vseh ponujenih slik <strong>izberite</strong> tisto, ki jo <strong>predstavlja</strong> posamezna "
+"črka ter jo povlecite in spustite v pripadajoče polje.</br></br> "
+"Za vse <strong>pravilne</strong> izbire se pripadajoča polja obarvajo zeleno, "
+"za vse <strong>napačne rdeče</strong>. Pravilni odgovori so nagrajeni, napačni "
+"pa kaznovani, z eno točko. </br></br> "
+"Če želite <strong>počistiti</strong> svojo izbiro, željeno sliko iz polja prenesite v <strong>smeti</strong>. "
+"S klikom na kljukico preverite svojo izbiro. "
+"Ko bodo vsa polja pravilno izbrana se lahko pomaknete na naslednjo nalogo.</br></br> "
+"S klikom na levo puščico si lahko pogledate zgodovino svojih odgovorov."
+
+#: templates/alphabet.generic.html:129 templates/alphabet.generic.html:176
+#: templates/header.html:99
+msgid "Finger alphabet"
+msgstr "Znakovna abeceda"
+
+#: templates/alphabet.generic.html:131 templates/alphabet.generic.html:178
+#: templates/header.html:100
+msgid "Greek alphabet"
+msgstr "Grška abeceda"
+
+#: templates/alphabet.generic.html:151
+msgid "Hared"
+msgstr "Težko"
+
+#: templates/alphabet.generic.html:190
+msgid ""
+"Below, you can see a list of letters, which correspond to the alphabetand"
+"\n"
+"                                        can be learnedusing this pages. "
+"To view a single symbol click on the \n"
+"                                        appropriatecard."
+msgstr ""
+"Spodaj si lahko ogledate seznam vseh črk, ki se jih lahko naučite s "
+"pomočjo te aplikacije. Za ogled posameznega simbola kliknite na ustrezno "
+"kartico."
+
+#: templates/alphabet.generic.html:298
+msgid "Start!"
+msgstr "Začni!"
+
+#: templates/hash.description.html:10 templates/header.html:118
+msgid "Hash functions"
+msgstr "Zgoščevalne funkcije"
+
+#: templates/hash.description.html:16
+msgid ""
+"Hashing is the transformation of a string of characters into a usually \n"
+"\t\t\t\t\t\tshorter fixed-length value or key that represents the "
+"original string. \n"
+"\t\t\t\t\t\tThe representation is choosen within a fixed-range. The "
+"transformation is\n"
+"\t\t\t\t\t\t mainly done using a function of a special kind,  namely, "
+"mathematical \n"
+"\t\t\t\t\t\thash functions. A function mush have following properties. "
+msgstr ""
+"Zgoščevanje je generiranje neke vrednosti iz poljubnega niza znakov s "
+"pomočjo matematične funkcije. Zgoščevalna funkcija pa je funkcija, ki "
+"vzame nek vhodni niz in generira drugačen niz, za\n"
+"njo pa morajo veljati pravila."
+
+#: templates/hash.description.html:22
+msgid ""
+"\n"
+"<li>It has to be deterministic, e.g. for the same input, it returns the \n"
+"\tsame output.</li><li>It needs to be deterministic, e.g. the possibility"
+" \n"
+"\tto get the same output for the same input is smaller that being hit by"
+" \n"
+"\tthe meteor. This really hard to achieve. So, we are satisfied if the \n"
+"\tpossibility is really close to the possibility of being hit by the \n"
+"\tairplane while driving in a black car.</li><li>It accepts strings of \n"
+"\t(almost) arbitray size, but the length of the output is "
+"fixed.</li><li>It\n"
+"\t needs to be one way, e.g. observing an input it is as possible to "
+"reveal\n"
+"\t the input as being hit by the spaceship. (To be honest, this variates"
+" \n"
+"\tfrom the application.)</li>"
+msgstr ""
+"<li>Zgoščevalne funkcijo morajo biti deterministične, kar pomeni, da "
+"morajo za določen vhod\n"
+"vedno vrniti enak izhod.</li>\n"
+"<li>Zgoščevalne funkcije morajo stremeti k temu, da so uniformne, torej "
+"da dva različna vhoda ne\n"
+"moreta tvoriti enakega izhoda. To je v praksi zelo težko doseči in so "
+"ponavadi zadovoljive\n"
+"zgoščevalne funkcije, kjer je verjetnost sovpadanja dovolj majhna.</li>\n"
+"<li>Zgoščevalne funkcije vzamejo vhodni niz poljubne dolžine in ga "
+"pretvorijo v niz točno\n"
+"določene dolžine.</li>\n"
+"<li>Zgoščevalne funkcije morajo oz. morajo stremeti k temu, da so "
+"enosmerne, kar pomeni, da iz\n"
+"izhoda ne smemo dobiti vhodnega parametra.</li>"
+
+#: templates/hash.description.html:37
+msgid ""
+"Isn't is great to have examples? Our is about one gang. The gang has 5 "
+"members:\n"
+"<ul>\n"
+"<li>Janez Korenina</li>\n"
+"<li>Zala Novak</li>\n"
+"<li>Miha Copatar</li>\n"
+"<li>Zvonko Nagode</li>\n"
+"<li>Tone Rastlina</li>\n"
+"</ul><br><br>The gang members never call each other by name! Why? <br> \n"
+"Well, you know the gang, always in want to hide something... And if there"
+"\n"
+" is no eyes, ears are everywhere. So, they decided to give themself code"
+" \n"
+"names. Imagine, they call each other only by initials (!WOW!). This way,"
+" \n"
+"knowing that ZN did something, does not tell us who really did it. It \n"
+"could be Zrinka Novakovič or Zvonimir Nikša or Zlata Nikšić, who knows \n"
+"?!?! <br> <small>Disclamer: No one outside the gang  knows who is in the"
+" \n"
+"gang.</small> <br> <br> Let us now observe the rule that transforms name"
+" \n"
+"of the gang member into the code name. Well, it is actually one example \n"
+"of the hash function. Let's denote it with \n"
+"<code>F()</code>.<br><br>Buuut, does it really have all abovementioned \n"
+"properties? "
+msgstr ""
+"Recimo, da imamo v razredu 5 učencev.\n"
+"<ul>\n"
+"<li>Janez Korenina</li>\n"
+"<li>Zala Novak</li>\n"
+"<li>Miha Copatar</li>\n"
+"<li>Zvonko Nagode</li>\n"
+"<li>Tone Rastlina</li>\n"
+"</ul>\n"
+"<br>\n"
+"Vzamimo funkcijo F, ki za vhod prejme učenca in ga zapiše kot niz "
+"začetnic imena in priimka.\n"
+"Dobimo torej vrednosti, kot so JK, ZN, itd."
+
+#: templates/hash.description.html:58
+msgid ""
+"Is is really a mathematiacal hash function \n"
+"<code>F()</code>?<ul><li>Property 1 holds, e.g. Janez Korenina is always"
+" \n"
+"transformed into JK.</li><li>But, property 2 does not, i.e. Zala Novak \n"
+"and Zvonko Nagode transform into the same code name: ZNThe probability \n"
+"that the collision happens within the gang of 5 is lower than 1,6 \n"
+"percentage which is pretty much in a world of hash functions, as to be \n"
+"hit by the meteor is 0.000001 percentage.Unfortunatelly for the gang, \n"
+"this probability rises as new people comes to the gang. When the gang is"
+" \n"
+"of size 20, the same probability is 26,5 percentage. </li><li>Property 3"
+" \n"
+"holds. At least that! The gang should be happy that their code namesare \n"
+"always of length 2.</li><li>Property 4 does not hold inside the gang, \n"
+"e.g. when saying ZN,the gang knows that that must be Zala Novak. But \n"
+"outside the gang it is holds pretty well!! Both suits the gang pretty \n"
+"well.</ul>"
+msgstr ""
+"Bi lahko rekli funkciji F zgoščevalna funkcija?\n"
+"<ul>\n"
+"<li>Pogoj 1 je izpolnjen, saj bo Janez Korenina vsakič zgoščen v JK.</li>"
+"\n"
+"<li>Pogoj 2 ni izpolnjen, saj Zala Novak in Zvonko Nagode tvorita enak "
+"izhod, \n"
+"\ttj. ZN. Verjetnost, da imata izmed petih učencev dva enake začetnice, "
+"je sicer majhna (1,6 posto), a v\n"
+"svetu zgoščevalnih funkcij je to ogromno. Kot primer lahko vzamemo tudi "
+"scenarij, \n"
+"kjer je v razredu 20 učencev. Takrat je verjetnost, da imata dva učenca "
+"enak izhod že 26,5 posto .</li>\n"
+"<li>Pogoj 3 je izpolnjen, saj je izhod vedno dolžine 2 (ignorirajmo za "
+"zdaj primere, ko ima učenec\n"
+"več kot eno ime ali priimek).</li>\n"
+"<li>Pogoj 4 ni izpolnjen, saj iz izhoda lahko vidimo, kakšen je bil vhod."
+" Npr. ZN ne more biti nič\n"
+"drugega kot Zala Novak, saj je edina z začetnicami Z in N. Tudi v "
+"primeru, ko obstajata dva ali\n"
+"več učencev z istimi začetnicami, lahko omejimo možen nabor imen, ki jim "
+"pripada.</li>\n"
+"</ul>"
+
+#: templates/hash.description.html:74
+msgid ""
+"So, <code>F()</code> suits the purpose for the gang (as long as\n"
+"\tthey are small gang),  but it is not a real mathemathical hash\n"
+"\tfunction.If Zdravka Najc become member, they get COLLISION. Now, when\n"
+"\ttalking about ZN, no one knows who they are talking about. Not even "
+"them.\n"
+"\t Pretty bad. A solution? Lucky for them, there is always some solution,"
+"\n"
+"\tjust waiting around the corner. Smart guys invented some pretty MEAN "
+"hash\n"
+"\t functions, i.e. SHA-512, Bcrypt etc. <br><br>Beside for gang-bussines,"
+"\n"
+"\twhere else can we use hash functions? Are they used at all? Ofcourse. "
+"Let\n"
+"\t us list JUST some.<ul><li>Saving data in a (hash) table. Now, when\n"
+"\tsearching the table, we just search for corresponding hash. – Insted "
+"for\n"
+"\tsearching row by row, for some long name or so, calculating the hash of"
+"\n"
+"\tit provides us with (almost) instant reference to the data we want. "
+"This\n"
+"\tis explained in 'programming' language. If you do not understand it, it"
+"\n"
+"\tis fine :) No one does for real.</li><li>Checking if two inputs are the"
+"\n"
+"\tsame. - Imagine having two documents of at least 50 pages. You want to\n"
+"\tcheck if they are not equal, and after a day, two, three, you conclude\n"
+"\tthat they actually ARE NOT!! The only difference is the last word. What"
+" a\n"
+"\t wast of time. Expecially when there is an easier way. You could have\n"
+"\tdone this but only calculating the hash of each. So, if they are not\n"
+"\tequal, you have your statement! :).<br> As the smallest change in the\n"
+"\tinput should have change the output. Furthermore, if two hashes turn "
+"out\n"
+"\tidentical, we usually conclude that the input was the same as well. "
+"This\n"
+"\tis actually used during the file transfer process.</li><li>Storing\n"
+"\tposswords. - In a case of having a portal with a registration, to keep\n"
+"\tVERY passwords secret (even to you). You never store actual passwords ,"
+"\n"
+"\tbut need to still be able to check it the user name maches the "
+"password.\n"
+"\tInsted of the password, you only store password-hashes. Ofcourse, each\n"
+"\thash is stored together with corresponding username. <br>This way, if\n"
+"\tanyone attacks aour storage, it will not be able to obtain passwords as"
+"\n"
+"\tthere are none. This makes users happy. (At least until they forget "
+"their\n"
+"\t password).</li> </ul>"
+msgstr ""
+"Kot vidimo, ta F() ne bi bil kaj preveč prida, zato bi si morali "
+"izmisliti boljšo zgoščevalno funkcijo. Na\n"
+"srečo pa lahko izberemo že kakšno izmed obstoječih, kot so SHA-256, "
+"SHA-512, Bcrypt in mnoge druge.\n"
+"<br>\n"
+"Kje se zgoščevanje uporablja?\n"
+"<ul>\n"
+"<li>Shranjevanje podatkov v tabeli - Namesto, da iščemo nek zapis po "
+"tabeli, lahko izračunamo\n"
+"zgostitev in takoj skočimo na mesto v tabeli, ki ga referencira ta "
+"zgostitev. Bolj kot lastnost\n"
+"enosmernosti je tukaj pomembno, da pri zgoščevanju prihaja do čim manj "
+"sovpadanj.</li>\n"
+"<li>Preverjanje enakosti podatkov - Tukaj gre za zgoščevalne funkcije, "
+"kjer si želimo, da tudi\n"
+"najmanjša sprememba v vhodnem nizu vrne čim bolj različno zgoščeno "
+"vrednost. Predvsem\n"
+"se uporablja pri preverjanju pravilnosti oz. enakosti podatkov. Če imamo "
+"na voljo zgostitev\n"
+"nekih podatkov, ki ji zaupamo, da je prava, lahko zgostitev izračunamo "
+"sami in primerjamo.\n"
+"Če je enaka, so podatki najverjetneje identični. Uporablja se pri prenosu"
+" datotek, itd.</li>\n"
+"<li>Shranjevanje gesel - Namesto, da bi shranili gesla v svoji prvotni "
+"obliki, shranimo zgoščene\n"
+"vrednosti gesel v bazo. Tako zagotovimo, da gesla uporabnikov ostanejo "
+"neznana, tudi če\n"
+"napadalec vdre v naš sistem.\n"
+"Pomankljivost takšnega shranjevanje gesel so postale t.i. mavrične "
+"tabele, ki vsebujejo slovar\n"
+"gesel in njihovih zgoščenih vrednosti v različnih algoritmih, ki so jih "
+"nepridipravi odkrili do\n"
+"sedaj. To pa lahko rešimo na enostaven način, in sicer tako, da "
+"uporabnikovemu geslu\n"
+"dodamo t. i. <em>sol</em>. To je naključen niz, ki ga potem skupaj z "
+"geslom zgostimo in shranimo v\n"
+"podatkovno bazo. Ta naključnost zagotovi, da v mavričnih tabelah, tudi če"
+" obstaja zapis za\n"
+"geslo, ne najdemo takšnega zapisa.</li>\n"
+"</ul>"
+
+#: templates/hash.examples.html:23
+msgid "Sequence hashing"
+msgstr "Zgoščevanje niza"
+
+#: templates/hash.examples.html:27
+msgid "Choose the hashing function"
+msgstr "Izberite zgoščevalno funkcijo"
+
+#: templates/hash.examples.html:47
+msgid "The hash"
+msgstr "Zgoščen niz"
+
+#: templates/header.html:5 templates/header.html:27
+msgid "Cryptogram"
+msgstr "Kriptogram"
+
+#: templates/header.html:61
+msgid "Substitution"
+msgstr "Zamenjalka"
+
+#: templates/header.html:63 templates/substitution.leaderboard.html:40
+#: templates/substitution.leaderboard.html:56
+msgid "Level"
+msgstr "Težavnosti"
+
+#: templates/header.html:69
+msgid "Caesar cipher"
+msgstr "Cezarjeva šifra"
+
+#: templates/header.html:71 templates/substitution.leaderboard.html:16
+msgid "Scoreboard"
+msgstr "Lestvice"
+
+#: templates/header.html:73 templates/substitution.ready.html:12
+msgid "Substitution puzzles"
+msgstr "Pripravljene zamenjalke"
+
+#: templates/header.html:79
+msgid "Transposition"
+msgstr "Premešalka"
+
+#: templates/header.html:81
+msgid "What are transposition ciphers?"
+msgstr "Kaj so transpozicijske šifre?"
+
+#: templates/header.html:82
+msgid "TransGAME (by levels)"
+msgstr "Naloge (lahko/srednje/težko)"
+
+#: templates/header.html:88
+msgid "Steganography"
+msgstr "Steganografija"
+
+#: templates/header.html:91 templates/steganography.images.html:111
+msgid "Hide a message in a image"
+msgstr "Skrivanje sporočila v sliko"
+
+#: templates/header.html:92 templates/visual.crypto.html:3
+#: templates/visual.crypto.html:81
+msgid "Visual cryptography"
+msgstr "Vizualna kriptografija"
+
+#: templates/header.html:96
+msgid "Alphabet"
+msgstr "Abeceda"
+
+#: templates/header.html:104 templates/timestamp.desc.html:10
+#: templates/timestamp.signature.html:13
+msgid "Timestamp"
+msgstr "Časovni žig "
+
+#: templates/header.html:106
+msgid "What is a timestamp?"
+msgstr "Kaj je časovni žig?"
+
+#: templates/header.html:107
+msgid "Timestamp a document"
+msgstr "Časovno žigosanje dokumenta"
+
+#: templates/header.html:108 templates/timestamp.checking.html:14
+msgid "Check a timestamp"
+msgstr "Preverjanje časovnega žiga"
+
+#: templates/header.html:109 templates/timestamp.publickey.html:12
+msgid "Server's public key"
+msgstr "Javni ključ strežnika"
+
+#: templates/header.html:113
+msgid "Password"
+msgstr "Gesla"
+
+#: templates/header.html:116
+msgid "Hashing"
+msgstr "Zgoščevanje"
+
+#: templates/header.html:119
+msgid "Try yourself!"
+msgstr "Poizkusite sami!"
+
+#: templates/index.html:12
+msgid "Welcome to Cryptogram"
+msgstr "Dobrodošli na portalu Kriptogram!"
+
+#: templates/index.html:19
+msgid ""
+"Welcome to web-portal <strong>Cryptogram</strong>,\n"
+"                is intended for all curious, especially for those who "
+"want to solve cryptographic puzzles."
+msgstr "Dobrodošli na spletnem portalu"
+"                ki je namenjen vsem vedoželjnim,\n"
+"                še posebej tistim, ki radi rešujete kriptografske uganke."
+
+
+#: templates/index.html:22
+msgid "Take your chances against several"
+msgstr "Sprehodite se v svet"
+
+#: templates/index.html:22
+msgid "substitution ciphers"
+msgstr "zamenjalk"
+
+#: templates/index.html:23
+msgid ""
+"and discover secret conversations and texts. Lern how \n"
+"                "
+msgstr ""
+"in z reševanjem odkrivajte lepe pregovore in besedila.\n"
+"                Poglejte si, kako lahko"
+
+#: templates/index.html:24
+msgid "to hide"
+msgstr "skrivate"
+
+#: templates/index.html:25
+msgid "hide and rediscover secret messages in a image. Learn new"
+msgstr "sporočila v slike in jih nato spet razberete.\n"
+"                Naučite se novih"
+
+#: templates/index.html:26
+msgid "alphabets."
+msgstr "abeced"
+
+#: templates/index.html:27
+msgid "They can talk for you, when you can not."
+msgstr "s katerimi se lahko sporazumevate tudi, kadar ne morete govoriti."
+
+#: templates/index.html:29
+msgid "What is CRYPTOGRAM?"
+msgstr "Kaj je kriptogram?"
+
+#: templates/index.html:31
+msgid ""
+"In general, a cryptogram denotes any encrypted text. If the cipher used \n"
+"                is simple enough,the cryptogram can be deciphered by "
+"hand. Ciphers which \n"
+"                are used the most, are substitution ciphers. Substitution"
+" ciphercipher a \n"
+"                text by changing every letter of the text with a "
+"different letter or a \n"
+"                number."
+msgstr ""
+"Kriptogram je načeloma vsako zašifrirano sporočilo.\n"
+"                Če je šifra, ki je uporabljena v takem besedilu,\n"
+"                dovolj enostavna, lahko besedilo razkrijemo sami.\n"
+"                Pogosto se uporabljajo zamenjalne šifre,\n"
+"                pri kateri se vsaka črka zamenja z drugo črko ali "
+"številko."
+
+#: templates/index.html:37
+msgid ""
+"Although, substitution ciphers were once used for more serious purposes,\n"
+"                nowdays they are mostly used for entertainment, i.e. "
+"puzzels in \n"
+"                newspapers or magazines where, to solve a puzzle, "
+"onceneeds to \n"
+"                reconstruct an intial text from a cryptogram."
+msgstr ""
+"Za rešitev uganke je potrebno tako poiskati prvotno sporočilo.\n"
+"                Čeprav so včasih zamenjalne šifre uporabljali v resne "
+"namene,\n"
+"                jih danes večinoma najdemo v zabavnem tisku,\n"
+"                v časopisih ali revijah."
+
+#: templates/index.html:43
+msgid "About the Cryptogram project"
+msgstr "O projektu"
+
+#: templates/index.html:45
+msgid ""
+"Web portal Cryptogram is developed as a part of the Innovative Project\n"
+"                for Social Benefit (2017). It is a product of the "
+"collaboration of\n"
+"                students fromthe Faculty of Computer and Information "
+"Science, University\n"
+"                of Ljubljana, and members of the Slovenian Society of "
+"Cryptology."
+msgstr ""
+"Spletni portal Kriptogram so študenti FRI skupaj s člani\n"
+"                Društva kriptologov Slovenije (DKS) razvili v sklopu\n"
+"                Študentskih inovativnih projektov za družbeno korist "
+"(2017)."
+
+#: templates/index.html:53
+msgid "Week's riddle"
+msgstr "Uganka tedna"
+
+#: templates/index.html:57
+msgid ""
+"Let assume we have a fly, blank spider and four (distant) nodes. The \n"
+"                   spider makes a net which fully connects all four "
+"nodes. The fly and the \n"
+"                   spider are placed in distant nodes. The fly cannot "
+"move and the spider \n"
+"                   moves randomly between nodes. Find the answers to "
+"following (interesting)\n"
+"                    questions:"
+msgstr ""
+" Pajkova mreža povezuje štiri enako oddaljena vozlišča\n"
+"                    na vseh šest načinov\n"
+"                    (mimogrede: zato telesu,\n"
+"                    ki nastane kot konveksna ogrinjača,\n"
+"                    matematiki rečejo četverec).\n"
+"                    V različnih vozliščih se nahajata muha in slepi "
+"pajek.\n"
+"                    Muha se ne more premakniti,\n"
+"                    pajek pa se premika naključno iz enega vozlišča v "
+"drugega."
+
+#: templates/index.html:66
+msgid ""
+"What is the expected number of moves (between nodes) that the spider will"
+"\n"
+"                    make before it meets the fly?"
+msgstr ""
+"Koliko je pričakovano število obratov,\n"
+"                    preden pajek doseže muho?"
+
+#: templates/index.html:69
+msgid ""
+"What if the quadruple is replaced by\n"
+"                    </li>\n"
+"                    <li>the cube,</li>\n"
+"                    <li>the octahedar,</li>\n"
+"                    <li>dodecahedron, or</li>\n"
+"                    <li>icosahedron?</li>\n"
+"                    </ol>"
+msgstr ""
+"Kaj pa, če četverec nadomestimo z"
+"                    </li>"
+"                    <li>kocko,</li>\n"
+"                    <li>oktaedrom,</li>\n"
+"                    <li>dodekaedrom, ali</li>\n"
+"                    <li>ikozaedrom?</li>\n"
+"                    </ol>"
+
+#: templates/index.html:78
+msgid "This week's puzzle can be found at"
+msgstr "Tedensko uganko najdete na"
+
+#: templates/index.html:79
+msgid "FRI web-classroom."
+msgstr "spletni učilnici FRI"
+
+#: templates/index.html:93
+msgid "Kvizko app"
+msgstr "Aplikacija Kvizko"
+
+#: templates/index.html:95
+msgid ""
+"The application is aimed for testing (and improving) your knowledge of \n"
+"                    various subject you have learned. Furthermore, it "
+"provides you thoughtful\n"
+"                     entertainment anywhere and anytime. <br><br>This app"
+" brings you various \n"
+"                    problems, i.e. form Bober and Presek over 40-year "
+"period.Solving \n"
+"                    problems, one can compete with others or use it as a "
+"free time \n"
+"                    preoccupation."
+msgstr ""
+"Aplikacija je namenjena prenosu naravoslovnih ved izza pisalne\n"
+"                mize, preobremenjene s kupi knjig in zvezkov v vsakdanje\n"
+"                življenje. Omogočimo miselno zabavo kjerkoli in "
+"kadarkoli. <br><br>40\n"
+"                let skrbno izbranih problemov (z izpeljanimi rešitvami)\n"
+"                približa široki množici mladih in starejših. Vsebuje "
+"odprti\n"
+"                skupini Bober in Presek, preko katerih lahko vsakdo "
+"rešuje\n"
+"                naloge za tekmovanja ali za krajšanje prostega časa. "
+
+#: templates/password.meter.html:26
+msgid "Measure the strength of your password"
+msgstr "MERJENJE MOČI GESLA"
+
+#: templates/password.meter.html:30
+msgid "PASSWORD"
+msgstr "GESLO"
+
+#: templates/password.meter.html:35
+msgid "Vpisati morate geslo"
+msgstr ""
+
+#: templates/password.meter.html:35
+msgid "Vpišite geslo"
+msgstr ""
+
+#: templates/password.meter.html:44
+msgid "Password analysis results"
+msgstr "Informacvije o geslu"
+
+#: templates/password.meter.html:49
+msgid "Approximate number of opperations to break the password:"
+msgstr "Približek števila ugibanj za razbitje gesla:"
+
+#: templates/password.meter.html:53
+msgid "Approximate time to break the password:"
+msgstr "Časovna ocena razbijanja gesla:"
+
+#: templates/password.meter.html:57
+msgid "Recommendations:"
+msgstr "Priporočila za geslo:"
+
+#: templates/password.meter.html:61
+msgid "Additional notes:"
+msgstr "Opozorilo za geslo:"
+
+#: templates/steganography.colors.html:95
+msgid "Choose the color"
+msgstr "Izberite barvo"
+
+#: templates/steganography.images.html:17
+msgid ""
+"Steganography is the practice of concealing data, i.e. file, message, \n"
+"                    image, withing another data. The goal is to hide data"
+" so that the secret \n"
+"                    message do not attract attention. Unlike "
+"cryptography, which primaly \n"
+"                    tries to protect the content of the message, "
+"steganography is primaly \n"
+"                    concerned with hidding the track of the message being"
+" sent. This site \n"
+"                    provides youwith an oracle for hiding (secret) "
+"messages in a picture. \n"
+"                    After hidding the message, you can observethe "
+"difference between initial \n"
+"                    and the resulted image. The difference is (almost) "
+"imposible to \n"
+"                    detectwith a naked eye. Therefore, it is colored in "
+"red. <br> An \n"
+"                    extension of the oracle allows you to check if your "
+"picture contains a \n"
+"                    secret message."
+msgstr ""
+"Steganografija je veda o skrivanju podatkov npr. v sporočilo, sliko ali "
+"video. Za razliko od kriptografije oziroma šifriranja podatkov, katere "
+"cilj je narediti podatke neberljive, steganografija poskuša prikriti "
+"obstoj podatkov. Cilj je onemogočiti zaznavo podatkov, ki so skriti v "
+"navidez nepomembnih podatkih. Spletna stran omogoča skrivanje sporočila v"
+" sliko. Na spletno stran lahko naložite svojo sliko, vanjo pa lahko "
+"zakodirate sporočilo, ali pa ga razberete, če se sporočilo v sliki že "
+"nahaja. Razlik med originalno sliko in sliko s sporočilom ni mogoče "
+"videti s prostim očesom, zato stran omogoča tudi vizualni prikaz nastale "
+"razlike."
+
+#: templates/steganography.images.html:38
+#: templates/steganography.images.html:60
+#: templates/steganography.images.html:71
+#: templates/steganography.images.html:82
+#: templates/steganography.images.html:94 templates/visual.crypto.html:40
+#: templates/visual.crypto.html:52
+msgid "Warning"
+msgstr "Opozorilo"
+
+#: templates/steganography.images.html:41
+#: templates/steganography.images.html:85 templates/visual.crypto.html:43
+msgid "Choose an image!"
+msgstr "Izberite slikovno datoteko!"
+
+#: templates/steganography.images.html:49
+msgid "Warning!"
+msgstr "Opozorilo!"
+
+#: templates/steganography.images.html:52
+msgid "The document is oversized. Document size upload limit is 2BM."
+msgstr "Datoteka je prevelika! Največja dovoljena 2 MB."
+
+#: templates/steganography.images.html:63
+msgid "The message is too big to be hidden!"
+msgstr "V sliko poskušate zakodirati preveč besedila!"
+
+#: templates/steganography.images.html:74
+msgid "here is no message to be coded."
+msgstr "V tekstovno polje niste vnesli besedila, ki ga želite zakodirati!"
+
+#: templates/steganography.images.html:97
+msgid ""
+"The document is oversized in dimensions. Document dimensions upload limit"
+"\n"
+"                     is 1000 x 1000px. "
+msgstr ""
+"Datoteka je prevelikih dimenzij. Maksimalna dovoljena dimenzija je 1000 x"
+" 1000 px."
+
+#: templates/steganography.images.html:124
+msgid "Choose a picture:"
+msgstr "Izberi sliko:"
+
+#: templates/steganography.images.html:126 templates/visual.crypto.html:99
+msgid "Upload"
+msgstr "Naloži"
+
+#: templates/steganography.images.html:131
+msgid "Number of characters"
+msgstr "Število kodiranih znakov"
+
+#: templates/steganography.images.html:132
+msgid " characters"
+msgstr "znakov"
+
+#: templates/steganography.images.html:133
+msgid "Vpiši sporočilo..."
+msgstr "Message"
+
+#: templates/steganography.images.html:137
+msgid "Hide"
+msgstr "Skrij sporočilo"
+
+#: templates/steganography.images.html:138
+msgid "Rediscover"
+msgstr "Razkrij sporočilo"
+
+#: templates/steganography.images.html:146
+msgid "The image with the message"
+msgstr "Slika s sporočilom:"
+
+#: templates/steganography.images.html:153
+msgid "The difference between images:"
+msgstr "Razlika med slikama:"
+
+#: templates/steganography.images.html:157
+msgid "Show the difference"
+msgstr "Prikaži razliko"
+
+#: templates/substitution.leaderboard.html:28
+msgid "Caesar"
+msgstr "Caesar"
+
+#: templates/substitution.modal.html:8
+msgid "Congrads, you managed to solve the riddle in"
+msgstr "Čestitke uspelo vam je rešiti uganko v"
+
+#: templates/substitution.modal.html:10
+msgid "min and"
+msgstr "minutah in "
+
+#: templates/substitution.modal.html:10
+msgid "s!"
+msgstr "sekundah!"
+
+#: templates/substitution.modal.html:17
+msgid "Confirm"
+msgstr "Potrdi"
+
+#: templates/substitution.modal.html:18
+msgid "Click"
+msgstr "Prekliči"
+
+#: templates/substitution.modal.html:19
+msgid "Check the input!"
+msgstr "Preverite svoj vnos!"
+
+#: templates/substitution.play.html:52
+msgid "Supstitution <br> cipher"
+msgstr "Zamenjalka"
+
+#: templates/substitution.play.html:69
+msgid "Sort by frequency"
+msgstr "Sortiraj po frekvenci"
+
+#: templates/substitution.play.html:70
+msgid "Sort alphabetically"
+msgstr "Sort alphabetically"
+
+#: templates/substitution.ready.html:23
+msgid "Supstitution<br> cipher"
+msgstr "Zamenjalka"
+
+#: templates/substitution.stats.en.html:3
+#: templates/substitution.stats.sl.html:3
+msgid "Most common two-letter words:"
+msgstr "Najpogostejše dvočrkovne besede:"
+
+#: templates/substitution.stats.en.html:7
+#: templates/substitution.stats.sl.html:7
+msgid "Most common three-letter words:"
+msgstr "Najpogostejše tročrkovne besede:"
+
+#: templates/timestamp.checking.html:22
+msgid "Choose a certificate to check the timestamp:"
+msgstr "Izberite potrdilo za preverjanje časovnega žiga:"
+
+#: templates/timestamp.checking.html:24 templates/timestamp.file.html:62
+#: templates/timestamp.file.html:69 templates/timestamp.signature.html:23
+msgid "Choose"
+msgstr "Izberi"
+
+#: templates/timestamp.desc.html:17
+msgid ""
+"In general, a timestamp is a time mark which ensures that a certain \n"
+"\t\t\t\t\t\tinformationexisted at certain time. A trusted timestamp is a "
+"digital \n"
+"\t\t\t\t\t\trecord that ensures the signature of a document with a valid "
+"digital \n"
+"\t\t\t\t\t\tcertificate at a specific time point. It connects the date and"
+" the time of\n"
+"\t\t\t\t\t\t the signature, with the data itself. The process of "
+"producing a \n"
+"\t\t\t\t\t\t(trusted)timestamp is called timestamping, and it is done in"
+" \n"
+"\t\t\t\t\t\tcryptographically secure manner.\n"
+"\t\t\t\t\t\t Timestamping is closely related to public key infrastructure"
+" (PKI).Thus,\n"
+"\t\t\t\t\t\t to explain timestamping, we first explain the concept of the"
+" PKI with \n"
+"\t\t\t\t\t\tthe mailbox example."
+msgstr ""
+"V splošnem je varni časovni žig digitalni zapis, ki zagotavlja podpis "
+"dokumenta z veljavnim digitalnim potrdilom v\n"
+"\t\t\t\t\tdoločenem časovnem trenutku in sicer na način, da povezuje "
+"datum in čas podpisa ter podatke v elektronski obliki na kriptografsko "
+"varen način.\n"
+"\t\t\t\t\tPreden pa si pogledamo natančneje namen in delovanje varnih "
+"časovnih žigov, pa je dobro, če si še na kratko pogledamo, kaj je to "
+"koncept javnih ključev."
+
+#: templates/timestamp.desc.html:28
+msgid ""
+"When ones wants to send a letter to someone (recipient), it need to\n"
+"\t\t\t\t\tobtain recipient's address. After the letter has been sent and "
+"delivered\n"
+"\t\t\t\t\tto the address (public key), the letter is stored in the "
+"recipient's\n"
+"\t\t\t\t\tmailbox. To read the letter, recipient need to open its mailbox"
+" with the\n"
+"\t\t\t\t\tkey (private key). Main elements of this example are: (1) "
+"twoparties\n"
+"\t\t\t\t\t(sender and receiver), (2) reveicers's address, and mailbox "
+"key, (3) the\n"
+"\t\t\t\t\tletter, (4) a will of two parties (of a party) to communicate "
+"or send\n"
+"\t\t\t\t\tdata. The PKI has the same main elements (compounding parts). "
+"It enables\n"
+"\t\t\t\t\ttransver of the data between parties.\n"
+"\n"
+"\t\t\t\t\t When exchanging data, the sender encipher a message with "
+"reciever's\n"
+"\t\t\t\t\tpublic key (address).The receiver, after receiving the message,"
+" deciphers\n"
+"\t\t\t\t\t the message with its private key (the mailbox's key). Let "
+"observe few\n"
+"\t\t\t\t\tthings: (1) To send a message, the sender needs  to put the "
+"mark on the\n"
+"\t\t\t\t\tmessage, to leave a trace for who is it for (like an address). "
+"It is done\n"
+"\t\t\t\t\t by enciphering  the message with receiver's public key. This "
+"way, only\n"
+"\t\t\t\t\treceiver, holder of the corresponding private key can read the "
+"message.,\n"
+"\t\t\t\t\t(2) If someone gets the message that is not itended for it, by\n"
+"\t\t\t\t\tdeciphering it with its private key (tries to open someone "
+"else's\n"
+"\t\t\t\t\tmailbox) it gets giberish and can not rediscover (cannnot open "
+"the\n"
+"\t\t\t\t\tmailbox) data that has been sent. In PKI, every public-private "
+"key pair\n"
+"\t\t\t\t\tis choosen in a way that one can not be derived from the other."
+" Each\n"
+"\t\t\t\t\treceiver is attached to one public-private pair. Private key is"
+" hold\n"
+"\t\t\t\t\tprivate to a receiver and public key is accessible to everyone."
+" And how\n"
+"\t\t\t\t\tis this all connected with timestamping? This is going to be "
+"answer a bit\n"
+"\t\t\t\t\t later. "
+msgstr ""
+"Koncept javnih ključev si lahko predstavljamo kot pošiljanje pisem med "
+"dvema osebama. Če želimo nekomu poslati pismo, ga moramo poslati\n"
+"\t\t\t\t\tseveda naslovniku v njegov poštni nabiralnik. Ta lahko, ko "
+"pismo dobi, s svojim ključem odpre poštni nabiralnik, odpre pismo in ga "
+"prebere.\n"
+"\t\t\t\t\tPodobno deluje tudi sistem javnih in zasebnih ključev. Ko "
+"pošiljamo neko sporočilo naslovniku, uporabimo njegov javni ključ, da "
+"sporočilo zašifriramo,\n"
+"\t\t\t\t\tnaslovnik pa s svojim zasebnim ključem sporočilo odšifrira in "
+"prebere naše sporočilo. S tem zagotovimo, da naše sporočilo lahko prebere"
+" le oseba, ki ji\n"
+"\t\t\t\t\tje namenjeno in njegova vsebina ni javno dostopna vsem "
+"poslušalcem. Par javnih in zasebnih ključev sta neki izbrani števili, ki "
+"ju ni možno izračunati,\n"
+"\t\t\t\t\tče poznamo le enega od njiju, in ju uporabljamo v formulah za "
+"šifriranje. Javni ključ je dostopen komurkoli, zasebni ključ pa zgolj "
+"lastniku. Zakaj je to pomembno za\n"
+"\t\t\t\t\tčasovno žigosanje malo kasneje."
+
+#: templates/timestamp.desc.html:55
+msgid ""
+"Now, let's give an everyday example of a trusted timestamping. Let's\n"
+"\t\t\t\t\tconsider the situation in which one wants to sell a cellphone "
+"The person\n"
+"\t\t\t\t\tin want to sell an unused phone, puts and ad on the web. When a"
+" potential\n"
+"\t\t\t\t\t buyer sees the ad, it gets a bit suspicious. It is wondering "
+"if the\n"
+"\t\t\t\t\tphone is really unused or the seller is a fraud. Thus, the "
+"buyer contacts\n"
+"\t\t\t\t\t the seller, telling it about its suspition. Now, the seller "
+"needs to\n"
+"\t\t\t\t\tfind the way to prove the condition (that is is unused) of the "
+"cell. The\n"
+"\t\t\t\t\tseller remembers that it can send a picture of an unopened "
+"cell's box and\n"
+"\t\t\t\t\t today's edition of its favourite newspapers. By doing so, it "
+"(can)\n"
+"\t\t\t\t\tconvinces the buyer that the phone is unused at today's time "
+"point. So,\n"
+"\t\t\t\t\tthe buyer buys the phone (today). If the buyer later claims "
+"that the\n"
+"\t\t\t\t\tphone come in a different shape, the picture tells it is is not"
+" seller's\n"
+"\t\t\t\t\tfault. So, what is the timestamp in this example? The picture, "
+"ofcourse.\n"
+"\t\t\t\t\tIt tells us that the phone was unused at the timeof the "
+"purchase."
+msgstr ""
+"Namen varnega časovnega žiga je zagotavljanje, da je nek določen dokument"
+" obstajal v trenutku žigosanja in se od takrat naprej ni spreminjal.\n"
+"\t\t\t\t\tKot vsakdanji primer le-tega si lahko vzamemo prodajo mobitela."
+" Na splet postavimo oglas, da prodajamo nov, še neuporabljen mobilni "
+"telefon.\n"
+"\t\t\t\t\tPotencialni kupec ta oglas vidi, vendar ne verjame, da telefon "
+"še ni bil uporabljen, zato še ni povsem prepričan, ali bi ga kupil.\n"
+"\t\t\t\t\tKo nam to sporoči, se spomnimo, da mu lahko pošljemo sliko, "
+"kjer je neodprta škatla slikana z današnjo izdajo našega najljubšega "
+"časopisa, da mu zagotovimo,\n"
+"\t\t\t\t\tda zares prodajamo to, kar obljubljamo. Ker se za nakup odloči,"
+" mu ga še isti dan pošljemo. Če dobi kupec drugačno vsebino, kot mu je "
+"bila obljubljena, lahko s tem\n"
+"\t\t\t\t\tposnetkom dokažemo, da nismo mi krivi za to, ker je na dan "
+"oddaje bil izdelek še cel."
+
+#: templates/timestamp.file.html:41
+msgid "Timestamp was successfully created!"
+msgstr "Žigosanje uspešno!"
+
+#: templates/timestamp.file.html:43
+msgid "Algorithm"
+msgstr "Algoritem"
+
+#: templates/timestamp.file.html:44
+msgid "Timestamped by"
+msgstr "Žigosal"
+
+#: templates/timestamp.file.html:44
+msgid "Cryptogram portal"
+msgstr "portal Kriptogram"
+
+#: templates/timestamp.file.html:45
+#, python-format
+msgid "Hash function used: %(hash)s "
+msgstr "Hash function used: %(hash)s "
+
+#: templates/timestamp.file.html:46
+#, python-format
+msgid "Timestamping time: %(time)s "
+msgstr "Čas žigosanja: %(time)s "
+
+#: templates/timestamp.file.html:51
+msgid "Download certificate"
+msgstr "Prenesi potrdilo"
+
+#: templates/timestamp.file.html:61
+msgid "Do you want to check the hash of the document?"
+msgstr "Želite preveriti zgoščevalno funkcijo Vaše datoteke?"
+
+#: templates/timestamp.file.html:67
+msgid "Choose a document:"
+msgstr "Izberite datoteko za preverjanje zgoščevalne funkcije:"
+
+#: templates/timestamp.file.html:81
+msgid "Back"
+msgstr "Nazaj"
+
+#: templates/timestamp.file.html:87
+msgid "Timestamping was unsuccessful. Try again."
+msgstr "Žigosanje neuspešno. Poskusite ponovno."
+
+#: templates/timestamp.file.html:89
+msgid "Refresh"
+msgstr "Osveži"
+
+#: templates/timestamp.publickey.html:22
+msgid "Download the key"
+msgstr "Prenesi ključ"
+
+#: templates/timestamp.signature.html:21
+msgid "Choose a document"
+msgstr "Izberite datoteko za časovno žigosanje:"
+
+#: templates/transposition.description.html:10
+msgid "Transposition chiper"
+msgstr "Premešalka"
+
+#: templates/transposition.description.html:16
+msgid ""
+"Using transponder chiper, the letters of the original message remain\n"
+"\t\t\t\t\t\tunchanged, and their places are mixed in a systematic way."
+msgstr "V transpozicijski šifri ostanejo črke originalnega sporočila "
+"nespremenjene, njihova mesta pa so pomešana na nek sistematičen način."
+
+#: templates/transposition.description.html:19
+msgid "Rail fence cipher"
+msgstr "Rail fence cipher"
+
+#: templates/transposition.description.html:20
+msgid "Route cipher"
+msgstr "Route cipher"
+
+#: templates/transposition.description.html:21
+msgid "Trans the columns"
+msgstr "Transpozicija stolpcev"
+
+#: templates/transposition.description.html:23
+msgid "RAIL FENCE CIPHER"
+msgstr "RAIL FENCE CIPHER"
+
+#: templates/transposition.description.html:25
+msgid ""
+"Encoding by the rail fence can be done by zig-zag writing a message from "
+"left to right, \n"
+"\t\t\t\t\t\tthen reading it by line."
+msgstr "Šifriranje rail fence deluje tako, da cik-cakasto napišeš sporočilo od leve proti desni, "
+"nato prebereš besedilo po vrsticah."
+
+#: templates/transposition.description.html:27
+#: templates/transposition.description.html:154
+#: templates/transposition.description.html:243
+msgid "Encryption"
+msgstr "ŠIFRIRANJE"
+
+#: templates/transposition.description.html:28
+msgid "Let's say you'd like to encrypt the message"
+msgstr "Recimo, da bi radi zašifrirali sporočilo"
+
+#: templates/transposition.description.html:89
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tThe encrypted message is obtained by reading this message "
+"by lines, from left to right:"
+msgstr "Šifrirano sporočilo pa dobimo tako, da to sporočilo preberemo po vrsticah, od leve proti desni:"
+
+#: templates/transposition.description.html:150
+msgid "The secret record is then"
+msgstr "Tajnopis se tako glasi "
+
+#: templates/transposition.description.html:151
+msgid "ROUTE CIPHER"
+msgstr "ROUTE CIPHER"
+
+#: templates/transposition.description.html:152
+msgid ""
+"When encrypting with a route cipher, the message is written to a network "
+"of any size.\n"
+"\t\t\t\t\t\t\tThe key tells us how to read the message to obtain a secret"
+" record."
+msgstr "Pri šifriranju z route cipher se sporočilo napiše v mrežo poljubne velikosti. "
+"Ključ nam pove, kako to sporočilo beremo, da dobimo tajnopis."
+
+#: templates/transposition.description.html:155
+msgid "Let's get the message back"
+msgstr "Dajmo ponovno vzeti sporočilo"
+
+#: templates/transposition.description.html:156
+msgid "which we write in the net. It will be of a size"
+msgstr "ki ga zapišemo v mrežo. Naj bo ta velikosti"
+
+#: templates/transposition.description.html:183
+msgid ""
+"We note that one field in the network remains blank. In this case, you "
+"can add any \n"
+"\t\t\t\t\t\tletter to fill it. Let's add the letter"
+msgstr "Opazimo, da ostane eno polje v mreži prazno. "
+"V tem primeru lahko dodamo poljubno črko, da jo zapolnimo. Dodajmo črko"
+
+#: templates/transposition.description.html:211
+msgid "Now we have to invent the key under which we will read. Let's take "
+msgstr "Zdaj si moramo izmisliti ključ, po katerem bomo brali. Recimo"
+
+#: templates/transposition.description.html:239
+msgid "We get a secret record"
+msgstr "Dobimo tajnopis"
+
+#: templates/transposition.description.html:240
+msgid "TRANS COLUMNS"
+msgstr "TRANSPOZICIJA STOLPCEV"
+
+#: templates/transposition.description.html:241
+msgid ""
+"As with the route cipher, this message is first entered into a network.\n"
+"\t\t\t\t\t\t\tThe encrypted message is then obtained by reading the "
+"columns in some order."
+msgstr "Tako kot pri route cipher se tu sporočilo najprej vpiše v neko mrežo. "
+"Šifrirano sporočilo nato dobimo tako, da v nekem vrstnem redu preberemo stolpce."
+
+#: templates/transposition.description.html:244
+msgid "Let's take the message"
+msgstr "Ponovno vzemimo sporočilo"
+
+#: templates/transposition.description.html:244
+msgid ""
+"and write it in the 6x3 network,\n"
+"\t\t\t\t\t\t\tbut this time we write the text by lines. We again replace "
+"the blank with the letter"
+msgstr "in ga vpišimo v mrežo 6x3, ampak tokrat zapišemo besedilo po vrsticah."
+"S tem da prazno mesto spet zapolnimo s črko"
+
+#: templates/transposition.description.html:272
+msgid ""
+"Let's think of a word whose length is equal to the number of columns in "
+"the network"
+msgstr "Izmislimo si neko besedo, katere dolžina je enaka številu stolpcev mreže "
+
+#: templates/transposition.description.html:273
+msgid "In our case this is equal to "
+msgstr "V našem primeru je to 6."
+
+#: templates/transposition.description.html:273
+msgid "This word will be the key. Let's select the word"
+msgstr "Ta beseda bo predstavljala ključ. Izberimo besedo"
+
+#: templates/transposition.description.html:275
+msgid "and write it over our network."
+msgstr "in jo zapišimo nad našo mrežo.""
+
+#: templates/transposition.description.html:310
+msgid ""
+"Let's attach numbers to each letter of the word, in a manner how they "
+"appear in the aplhabet.\n"
+"\t\t\t\t\t\t\tIf one letter appears more than once, we number both "
+"apperances, in a manner how they appear in the word."
+msgstr "Črke bomo označili s števili, kot si črke sledilo v abecedi. "
+"Če je v ključu več enakih črk, jih s števili označimo po vrsti tako, kot se nahajajo v besedi."
+
+#: templates/transposition.description.html:354
+msgid ""
+"The columns are read by rows, as indicated by the numbers.\n"
+"\t\t\t\t\t\t\tOur secret record is"
+msgstr "Stolpce preberemo po vrsti, tako kot so označeni s števili. Naš tajnopis se tako glasi"
+
+#: templates/visual.crypto.html:21
+msgid ""
+"<strong> 1. </strong> Choose an image and then click<strong> Confirm \n"
+"                        </strong>. <br> <br><strong> 2. </strong> Click "
+"the <strong> Show images \n"
+"                        </strong> button.Then, the algorithm that "
+"separates one image into two, \n"
+"                        equally sized images, is run. Derived images are "
+"black and white, with \n"
+"                        each pixel (seems to be) selected at "
+"random.</br><strong> 3. </strong> \n"
+"                        Click on the <strong> Show animation </strong>. "
+"<br>It starts the \n"
+"                        animation of overlapping two derived images. At "
+"the point of complete \n"
+"                        overlap, the initial image can be recognised."
+msgstr ""
+"<strong>1.</strong> Izberi sliko in klikni gumb\n"
+"                    Potrdi.<br><br>\n"
+"                    <strong>2.</strong> Klikni gumb <strong>Prikaži delni"
+" sliki</strong>.\n"
+"                    Izvede se algoritem, ki izbrano sliko razstavi na dve"
+" enako\n"
+"                    veliki delni sliki, na katerih je vsaka točka "
+"naključno\n"
+"                    bela ali črna - torej šum.<br><br>\n"
+"                    <strong>3.</strong> Klikni gumb <strong>Prikaži "
+"animacijo</strong>.\n"
+"                    Prikaže se postopek prekrivanja obeh delnih slik - ko"
+" sta\n"
+"                    delni sliki prekriti, vidimo prvotno informacijo, ki "
+"pa se\n"
+"                    od originalne razlikuje po slabšem kontrastu. Kljub "
+"izgubi\n"
+"                    kontrasta pa so enostavne slike še vedno "
+"prepoznavne.<br>"
+
+#: templates/visual.crypto.html:55
+msgid "The document is oversized!"
+msgstr "Datoteka je prevelika!"
+
+#: templates/visual.crypto.html:64
+msgid "Hint"
+msgstr "Namig"
+
+#: templates/visual.crypto.html:67
+msgid "The best result is achieved with two-color image."
+msgstr ""
+"Najboljši rezultat boste dosegli z izbiro dvobarvne\n"
+"                    slike"
+
+#: templates/visual.crypto.html:97
+msgid "Choose an image:"
+msgstr "Izberi sliko:"
+
+#: templates/visual.crypto.html:110 templates/visual.crypto.html:152
+msgid "Show images"
+msgstr "Prikaži delni sliki"
+
+#: templates/visual.crypto.html:113 templates/visual.crypto.html:151
+msgid "Show animation"
+msgstr "Prikaži animacijo"
+
+#: templates/visual.crypto.html:132
+msgid ""
+"If you already have both partial images, drag each one into your frame,\n"
+"                click the <strong> Show animation </strong> button to "
+"view the animation\n"
+"                Warning: Images must be of the same dimensions!"
+msgstr ""
+"Če že imaš obe delni sliki, povleci vsako v svoj okvir,\n"
+"            klikni gumb <strong>Prikaži animacijo</strong> in si oglej "
+"animacijo.<br>\n"
+"            Opozorilo: Sliki morata biti enakih dimenzij!"
+

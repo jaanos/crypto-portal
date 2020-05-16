@@ -7,26 +7,24 @@
             <div class="panel-heading" id="head">
                 <div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
-						<b><span class="pozdrav1">{{_("Transposition chiper")}}</span></b>
+						<b><span class="pozdrav1">Transpozicijska šifra</span></b>
 					</div>
 				</div>
 			</div>
 			<div class="panel-body">
 				<div class="container-fluid">
-					<p>{{_("Using transponder chiper, the letters of the original message remain
-						unchanged, and their places are mixed in a systematic way.")}}</p>
+					<p>V transpozicijski šifri ostanejo črke originalnega sporočila 
+						nespremenjene, njihova mesta pa so pomešana na nek sistematičen način.</p>
 					<br>
-					<p><li><a href="#railfence">{{_("Rail fence cipher")}}</a></li></p>
-					<p><li><a href=" ">{{_("Route cipher")}}</a></li></p>
-					<p><li><a href=" ">{{_("Trans the columns")}}</a></li></p>
+					<p><li><a href="#railfence">Rail fence cipher</a></li></p>
+					<p><li><a href=" ">Route cipher</a></li></p>
+					<p><li><a href=" ">Transpozicija stolpcev</a></li></p>
 					<br>
-					<p><h2><b><a name="railfence">{{_("RAIL FENCE CIPHER")}}</a></b></h2></p>
+					<p><h2><b><a name="railfence">RAIL FENCE CIPHER</a></b></h2></p>
 					<br>
-					<p>{{_("Encoding by the rail fence can be done by zig-zag writing a message from left to right, 
-						then reading it by line.")}}</p>
-					<p><u>{{_("Encryption")}}</u></p>
-					<p>{{_("Let's say you'd like to encrypt the message")}} TUKAJ NI SKRIVNOSTI {{("over three lines. 
-						You would write it like this:")}}</p>
+					<p>Šifriranje rail fence deluje tako, da cik-cakasto napišeš sporočilo od leve proti desni, nato prebereš besedilo po vrsticah.</p>
+					<p><u>ŠIFRIRANJE</u></p>
+					<p>Recimo, da bi radi zašifrirali sporočilo »TUKAJ NI SKRIVNOSTI« čez tri vrstice. Napisali bi ga takole:</p>
 					<table id="kakoNapisemoRail" style="border: 1px solid black; border-collapse: collapse; width:50%;">
 					  <tr>
 					    <th style="border: 1px solid black; padding: 5px">T</th>
@@ -86,8 +84,7 @@
 					    <th style="border: 1px solid black; padding: 5px"></th>
 					  </tr>
 					</table>
-					<p>{{_("
-							The encrypted message is obtained by reading this message by lines, from left to right:")}}</p>
+					<p>Šifrirano sporočilo pa dobimo tako, da to sporočilo preberemo po vrsticah, od leve proti desni:</p>
 					<table id="kakoPreberemoRail" style="border: 1px solid black; border-collapse: collapse; width:50%;">
 					  <tr>
 					    <th style="border: 1px solid black; padding: 5px">T</th>
@@ -147,13 +144,11 @@
 					    <th style="border: 1px solid black; padding: 5px"></th>
 					  </tr>
 					</table>					
-					<p>{{_("The secret record is then")}} »TJKNIUANSRVOTKUUS«.</p>
-					<p><h2><b>{{_("ROUTE CIPHER")}}</b></h2></p>
-					<p>{{_("When encrypting with a route cipher, the message is written to a network of any size.
-							The key tells us how to read the message to obtain a secret record.")}}</p>
-					<p><u>{{_("Encryption")}}</u></p>
-					<p>{{_("Let's get the message back")}} »TUKAJ NI SKRIVNOSTI«, 
-						{{_("which we write in the net. It will be of a size")}} 6x3.</p>
+					<p>Tajnopis se tako glasi »TJKNIUANSRVOTKUUS«.</p>
+					<p><h2><b>ROUTE CIPHER</b></h2></p>
+					<p>Pri šifriranju z route cipher se sporočilo napiše v mrežo poljubne velikosti. Ključ nam pove, kako to sporočilo beremo, da dobimo tajnopis.</p>
+					<p><u>ŠIFRIRANJE</u></p>
+					<p>Dajmo ponovno vzeti sporočilo »TUKAJ NI SKRIVNOSTI«, ki ga zapišemo v mrežo. Naj bo ta velikosti 6x3.</p>
 					<table id="kakoNapisemoRoute" style="border: 1px solid black; border-collapse: collapse; width:50%;">
 					  <tr>
 					    <th style="border: 1px solid black; padding: 5px">T</th>
@@ -180,8 +175,7 @@
 					    <th style="border: 1px solid black; padding: 5px"></th>
 					  </tr>
 					</table>
-					<p>{{_("We note that one field in the network remains blank. In this case, you can add any 
-						letter to fill it. Let's add the letter")}}  »D«.</p>
+					<p>Opazimo, da ostane eno polje v mreži prazno. V tem primeru lahko dodamo poljubno črko, da jo zapolnimo. Dodajmo črko »D«.</p>
 					<table style="border: 1px solid black; border-collapse: collapse; width:50%;">
 					  <tr>
 					    <th style="border: 1px solid black; padding: 5px">T</th>
@@ -208,8 +202,7 @@
 					    <th style="border: 1px solid black; padding: 5px">D</th>
 					  </tr>
 					</table>
-					<p>{{_("Now we have to invent the key under which we will read. Let's take ")}} »Beri od 
-						desne proti levi, od zadnje vrstice proti prvi«.</p>
+					<p>Zdaj si moramo izmisliti ključ, po katerem bomo brali. Recimo »Beri od desne proti levi, od zadnje vrstice proti prvi«.</p>
 					<table id="kakoPreberemoRoute" style="border: 1px solid black; border-collapse: collapse; width:50%;">
 					  <tr>
 					    <th style="border: 1px solid black; padding: 5px">T</th>
@@ -236,13 +229,11 @@
 					    <th style="border: 1px solid black; padding: 5px">D</th>
 					  </tr>
 					</table>
-					<p>{{_("We get a secret record")}} »DSVKNKIOISJUTNRIAT«.</p>
-					<p><h2><b>{{_("TRANS COLUMNS")}}</b></h2></p>
-					<p>{{_("As with the route cipher, this message is first entered into a network.
-							The encrypted message is then obtained by reading the columns in some order.")}}</p>
-					<p><u>{{_("Encryption")}}</u></p>
-					<p>{{_("Let's take the message")}} »TUKAJ NI SKRIVNOSTI« {{_("and write it in the 6x3 network,
-							but this time we write the text by lines. We again replace the blank with the letter")}} »D«.</p>
+					<p>Dobimo tajnopis »DSVKNKIOISJUTNRIAT«.</p>
+					<p><h2><b>TRANSPOZICIJA STOLPCEV</b></h2></p>
+					<p>Tako kot pri route cipher se tu sporočilo najprej vpiše v neko mrežo. Šifrirano sporočilo nato dobimo tako, da v nekem vrstnem redu preberemo stolpce.</p>
+					<p><u>ŠIFRIRANJE</u></p>
+					<p>Ponovno vzemimo sporočilo »TUKAJ NI SKRIVNOSTI« in ga vpišimo v mrežo 6x3, ampak tokrat zapišemo besedilo po vrsticah (s tem da prazno mesto spet zapolnimo s črko »D«).</p>
 					<table id="kakoNapisemoStolpce" style="border: 1px solid black; border-collapse: collapse; width:50%;">
 					  <tr>
 					    <th style="border: 1px solid black; padding: 5px">T</th>
@@ -269,10 +260,7 @@
 					    <th style="border: 1px solid black; padding: 5px">D</th>
 					  </tr>
 					</table>
-					<p>{{_("Let's think of a word whose length is equal to the number of columns in the network")}}
-							{{_("In our case this is equal to ")}}" 6. {{_("This word will be the key. Let's select the word")}} 
-							»ZABAVA« 
-							{{_("and write it over our network.")}}</p>
+					<p>Izmislimo si neko besedo, katere dolžina je enaka številu stolpcev mreže (v našem primeru je to 6). Ta beseda bo predstavljala ključ. Izberimo besedo »ZABAVA« in jo zapišimo nad našo mrežo.</p>
 					<table style="border: 1px solid black; border-collapse: collapse; width:50%;">
 					  <tr>
 					    <th style="border: 1px solid black; border-bottom: 3px solid black; padding: 5px">Z</th>
@@ -307,8 +295,8 @@
 					    <th style="border: 1px solid black; padding: 5px">D</th>
 					  </tr>
 					</table>
-					<p>{{_("Let's attach numbers to each letter of the word, in a manner how they appear in the aplhabet.
-							If one letter appears more than once, we number both apperances, in a manner how they appear in the word.")}}</p>
+					<p>Črke bomo označili s števili od 1 do 6 tako, kot si črke sledilo v abecedi. 
+						Če je v ključu več enakih črk, jih s števili označimo po vrsti tako, kot se nahajajo v besedi.</p>
 					<table style="border: 1px solid black; border-collapse: collapse; width:50%;">
 					  <tr>
 					    <th style="border: 1px solid black; padding: 5px">Z</th>
@@ -351,8 +339,8 @@
 					    <th style="border: 1px solid black; padding: 5px">D</th>
 					  </tr>
 					</table>
-					<p>{{_("The columns are read by rows, as indicated by the numbers.
-							Our secret record is")}} »USOARTNVDKKSJIITIN«.</p>
+					<p>Stolpce preberemo po vrsti, tako kot so označeni s števili. Naš tajnopis se tako glasi 
+						»USOARTNVDKKSJIITIN«.</p>
 				</div>	
 			</div>	
 			<div id="swatch" class="ui-widget-content ui-corner-all"></div>

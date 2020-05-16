@@ -151,15 +151,15 @@ def check_file():
         cur.close()
         if n == 0:
             return render_template('timestamp.file.html',
-                                error=_l("Z danim certifikatom ni bil potrjen noben dokument na tej strani."))
+                                error=_l("No document has been found with a certificate given."))
         else:
-            s1 = _l("Dokument z zgoščevalno funkcijo ")
-            s2 = _l(" je bil potrjen ")
+            s1 = _l("Document with hash ")
+            s2 = _l(" has been signed at ")
             return render_template('timestamp.file.html', check=s1 + items[0] +s2 +items[2])
     except:
        pass
     return render_template('timestamp.file.html',
-                           error=_l('Prišlo je do napake pri preverjanju certifikata ali pa je certifikat neveljaven, poskusite ponovno.'))
+                           error=_l('The error occured when checking the certificate, or the certificate is invalid. Try again.'))
 
 @app.route('/check_hash', methods=['POST'])
 def check_hash():

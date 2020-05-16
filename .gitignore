@@ -64,7 +64,9 @@ target/
 *~
 .~*
 .htaccess
-auth.py
 *.pem
 static/uploads
 *.mo
+*.sql
+*.DS_Store
+auth.py

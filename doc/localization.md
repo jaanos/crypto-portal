@@ -4,7 +4,7 @@ from the `requirements_localization.txt` file. After the installation, follow
 the general running instructions.
 
 # Adding a new locale ([source](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xiii-i18n-and-l10n))
-1. Run `pybabel init -i messages.pot -d translations -l LANG`
+1. Run `pybabel init -i messages.pot -d translations -l LANG` LANG is in our case of form: 2 letters, lower case.
 (change `LANG` to the abbreviation of the locale to be added)
 2. Make the translation in `translations/LANG/LC_MESSAGES/messages.po`
 3. `pybabel compile -d translations`
@@ -19,7 +19,7 @@ the general running instructions.
 ```
 change to
 ```html
-<input class="form-control" autocomplete="off" data-val-length-max="60" data-val-length-min="1" data-val-required="{{_("Vpisati morate geslo")}}" name="pass" id="pass" placeholder="{{_("Vpišite geslo")}}" rows="12" type="text" />
+<input class="form-control" autocomplete="off" data-val-length-max="60" data-val-length-min="1" data-val-required="{{_(\Vpisati morate geslo")}}" name="pass" id="pass" placeholder="{{_("Vpišite geslo")}}" rows="12" type="text" />
 ```
 
 * EXAMPLE 2:

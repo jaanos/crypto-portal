@@ -7,74 +7,102 @@
             <div class="panel-heading" id="head">
                 <div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
-						<b><span class="pozdrav1">Zgoščevalne funkcije</span></b>
+						<b><span class="pozdrav1">{{_("Hash functions")}}</span></b>
 					</div>
 				</div>
 			</div>
 			<div class="panel-body">
 				<div class="container-fluid">
-					<p>Zgoščevanje je generiranje neke vrednosti iz poljubnega niza znakov s pomočjo matematične funkcije. Zgoščevalna funkcija pa je funkcija, ki vzame nek vhodni niz in generira drugačen niz, za
-njo pa morajo veljati pravila.
+					<p>{{_("Hashing is the transformation of a string of characters into a usually 
+						shorter fixed-length value or key that represents the original string. 
+						The representation is choosen within a fixed-range. The transformation is
+						 mainly done using a function of a special kind,  namely, mathematical 
+						hash functions. A function mush have following properties. ")}}
 <ol style="margin-top: 10px;">
-<li>Zgoščevalne funkcijo morajo biti deterministične, kar pomeni, da morajo za določen vhod
-vedno vrniti enak izhod.</li>
-<li>Zgoščevalne funkcije morajo stremeti k temu, da so uniformne, torej da dva različna vhoda ne
-moreta tvoriti enakega izhoda. To je v praksi zelo težko doseči in so ponavadi zadovoljive
-zgoščevalne funkcije, kjer je verjetnost sovpadanja dovolj majhna.</li>
-<li>Zgoščevalne funkcije vzamejo vhodni niz poljubne dolžine in ga pretvorijo v niz točno
-določene dolžine.</li>
-<li>Zgoščevalne funkcije morajo oz. morajo stremeti k temu, da so enosmerne, kar pomeni, da iz
-izhoda ne smemo dobiti vhodnega parametra.</li>
+{{_("
+<li>It has to be deterministic, e.g. for the same input, it returns the 
+	same output.</li><li>It needs to be deterministic, e.g. the possibility 
+	to get the same output for the same input is smaller that being hit by 
+	the meteor. This really hard to achieve. So, we are satisfied if the 
+	possibility is really close to the possibility of being hit by the 
+	airplane while driving in a black car.</li><li>It accepts strings of 
+	(almost) arbitray size, but the length of the output is fixed.</li><li>It
+	 needs to be one way, e.g. observing an input it is as possible to reveal
+	 the input as being hit by the spaceship. (To be honest, this variates 
+	from the application.)</li>")}}
 </ol>	
-<p>  <img src="{{url_for('static', filename='images/hash/hash_ucenci.png')}}" alt="Ucenci" style="float:right;margin:0 20px 20px 0; width:300px; height:300px"/>
+
+<p>  <img src="{{url_for('static', filename='images/hash/hash_ucenci.png')}}" alt="Ucenci" style="float:right;margin:0 20px 20px 0; width:300px; height:300px"/></p>
 <p><br>
-Recimo, da imamo v razredu 5 učencev.
+{{_("Isn't is great to have examples? Our is about one gang. The gang has 5 members:
 <ul>
 <li>Janez Korenina</li>
 <li>Zala Novak</li>
 <li>Miha Copatar</li>
 <li>Zvonko Nagode</li>
 <li>Tone Rastlina</li>
-</ul>
-<br>
-Vzamimo funkcijo F(), ki za vhod prejme učenca in ga zapiše kot niz začetnic imena in priimka.
-Dobimo torej vrednosti, kot so JK, ZN, itd.
-</p><br>		
-Bi lahko rekli funkciji F() zgoščevalna funkcija?
-<ul>
-<li>Pogoj 1 je izpolnjen, saj bo Janez Korenina vsakič zgoščen v JK.
-<li>Pogoj 2 ni izpolnjen, saj Zala Novak in Zvonko Nagode tvorita enak izhod, tj. ZN. Verjetnost, da imata izmed petih učencev dva enake začetnice, je sicer majhna (1,6%), a v
-svetu zgoščevalnih funkcij je to ogromno. Kot primer lahko vzamemo tudi scenarij, kjer je v razredu 20 učencev. Takrat je verjetnost, da imata dva učenca enak izhod že 26,5%.
-<li>Pogoj 3 je izpolnjen, saj je izhod vedno dolžine 2 (ignorirajmo za zdaj primere, ko ima učenec
-več kot eno ime ali priimek).
-<li>Pogoj 4 ni izpolnjen, saj iz izhoda lahko vidimo, kakšen je bil vhod. Npr. ZN ne more biti nič
-drugega kot Zala Novak, saj je edina z začetnicami Z in N. Tudi v primeru, ko obstajata dva ali
-več učencev z istimi začetnicami, lahko omejimo možen nabor imen, ki jim pripada.
-</ul>		
+</ul><br><br>The gang members never call each other by name! Why? <br> 
+Well, you know the gang, always in want to hide something... And if there
+ is no eyes, ears are everywhere. So, they decided to give themself code 
+names. Imagine, they call each other only by initials (!WOW!). This way, 
+knowing that ZN did something, does not tell us who really did it. It 
+could be Zrinka Novakovič or Zvonimir Nikša or Zlata Nikšić, who knows 
+?!?! <br> <small>Disclamer: No one outside the gang  knows who is in the 
+gang.</small> <br> <br> Let us now observe the rule that transforms name 
+of the gang member into the code name. Well, it is actually one example 
+of the hash function. Let's denote it with 
+<code>F()</code>.<br><br>Buuut, does it really have all abovementioned 
+properties? ")}}
+</p><br>
+<p>		
+{{_("Is <code>F()</code> really a mathematiacal hash function 
+?<ul><li>Property 1 holds, e.g. Janez Korenina is always 
+transformed into JK.</li><li>But, property 2 does not, i.e. Zala Novak 
+and Zvonko Nagode transform into the same code name: ZNThe probability 
+that the collision happens within the gang of 5 is lower than 1,6 
+percentage which is pretty much in a world of hash functions, as to be 
+hit by the meteor is 0.000001 percentage.Unfortunatelly for the gang, 
+this probability rises as new people comes to the gang. When the gang is 
+of size 20, the same probability is 26,5 percentage. </li><li>Property 3 
+holds. At least that! The gang should be happy that their code namesare 
+always of length 2.</li><li>Property 4 does not hold inside the gang, 
+e.g. when saying ZN,the gang knows that that must be Zala Novak. But 
+outside the gang it is holds pretty well!! Both suits the gang pretty 
+well.</ul>")}}
+</p>
 <p><br>
-Kot vidimo, ta F() ne bi bil kaj preveč prida, zato bi si morali izmisliti boljšo zgoščevalno funkcijo. Na
-srečo pa lahko izberemo že kakšno izmed obstoječih, kot so SHA-256, SHA-512, Bcrypt in mnoge druge.
-<p><br>
-Kje se zgoščevanje uporablja?
-<ul>
-<li>Shranjevanje podatkov v tabeli – Namesto, da iščemo nek zapis po tabeli, lahko izračunamo
-zgostitev in takoj skočimo na mesto v tabeli, ki ga referencira ta zgostitev. Bolj kot lastnost
-enosmernosti je tukaj pomembno, da pri zgoščevanju prihaja do čim manj sovpadanj.
-<li>Preverjanje enakosti podatkov – Tukaj gre za zgoščevalne funkcije, kjer si želimo, da tudi
-najmanjša sprememba v vhodnem nizu vrne čim bolj različno zgoščeno vrednost. Predvsem
-se uporablja pri preverjanju pravilnosti oz. enakosti podatkov. Če imamo na voljo zgostitev
-nekih podatkov, ki ji zaupamo, da je prava, lahko zgostitev izračunamo sami in primerjamo.
-Če je enaka, so podatki najverjetneje identični. Uporablja se pri prenosu datotek, itd.
-<li>Shranjevanje gesel – Namesto, da bi shranili gesla v svoji prvotni obliki, shranimo zgoščene
-vrednosti gesel v bazo. Tako zagotovimo, da gesla uporabnikov ostanejo neznana, tudi če
-napadalec vdre v naš sistem.
-Pomankljivost takšnega shranjevanje gesel so postale t.i. mavrične tabele, ki vsebujejo slovar
-gesel in njihovih zgoščenih vrednosti v različnih algoritmih, ki so jih nepridipravi odkrili do
-sedaj. To pa lahko rešimo na enostaven način, in sicer tako, da uporabnikovemu geslu
-dodamo t. i. <em>sol</em>. To je naključen niz, ki ga potem skupaj z geslom zgostimo in shranimo v
-podatkovno bazo. Ta naključnost zagotovi, da v mavričnih tabelah, tudi če obstaja zapis za
-geslo, ne najdemo takšnega zapisa.
-</ul>
+{{_("So, <code>F()</code> suits the purpose for the gang (as long as
+	they are small gang),  but it is not a real mathemathical hash
+	function.If Zdravka Najc become member, they get COLLISION. Now, when
+	talking about ZN, no one knows who they are talking about. Not even them.
+	 Pretty bad. A solution? Lucky for them, there is always some solution,
+	just waiting around the corner. Smart guys invented some pretty MEAN hash
+	 functions, i.e. SHA-512, Bcrypt etc. <br><br>Beside for gang-bussines,
+	where else can we use hash functions? Are they used at all? Ofcourse. Let
+	 us list JUST some.<ul><li>Saving data in a (hash) table. Now, when
+	searching the table, we just search for corresponding hash. – Insted for
+	searching row by row, for some long name or so, calculating the hash of
+	it provides us with (almost) instant reference to the data we want. This
+	is explained in 'programming' language. If you do not understand it, it
+	is fine :) No one does for real.</li><li>Checking if two inputs are the
+	same. - Imagine having two documents of at least 50 pages. You want to
+	check if they are not equal, and after a day, two, three, you conclude
+	that they actually ARE NOT!! The only difference is the last word. What a
+	 wast of time. Expecially when there is an easier way. You could have
+	done this but only calculating the hash of each. So, if they are not
+	equal, you have your statement! :).<br> As the smallest change in the
+	input should have change the output. Furthermore, if two hashes turn out
+	identical, we usually conclude that the input was the same as well. This
+	is actually used during the file transfer process.</li><li>Storing
+	posswords. - In a case of having a portal with a registration, to keep
+	VERY passwords secret (even to you). You never store actual passwords ,
+	but need to still be able to check it the user name maches the password.
+	Insted of the password, you only store password-hashes. Ofcourse, each
+	hash is stored together with corresponding username. <br>This way, if
+	anyone attacks aour storage, it will not be able to obtain passwords as
+	there are none. This makes users happy. (At least until they forget their
+	 password).</li> </ul>")}}
+</p>
 				</div>	
 			</div>	
 			<div id="swatch" class="ui-widget-content ui-corner-all"></div>

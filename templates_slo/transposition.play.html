@@ -7,22 +7,20 @@
             <div class="panel-heading" id="head">
                 <div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
-						<b><span class="pozdrav1">{{_("Assignments")}}</span></b>
+						<b><span class="pozdrav1">Naloge (lahko/srednje/težko)</span></b>
 					</div>
 				</div>
 			</div>
 			<div class="panel-body">
 				<div class="container-fluid">
 					
-					<p style="border: 3px solid #467892; width:50%; border-radius: 10px; background-color: #eeeeee; margin-top: 20px; padding: 10px;">{{_("HERE ENCTYPTION TO BE.")}}</p>
-					<p>{{_("Original message:")}}</p>
+					<p style="border: 3px solid #467892; width:50%; border-radius: 10px; background-color: #eeeeee; margin-top: 20px; padding: 10px;">Tukaj bo tajnopis.</p>
+					<p>Originalno sporočilo je:</p>
 					<input type="text" id="vnosOdgovora" placeholder="VNESI SVOJ ODGOVOR V VELIKIH TISKANIH ČRKAH, BREZ LOČIL" style="border: 2px solid black; width:50%; border-radius: 10px; background-color: #eeeeee; margin-top: 20px; padding: 10px;">
-					<button type="button" onclick="pravilenOdgovor()" style="border: 2px solid black; border-radius: 5px; background-color: #eeeeee; font-size: 15px; margin-top: 20px; padding: 5px 10px;">{{_("Confirm")}}</button>
+					<button type="button" onclick="pravilenOdgovor()" style="border: 2px solid black; border-radius: 5px; background-color: #eeeeee; font-size: 15px; margin-top: 20px; padding: 5px 10px;">Potrdi</button>
 					<p id="pravilnost"></p>
 					<br>
-					<button type="button" id="namig" onclick="prikaziNamig()" style="border: 2px solid black; border-radius: 5px; background-color: #eeeeee; font-size: 15px; margin-top: 20px; padding: 5px 10px;">{{_("Hint")}}</button> <b id="opozorilo">
-						{{_("
-						Attention: When clicking on the "Hint" button, you will lose X points from the final result!")}}</b>
+					<button type="button" id="namig" onclick="prikaziNamig()" style="border: 2px solid black; border-radius: 5px; background-color: #eeeeee; font-size: 15px; margin-top: 20px; padding: 5px 10px;">Namig</button> <b id="opozorilo">Pozor: ob kliku na gumb "Namig" se ti bo od končnega rezultata odbilo X točk!</b>
 					<p id="prvi"></p>
 					<p id="drugi"></p>
 					<p id="tretji"></p>
