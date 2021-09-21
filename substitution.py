@@ -117,11 +117,9 @@ def leaderboard_insert():
 def leaderboard(difficulty):
     db = database.dbcon()
     cur = db.cursor()
-    table = 'SELECT * FROM crypto_leaderboard'
-    condition = 'WHERE difficulty = "{}"'.format(difficulty)
+    query = 'SELECT * FROM crypto_leaderboard WHERE difficulty = %s'
     # sort = 'ORDER BY "{}" ASC'.format('time_solved')
-    query = ' '.join([table, condition])
-    cur.execute(query)
+    cur.execute(query, (difficulty, ))
     users = [[decode(x[1]), decode(translation[x[2]]),
               x[3].strftime('%H:%M:%S')] for x in cur.fetchall()]
     users.sort(key=lambda x: datetime.strptime(x[2], '%H:%M:%S'))
